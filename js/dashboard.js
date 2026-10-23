@@ -157,8 +157,8 @@ const DashboardApp = {
     const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
 
     return `
-      <!-- 교직원 안내 배너 (Caldera Plasma Style) -->
-      <div class="card card-dark dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16); border: 2px solid var(--color-obsidian);">
+      <!-- 교직원 안내 배너 (학생 전용과 동일한 Ember / Caldera Style) -->
+      <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
           <div style="max-width: 680px;">
             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
@@ -175,13 +175,13 @@ const DashboardApp = {
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
               스마트 학사 행정 업무 혁신 & 홍보 콘텐츠 AI 실무
             </h2>
-            <p style="opacity: 0.9; font-size: 1rem; color: #dddddd; line-height: 1.6;">
+            <p style="opacity: 0.95; font-size: 1rem; color: #fff3ee; line-height: 1.6;">
               공문 기안, 학칙 규정집 질의응답 챗봇, 원클릭 카드뉴스 제작 및 설문 집계 자동화까지 교직원의 반복 업무를 줄이고 행정 생산성을 극대화합니다.
             </p>
           </div>
           <div>
-            <span class="nav-tag" style="background: var(--color-ember); color: var(--color-chalk); font-size: 14px; padding: 10px 24px;">
-              OFFICIAL WORKSHOP
+            <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 16px; padding: 14px 28px; cursor: default;">
+              🏛️ 공식 워크숍 코스
             </span>
           </div>
         </div>
