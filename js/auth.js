@@ -120,6 +120,64 @@ const Auth = {
   },
 
   /**
+   * 등록된 사용자 정보 조회 (로컬 스토리지 및 Cloud Firestore 연동)
+   * @param {string} emailOrUsername 
+   * @returns {Promise<Object|null>}
+   */
+  async fetchExistingUser(emailOrUsername) {
+    if (!emailOrUsername) return null;
+    const cleanKey = emailOrUsername.trim().toLowerCase();
+
+    // 1. 로컬 등록 회원 목록에서 우선 조회
+    const localUsers = this.getRegisteredUsers();
+    let found = localUsers.find(
+      (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
+    );
+
+    // 2. Cloud Firestore에서 사용자 문서 조회
+    if (this.isFirebaseReady()) {
+      try {
+        const safeDocKey = cleanKey.replace(/[\/\.]/g, '_');
+        const docSnap = await this.firebaseDb.collection('users').doc(safeDocKey).get();
+        if (docSnap.exists) {
+          const remoteData = docSnap.data();
+          found = found ? { ...found, ...remoteData } : remoteData;
+        }
+      } catch (e) {
+        console.warn('[Auth] Firestore 사용자 조회 실패:', e);
+      }
+    }
+
+    return found || null;
+  },
+
+  /**
+   * 최초 등록된 대상자 역할과 로그인 시도 역할의 일치 여부 검증
+   * 불일치 시 로그인을 차단합니다.
+   * @param {Object|null} existingUser 
+   * @param {string} attemptedRole 
+   * @param {string} emailOrId 
+   * @returns {boolean} true: 허용, false: 차단
+   */
+  validateRoleConsistency(existingUser, attemptedRole, emailOrId) {
+    if (!existingUser || !existingUser.role) {
+      return true; // 최초 로그인이면 통과
+    }
+
+    if (existingUser.role !== attemptedRole) {
+      const existingLabel = existingUser.role === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+      const attemptedLabel = attemptedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+
+      alert(
+        `[로그인 불가 안내]\n\n해당 Google 계정(${emailOrId || ''})은 최초 로그인 시 [${existingLabel}] 대상자로 이미 등록되었습니다.\n\n다른 대상자([${attemptedLabel}])로는 로그인하실 수 없습니다.\n[${existingLabel}] 역할을 선택하신 후 다시 로그인해 주세요.`
+      );
+      return false;
+    }
+
+    return true;
+  },
+
+  /**
    * Google Identity Services (GIS) 초기화
    * @param {Object} options { containerId, getRoleCallback, onSuccess }
    */
@@ -175,9 +233,13 @@ const Auth = {
       return;
     }
 
-    // 기존 등록 회원 중 동일 이메일이 있는지 조회하여 역할 및 학적 정보 복원
-    const users = this.getRegisteredUsers();
-    const existing = users.find((u) => u.email.toLowerCase() === payload.email.toLowerCase());
+    // 기존 등록 회원 및 Firestore에서 동일 이메일 사용자 조회
+    const existing = await this.fetchExistingUser(payload.email);
+
+    // 최초 등록된 대상자 역할과 다른 대상자로 로그인 시도 시 즉각 차단!
+    if (!this.validateRoleConsistency(existing, role, payload.email)) {
+      return;
+    }
 
     const user = {
       name: payload.name || (existing ? existing.name : payload.email.split('@')[0]),
@@ -454,10 +516,15 @@ const Auth = {
     // 1. Firebase Auth가 설정되어 있으면 Firebase Google 팝업 로그인 우선 실행
     if (this.isFirebaseReady() && this.firebaseAuth && typeof firebase !== 'undefined') {
       const provider = new firebase.auth.GoogleAuthProvider();
-      this.firebaseAuth.signInWithPopup(provider).then((result) => {
+      this.firebaseAuth.signInWithPopup(provider).then(async (result) => {
         const fbUser = result.user;
-        const users = this.getRegisteredUsers();
-        const existing = users.find((u) => u.email.toLowerCase() === (fbUser.email || '').toLowerCase());
+        const existing = await this.fetchExistingUser(fbUser.email);
+
+        // 최초 등록된 대상자 역할과 다른 대상자로 로그인 시도 시 즉각 차단!
+        if (!this.validateRoleConsistency(existing, role, fbUser.email)) {
+          if (this.firebaseAuth) this.firebaseAuth.signOut().catch(() => {});
+          return;
+        }
 
         const user = {
           name: fbUser.displayName || (existing ? existing.name : fbUser.email.split('@')[0]),
