@@ -81,6 +81,42 @@ const Auth = {
   },
 
   /**
+   * 보호된 페이지 접근 제어 (비로그인 상태 시 즉시 차단 및 리다이렉트)
+   * @param {Object} options { role: 'student'|'staff'|null, redirectTo: string }
+   * @returns {boolean}
+   */
+  requireAuth(options = {}) {
+    const user = this.getCurrentUser();
+
+    // 1. 미로그인 상태 차단
+    if (!user || !user.email) {
+      if (typeof document !== 'undefined' && document.body) {
+        document.body.style.display = 'none';
+      }
+      alert('로그인이 필요한 서비스입니다.\n메인 화면에서 로그인 또는 회원가입 후 입장해 주세요.');
+      const target = options.redirectTo || 'index.html?login=true';
+      window.location.replace(target);
+      return false;
+    }
+
+    // 2. 특정 역할(대학생 전용 등) 제한 검증
+    if (options.role && user.role !== options.role) {
+      if (typeof document !== 'undefined' && document.body) {
+        document.body.style.display = 'none';
+      }
+      if (options.role === 'student') {
+        alert('해당 메뉴는 대학생 전용 서비스입니다.\n교직원 맞춤형 강의실로 이동합니다.');
+      } else if (options.role === 'staff') {
+        alert('해당 메뉴는 교직원 전용 서비스입니다.\n대학생 맞춤형 강의실로 이동합니다.');
+      }
+      window.location.replace('dashboard.html');
+      return false;
+    }
+
+    return true;
+  },
+
+  /**
    * 사용자 정보 저장
    */
   setUser(userData) {

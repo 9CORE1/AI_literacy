@@ -5,6 +5,21 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>맞춤형 교육 대시보드 — AI Literacy Lab</title>
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // 비로그인 사용자 즉시 차단 가드 (컨텐츠 노출 차단)
+    try {
+      var cachedUser = localStorage.getItem('ai_lit_user');
+      var u = cachedUser ? JSON.parse(cachedUser) : null;
+      if (!u || !u.email) {
+        document.documentElement.style.display = 'none';
+        alert('로그인이 필요한 서비스입니다.\n메인 화면에서 로그인 또는 회원가입 후 입장해 주세요.');
+        window.location.replace('index.html?login=true');
+      }
+    } catch (e) {
+      document.documentElement.style.display = 'none';
+      window.location.replace('index.html?login=true');
+    }
+  </script>
 </head>
 <body>
   <!-- 상단 네비게이션 (Pill Style) -->

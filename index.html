@@ -337,7 +337,7 @@
       <div class="footer-top">
         <div class="footer-brand">AI LITERACY LAB</div>
         <div>
-          <a href="dashboard.html" style="font-weight: 600;">맞춤형 강의실</a>
+          <a href="javascript:void(0)" onclick="handleProtectedNavigation('dashboard.html')" style="font-weight: 600; cursor: pointer;">맞춤형 강의실</a>
         </div>
       </div>
       <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; line-height: 1.6;">
@@ -511,6 +511,16 @@
     }
 
 
+
+    // Protected Content Navigation Guard
+    function handleProtectedNavigation(targetUrl) {
+      if (typeof Auth !== 'undefined' && Auth.isLoggedIn()) {
+        window.location.href = targetUrl;
+      } else {
+        alert('로그인이 필요한 서비스입니다.\n로그인 또는 회원가입 후 맞춤 강의실을 이용해 주세요.');
+        openLoginModal();
+      }
+    }
 
     // Modal Control
     function openLoginModal() {
