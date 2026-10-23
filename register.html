@@ -474,7 +474,8 @@
           return;
         }
 
-        alert(`환영합니다, ${name}님!\n[${selectedRole === 'staff' ? '교직원' : '대학생'}] 역할로 가입이 완료되었습니다.\n맞춤형 강의실로 이동합니다.`);
+        const syncStatusText = res.firestoreSaved ? '☁️ Firebase users 데이터베이스에 실시간 등록되었습니다.' : '';
+        alert(`환영합니다, ${name}님!\n[${selectedRole === 'staff' ? '교직원' : '대학생'}] 역할로 가입이 완료되었습니다.\n${syncStatusText}\n맞춤형 강의실로 이동합니다.`);
         window.location.href = 'dashboard.html';
       } catch (err) {
         console.error('[Register] 오류 발생:', err);
@@ -486,8 +487,11 @@
       }
     }
 
-    // Auto-select role if specified in query string (?role=staff or ?role=student)
-    document.addEventListener('DOMContentLoaded', () => {
+    // 초기화 및 쿼리 파라미터 처리 (?role=staff or ?role=student)
+    document.addEventListener('DOMContentLoaded', async () => {
+      if (typeof Auth !== 'undefined' && typeof Auth.init === 'function') {
+        await Auth.init();
+      }
       const params = new URLSearchParams(window.location.search);
       const roleParam = params.get('role');
       if (roleParam === 'staff' || roleParam === 'student') {

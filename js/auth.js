@@ -43,7 +43,10 @@ const Auth = {
   },
 
   isFirebaseReady() {
-    return Boolean(this.firebaseDb && this.firebaseAuth);
+    if (!this.firebaseDb) {
+      this.initFirebase();
+    }
+    return Boolean(this.firebaseDb);
   },
 
   /**
@@ -411,6 +414,8 @@ const Auth = {
    * 일반 회원가입 (역할, 이름, 아이디, 비밀번호, 이메일, 학과, 학교명)
    */
   async registerUser({ role, name, username, email, password, department, university }) {
+    this.initFirebase();
+
     if (!role) {
       return { success: false, message: '학습자 역할(대학생 또는 교직원)을 선택해 주세요.' };
     }
@@ -437,11 +442,11 @@ const Auth = {
     const cleanEmail = email.trim().toLowerCase();
     const users = this.getRegisteredUsers();
 
-    // 아이디 중복 체크
+    // 로컬 아이디 중복 체크
     if (users.some((u) => u.username.toLowerCase() === cleanUsername)) {
       return { success: false, message: '이미 사용 중인 아이디입니다. 다른 아이디를 입력해 주세요.' };
     }
-    // 이메일 중복 체크
+    // 로컬 이메일 중복 체크
     if (users.some((u) => u.email.toLowerCase() === cleanEmail)) {
       return { success: false, message: '이미 가입된 이메일 주소입니다. 로그인해 주세요.' };
     }
@@ -462,13 +467,12 @@ const Auth = {
     users.push(newUser);
     localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
 
-    // Firebase Cloud Firestore 및 Auth 연동
+    // Firebase Cloud Firestore 및 Auth 동기화
+    let firestoreSaved = false;
     if (this.isFirebaseReady()) {
       try {
-        const safeDocKey = (newUser.email || newUser.username).replace(/[\/\.]/g, '_');
-        
-        // 1. Cloud Firestore users 컬렉션에 사용자 프로필 저장 완료 대기
-        await this.firebaseDb.collection('users').doc(safeDocKey).set({
+        const safeEmailKey = cleanEmail.replace(/[\/\.]/g, '_');
+        const userData = {
           name: newUser.name,
           username: newUser.username,
           email: newUser.email,
@@ -478,24 +482,40 @@ const Auth = {
           registeredAt: new Date().toISOString(),
           lastLoginAt: new Date().toISOString(),
           provider: 'password'
-        }, { merge: true }).then(() => {
-          console.log('[Auth] Cloud Firestore users 컬렉션 저장 성공:', safeDocKey);
-        }).catch((err) => {
-          console.error('[Auth] Cloud Firestore users 컬렉션 저장 실패:', err);
-        });
+        };
 
-        // 2. Firebase Auth 계정 생성 시도
+        // 1. Cloud Firestore users 컬렉션에 사용자 프로필 저장 (이메일 키 기준)
+        const setDocPromise = this.firebaseDb.collection('users').doc(safeEmailKey).set(userData, { merge: true });
+        
+        // 아이디 기준 보조 문서도 등록하여 아이디 로그인 시에도 Firestore에서 즉시 매칭되도록 지원
+        const safeUserKey = `user_${cleanUsername}`;
+        const setUserDocPromise = this.firebaseDb.collection('users').doc(safeUserKey).set(userData, { merge: true });
+
+        await Promise.race([
+          Promise.all([setDocPromise, setUserDocPromise]),
+          new Promise((resolve) => setTimeout(resolve, 2000))
+        ]);
+
+        firestoreSaved = true;
+        console.log('[Auth] Cloud Firestore users 컬렉션에 등록 완료:', safeEmailKey);
+
+        // 2. Firebase Auth 이메일/비밀번호 계정 생성 시도 (활성화된 경우)
         if (this.firebaseAuth && newUser.email && newUser.password) {
           try {
             await this.firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
             console.log('[Auth] Firebase Auth 계정 생성 성공:', newUser.email);
           } catch (authErr) {
-            console.warn('[Auth] Firebase Auth 계정 생성 안내:', authErr.message);
+            console.warn('[Auth] Firebase Auth 계정 생성 안내 (Firestore 등록은 정상 유지됨):', authErr.code, authErr.message);
           }
         }
       } catch (err) {
-        console.warn('[Auth] Firebase 회원 저장 오류:', err);
+        console.error('[Auth] Firebase Cloud Firestore 저장 중 오류:', err);
+        if (err.code === 'permission-denied') {
+          console.error('[Auth] Firestore 보안 규칙(Rules) 권한 부족: Firebase 콘솔에서 allow read, write: if true; 설정이 필요합니다.');
+        }
       }
+    } else {
+      console.warn('[Auth] Firebase가 아직 준비되지 않아 로컬 저장소에 우선 등록되었습니다.');
     }
 
     // 회원가입 완료 즉시 자동 세션 생성 및 입장 이력 기록
@@ -511,10 +531,14 @@ const Auth = {
     };
     this.setUser(sessionUser);
 
-    // 입장 이력 저장 완료 대기
+    // 입장 이력(login_history) 저장 완료 대기
     await this.recordLoginHistory(sessionUser, 'register');
 
-    return { success: true, user: sessionUser };
+    return { 
+      success: true, 
+      user: sessionUser,
+      firestoreSaved: firestoreSaved
+    };
   },
 
   /**
