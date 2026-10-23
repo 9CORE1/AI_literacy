@@ -159,6 +159,24 @@ const Auth = {
   },
 
   /**
+   * XSS 방지를 위한 HTML Entity 치환 함수
+   * @param {string} str 
+   * @returns {string}
+   */
+  escapeHtml(str) {
+    if (str === null || str === undefined) return '';
+    return String(str).replace(/[&<>"']/g, function (m) {
+      return {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#039;'
+      }[m];
+    });
+  },
+
+  /**
    * 등록된 사용자 정보 조회 (로컬 스토리지 및 Cloud Firestore 연동)
    * @param {string} emailOrUsername 
    * @returns {Promise<Object|null>}
@@ -740,12 +758,13 @@ const Auth = {
 
     if (this.isLoggedIn()) {
       const roleText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '구분 미선택');
+      const safeName = this.escapeHtml(this.user.name || '사용자');
       
       navMenu.innerHTML = `
         <div class="user-badge" style="display: flex; align-items: center; gap: 8px;">
           <span class="role-badge" style="background: var(--color-pumice); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;">${roleText}</span>
           <a href="profile.html" style="font-weight: 600; font-size: 14px; color: var(--color-obsidian); text-decoration: none;" title="프로필 및 입장 이력 관리">
-            ${this.user.name || '사용자'} 님 ⚙️
+            ${safeName} 님 ⚙️
           </a>
         </div>
         ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm">강의실</a>' : ''}
@@ -762,4 +781,6 @@ const Auth = {
 };
 
 window.Auth = Auth;
+window.escapeHtml = Auth.escapeHtml.bind(Auth);
+
 

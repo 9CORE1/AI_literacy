@@ -681,10 +681,16 @@
         });
       }
 
-      // Check URL query parameters
+      // Check URL query parameters & Clean URL 마스킹
       const params = new URLSearchParams(window.location.search);
       if (params.get('selectRole') === 'true' || params.get('login') === 'true') {
         openLoginModal();
+        try {
+          const cleanUrl = window.location.pathname + (window.location.hash || '');
+          window.history.replaceState({}, document.title, cleanUrl);
+        } catch (e) {
+          // ignore
+        }
       }
     });
   </script>

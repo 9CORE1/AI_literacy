@@ -496,6 +496,12 @@
       const roleParam = params.get('role');
       if (roleParam === 'staff' || roleParam === 'student') {
         selectRole(roleParam);
+        try {
+          const cleanUrl = window.location.pathname + (window.location.hash || '');
+          window.history.replaceState({}, document.title, cleanUrl);
+        } catch (e) {
+          // ignore
+        }
       }
     });
   </script>

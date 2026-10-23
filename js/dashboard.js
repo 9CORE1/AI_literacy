@@ -40,8 +40,9 @@ const DashboardApp = {
   },
 
   getStudentDashboardHtml(user) {
-    const displayName = user.name || '대학생';
-    const affiliation = [user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)';
+    const esc = window.escapeHtml || ((s) => s);
+    const displayName = esc(user.name || '대학생');
+    const affiliation = esc([user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)');
     const loginTime = user.loginAt ? new Date(user.loginAt).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '방금';
     const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
 
@@ -151,8 +152,9 @@ const DashboardApp = {
   },
 
   getStaffDashboardHtml(user) {
-    const displayName = user.name || '교직원';
-    const affiliation = [user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)';
+    const esc = window.escapeHtml || ((s) => s);
+    const displayName = esc(user.name || '교직원');
+    const affiliation = esc([user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)');
     const loginTime = user.loginAt ? new Date(user.loginAt).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '방금';
     const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
 
