@@ -14,13 +14,13 @@ const DiagnosisApp = {
     const user = Auth.getCurrentUser();
     if (!user) {
       alert('AI 리터러시 역량 진단은 대학생 로그인 후 이용 가능한 서비스입니다. 로그인 화면으로 이동합니다.');
-      window.location.href = '/index.html?login=true';
+      window.location.href = 'index.html?login=true';
       return;
     }
 
     if (user.role !== 'student') {
       alert('AI 리터러시 진단 평가는 대학생 전용 평가 도구입니다. 교직원 맞춤형 행정 실습 대시보드로 이동합니다.');
-      window.location.href = '/dashboard.html';
+      window.location.href = 'dashboard.html';
       return;
     }
 

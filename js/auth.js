@@ -122,11 +122,11 @@ const Auth = {
           if (typeof window.showRoleModal === 'function') {
             window.showRoleModal();
           } else {
-            window.location.href = '/index.html?selectRole=true';
+            window.location.href = 'index.html?selectRole=true';
           }
         } else {
           // 이미 역할이 설정되어 있으면 해당 대상자별 교육 대시보드로 이동
-          window.location.href = '/dashboard.html';
+          window.location.href = 'dashboard.html';
         }
       } else {
         alert('로그인에 실패했습니다: ' + (data.message || '인증 오류'));
@@ -142,7 +142,7 @@ const Auth = {
   logout() {
     this.user = null;
     localStorage.removeItem('ai_lit_user');
-    window.location.href = '/index.html';
+    window.location.href = 'index.html';
   },
 
   /**
@@ -160,7 +160,7 @@ const Auth = {
           <span class="role-badge">${roleText}</span>
           <span style="font-weight:600;">${this.user.name || '사용자'} 님</span>
         </div>
-        ${this.user.role ? '<a href="/dashboard.html" class="btn btn-secondary btn-sm">강의실 입장</a>' : ''}
+        ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm">강의실 입장</a>' : ''}
         <button id="logout-btn" class="btn btn-secondary btn-sm">로그아웃</button>
       `;
 

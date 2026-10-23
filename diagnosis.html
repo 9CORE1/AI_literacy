@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI 리터러시 역량 진단 & 레포트</title>
-  <link rel="stylesheet" href="/css/style.css">
-  <link rel="stylesheet" href="/css/report.css">
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/report.css">
 
   <!-- 차트 및 PDF/이미지 변환 라이브러리 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -17,7 +17,7 @@
   <div class="navbar-wrapper no-print">
     <div class="container">
       <header class="navbar">
-        <a href="/dashboard.html" class="nav-brand">
+        <a href="dashboard.html" class="nav-brand">
           <span class="nav-brand-dot"></span>
           <span>AI Literacy Lab</span>
           <span class="nav-tag">DIAGNOSIS</span>
@@ -75,7 +75,7 @@
         <button id="retake-btn" class="btn btn-outline">
           🔄 다시 진단하기
         </button>
-        <a href="/dashboard.html" class="btn btn-secondary">
+        <a href="dashboard.html" class="btn btn-secondary">
           강의실로 돌아가기
         </a>
       </div>
@@ -174,9 +174,9 @@
   </main>
 
   <!-- 데이터 및 비즈니스 로직 스크립트 -->
-  <script src="/js/survey-data.js"></script>
-  <script src="/js/auth.js"></script>
-  <script src="/js/diagnosis.js"></script>
+  <script src="js/survey-data.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/diagnosis.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       await Auth.init();

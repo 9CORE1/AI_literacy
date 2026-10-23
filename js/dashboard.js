@@ -8,13 +8,13 @@ const DashboardApp = {
     const user = Auth.getCurrentUser();
     if (!user) {
       alert('로그인이 필요한 서비스입니다.');
-      window.location.href = '/index.html';
+      window.location.href = 'index.html';
       return;
     }
 
     if (!user.role) {
       alert('대학생 또는 교직원 구분을 먼저 선택해 주셔야 합니다.');
-      window.location.href = '/index.html?selectRole=true';
+      window.location.href = 'index.html?selectRole=true';
       return;
     }
 
@@ -56,7 +56,7 @@ const DashboardApp = {
             </p>
           </div>
           <div>
-            <a href="/diagnosis.html" class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 17px; padding: 16px 32px;">
+            <a href="diagnosis.html" class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 17px; padding: 16px 32px;">
               지금 역량 진단 시작하기 →
             </a>
           </div>
@@ -69,7 +69,7 @@ const DashboardApp = {
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">CURRICULUM FOR UNIVERSITY STUDENTS</span>
           <h2 style="font-size: 32px; color: var(--color-obsidian);">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
         </div>
-        <a href="/diagnosis.html" class="btn btn-secondary btn-sm">진단 평가 바로가기</a>
+        <a href="diagnosis.html" class="btn btn-secondary btn-sm">진단 평가 바로가기</a>
       </div>
 
       <!-- 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
@@ -84,7 +84,7 @@ const DashboardApp = {
             <li>30문항 종합 진단 및 개인별 오각형 레이더 프로파일 분석</li>
             <li>A4 규격 2페이지 고화질 PDF / JPG 공인 레포트 즉시 다운로드</li>
           </ul>
-          <a href="/diagnosis.html" class="btn btn-primary btn-sm">진단 시작하기</a>
+          <a href="diagnosis.html" class="btn btn-primary btn-sm">진단 시작하기</a>
         </div>
 
         <!-- 모듈 2 -->

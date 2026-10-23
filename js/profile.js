@@ -8,7 +8,7 @@ const ProfileApp = {
     const user = Auth.getCurrentUser();
     if (!user) {
       alert('로그인이 필요합니다.');
-      window.location.href = '/index.html';
+      window.location.href = 'index.html';
       return;
     }
 
@@ -45,7 +45,7 @@ const ProfileApp = {
       const success = await Auth.updateProfile({ name, department, gradeOrPosition });
       if (success) {
         alert('회원 정보가 성공적으로 업데이트되었습니다.');
-        window.location.href = '/dashboard.html';
+        window.location.href = 'dashboard.html';
       } else {
         alert('정보 업데이트에 실패했습니다.');
       }
