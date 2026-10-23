@@ -295,20 +295,11 @@
         <span id="google-btn-text">Google 계정으로 원클릭 입장하기</span>
       </button>
 
-      <!-- Fast Guest Link & Client ID Setup -->
-      <div style="margin-top: 20px; font-size: 13px; color: rgba(7, 6, 7, 0.6); display: flex; flex-direction: column; gap: 8px;">
-        <div>
-          계정 없이 둘러보시겠어요?
-          <a href="#" onclick="handleGuestEntry(event)"
-            style="font-weight: 700; color: var(--color-ember); text-decoration: underline;">
-            체험용 게스트로 바로 입장하기 →
-          </a>
-        </div>
-        <div style="font-size: 11.5px; opacity: 0.8;">
-          <a href="#" onclick="handleConfigureClientId(event)" style="color: #666; text-decoration: underline;">
-            ⚙️ Google OAuth Client ID 설정/확인
-          </a>
-        </div>
+      <!-- Client ID Setup Link -->
+      <div style="margin-top: 20px; font-size: 11.5px; opacity: 0.8; text-align: center;">
+        <a href="#" onclick="handleConfigureClientId(event)" style="color: #666; text-decoration: underline;">
+          ⚙️ Google OAuth Client ID 설정/확인
+        </a>
       </div>
     </div>
   </div>
@@ -555,23 +546,7 @@
       }
     }
 
-    function handleGuestEntry(e) {
-      e.preventDefault();
-      const roleLabel = currentModalRole === 'staff' ? '교직원' : '대학생';
-      const user = {
-        name: `게스트 ${roleLabel} 님`,
-        email: `guest@${currentModalRole === 'staff' ? 'univ.ac.kr' : 'campus.edu'}`,
-        role: currentModalRole,
-        isGuest: true
-      };
-      if (typeof Auth !== 'undefined' && Auth.setUser) {
-        Auth.setUser(user);
-      } else {
-        localStorage.setItem('ai_lit_user', JSON.stringify(user));
-      }
-      closeLoginModal();
-      window.location.href = 'dashboard.html';
-    }
+
 
     // Halftone Canvas Animation
     function initHalftoneCanvas() {
