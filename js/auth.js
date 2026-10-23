@@ -137,24 +137,31 @@ const Auth = {
       return;
     }
 
+    // 기존 등록 회원 중 동일 이메일이 있는지 조회하여 역할 및 학적 정보 복원
+    const users = this.getRegisteredUsers();
+    const existing = users.find((u) => u.email.toLowerCase() === payload.email.toLowerCase());
+
     const user = {
-      name: payload.name || payload.email.split('@')[0],
+      name: payload.name || (existing ? existing.name : payload.email.split('@')[0]),
       email: payload.email,
       picture: payload.picture || '',
-      role: role || 'student',
+      role: existing ? existing.role : (role || 'student'),
+      university: existing ? existing.university : '',
+      department: existing ? existing.department : '',
       googleId: payload.sub,
       loginAt: new Date().toISOString()
     };
 
-    // 로컬 스토리지에 유저 저장
+    // 로컬 스토리지에 유저 저장 및 입장 이력 기록
     this.setUser(user);
+    this.recordLoginHistory(user, 'google');
 
     // 백엔드 서버가 구동 중인 경우 동기화 시도 (GitHub Pages 환경에서는 자동 무시)
     try {
       fetch('/api/auth/google', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ credential: response.credential, role })
+        body: JSON.stringify({ credential: response.credential, role: user.role })
       }).catch(() => {});
     } catch (e) {
       // 정적 호스팅(GitHub Pages)에서는 무시
@@ -164,6 +171,43 @@ const Auth = {
       onSuccess(user);
     } else {
       window.location.href = 'dashboard.html';
+    }
+  },
+
+  /**
+   * 로그인/입장 이력 기록 (로컬 저장소 기반)
+   */
+  recordLoginHistory(user, method = 'unknown') {
+    try {
+      const history = JSON.parse(localStorage.getItem('ai_lit_login_history') || '[]');
+      const logEntry = {
+        id: 'log_' + Date.now() + '_' + Math.random().toString(36).substr(2, 4),
+        timestamp: new Date().toISOString(),
+        name: user.name || '',
+        username: user.username || '',
+        email: user.email || '',
+        role: user.role || 'student',
+        university: user.university || '',
+        department: user.department || '',
+        method: method // 'google' | 'credentials' | 'register'
+      };
+      history.unshift(logEntry);
+      // 최근 100건 유지
+      if (history.length > 100) history.pop();
+      localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
+    } catch (e) {
+      console.warn('[Auth] 입장 이력 기록 실패:', e);
+    }
+  },
+
+  /**
+   * 입장 이력 조회
+   */
+  getLoginHistory() {
+    try {
+      return JSON.parse(localStorage.getItem('ai_lit_login_history') || '[]');
+    } catch (e) {
+      return [];
     }
   },
 
@@ -180,20 +224,29 @@ const Auth = {
   },
 
   /**
-   * 일반 회원가입 (역할, 아이디, 비밀번호, 이메일, 이름)
+   * 일반 회원가입 (역할, 이름, 아이디, 비밀번호, 이메일, 학과, 학교명)
    */
-  registerUser({ role, username, email, password, name }) {
+  registerUser({ role, name, username, email, password, department, university }) {
     if (!role) {
-      return { success: false, message: '대학생 또는 교직원 역할을 선택해 주세요.' };
+      return { success: false, message: '학습자 역할(대학생 또는 교직원)을 선택해 주세요.' };
+    }
+    if (!name || name.trim().length < 2) {
+      return { success: false, message: '성함을 2자 이상 정확히 입력해 주세요.' };
     }
     if (!username || username.trim().length < 3) {
       return { success: false, message: '아이디는 3자 이상 입력해 주세요.' };
     }
+    if (!password || password.length < 4) {
+      return { success: false, message: '비밀번호는 4자 이상 입력해 주세요.' };
+    }
     if (!email || !email.includes('@')) {
       return { success: false, message: '올바른 이메일 주소를 입력해 주세요.' };
     }
-    if (!password || password.length < 4) {
-      return { success: false, message: '비밀번호는 4자 이상 입력해 주세요.' };
+    if (!university || university.trim().length < 2) {
+      return { success: false, message: '학교명을 입력해 주세요 (예: 한국대학교).' };
+    }
+    if (!department || department.trim().length < 2) {
+      return { success: false, message: '학과 또는 소속 부서명을 입력해 주세요.' };
     }
 
     const cleanUsername = username.trim().toLowerCase();
@@ -211,25 +264,32 @@ const Auth = {
 
     const newUser = {
       username: username.trim(),
+      name: name.trim(),
       email: email.trim(),
       password: password,
-      name: name && name.trim() ? name.trim() : username.trim(),
       role: role,
-      registeredAt: new Date().toISOString()
+      university: university.trim(),
+      department: department.trim(),
+      registeredAt: new Date().toISOString(),
+      lastLoginAt: new Date().toISOString(),
+      loginCount: 1
     };
 
     users.push(newUser);
     localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
 
-    // 회원가입 완료 즉시 자동 세션 생성 및 로그인
+    // 회원가입 완료 즉시 자동 세션 생성 및 입장 이력 기록
     const sessionUser = {
       name: newUser.name,
       username: newUser.username,
       email: newUser.email,
       role: newUser.role,
+      university: newUser.university,
+      department: newUser.department,
       loginAt: new Date().toISOString()
     };
     this.setUser(sessionUser);
+    this.recordLoginHistory(sessionUser, 'register');
 
     return { success: true, user: sessionUser };
   },
@@ -255,14 +315,22 @@ const Auth = {
       };
     }
 
+    // 최종 로그인 시간 및 횟수 갱신
+    matched.lastLoginAt = new Date().toISOString();
+    matched.loginCount = (matched.loginCount || 0) + 1;
+    localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+
     const sessionUser = {
       name: matched.name,
       username: matched.username,
       email: matched.email,
-      role: matched.role,
+      role: matched.role, // 회원가입 시 설정한 학습자 역할
+      university: matched.university || '',
+      department: matched.department || '',
       loginAt: new Date().toISOString()
     };
     this.setUser(sessionUser);
+    this.recordLoginHistory(sessionUser, 'credentials');
 
     return { success: true, user: sessionUser };
   },
@@ -307,6 +375,39 @@ const Auth = {
   },
 
   /**
+   * 사용자 프로필 업데이트 (이름, 학교, 학과, 학년/직급)
+   * @param {Object} data 
+   * @returns {Promise<boolean>}
+   */
+  async updateProfile(data) {
+    if (!this.user) return false;
+    this.user = {
+      ...this.user,
+      ...data,
+      updatedAt: new Date().toISOString()
+    };
+    this.saveUser(this.user);
+
+    // 등록 회원 목록에서도 일치하는 사용자 정보 갱신
+    try {
+      const registered = this.getRegisteredUsers();
+      const idx = registered.findIndex(u => (this.user.username && u.username === this.user.username) || (this.user.email && u.email === this.user.email));
+      if (idx !== -1) {
+        registered[idx] = {
+          ...registered[idx],
+          ...data,
+          updatedAt: new Date().toISOString()
+        };
+        this.saveRegisteredUsers(registered);
+      }
+    } catch (e) {
+      console.warn('[Auth] 프로필 갱신 동기화 실패:', e);
+    }
+
+    return true;
+  },
+
+  /**
    * 로그아웃
    */
   logout() {
@@ -328,9 +429,11 @@ const Auth = {
       navMenu.innerHTML = `
         <div class="user-badge" style="display: flex; align-items: center; gap: 8px;">
           <span class="role-badge" style="background: var(--color-pumice); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;">${roleText}</span>
-          <span style="font-weight: 600; font-size: 14px;">${this.user.name || '사용자'} 님</span>
+          <a href="profile.html" style="font-weight: 600; font-size: 14px; color: var(--color-obsidian); text-decoration: none;" title="프로필 및 입장 이력 관리">
+            ${this.user.name || '사용자'} 님 ⚙️
+          </a>
         </div>
-        ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm">강의실 입장</a>' : ''}
+        ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm">강의실</a>' : ''}
         <button id="logout-btn" type="button" class="btn btn-secondary btn-sm">로그아웃</button>
       `;
 

@@ -45,13 +45,18 @@
         </div>
 
         <div class="form-group">
+          <label class="form-label">학교명</label>
+          <input type="text" id="prof-university" class="form-control" placeholder="예: 한국대학교">
+        </div>
+
+        <div class="form-group">
           <label id="label-dept" class="form-label">학과 / 전공</label>
           <input type="text" id="prof-dept" class="form-control" placeholder="예: 인공지능학과">
         </div>
 
         <div class="form-group">
-          <label id="label-grade" class="form-label">학년 / 소속</label>
-          <input type="text" id="prof-grade" class="form-control" placeholder="예: 2학년">
+          <label id="label-grade" class="form-label">학년 / 직급</label>
+          <input type="text" id="prof-grade" class="form-control" placeholder="예: 2학년 / 담당">
         </div>
 
         <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 2rem;">
@@ -59,6 +64,19 @@
           <button type="submit" class="btn btn-primary">저장하기</button>
         </div>
       </form>
+    </div>
+
+    <!-- 최근 입장 이력 로그 카드 -->
+    <div class="card" style="margin-top: 24px;">
+      <h3 style="font-size: 1.15rem; margin-bottom: 0.5rem; display: flex; align-items: center; gap: 8px;">
+        🕒 최근 강의실 입장 이력 (최근 10건)
+      </h3>
+      <p style="font-size: 0.85rem; color: #666; margin-bottom: 1rem;">
+        구글 간편입장 및 아이디 로그인 시 안전하게 기록된 최근 접속 이력입니다.
+      </p>
+      <div id="login-history-list" style="display: flex; flex-direction: column; gap: 8px;">
+        <!-- profile.js에서 동적 렌더링 -->
+      </div>
     </div>
   </main>
 

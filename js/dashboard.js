@@ -41,14 +41,26 @@ const DashboardApp = {
 
   getStudentDashboardHtml(user) {
     const displayName = user.name || '대학생';
+    const affiliation = [user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)';
+    const loginTime = user.loginAt ? new Date(user.loginAt).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '방금';
+    const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
+
     return `
       <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Ember / Caldera Style) -->
       <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
           <div style="max-width: 680px;">
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
-              ★ ${displayName} 님 전용 강의실
-            </span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
+                🎓 대학생 강의실 · ${displayName} 님
+              </span>
+              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+                🏫 ${affiliation}
+              </span>
+              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+                🕒 최근 입장: ${loginTime} (${loginMethodTag})
+              </span>
+            </div>
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
               나의 AI 리터러시 역량 진단 평가
             </h2>
@@ -140,14 +152,26 @@ const DashboardApp = {
 
   getStaffDashboardHtml(user) {
     const displayName = user.name || '교직원';
+    const affiliation = [user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)';
+    const loginTime = user.loginAt ? new Date(user.loginAt).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '방금';
+    const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
+
     return `
       <!-- 교직원 안내 배너 (Caldera Plasma Style) -->
       <div class="card card-dark dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16); border: 2px solid var(--color-obsidian);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
           <div style="max-width: 680px;">
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
-              🏛️ ${displayName} 님 전용 스마트 행정 코스
-            </span>
+            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
+                🏛️ 교직원 전용 코스 · ${displayName} 님
+              </span>
+              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+                🏫 ${affiliation}
+              </span>
+              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+                🕒 최근 입장: ${loginTime} (${loginMethodTag})
+              </span>
+            </div>
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
               스마트 학사 행정 업무 혁신 & 홍보 콘텐츠 AI 실무
             </h2>

@@ -323,7 +323,7 @@
           </button>
         </form>
         <div class="modal-footer-switch">
-          Google 계정으로 간편하게 입장하시겠어요? <a onclick="switchAuthTab('google')">Google 간편입장 →</a>
+          아직 계정이 없으신가요? <a href="register.html" style="color: var(--color-ember); font-weight: 700; text-decoration: underline;">회원가입하기 →</a>
         </div>
       </div>
     </div>
@@ -577,25 +577,9 @@
         closeLoginModal();
         window.location.href = 'dashboard.html';
       } else {
-        // 등록된 계정이 없을 경우 즉석 생성 및 입장 옵션 안내
-        const confirmRegister = confirm(
-          `${res.message}\n\n입력하신 아이디(${username})로 계정을 새로 등록하여 바로 입장하시겠습니까?`
-        );
-        if (confirmRegister) {
-          const roleChoice = confirm('학습자 역할을 선택해 주세요.\n\n[확인] = 🎓 대학생\n[취소] = 🏛️ 교직원');
-          const chosenRole = roleChoice ? 'student' : 'staff';
-          const regRes = Auth.registerUser({
-            role: chosenRole,
-            username: username,
-            email: username.includes('@') ? username : `${username}@univ.ac.kr`,
-            password: password,
-            name: username
-          });
-          if (regRes.success) {
-            alert(`[${chosenRole === 'staff' ? '교직원' : '대학생'}] 계정으로 등록되어 맞춤 강의실로 입장합니다!`);
-            closeLoginModal();
-            window.location.href = 'dashboard.html';
-          }
+        const moveToRegister = confirm(`${res.message}\n\n회원가입 페이지(register.html)로 이동하여 새로운 계정을 생성하시겠습니까?`);
+        if (moveToRegister) {
+          window.location.href = 'register.html';
         }
       }
     }

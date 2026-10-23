@@ -13,6 +13,7 @@ const ProfileApp = {
     }
 
     this.renderForm(user);
+    this.renderLoginHistory();
     this.bindEvents();
   },
 
@@ -20,6 +21,8 @@ const ProfileApp = {
     document.getElementById('prof-email').value = user.email || '';
     document.getElementById('prof-name').value = user.name || '';
     document.getElementById('prof-role').value = user.role === 'staff' ? '교직원' : (user.role === 'student' ? '대학생' : '미지정');
+    const univInput = document.getElementById('prof-university');
+    if (univInput) univInput.value = user.university || '';
     document.getElementById('prof-dept').value = user.department || '';
     document.getElementById('prof-grade').value = user.gradeOrPosition || '';
 
@@ -35,14 +38,46 @@ const ProfileApp = {
     }
   },
 
+  renderLoginHistory() {
+    const listEl = document.getElementById('login-history-list');
+    if (!listEl) return;
+
+    const history = typeof Auth.getLoginHistory === 'function' ? Auth.getLoginHistory() : [];
+    if (!history || history.length === 0) {
+      listEl.innerHTML = '<div style="padding: 12px; color: #888; font-size: 13.5px; background: #faf8f5; border-radius: 8px;">최근 기록된 입장 이력이 없습니다.</div>';
+      return;
+    }
+
+    const recentLogs = history.slice(0, 10);
+    listEl.innerHTML = recentLogs.map((log) => {
+      const dateStr = log.timestamp ? new Date(log.timestamp).toLocaleString('ko-KR') : '-';
+      const methodLabel = log.method === 'google' ? 'Google 간편입장' : (log.method === 'register' ? '신규 회원가입' : '아이디/비밀번호');
+      const roleBadge = log.role === 'staff' ? '🏛️ 교직원' : (log.role === 'student' ? '🎓 대학생' : '일반');
+
+      return `
+        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 12px; font-size: 13.5px; flex-wrap: wrap; gap: 8px;">
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <span style="font-weight: 700; color: var(--color-ember);">${roleBadge}</span>
+            <span style="font-weight: 600;">${log.name || log.email || '사용자'}</span>
+            <span style="background: var(--color-pumice); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; color: #555;">${methodLabel}</span>
+          </div>
+          <div style="color: #777; font-size: 12.5px;">
+            ${dateStr}
+          </div>
+        </div>
+      `;
+    }).join('');
+  },
+
   bindEvents() {
     document.getElementById('profile-form')?.addEventListener('submit', async (e) => {
       e.preventDefault();
       const name = document.getElementById('prof-name').value.trim();
+      const university = document.getElementById('prof-university')?.value.trim() || '';
       const department = document.getElementById('prof-dept').value.trim();
       const gradeOrPosition = document.getElementById('prof-grade').value.trim();
 
-      const success = await Auth.updateProfile({ name, department, gradeOrPosition });
+      const success = await Auth.updateProfile({ name, university, department, gradeOrPosition });
       if (success) {
         alert('회원 정보가 성공적으로 업데이트되었습니다.');
         window.location.href = 'dashboard.html';
