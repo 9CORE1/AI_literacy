@@ -40,13 +40,14 @@ const DashboardApp = {
   },
 
   getStudentDashboardHtml(user) {
+    const displayName = user.name || '대학생';
     return `
       <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Ember / Caldera Style) -->
       <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
           <div style="max-width: 680px;">
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
-              ★ 학생 필수 진단 평가
+              ★ ${displayName} 님 전용 강의실
             </span>
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
               나의 AI 리터러시 역량 진단 평가
@@ -138,13 +139,14 @@ const DashboardApp = {
   },
 
   getStaffDashboardHtml(user) {
+    const displayName = user.name || '교직원';
     return `
       <!-- 교직원 안내 배너 (Caldera Plasma Style) -->
       <div class="card card-dark dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16); border: 2px solid var(--color-obsidian);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
           <div style="max-width: 680px;">
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
-              🏛️ 교직원 스마트 행정 특화 코스
+              🏛️ ${displayName} 님 전용 스마트 행정 코스
             </span>
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
               스마트 학사 행정 업무 혁신 & 홍보 콘텐츠 AI 실무
