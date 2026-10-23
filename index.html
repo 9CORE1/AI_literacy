@@ -565,7 +565,7 @@
     }
 
     // Handle Username / Password Login
-    function handleFormLogin(e) {
+    async function handleFormLogin(e) {
       e.preventDefault();
       const usernameInput = document.getElementById('login-username');
       const passwordInput = document.getElementById('login-password');
@@ -574,7 +574,7 @@
       const username = usernameInput.value.trim();
       const password = passwordInput.value;
 
-      const res = Auth.loginWithCredentials(username, password);
+      const res = await Auth.loginWithCredentials(username, password);
       if (res.success) {
         closeLoginModal();
         window.location.href = 'dashboard.html';

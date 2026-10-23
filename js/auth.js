@@ -374,7 +374,7 @@ const Auth = {
   /**
    * 일반 회원가입 (역할, 이름, 아이디, 비밀번호, 이메일, 학과, 학교명)
    */
-  registerUser({ role, name, username, email, password, department, university }) {
+  async registerUser({ role, name, username, email, password, department, university }) {
     if (!role) {
       return { success: false, message: '학습자 역할(대학생 또는 교직원)을 선택해 주세요.' };
     }
@@ -430,7 +430,9 @@ const Auth = {
     if (this.isFirebaseReady()) {
       try {
         const safeDocKey = (newUser.email || newUser.username).replace(/[\/\.]/g, '_');
-        this.firebaseDb.collection('users').doc(safeDocKey).set({
+        
+        // 1. Cloud Firestore users 컬렉션에 사용자 프로필 저장 완료 대기
+        await this.firebaseDb.collection('users').doc(safeDocKey).set({
           name: newUser.name,
           username: newUser.username,
           email: newUser.email,
@@ -438,13 +440,22 @@ const Auth = {
           university: newUser.university,
           department: newUser.department,
           registeredAt: new Date().toISOString(),
-          lastLoginAt: new Date().toISOString()
-        }, { merge: true }).catch(err => console.warn('[Auth] Firestore 신규회원 저장 경고:', err));
+          lastLoginAt: new Date().toISOString(),
+          provider: 'password'
+        }, { merge: true }).then(() => {
+          console.log('[Auth] Cloud Firestore users 컬렉션 저장 성공:', safeDocKey);
+        }).catch((err) => {
+          console.error('[Auth] Cloud Firestore users 컬렉션 저장 실패:', err);
+        });
 
-        // Firebase Auth 계정 생성 시도
+        // 2. Firebase Auth 계정 생성 시도
         if (this.firebaseAuth && newUser.email && newUser.password) {
-          this.firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
-            .catch(err => console.warn('[Auth] Firebase Auth 계정 생성 안내:', err.message));
+          try {
+            await this.firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
+            console.log('[Auth] Firebase Auth 계정 생성 성공:', newUser.email);
+          } catch (authErr) {
+            console.warn('[Auth] Firebase Auth 계정 생성 안내:', authErr.message);
+          }
         }
       } catch (err) {
         console.warn('[Auth] Firebase 회원 저장 오류:', err);
@@ -463,7 +474,9 @@ const Auth = {
       loginMethod: 'register'
     };
     this.setUser(sessionUser);
-    this.recordLoginHistory(sessionUser, 'register');
+
+    // 입장 이력 저장 완료 대기
+    await this.recordLoginHistory(sessionUser, 'register');
 
     return { success: true, user: sessionUser };
   },
@@ -471,16 +484,26 @@ const Auth = {
   /**
    * 일반 로그인 (아이디 또는 이메일 + 비밀번호)
    */
-  loginWithCredentials(usernameOrEmail, password) {
+  async loginWithCredentials(usernameOrEmail, password) {
     if (!usernameOrEmail || !password) {
       return { success: false, message: '아이디(또는 이메일)와 비밀번호를 모두 입력해 주세요.' };
     }
 
     const key = usernameOrEmail.trim().toLowerCase();
     const users = this.getRegisteredUsers();
-    const matched = users.find(
+    let matched = users.find(
       (u) => (u.username.toLowerCase() === key || u.email.toLowerCase() === key) && u.password === password
     );
+
+    // 로컬에 없더라도 Firestore users에 등록된 경우 조회 시도
+    if (!matched && this.isFirebaseReady()) {
+      try {
+        const remoteUser = await this.fetchExistingUser(key);
+        if (remoteUser && remoteUser.password === password) {
+          matched = remoteUser;
+        }
+      } catch (e) {}
+    }
 
     if (!matched) {
       return {
@@ -501,10 +524,11 @@ const Auth = {
       role: matched.role, // 회원가입 시 설정한 학습자 역할
       university: matched.university || '',
       department: matched.department || '',
-      loginAt: new Date().toISOString()
+      loginAt: new Date().toISOString(),
+      loginMethod: 'credentials'
     };
     this.setUser(sessionUser);
-    this.recordLoginHistory(sessionUser, 'credentials');
+    await this.recordLoginHistory(sessionUser, 'credentials');
 
     return { success: true, user: sessionUser };
   },

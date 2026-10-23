@@ -414,7 +414,7 @@
       }
     }
 
-    function handleRegistrationSubmit(e) {
+    async function handleRegistrationSubmit(e) {
       e.preventDefault();
 
       const name = document.getElementById('reg-name').value.trim();
@@ -448,23 +448,42 @@
         return;
       }
 
-      const res = Auth.registerUser({
-        role: selectedRole,
-        name: name,
-        username: username,
-        password: password,
-        email: email,
-        university: university,
-        department: department
-      });
-
-      if (!res.success) {
-        alert(res.message);
-        return;
+      const submitBtn = document.getElementById('btn-submit-register');
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = '회원가입 처리 및 클라우드 동기화 중...';
       }
 
-      alert(`환영합니다, ${name}님!\n[${selectedRole === 'staff' ? '교직원' : '대학생'}] 역할로 가입이 완료되었습니다.\n맞춤형 강의실로 이동합니다.`);
-      window.location.href = 'dashboard.html';
+      try {
+        const res = await Auth.registerUser({
+          role: selectedRole,
+          name: name,
+          username: username,
+          password: password,
+          email: email,
+          university: university,
+          department: department
+        });
+
+        if (!res.success) {
+          alert(res.message);
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.textContent = '회원가입 완료 및 맞춤 강의실 입장 →';
+          }
+          return;
+        }
+
+        alert(`환영합니다, ${name}님!\n[${selectedRole === 'staff' ? '교직원' : '대학생'}] 역할로 가입이 완료되었습니다.\n맞춤형 강의실로 이동합니다.`);
+        window.location.href = 'dashboard.html';
+      } catch (err) {
+        console.error('[Register] 오류 발생:', err);
+        alert('회원가입 처리 중 오류가 발생했습니다: ' + err.message);
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.textContent = '회원가입 완료 및 맞춤 강의실 입장 →';
+        }
+      }
     }
 
     // Auto-select role if specified in query string (?role=staff or ?role=student)
