@@ -1,5 +1,15 @@
-.env
+.env*
 node_modules/
 .DS_Store
 *.txt
 *.md
+server.js
+package*.json
+server/
+private/
+tests/
+public/
+*.jpg
+*.jpeg
+*.png
+.agents/
