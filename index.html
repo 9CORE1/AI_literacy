@@ -254,16 +254,13 @@
         Google 계정 또는 아이디/비밀번호로 로그인해 맞춤 강의실로 입장하세요.
       </p>
 
-      <!-- 3-Way Authentication Tabs -->
+      <!-- 2-Way Authentication Tabs -->
       <div class="modal-tabs">
         <button type="button" class="modal-tab-btn active" id="tab-btn-google" onclick="switchAuthTab('google')">
           Google 간편입장
         </button>
         <button type="button" class="modal-tab-btn" id="tab-btn-login" onclick="switchAuthTab('login')">
           아이디 로그인
-        </button>
-        <button type="button" class="modal-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')">
-          회원가입
         </button>
       </div>
 
@@ -306,7 +303,7 @@
         </button>
 
         <div class="modal-footer-switch">
-          아이디로 이용하시겠어요? <a onclick="switchAuthTab('login')">로그인하기</a> 또는 <a onclick="switchAuthTab('register')">회원가입하기</a>
+          아이디로 로그인하시겠어요? <a onclick="switchAuthTab('login')">아이디 로그인으로 이동 →</a>
         </div>
       </div>
 
@@ -326,48 +323,7 @@
           </button>
         </form>
         <div class="modal-footer-switch">
-          아직 계정이 없으신가요? <a onclick="switchAuthTab('register')">회원가입하기 →</a>
-        </div>
-      </div>
-
-      <!-- Tab 3: Registration Form (Role + ID + Password + Email + Name) -->
-      <div id="auth-panel-register" class="auth-panel" style="display: none;">
-        <form onsubmit="handleFormRegister(event)">
-          <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px;">
-            학습자 역할 선택 (필수)
-          </div>
-          <div class="role-switcher-pill" style="margin-bottom: 14px; width: 100%; justify-content: center;">
-            <button type="button" class="role-btn active" id="reg-role-student" onclick="setRegRole('student')">
-              🎓 대학생
-            </button>
-            <button type="button" class="role-btn" id="reg-role-staff" onclick="setRegRole('staff')">
-              🏛️ 교직원
-            </button>
-          </div>
-
-          <div class="modal-form-group">
-            <label class="modal-label" for="reg-username">아이디 <span style="color:var(--color-ember)">*</span></label>
-            <input type="text" id="reg-username" class="modal-input" placeholder="영문, 숫자 3자 이상" required autocomplete="username">
-          </div>
-          <div class="modal-form-group">
-            <label class="modal-label" for="reg-email">이메일 주소 <span style="color:var(--color-ember)">*</span></label>
-            <input type="email" id="reg-email" class="modal-input" placeholder="예: user@university.ac.kr" required autocomplete="email">
-          </div>
-          <div class="modal-form-group">
-            <label class="modal-label" for="reg-password">비밀번호 <span style="color:var(--color-ember)">*</span></label>
-            <input type="password" id="reg-password" class="modal-input" placeholder="4자 이상 입력" required autocomplete="new-password">
-          </div>
-          <div class="modal-form-group">
-            <label class="modal-label" for="reg-name">성함 또는 닉네임</label>
-            <input type="text" id="reg-name" class="modal-input" placeholder="미입력 시 아이디로 표시됩니다" autocomplete="name">
-          </div>
-
-          <button type="submit" class="btn-modal-submit">
-            회원가입 완료 &amp; 강의실 입장 →
-          </button>
-        </form>
-        <div class="modal-footer-switch">
-          이미 계정이 있으신가요? <a onclick="switchAuthTab('login')">로그인하기</a>
+          Google 계정으로 간편하게 입장하시겠어요? <a onclick="switchAuthTab('google')">Google 간편입장 →</a>
         </div>
       </div>
     </div>
@@ -569,11 +525,9 @@
       }
     }
 
-    let currentRegRole = 'student';
-
-    // Switch Modal Auth Tabs: 'google' | 'login' | 'register'
+    // Switch Modal Auth Tabs: 'google' | 'login'
     function switchAuthTab(tab) {
-      const tabs = ['google', 'login', 'register'];
+      const tabs = ['google', 'login'];
       tabs.forEach(t => {
         const btn = document.getElementById(`tab-btn-${t}`);
         const panel = document.getElementById(`auth-panel-${t}`);
@@ -595,12 +549,6 @@
           summaryEl.innerHTML = `<strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.`;
         }
       }
-    }
-
-    function setRegRole(role) {
-      currentRegRole = role;
-      document.getElementById('reg-role-student').classList.toggle('active', role === 'student');
-      document.getElementById('reg-role-staff').classList.toggle('active', role === 'staff');
     }
 
     function handleGoogleLogin() {
@@ -629,33 +577,26 @@
         closeLoginModal();
         window.location.href = 'dashboard.html';
       } else {
-        alert(res.message || '로그인에 실패했습니다.');
-      }
-    }
-
-    // Handle Role-based Registration (Role + ID + Password + Email + Name)
-    function handleFormRegister(e) {
-      e.preventDefault();
-      const usernameInput = document.getElementById('reg-username');
-      const emailInput = document.getElementById('reg-email');
-      const passwordInput = document.getElementById('reg-password');
-      const nameInput = document.getElementById('reg-name');
-
-      if (!usernameInput || !emailInput || !passwordInput) return;
-
-      const role = currentRegRole;
-      const username = usernameInput.value.trim();
-      const email = emailInput.value.trim();
-      const password = passwordInput.value;
-      const name = nameInput ? nameInput.value.trim() : '';
-
-      const res = Auth.registerUser({ role, username, email, password, name });
-      if (res.success) {
-        alert(`[${role === 'staff' ? '교직원' : '대학생'}] 회원가입이 완료되었습니다!\n맞춤 강의실로 입장합니다.`);
-        closeLoginModal();
-        window.location.href = 'dashboard.html';
-      } else {
-        alert(res.message || '회원가입에 실패했습니다.');
+        // 등록된 계정이 없을 경우 즉석 생성 및 입장 옵션 안내
+        const confirmRegister = confirm(
+          `${res.message}\n\n입력하신 아이디(${username})로 계정을 새로 등록하여 바로 입장하시겠습니까?`
+        );
+        if (confirmRegister) {
+          const roleChoice = confirm('학습자 역할을 선택해 주세요.\n\n[확인] = 🎓 대학생\n[취소] = 🏛️ 교직원');
+          const chosenRole = roleChoice ? 'student' : 'staff';
+          const regRes = Auth.registerUser({
+            role: chosenRole,
+            username: username,
+            email: username.includes('@') ? username : `${username}@univ.ac.kr`,
+            password: password,
+            name: username
+          });
+          if (regRes.success) {
+            alert(`[${chosenRole === 'staff' ? '교직원' : '대학생'}] 계정으로 등록되어 맞춤 강의실로 입장합니다!`);
+            closeLoginModal();
+            window.location.href = 'dashboard.html';
+          }
+        }
       }
     }
 
