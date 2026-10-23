@@ -194,15 +194,12 @@ const Auth = {
     this.setUser(user);
     this.recordLoginHistory(user, 'google');
 
-    // 백엔드 서버가 구동 중인 경우 동기화 시도 (GitHub Pages 환경에서는 자동 무시)
-    try {
-      fetch('/api/auth/google', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ credential: response.credential, role: user.role })
-      }).catch(() => {});
-    } catch (e) {
-      // 정적 호스팅(GitHub Pages)에서는 무시
+    // Firebase Auth 구글 자격 증명 동기화
+    if (this.isFirebaseReady() && this.firebaseAuth && response.credential) {
+      try {
+        const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
+        this.firebaseAuth.signInWithCredential(credential).catch(() => {});
+      } catch (e) {}
     }
 
     if (typeof onSuccess === 'function') {
@@ -429,6 +426,43 @@ const Auth = {
    * 사용자가 커스텀 구글 버튼 클릭 시 호출
    */
   triggerGoogleLogin(role = 'student', onSuccess = null) {
+    // 1. Firebase Auth가 설정되어 있으면 Firebase Google 팝업 로그인 우선 실행
+    if (this.isFirebaseReady() && this.firebaseAuth && typeof firebase !== 'undefined') {
+      const provider = new firebase.auth.GoogleAuthProvider();
+      this.firebaseAuth.signInWithPopup(provider).then((result) => {
+        const fbUser = result.user;
+        const users = this.getRegisteredUsers();
+        const existing = users.find((u) => u.email.toLowerCase() === (fbUser.email || '').toLowerCase());
+
+        const user = {
+          name: fbUser.displayName || (existing ? existing.name : fbUser.email.split('@')[0]),
+          email: fbUser.email,
+          picture: fbUser.photoURL || '',
+          role: existing ? existing.role : (role || 'student'),
+          university: existing ? existing.university : '',
+          department: existing ? existing.department : '',
+          googleId: fbUser.uid,
+          loginAt: new Date().toISOString(),
+          loginMethod: 'google'
+        };
+
+        this.setUser(user);
+        this.recordLoginHistory(user, 'google');
+
+        if (typeof onSuccess === 'function') {
+          onSuccess(user);
+        } else {
+          window.location.href = 'dashboard.html';
+        }
+      }).catch((err) => {
+        console.warn('[Auth] Firebase Google 팝업 로그인 오류:', err);
+        if (err.code !== 'auth/popup-closed-by-user') {
+          alert('Google 로그인 중 오류가 발생했습니다: ' + err.message);
+        }
+      });
+      return;
+    }
+
     const isConfigured = this.GOOGLE_CLIENT_ID && !this.GOOGLE_CLIENT_ID.includes('YOUR_GOOGLE_CLIENT_ID');
 
     if (!isConfigured) {
