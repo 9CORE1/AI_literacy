@@ -190,17 +190,19 @@ const Auth = {
       loginAt: new Date().toISOString()
     };
 
-    // 로컬 스토리지에 유저 저장 및 입장 이력 기록
+    // 로컬 스토리지에 유저 저장
     this.setUser(user);
-    this.recordLoginHistory(user, 'google');
 
-    // Firebase Auth 구글 자격 증명 동기화
+    // Firebase Auth 구글 자격 증명 동기화 및 입장 이력 저장 대기
     if (this.isFirebaseReady() && this.firebaseAuth && response.credential) {
       try {
         const credential = firebase.auth.GoogleAuthProvider.credential(response.credential);
-        this.firebaseAuth.signInWithCredential(credential).catch(() => {});
+        await this.firebaseAuth.signInWithCredential(credential).catch(() => {});
       } catch (e) {}
     }
+
+    // Cloud Firestore 입장 이력 기록 완료 대기 후 페이지 이동
+    await this.recordLoginHistory(user, 'google');
 
     if (typeof onSuccess === 'function') {
       onSuccess(user);
@@ -210,9 +212,9 @@ const Auth = {
   },
 
   /**
-   * 로그인/입장 이력 기록 (로컬 저장소 기반)
+   * 로그인/입장 이력 기록 (로컬 저장소 및 Cloud Firestore 동기화)
    */
-  recordLoginHistory(user, method = 'unknown') {
+  async recordLoginHistory(user, method = 'unknown') {
     try {
       const history = JSON.parse(localStorage.getItem('ai_lit_login_history') || '[]');
       const logEntry = {
@@ -234,27 +236,50 @@ const Auth = {
       // Firebase Cloud Firestore 연결되어 있을 경우 클라우드에 영구 저장
       if (this.isFirebaseReady()) {
         try {
-          this.firebaseDb.collection('login_history').add({
-            ...logEntry,
-            createdAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
-          }).catch(err => console.warn('[Auth] Firestore login_history 기록 경고:', err));
+          const promises = [];
 
-          // users 컬렉션 최종 로그인 시각 업데이트
+          // 1. login_history 컬렉션에 새 로그 추가
+          promises.push(
+            this.firebaseDb.collection('login_history').add({
+              ...logEntry,
+              createdAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+            }).then((docRef) => {
+              console.log('[Auth] Firestore login_history 저장 성공:', docRef.id);
+            }).catch((err) => {
+              console.error('[Auth] Firestore login_history 저장 실패 (규칙 확인 필요):', err);
+            })
+          );
+
+          // 2. users 컬렉션 사용자 정보 및 최종 로그인 시각 업데이트
           const docKey = user.email || user.username;
           if (docKey) {
             const safeDocKey = docKey.replace(/[\/\.]/g, '_');
-            this.firebaseDb.collection('users').doc(safeDocKey).set({
-              name: user.name || '',
-              role: user.role || 'student',
-              email: user.email || '',
-              university: user.university || '',
-              department: user.department || '',
-              lastLoginAt: new Date().toISOString()
-            }, { merge: true }).catch(() => {});
+            promises.push(
+              this.firebaseDb.collection('users').doc(safeDocKey).set({
+                name: user.name || '',
+                role: user.role || 'student',
+                email: user.email || '',
+                university: user.university || '',
+                department: user.department || '',
+                lastLoginAt: new Date().toISOString()
+              }, { merge: true }).then(() => {
+                console.log('[Auth] Firestore users 문서 갱신 성공:', safeDocKey);
+              }).catch((err) => {
+                console.error('[Auth] Firestore users 문서 갱신 실패:', err);
+              })
+            );
           }
+
+          // Firestore 네트워크 통신 완료 대기 (최대 1.5초 안전 타임아웃)
+          await Promise.race([
+            Promise.allSettled(promises),
+            new Promise((resolve) => setTimeout(resolve, 1500))
+          ]);
         } catch (err) {
           console.warn('[Auth] Firebase Firestore 동기화 예외:', err);
         }
+      } else {
+        console.warn('[Auth] Firebase가 초기화되지 않아 로컬 저장소에만 기록되었습니다. (firebaseConfig 확인 필요)');
       }
     } catch (e) {
       console.warn('[Auth] 입장 이력 기록 실패:', e);
@@ -447,13 +472,13 @@ const Auth = {
         };
 
         this.setUser(user);
-        this.recordLoginHistory(user, 'google');
-
-        if (typeof onSuccess === 'function') {
-          onSuccess(user);
-        } else {
-          window.location.href = 'dashboard.html';
-        }
+        this.recordLoginHistory(user, 'google').finally(() => {
+          if (typeof onSuccess === 'function') {
+            onSuccess(user);
+          } else {
+            window.location.href = 'dashboard.html';
+          }
+        });
       }).catch((err) => {
         console.warn('[Auth] Firebase Google 팝업 로그인 오류:', err);
         if (err.code !== 'auth/popup-closed-by-user') {
