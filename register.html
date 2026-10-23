@@ -17,41 +17,12 @@
       word-break: keep-all;
     }
 
-    .register-header {
-      padding: 20px 24px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      border-bottom: 1px solid var(--color-pumice);
-      background-color: var(--color-chalk);
-    }
-
-    .register-brand {
-      font-family: var(--font-display);
-      font-size: 22px;
-      font-weight: 800;
-      color: var(--color-obsidian);
-      letter-spacing: -0.5px;
-      text-decoration: none;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .register-brand span {
-      display: inline-block;
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
-      background: var(--color-ember);
-    }
-
     .register-main {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 48px 20px;
+      padding: 32px 20px 64px;
     }
 
     .register-card {
@@ -274,15 +245,23 @@
 
 <body class="register-viewport">
 
-  <!-- Header -->
-  <header class="register-header">
-    <a href="index.html" class="register-brand">
-      <span></span> AI LITERACY LAB
-    </a>
-    <a href="index.html?login=true" style="font-size: 14px; font-weight: 700; color: #555; text-decoration: none;">
-      기존 계정 로그인 →
-    </a>
-  </header>
+  <!-- Standard Caldera Navigation -->
+  <div class="navbar-wrapper">
+    <div class="container">
+      <header class="navbar">
+        <a href="index.html" class="nav-brand">
+          <span class="nav-brand-dot"></span>
+          <span>AI Literacy Lab</span>
+          <span class="nav-tag" id="nav-mode-tag">REGISTER</span>
+        </a>
+        <div class="nav-actions">
+          <a href="index.html?login=true" class="btn btn-secondary btn-sm" style="font-size: 13.5px; font-weight: 600;">
+            기존 계정 로그인 →
+          </a>
+        </div>
+      </header>
+    </div>
+  </div>
 
   <!-- Main Registration Container -->
   <main class="register-main">
