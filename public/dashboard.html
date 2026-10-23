@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>맞춤형 교육 대시보드 — AI Literacy Lab</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <!-- 상단 네비게이션 (Pill Style) -->
+  <div class="navbar-wrapper">
+    <div class="container">
+      <header class="navbar">
+        <a href="/dashboard.html" class="nav-brand">
+          <span class="nav-brand-dot"></span>
+          <span>AI Literacy Lab</span>
+          <span class="nav-tag" id="nav-mode-tag">CLASSROOM</span>
+        </a>
+        <div id="nav-user-menu" class="nav-menu"></div>
+      </header>
+    </div>
+  </div>
+
+  <main class="container" style="padding-bottom: var(--spacing-64);">
+    <div id="dashboard-content">
+      <!-- dashboard.js에서 역할(학생/교직원)에 따라 동적으로 렌더링 -->
+      <div style="text-align: center; padding: 4rem 1rem;">
+        <p style="font-size: 1.1rem; color: #555;">맞춤형 교육 강의실을 구성하는 중입니다...</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="/js/auth.js"></script>
+  <script src="/js/dashboard.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      await Auth.init();
+      DashboardApp.init();
+    });
+  </script>
+</body>
+</html>

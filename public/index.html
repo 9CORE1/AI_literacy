@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Literacy Lab — 대학생 & 교직원 표준 AI 리터러시 플랫폼</title>
+  <meta name="description" content="Caldera 디자인 시스템 기반 대학생 학업·연구 및 교직원 스마트 행정 특화 표준 AI 리터러시 진단 및 맞춤 교육 플랫폼">
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+
+  <!-- =========================================================================
+       1. Caldera Floating Pill Navigation Bar
+       ========================================================================= -->
+  <div class="navbar-wrapper">
+    <header class="navbar">
+      <a href="/" class="nav-brand">
+        <span class="nav-brand-dot"></span>
+        <span>AI Literacy Lab</span>
+        <span class="nav-tag" id="nav-role-badge">PORTAL</span>
+      </a>
+
+      <div class="nav-actions">
+        <button type="button" class="btn btn-primary btn-sm" id="nav-btn-login" onclick="openLoginModal()">
+          <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24">
+            <path fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+            <path fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05"
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+            <path fill="#EA4335"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+          </svg>
+          Google 로그인 / 강의실 입장
+        </button>
+      </div>
+    </header>
+  </div>
+
+  <main class="container">
+
+    <!-- =========================================================================
+         2. Hero Section (Architectural Display & Halftone Block)
+         ========================================================================= -->
+    <section class="hero-section">
+      <div class="hero-layout">
+        <!-- Hero Left Column -->
+        <div class="hero-text-col">
+          <div style="margin-bottom: var(--spacing-16);">
+            <span class="tag-sulfur">2026 대한민국 대학생 &amp; 교직원 표준 AI 리터러시 플랫폼</span>
+          </div>
+
+          <div class="hero-display">AI LITERACY</div>
+          <h1 class="hero-korean">사유의 역량, 실천적 지능</h1>
+
+          <p class="hero-description">
+            단순한 툴 사용법을 넘어 비판적 사고, 연구 윤리, 문제해결력까지 —
+            학술 연구 기반 30문항 역량 진단 평가와 120분 맞춤 실습으로 생성형 AI를 나의 가장 강력한 지적 파트너로 만드세요.
+          </p>
+
+          <div class="hero-cta-group">
+            <button type="button" class="btn btn-primary btn-lg" onclick="openLoginModal()">
+              맞춤 강의실 입장하기 →
+            </button>
+            <a href="#curriculum" class="btn btn-secondary btn-lg">
+              120분 커리큘럼 둘러보기 ↓
+            </a>
+          </div>
+
+          <div class="hero-meta-strip">
+            <span class="hero-meta-dot"></span>
+            <span>30문항 7점 리커트 표준 척도 (대학생 전용 진단)</span>
+            <span class="hero-meta-dot"></span>
+            <span>5대 요인 타당화 분석</span>
+            <span class="hero-meta-dot"></span>
+            <span>A4 공인 레포트 발급</span>
+          </div>
+        </div>
+
+        <!-- Hero Right Column (Caldera Halftone Block) -->
+        <div class="hero-visual-col">
+          <div class="hero-halftone-card" id="core-competence">
+            <!-- Dynamic Interactive Halftone Canvas Overlay -->
+            <canvas id="halftone-canvas" class="halftone-canvas"></canvas>
+
+            <div class="halftone-content-top">
+              <span class="tag-sulfur">CORE COMPETENCE</span>
+            </div>
+
+            <div class="halftone-content-bottom">
+              <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px;">
+                <div style="font-size: 16px; font-weight: 800; color: var(--color-chalk); letter-spacing: -0.01em;">
+                  💡 AI 리터러시 5대 핵심 역량 모델
+                </div>
+                <span
+                  style="font-size: 11px; font-weight: 700; color: var(--color-sulfur); background: rgba(0,0,0,0.25); padding: 2px 8px; border-radius: 999px;">
+                  5-FACTOR
+                </span>
+              </div>
+              <p style="font-size: 12px; color: #fff3ee; opacity: 0.9; margin: 0 0 10px 0; line-height: 1.45;">
+                학업 과제부터 학술 연구, 취업 경쟁력까지 포괄하는 고등교육 검증 5대 요인 구조입니다.
+              </p>
+
+              <div class="hero-factor-list">
+                <!-- 01 -->
+                <div class="hero-factor-item" onclick="toggleHeroFactor(this)">
+                  <div class="hero-factor-header">
+                    <div class="hero-factor-title-group">
+                      <span class="hero-factor-num">01</span>
+                      <span class="hero-factor-title">AI 기반 문제해결·창의적 적용</span>
+                    </div>
+                    <span class="hero-factor-chevron">▼</span>
+                  </div>
+                  <div class="hero-factor-desc">
+                    다양한 AI 도구를 선택·활용하여 과제와 프로젝트를 해결하고, 새로운 아이디어나 콘텐츠를 창출할 수 있는 자기효능감과 실행 능력입니다.
+                  </div>
+                </div>
+
+                <!-- 02 -->
+                <div class="hero-factor-item" onclick="toggleHeroFactor(this)">
+                  <div class="hero-factor-header">
+                    <div class="hero-factor-title-group">
+                      <span class="hero-factor-num">02</span>
+                      <span class="hero-factor-title">AI 개념·원리 및 생성형 AI 이해</span>
+                    </div>
+                    <span class="hero-factor-chevron">▼</span>
+                  </div>
+                  <div class="hero-factor-desc">
+                    인공지능의 기본 개념과 데이터 기반 학습 원리, 머신러닝·딥러닝 및 생성형 AI의 작동 방식과 특성에 대한 이론적·개념적 지식입니다.
+                  </div>
+                </div>
+
+                <!-- 03 -->
+                <div class="hero-factor-item" onclick="toggleHeroFactor(this)">
+                  <div class="hero-factor-header">
+                    <div class="hero-factor-title-group">
+                      <span class="hero-factor-num">03</span>
+                      <span class="hero-factor-title">AI 활용 태도·진로 및 사회적 영향 인식</span>
+                    </div>
+                    <span class="hero-factor-chevron">▼</span>
+                  </div>
+                  <div class="hero-factor-desc">
+                    전공과 진로에 미치는 영향과 미래 경쟁력 가치를 인식하고, 지속적 학습 의지와 사회적 긍·부정 영향을 균형 있게 고려하는 책임 있는 태도입니다.
+                  </div>
+                </div>
+
+                <!-- 04 -->
+                <div class="hero-factor-item" onclick="toggleHeroFactor(this)">
+                  <div class="hero-factor-header">
+                    <div class="hero-factor-title-group">
+                      <span class="hero-factor-num">04</span>
+                      <span class="hero-factor-title">AI 데이터·윤리·보안 인식</span>
+                    </div>
+                    <span class="hero-factor-chevron">▼</span>
+                  </div>
+                  <div class="hero-factor-desc">
+                    개인정보 보호, 저작권 준수, 데이터 편향 주의, 사회적 책임 등 AI 활용 시 규범과 책임을 중시하는 실천 태도입니다.
+                  </div>
+                </div>
+
+                <!-- 05 -->
+                <div class="hero-factor-item" onclick="toggleHeroFactor(this)">
+                  <div class="hero-factor-header">
+                    <div class="hero-factor-title-group">
+                      <span class="hero-factor-num">05</span>
+                      <span class="hero-factor-title">프롬프트 설계 및 비판적 활용 역량</span>
+                    </div>
+                    <span class="hero-factor-chevron">▼</span>
+                  </div>
+                  <div class="hero-factor-desc">
+                    원하는 결과를 얻기 위해 명확한 프롬프트를 설계하고, AI가 제공한 정보를 비판적으로 검토하고 교차검증하는 역량입니다.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =========================================================================
+         3. Interactive Role Switcher
+         ========================================================================= -->
+    <div class="role-switcher-container">
+      <div class="role-switcher-pill">
+        <button type="button" class="role-btn active" id="btn-role-student" onclick="switchRole('student')">
+          🎓 대학생 (학업·연구·과제)
+        </button>
+        <button type="button" class="role-btn" id="btn-role-staff" onclick="switchRole('staff')">
+          🏛️ 교직원 (스마트 행정·자동화)
+        </button>
+      </div>
+    </div>
+
+    <!-- =========================================================================
+         5. Curriculum Modules Section (Content Cards in Limestone #f7f6f2)
+         ========================================================================= -->
+    <section id="curriculum">
+      <div class="section-header">
+        <div>
+          <div class="section-eyebrow" id="curr-eyebrow">CURRICULUM FOR UNIVERSITY STUDENTS</div>
+          <h2 class="section-title" id="curr-title">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
+        </div>
+        <div>
+          <button type="button" class="btn btn-secondary" onclick="openLoginModal()">맞춤 강의실 바로가기 →</button>
+        </div>
+      </div>
+
+      <div class="curriculum-grid" id="curriculum-container">
+        <!-- JS로 대학생/교직원 역할에 맞춰 실시간 렌더링 -->
+      </div>
+    </section>
+
+
+    <!-- =========================================================================
+         7. AI Ecosystem & Tools Strip
+         ========================================================================= -->
+    <div class="partner-strip">
+      <a href="https://gemini.google.com" target="_blank" rel="noopener noreferrer" class="partner-item"
+        title="Gemini 공식 사이트 열기">GEMINI</a>
+      <div class="dotted-v-divider"></div>
+      <a href="https://chatgpt.com" target="_blank" rel="noopener noreferrer" class="partner-item"
+        title="ChatGPT 공식 사이트 열기">CHATGPT</a>
+      <div class="dotted-v-divider"></div>
+      <a href="https://claude.ai" target="_blank" rel="noopener noreferrer" class="partner-item"
+        title="Claude 공식 사이트 열기">CLAUDE</a>
+      <div class="dotted-v-divider"></div>
+      <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer" class="partner-item"
+        title="Gemini NotebookLM 공식 사이트 열기">GEMINI NOTEBOOKLM</a>
+      <div class="dotted-v-divider"></div>
+      <a href="https://workspace.google.com" target="_blank" rel="noopener noreferrer" class="partner-item"
+        title="Google Workspace 공식 사이트 열기">GOOGLE WORKSPACE</a>
+    </div>
+
+  </main>
+
+  <!-- =========================================================================
+       8. Google Login & Direct Entry Modal
+       ========================================================================= -->
+  <div class="modal-overlay" id="login-modal" onclick="closeLoginModalOnOutside(event)">
+    <div class="caldera-modal" onclick="event.stopPropagation()">
+      <button type="button" class="modal-close-btn" onclick="closeLoginModal()">✕</button>
+
+      <span class="tag-sulfur" style="margin-bottom: 12px;">CALDERA ENTRY</span>
+      <h2 style="font-size: 26px; font-weight: 800; color: var(--color-obsidian); margin-bottom: 8px;">
+        AI Literacy Lab 강의실 입장
+      </h2>
+      <p style="font-size: 14px; color: rgba(7, 6, 7, 0.7); margin-bottom: 24px;">
+        학습자의 역할에 최적화된 맞춤형 진단 및 실습 강의실로 즉시 연결됩니다.
+      </p>
+
+      <div class="role-switcher-pill" style="margin-bottom: 16px; width: 100%; justify-content: center;">
+        <button type="button" class="role-btn active" id="modal-role-student" onclick="setModalRole('student')">
+          🎓 대학생
+        </button>
+        <button type="button" class="role-btn" id="modal-role-staff" onclick="setModalRole('staff')">
+          🏛️ 교직원
+        </button>
+      </div>
+
+      <!-- Google Action Button -->
+      <button type="button" class="btn-google-pill" id="btn-modal-google" onclick="handleGoogleLogin()">
+        <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24">
+          <path fill="#4285F4"
+            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+          <path fill="#34A853"
+            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+          <path fill="#FBBC05"
+            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+          <path fill="#EA4335"
+            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+        </svg>
+        Google 계정으로 원클릭 입장하기
+      </button>
+
+      <!-- Fast Guest Link -->
+      <div style="margin-top: 20px; font-size: 13px; color: rgba(7, 6, 7, 0.6);">
+        계정 없이 둘러보시겠어요?
+        <a href="#" onclick="handleGuestEntry(event)"
+          style="font-weight: 700; color: var(--color-ember); text-decoration: underline;">
+          체험용 게스트로 바로 입장하기 →
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       9. Caldera Footer
+       ========================================================================= -->
+  <footer class="caldera-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">AI LITERACY LAB</div>
+        <div>
+          <a href="/dashboard.html" style="font-weight: 600;">맞춤형 강의실</a>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; line-height: 1.6;">
+        <div>
+          © 2026 AI Literacy Lab. Caldera Light Theme Architecture. All rights reserved.
+        </div>
+        <div>
+          본 플랫폼의 진단 척도 및 결과 알고리즘은 학술 연구 윤리 지침을 준수합니다.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =========================================================================
+       10. Caldera Interactive Script
+       ========================================================================= -->
+  <script src="/js/auth.js"></script>
+  <script>
+    // State
+    let currentRole = 'student';
+    let currentModalRole = 'student';
+
+    // Curriculum Data (대상자별 4대 핵심 실습 & 시연 모듈)
+    const CURRICULUM_DATA = {
+      student: [
+        {
+          num: "01",
+          tag: "DIAGNOSIS & ETHICS",
+          title: "대학생의 AI 리터러시 진단",
+          desc: "30문항(7점 리커트) 표준 척도를 통해 나의 5대 요인 역량을 정밀 진단하고, 표절·환각 예방 및 소속 대학 AI 활용 규정을 안내합니다.",
+          items: [
+            "30문항 종합 진단 평가 (대학생 로그인 전용, 약 7분 소요)",
+            "5대 요인 분석 방사형(레이더) 차트 및 상/중/하 등급 산출",
+            "A4 규격 2페이지 고화질 PDF & JPG 레포트 발급"
+          ]
+        },
+        {
+          num: "02",
+          tag: "PROMPT ENGINEERING",
+          title: "프롬프트 공식 4+2",
+          desc: "[역할·배경·지시·형식]의 4대 뼈대와 [조건·샘플]의 2대 보강재를 결합하여 출처와 근거를 명시하는 신뢰성 있는 답변을 도출합니다.",
+          items: [
+            "역·배·지·형 + 조·샘 약어 공식 및 전후 비교 실습",
+            "대학 과제·발표·전공 리서치 유형별 프롬프트 최적화",
+            "출처 명시 조건 추가 및 실제 출처 존재 여부 환각 점검"
+          ]
+        },
+        {
+          num: "03",
+          tag: "STUDY ASSISTANT",
+          title: "NotebookLM 활용",
+          desc: "전공 교재 PDF나 학술 논문 웹 링크를 소스로 연동하여 인용 번호 기반 팩트체크가 가능한 맞춤형 학습 Q&A 비서를 구축합니다.",
+          items: [
+            "발췌 PDF 및 학술 웹 링크 소스 추가, 요약 및 질의응답",
+            "인용 번호 클릭 시 원문 본문 하이라이트 위치 이동 팩트체크",
+            "AI 음성 오디오 개요(팟캐스트 형식) 요약 브리핑 청취"
+          ]
+        },
+        {
+          num: "04",
+          tag: "DATA AUTOMATION",
+          title: "구글 시트에서 Gemini 함수 활용",
+          desc: "스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역을 자동화합니다. (시연)",
+          items: [
+            "=GEMINI() 함수 기반 설문 주관식 응답 감정 분류 및 요약",
+            "전공 과제 데이터 분석 및 텍스트 자동화 파이프라인 시연",
+            "강의 실습용 완성 템플릿 스프레드시트 사본 만들기 제공"
+          ]
+        }
+      ],
+      staff: [
+        {
+          num: "01",
+          tag: "ADMIN PROMPT",
+          title: "프롬프트 공식 4+2",
+          desc: "행정 격식에 맞춘 톤앤매너 설정, 공문서·안내문 초안 생성 및 품의서 작성 시간을 80% 단축하는 행정 프롬프트를 익힙니다.",
+          items: [
+            "공문 초안: 지시만 쓴 버전과 4요소 버전 비교 실습",
+            "조건(톤·분량·금지 표현) 및 샘플(기존 공문 문체) 결합",
+            "개인정보 및 학내 민감 정보 입력 금지 보안 원칙 점검"
+          ]
+        },
+        {
+          num: "02",
+          tag: "NOTEBOOKLM PR",
+          title: "NotebookLM 활용",
+          desc: "학내 보도자료나 행사 요강, 규정집 PDF를 연동하여 근거 조항 기반의 행정 질의응답 및 홍보 기획안을 원스톱 도출합니다.",
+          items: [
+            "보도자료·행사 요강 소스 기반 핵심 메시지 3가지 추출",
+            "카드뉴스 구성안(표지 → 핵심 3개 → 신청 안내) 기획",
+            "학칙 및 복무규정 연동 근거 조항 기반 행정 Q&A 비서"
+          ]
+        },
+        {
+          num: "03",
+          tag: "CARD NEWS & VISUAL",
+          title: "카드뉴스 제작(나노바나나 활용)",
+          desc: "기획된 홍보 문구를 AI 시각 템플릿과 결합하여 모바일 친화형 고화질 카드뉴스를 신속하게 제작합니다.",
+          items: [
+            "기획 문구 기반 인포그래픽 및 나노바나나 시안 생성",
+            "Canva 또는 미리캔버스를 활용한 한글 타이포그래피 마감",
+            "AI 생성물 공공 표기 기준, 저작권 및 초상권 가이드 안내"
+          ]
+        },
+        {
+          num: "04",
+          tag: "FORM & REPORT",
+          title: "구글 폼 제작 및 집계시스템 설정",
+          desc: "AI로 행사 및 특강 설문 문항을 기획하고, 구글 폼 생성 후 스프레드시트 실시간 집계 대시보드를 구축합니다. (시연)",
+          items: [
+            "특강 및 행사 만족도 조사를 위한 설문 문항 초안 설계",
+            "구글 폼과 시트 연동 실시간 자동 집계 및 요약 응답 확인",
+            "업무 즉시 활용 가능한 템플릿 폼 및 시트 링크 배포"
+          ]
+        }
+      ]
+    };
+
+
+
+    // Toggle Hero Factor Accordion
+    function toggleHeroFactor(el) {
+      el.classList.toggle('open');
+    }
+
+    // Switch Role
+    function switchRole(role) {
+      currentRole = role;
+      document.getElementById('btn-role-student').classList.toggle('active', role === 'student');
+      document.getElementById('btn-role-staff').classList.toggle('active', role === 'staff');
+
+      const eyebrow = document.getElementById('curr-eyebrow');
+      const title = document.getElementById('curr-title');
+      const badge = document.getElementById('nav-role-badge');
+
+      if (role === 'student') {
+        eyebrow.textContent = 'CURRICULUM FOR UNIVERSITY STUDENTS';
+        title.textContent = '🎓 대학생 120분 AI 리터러시 마스터 코스';
+        badge.textContent = 'STUDENT LAB';
+      } else {
+        eyebrow.textContent = 'CURRICULUM FOR UNIVERSITY STAFF';
+        title.textContent = '🏛️ 교직원 120분 스마트 행정 혁신 코스';
+        badge.textContent = 'STAFF LAB';
+      }
+
+      renderCurriculum();
+    }
+
+    // Render Curriculum
+    function renderCurriculum() {
+      const container = document.getElementById('curriculum-container');
+      const modules = CURRICULUM_DATA[currentRole];
+
+      container.innerHTML = modules.map(m => `
+        <div class="module-card">
+          <div class="module-top">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span class="module-num">${m.num}</span>
+              <span class="tag-sulfur">${m.tag}</span>
+            </div>
+            <h3 class="module-title">${m.title}</h3>
+            <p class="module-desc">${m.desc}</p>
+            <ul class="module-list">
+              ${m.items.map(it => `<li>${it}</li>`).join('')}
+            </ul>
+          </div>
+        </div>
+      `).join('');
+    }
+
+
+
+    // Modal Control
+    function openLoginModal() {
+      document.getElementById('login-modal').classList.add('active');
+    }
+
+    function closeLoginModal() {
+      document.getElementById('login-modal').classList.remove('active');
+    }
+
+    function closeLoginModalOnOutside(e) {
+      if (e.target.id === 'login-modal') {
+        closeLoginModal();
+      }
+    }
+
+    function setModalRole(role) {
+      currentModalRole = role;
+      document.getElementById('modal-role-student').classList.toggle('active', role === 'student');
+      document.getElementById('modal-role-staff').classList.toggle('active', role === 'staff');
+    }
+
+    function handleGoogleLogin() {
+      const roleLabel = currentModalRole === 'staff' ? '교직원' : '대학생';
+      const user = {
+        name: `구글 ${roleLabel} 님`,
+        email: `user@${currentModalRole === 'staff' ? 'univ.ac.kr' : 'campus.edu'}`,
+        role: currentModalRole
+      };
+      if (typeof Auth !== 'undefined' && Auth.setUser) {
+        Auth.setUser(user);
+      } else {
+        localStorage.setItem('ai_lit_user', JSON.stringify(user));
+      }
+      closeLoginModal();
+      window.location.href = '/dashboard.html';
+    }
+
+    function handleGuestEntry(e) {
+      e.preventDefault();
+      const roleLabel = currentModalRole === 'staff' ? '교직원' : '대학생';
+      const user = {
+        name: `게스트 ${roleLabel} 님`,
+        email: `guest@${currentModalRole === 'staff' ? 'univ.ac.kr' : 'campus.edu'}`,
+        role: currentModalRole
+      };
+      if (typeof Auth !== 'undefined' && Auth.setUser) {
+        Auth.setUser(user);
+      } else {
+        localStorage.setItem('ai_lit_user', JSON.stringify(user));
+      }
+      closeLoginModal();
+      window.location.href = '/dashboard.html';
+    }
+
+    // Halftone Canvas Animation
+    function initHalftoneCanvas() {
+      const canvas = document.getElementById('halftone-canvas');
+      if (!canvas) return;
+      const ctx = canvas.getContext('2d');
+      let width, height;
+
+      function resize() {
+        width = canvas.width = canvas.offsetWidth;
+        height = canvas.height = canvas.offsetHeight;
+      }
+      resize();
+      window.addEventListener('resize', resize);
+
+      let mouse = { x: -100, y: -100 };
+      canvas.parentElement.addEventListener('mousemove', (e) => {
+        const rect = canvas.getBoundingClientRect();
+        mouse.x = e.clientX - rect.left;
+        mouse.y = e.clientY - rect.top;
+      });
+      canvas.parentElement.addEventListener('mouseleave', () => {
+        mouse.x = -100;
+        mouse.y = -100;
+      });
+
+      let time = 0;
+      const gridSize = 16;
+
+      function draw() {
+        time += 0.03;
+        ctx.clearRect(0, 0, width, height);
+
+        for (let x = gridSize / 2; x < width; x += gridSize) {
+          for (let y = gridSize / 2; y < height; y += gridSize) {
+            const dx = x - mouse.x;
+            const dy = y - mouse.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            // Wave pattern
+            const wave = Math.sin(x * 0.02 + y * 0.02 + time) * 0.5 + 0.5;
+            let radius = 1.2 + wave * 2.8;
+
+            // Interactive mouse expansion
+            if (dist < 100) {
+              const boost = (1 - dist / 100) * 4.5;
+              radius += boost;
+            }
+
+            // Dot color gradient from Plasma Violet to Ember
+            const ratio = (x + y) / (width + height);
+            ctx.beginPath();
+            ctx.arc(x, y, radius, 0, Math.PI * 2);
+
+            if (ratio > 0.5) {
+              ctx.fillStyle = `rgba(180, 150, 255, ${0.45 + wave * 0.45})`;
+            } else {
+              ctx.fillStyle = `rgba(245, 242, 142, ${0.35 + wave * 0.45})`;
+            }
+            ctx.fill();
+          }
+        }
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    // Init on DOM Load
+    document.addEventListener('DOMContentLoaded', () => {
+      renderCurriculum();
+      initHalftoneCanvas();
+
+      // Check URL query parameters
+      const params = new URLSearchParams(window.location.search);
+      if (params.get('selectRole') === 'true' || params.get('login') === 'true') {
+        openLoginModal();
+      }
+    });
+  </script>
+</body>
+
+</html>
