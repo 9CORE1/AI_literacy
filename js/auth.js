@@ -5,15 +5,53 @@
 
 const Auth = {
   user: null,
+  firebaseApp: null,
+  firebaseAuth: null,
+  firebaseDb: null,
 
   // Google Cloud Console에서 발급받은 OAuth 2.0 Web Client ID
   // 사용자가 브라우저에서 직접 등록한 Client ID가 있으면 우선 적용됩니다.
   GOOGLE_CLIENT_ID: localStorage.getItem('ai_lit_google_client_id') || 'YOUR_GOOGLE_CLIENT_ID.apps.googleusercontent.com',
 
   /**
+   * Firebase SDK 초기화 확인 및 준비
+   */
+  initFirebase() {
+    if (this.firebaseDb) return true;
+    try {
+      const config = window.firebaseConfig;
+      if (
+        typeof firebase !== 'undefined' &&
+        config &&
+        config.apiKey &&
+        !config.apiKey.includes('YOUR_API_KEY')
+      ) {
+        if (!firebase.apps.length) {
+          this.firebaseApp = firebase.initializeApp(config);
+        } else {
+          this.firebaseApp = firebase.app();
+        }
+        this.firebaseAuth = firebase.auth();
+        this.firebaseDb = firebase.firestore();
+        console.log('[Auth] Firebase Auth & Cloud Firestore 연결 성공');
+        return true;
+      }
+    } catch (err) {
+      console.warn('[Auth] Firebase 초기화 경고 (로컬 모드로 동작):', err);
+    }
+    return false;
+  },
+
+  isFirebaseReady() {
+    return Boolean(this.firebaseDb && this.firebaseAuth);
+  },
+
+  /**
    * 로컬 스토리지 및 세션에서 현재 사용자 정보 불러오기
    */
   async init() {
+    this.initFirebase();
+
     const cached = localStorage.getItem('ai_lit_user');
     if (cached) {
       try {
@@ -195,6 +233,32 @@ const Auth = {
       // 최근 100건 유지
       if (history.length > 100) history.pop();
       localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
+
+      // Firebase Cloud Firestore 연결되어 있을 경우 클라우드에 영구 저장
+      if (this.isFirebaseReady()) {
+        try {
+          this.firebaseDb.collection('login_history').add({
+            ...logEntry,
+            createdAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+          }).catch(err => console.warn('[Auth] Firestore login_history 기록 경고:', err));
+
+          // users 컬렉션 최종 로그인 시각 업데이트
+          const docKey = user.email || user.username;
+          if (docKey) {
+            const safeDocKey = docKey.replace(/[\/\.]/g, '_');
+            this.firebaseDb.collection('users').doc(safeDocKey).set({
+              name: user.name || '',
+              role: user.role || 'student',
+              email: user.email || '',
+              university: user.university || '',
+              department: user.department || '',
+              lastLoginAt: new Date().toISOString()
+            }, { merge: true }).catch(() => {});
+          }
+        } catch (err) {
+          console.warn('[Auth] Firebase Firestore 동기화 예외:', err);
+        }
+      }
     } catch (e) {
       console.warn('[Auth] 입장 이력 기록 실패:', e);
     }
@@ -278,6 +342,31 @@ const Auth = {
     users.push(newUser);
     localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
 
+    // Firebase Cloud Firestore 및 Auth 연동
+    if (this.isFirebaseReady()) {
+      try {
+        const safeDocKey = (newUser.email || newUser.username).replace(/[\/\.]/g, '_');
+        this.firebaseDb.collection('users').doc(safeDocKey).set({
+          name: newUser.name,
+          username: newUser.username,
+          email: newUser.email,
+          role: newUser.role,
+          university: newUser.university,
+          department: newUser.department,
+          registeredAt: new Date().toISOString(),
+          lastLoginAt: new Date().toISOString()
+        }, { merge: true }).catch(err => console.warn('[Auth] Firestore 신규회원 저장 경고:', err));
+
+        // Firebase Auth 계정 생성 시도
+        if (this.firebaseAuth && newUser.email && newUser.password) {
+          this.firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password)
+            .catch(err => console.warn('[Auth] Firebase Auth 계정 생성 안내:', err.message));
+        }
+      } catch (err) {
+        console.warn('[Auth] Firebase 회원 저장 오류:', err);
+      }
+    }
+
     // 회원가입 완료 즉시 자동 세션 생성 및 입장 이력 기록
     const sessionUser = {
       name: newUser.name,
@@ -286,7 +375,8 @@ const Auth = {
       role: newUser.role,
       university: newUser.university,
       department: newUser.department,
-      loginAt: new Date().toISOString()
+      loginAt: new Date().toISOString(),
+      loginMethod: 'register'
     };
     this.setUser(sessionUser);
     this.recordLoginHistory(sessionUser, 'register');
@@ -386,7 +476,7 @@ const Auth = {
       ...data,
       updatedAt: new Date().toISOString()
     };
-    this.saveUser(this.user);
+    this.setUser(this.user);
 
     // 등록 회원 목록에서도 일치하는 사용자 정보 갱신
     try {
@@ -398,10 +488,25 @@ const Auth = {
           ...data,
           updatedAt: new Date().toISOString()
         };
-        this.saveRegisteredUsers(registered);
+        localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
       }
     } catch (e) {
       console.warn('[Auth] 프로필 갱신 동기화 실패:', e);
+    }
+
+    // Firebase Cloud Firestore 동기화
+    if (this.isFirebaseReady()) {
+      try {
+        const docKey = (this.user.email || this.user.username || '').replace(/[\/\.]/g, '_');
+        if (docKey) {
+          this.firebaseDb.collection('users').doc(docKey).set({
+            ...data,
+            updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+          }, { merge: true }).catch(() => {});
+        }
+      } catch (err) {
+        console.warn('[Auth] Firestore 프로필 갱신 오류:', err);
+      }
     }
 
     return true;
