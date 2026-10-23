@@ -13,4 +13,3 @@ public/
 *.jpeg
 *.png
 .agents/
-js/firebase-config.js
