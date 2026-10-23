@@ -168,48 +168,114 @@ const Auth = {
   },
 
   /**
+   * 등록된 회원 목록 조회 (로컬 저장소 기반)
+   */
+  getRegisteredUsers() {
+    try {
+      const data = localStorage.getItem('ai_lit_registered_users');
+      return data ? JSON.parse(data) : [];
+    } catch (e) {
+      return [];
+    }
+  },
+
+  /**
+   * 일반 회원가입 (역할, 아이디, 비밀번호, 이메일, 이름)
+   */
+  registerUser({ role, username, email, password, name }) {
+    if (!role) {
+      return { success: false, message: '대학생 또는 교직원 역할을 선택해 주세요.' };
+    }
+    if (!username || username.trim().length < 3) {
+      return { success: false, message: '아이디는 3자 이상 입력해 주세요.' };
+    }
+    if (!email || !email.includes('@')) {
+      return { success: false, message: '올바른 이메일 주소를 입력해 주세요.' };
+    }
+    if (!password || password.length < 4) {
+      return { success: false, message: '비밀번호는 4자 이상 입력해 주세요.' };
+    }
+
+    const cleanUsername = username.trim().toLowerCase();
+    const cleanEmail = email.trim().toLowerCase();
+    const users = this.getRegisteredUsers();
+
+    // 아이디 중복 체크
+    if (users.some((u) => u.username.toLowerCase() === cleanUsername)) {
+      return { success: false, message: '이미 사용 중인 아이디입니다. 다른 아이디를 입력해 주세요.' };
+    }
+    // 이메일 중복 체크
+    if (users.some((u) => u.email.toLowerCase() === cleanEmail)) {
+      return { success: false, message: '이미 가입된 이메일 주소입니다. 로그인해 주세요.' };
+    }
+
+    const newUser = {
+      username: username.trim(),
+      email: email.trim(),
+      password: password,
+      name: name && name.trim() ? name.trim() : username.trim(),
+      role: role,
+      registeredAt: new Date().toISOString()
+    };
+
+    users.push(newUser);
+    localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+
+    // 회원가입 완료 즉시 자동 세션 생성 및 로그인
+    const sessionUser = {
+      name: newUser.name,
+      username: newUser.username,
+      email: newUser.email,
+      role: newUser.role,
+      loginAt: new Date().toISOString()
+    };
+    this.setUser(sessionUser);
+
+    return { success: true, user: sessionUser };
+  },
+
+  /**
+   * 일반 로그인 (아이디 또는 이메일 + 비밀번호)
+   */
+  loginWithCredentials(usernameOrEmail, password) {
+    if (!usernameOrEmail || !password) {
+      return { success: false, message: '아이디(또는 이메일)와 비밀번호를 모두 입력해 주세요.' };
+    }
+
+    const key = usernameOrEmail.trim().toLowerCase();
+    const users = this.getRegisteredUsers();
+    const matched = users.find(
+      (u) => (u.username.toLowerCase() === key || u.email.toLowerCase() === key) && u.password === password
+    );
+
+    if (!matched) {
+      return {
+        success: false,
+        message: '아이디(이메일) 또는 비밀번호가 일치하지 않습니다. 회원가입 여부를 확인해 주세요.'
+      };
+    }
+
+    const sessionUser = {
+      name: matched.name,
+      username: matched.username,
+      email: matched.email,
+      role: matched.role,
+      loginAt: new Date().toISOString()
+    };
+    this.setUser(sessionUser);
+
+    return { success: true, user: sessionUser };
+  },
+
+  /**
    * 사용자가 커스텀 구글 버튼 클릭 시 호출
    */
   triggerGoogleLogin(role = 'student', onSuccess = null) {
     const isConfigured = this.GOOGLE_CLIENT_ID && !this.GOOGLE_CLIENT_ID.includes('YOUR_GOOGLE_CLIENT_ID');
 
     if (!isConfigured) {
-      // Client ID가 아직 기본값인 경우: 사용자에게 Client ID 입력 안내 또는 원클릭 데모 입장 선택지 제공
-      this.promptClientIdOrDemo(role, onSuccess);
-      return;
-    }
-
-    // Google Identity 팝업 / One-tap 실행
-    if (typeof window.google !== 'undefined' && window.google.accounts && window.google.accounts.id) {
-      window.google.accounts.id.prompt((notification) => {
-        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
-          console.log('[Auth] One Tap 건너뜀 또는 미표시 사유:', notification.getNotDisplayedReason());
-          // 팝업이 제한된 경우 fallback 안내
-        }
-      });
-    } else {
-      alert('Google 로그인 모듈을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
-    }
-  },
-
-  /**
-   * Client ID 미등록 시 친절한 설정 팝업 및 데모 원클릭 로그인 브릿지
-   */
-  promptClientIdOrDemo(role = 'student', onSuccess = null) {
-    const roleLabel = role === 'staff' ? '교직원' : '대학생';
-    const input = prompt(
-      `[Google OAuth Client ID 설정]\n` +
-      `Google Cloud Console에서 발급받은 Web Client ID를 입력하시면 즉시 연동됩니다.\n\n` +
-      `지금 바로 '${roleLabel}' 역할로 원클릭 체험을 시작하시려면 취소(Cancel)를 눌러주세요.`,
-      ''
-    );
-
-    if (input && input.trim()) {
-      this.setClientId(input.trim());
-      alert('Google Client ID가 저장되었습니다. 다시 구글 로그인 버튼을 눌러주세요!');
-      location.reload();
-    } else {
-      // 즉시 원클릭 데모 입장
+      // Client ID가 아직 기본값인 경우: 역할에 맞춘 빠른 원클릭 시뮬레이션 입장
+      const roleLabel = role === 'staff' ? '교직원' : '대학생';
       const mockUser = {
         name: `${roleLabel} 구글 사용자`,
         email: `google.user@${role === 'staff' ? 'univ.ac.kr' : 'campus.edu'}`,
@@ -225,6 +291,18 @@ const Auth = {
       } else {
         window.location.href = 'dashboard.html';
       }
+      return;
+    }
+
+    // Google Identity 팝업 / One-tap 실행
+    if (typeof window.google !== 'undefined' && window.google.accounts && window.google.accounts.id) {
+      window.google.accounts.id.prompt((notification) => {
+        if (notification.isNotDisplayed() || notification.isSkippedMoment()) {
+          console.log('[Auth] One Tap 안내:', notification.getNotDisplayedReason());
+        }
+      });
+    } else {
+      alert('Google 로그인 모듈을 불러오는 중입니다. 잠시 후 다시 시도해 주세요.');
     }
   },
 

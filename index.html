@@ -240,66 +240,135 @@
   </main>
 
   <!-- =========================================================================
-       8. Google Login & Direct Entry Modal
+       8. Authentication Modal (Google & Username/Password Signup & Login)
        ========================================================================= -->
   <div class="modal-overlay" id="login-modal" onclick="closeLoginModalOnOutside(event)">
     <div class="caldera-modal" onclick="event.stopPropagation()">
       <button type="button" class="modal-close-btn" onclick="closeLoginModal()">✕</button>
 
-      <span class="tag-sulfur" style="margin-bottom: 12px;">CALDERA ENTRY</span>
-      <h2 style="font-size: 26px; font-weight: 800; color: var(--color-obsidian); margin-bottom: 8px;">
+      <span class="tag-sulfur" style="margin-bottom: 10px;">CALDERA ENTRY</span>
+      <h2 style="font-size: 24px; font-weight: 800; color: var(--color-obsidian); margin-bottom: 6px;">
         AI Literacy Lab 맞춤 강의실
       </h2>
-      <p style="font-size: 14px; color: rgba(7, 6, 7, 0.7); margin-bottom: 20px;">
-        본인의 역할을 선택한 후, Google 계정으로 원클릭 로그인하세요.
+      <p style="font-size: 13.5px; color: rgba(7, 6, 7, 0.65); margin-bottom: 18px;">
+        Google 계정 또는 아이디/비밀번호로 로그인해 맞춤 강의실로 입장하세요.
       </p>
 
-      <!-- Step 1: Role Selector -->
-      <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px; letter-spacing: 0.05em;">
-        STEP 1. 학습자 역할 선택 (필수)
-      </div>
-      <div class="role-switcher-pill" style="margin-bottom: 12px; width: 100%; justify-content: center;">
-        <button type="button" class="role-btn active" id="modal-role-student" onclick="setModalRole('student')">
-          🎓 대학생
+      <!-- 3-Way Authentication Tabs -->
+      <div class="modal-tabs">
+        <button type="button" class="modal-tab-btn active" id="tab-btn-google" onclick="switchAuthTab('google')">
+          Google 간편입장
         </button>
-        <button type="button" class="role-btn" id="modal-role-staff" onclick="setModalRole('staff')">
-          🏛️ 교직원
+        <button type="button" class="modal-tab-btn" id="tab-btn-login" onclick="switchAuthTab('login')">
+          아이디 로그인
+        </button>
+        <button type="button" class="modal-tab-btn" id="tab-btn-register" onclick="switchAuthTab('register')">
+          회원가입
         </button>
       </div>
 
-      <!-- Role Summary Card -->
-      <div id="modal-role-summary" style="background: rgba(247, 246, 242, 0.9); border: 1px solid rgba(7, 6, 7, 0.08); border-radius: 12px; padding: 12px 16px; margin-bottom: 20px; text-align: left; font-size: 13px; line-height: 1.5; color: var(--color-obsidian);">
-        <strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.
+      <!-- Tab 1: Google One-Click Login -->
+      <div id="auth-panel-google" class="auth-panel">
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px; letter-spacing: 0.05em;">
+          STEP 1. 학습자 역할 선택 (필수)
+        </div>
+        <div class="role-switcher-pill" style="margin-bottom: 12px; width: 100%; justify-content: center;">
+          <button type="button" class="role-btn active" id="modal-role-student" onclick="setModalRole('student')">
+            🎓 대학생
+          </button>
+          <button type="button" class="role-btn" id="modal-role-staff" onclick="setModalRole('staff')">
+            🏛️ 교직원
+          </button>
+        </div>
+
+        <div id="modal-role-summary" style="background: rgba(247, 246, 242, 0.95); border: 1px solid rgba(7, 6, 7, 0.08); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; text-align: left; font-size: 13px; line-height: 1.5; color: var(--color-obsidian);">
+          <strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.
+        </div>
+
+        <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 8px; letter-spacing: 0.05em;">
+          STEP 2. GOOGLE 계정으로 원클릭 입장
+        </div>
+
+        <div id="google-gis-btn-container" style="display: flex; justify-content: center; margin-bottom: 10px; min-height: 44px;"></div>
+
+        <button type="button" class="btn-google-pill" id="btn-modal-google" onclick="handleGoogleLogin()">
+          <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24">
+            <path fill="#4285F4"
+              d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
+            <path fill="#34A853"
+              d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
+            <path fill="#FBBC05"
+              d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
+            <path fill="#EA4335"
+              d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
+          </svg>
+          <span id="google-btn-text">Google 계정으로 원클릭 입장하기</span>
+        </button>
+
+        <div class="modal-footer-switch">
+          아이디로 이용하시겠어요? <a onclick="switchAuthTab('login')">로그인하기</a> 또는 <a onclick="switchAuthTab('register')">회원가입하기</a>
+        </div>
       </div>
 
-      <!-- Step 2: Google One-Click Login -->
-      <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 8px; letter-spacing: 0.05em;">
-        STEP 2. GOOGLE 계정으로 원클릭 입장
+      <!-- Tab 2: Username & Password Login -->
+      <div id="auth-panel-login" class="auth-panel" style="display: none;">
+        <form onsubmit="handleFormLogin(event)">
+          <div class="modal-form-group">
+            <label class="modal-label" for="login-username">아이디 또는 이메일</label>
+            <input type="text" id="login-username" class="modal-input" placeholder="가입한 아이디 또는 이메일 입력" required autocomplete="username">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label" for="login-password">비밀번호</label>
+            <input type="password" id="login-password" class="modal-input" placeholder="비밀번호 입력" required autocomplete="current-password">
+          </div>
+          <button type="submit" class="btn-modal-submit">
+            로그인 및 강의실 입장 →
+          </button>
+        </form>
+        <div class="modal-footer-switch">
+          아직 계정이 없으신가요? <a onclick="switchAuthTab('register')">회원가입하기 →</a>
+        </div>
       </div>
 
-      <!-- Google Official GIS Button Container (Client ID 유효 시 자동 렌더링) -->
-      <div id="google-gis-btn-container" style="display: flex; justify-content: center; margin-bottom: 10px; min-height: 44px;"></div>
+      <!-- Tab 3: Registration Form (Role + ID + Password + Email + Name) -->
+      <div id="auth-panel-register" class="auth-panel" style="display: none;">
+        <form onsubmit="handleFormRegister(event)">
+          <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px;">
+            학습자 역할 선택 (필수)
+          </div>
+          <div class="role-switcher-pill" style="margin-bottom: 14px; width: 100%; justify-content: center;">
+            <button type="button" class="role-btn active" id="reg-role-student" onclick="setRegRole('student')">
+              🎓 대학생
+            </button>
+            <button type="button" class="role-btn" id="reg-role-staff" onclick="setRegRole('staff')">
+              🏛️ 교직원
+            </button>
+          </div>
 
-      <!-- Caldera Custom Google Button (원클릭 백업/GIS 트리거) -->
-      <button type="button" class="btn-google-pill" id="btn-modal-google" onclick="handleGoogleLogin()">
-        <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24">
-          <path fill="#4285F4"
-            d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" />
-          <path fill="#34A853"
-            d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" />
-          <path fill="#FBBC05"
-            d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" />
-          <path fill="#EA4335"
-            d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" />
-        </svg>
-        <span id="google-btn-text">Google 계정으로 원클릭 입장하기</span>
-      </button>
+          <div class="modal-form-group">
+            <label class="modal-label" for="reg-username">아이디 <span style="color:var(--color-ember)">*</span></label>
+            <input type="text" id="reg-username" class="modal-input" placeholder="영문, 숫자 3자 이상" required autocomplete="username">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label" for="reg-email">이메일 주소 <span style="color:var(--color-ember)">*</span></label>
+            <input type="email" id="reg-email" class="modal-input" placeholder="예: user@university.ac.kr" required autocomplete="email">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label" for="reg-password">비밀번호 <span style="color:var(--color-ember)">*</span></label>
+            <input type="password" id="reg-password" class="modal-input" placeholder="4자 이상 입력" required autocomplete="new-password">
+          </div>
+          <div class="modal-form-group">
+            <label class="modal-label" for="reg-name">성함 또는 닉네임</label>
+            <input type="text" id="reg-name" class="modal-input" placeholder="미입력 시 아이디로 표시됩니다" autocomplete="name">
+          </div>
 
-      <!-- Client ID Setup Link -->
-      <div style="margin-top: 20px; font-size: 11.5px; opacity: 0.8; text-align: center;">
-        <a href="#" onclick="handleConfigureClientId(event)" style="color: #666; text-decoration: underline;">
-          ⚙️ Google OAuth Client ID 설정/확인
-        </a>
+          <button type="submit" class="btn-modal-submit">
+            회원가입 완료 &amp; 강의실 입장 →
+          </button>
+        </form>
+        <div class="modal-footer-switch">
+          이미 계정이 있으신가요? <a onclick="switchAuthTab('login')">로그인하기</a>
+        </div>
       </div>
     </div>
   </div>
@@ -500,6 +569,19 @@
       }
     }
 
+    let currentRegRole = 'student';
+
+    // Switch Modal Auth Tabs: 'google' | 'login' | 'register'
+    function switchAuthTab(tab) {
+      const tabs = ['google', 'login', 'register'];
+      tabs.forEach(t => {
+        const btn = document.getElementById(`tab-btn-${t}`);
+        const panel = document.getElementById(`auth-panel-${t}`);
+        if (btn) btn.classList.toggle('active', t === tab);
+        if (panel) panel.style.display = (t === tab) ? 'block' : 'none';
+      });
+    }
+
     function setModalRole(role) {
       currentModalRole = role;
       document.getElementById('modal-role-student').classList.toggle('active', role === 'student');
@@ -515,6 +597,12 @@
       }
     }
 
+    function setRegRole(role) {
+      currentRegRole = role;
+      document.getElementById('reg-role-student').classList.toggle('active', role === 'student');
+      document.getElementById('reg-role-staff').classList.toggle('active', role === 'staff');
+    }
+
     function handleGoogleLogin() {
       if (typeof Auth !== 'undefined') {
         Auth.triggerGoogleLogin(currentModalRole, (user) => {
@@ -526,23 +614,48 @@
       }
     }
 
-    function handleConfigureClientId(e) {
+    // Handle Username / Password Login
+    function handleFormLogin(e) {
       e.preventDefault();
-      const currentId = (typeof Auth !== 'undefined' ? Auth.GOOGLE_CLIENT_ID : '') || '';
-      const input = prompt(
-        'Google Cloud Console에서 발급받은 OAuth 2.0 Web Client ID를 입력하세요.\n(예: xxxxx.apps.googleusercontent.com)\n\n현재 설정값: ' + currentId,
-        currentId.includes('YOUR_GOOGLE_CLIENT_ID') ? '' : currentId
-      );
+      const usernameInput = document.getElementById('login-username');
+      const passwordInput = document.getElementById('login-password');
+      if (!usernameInput || !passwordInput) return;
 
-      if (input !== null) {
-        if (input.trim() === '') {
-          localStorage.removeItem('ai_lit_google_client_id');
-          alert('Google Client ID가 초기화되었습니다.');
-        } else {
-          Auth.setClientId(input.trim());
-          alert('Google Client ID가 성공적으로 저장되었습니다!');
-        }
-        location.reload();
+      const username = usernameInput.value.trim();
+      const password = passwordInput.value;
+
+      const res = Auth.loginWithCredentials(username, password);
+      if (res.success) {
+        closeLoginModal();
+        window.location.href = 'dashboard.html';
+      } else {
+        alert(res.message || '로그인에 실패했습니다.');
+      }
+    }
+
+    // Handle Role-based Registration (Role + ID + Password + Email + Name)
+    function handleFormRegister(e) {
+      e.preventDefault();
+      const usernameInput = document.getElementById('reg-username');
+      const emailInput = document.getElementById('reg-email');
+      const passwordInput = document.getElementById('reg-password');
+      const nameInput = document.getElementById('reg-name');
+
+      if (!usernameInput || !emailInput || !passwordInput) return;
+
+      const role = currentRegRole;
+      const username = usernameInput.value.trim();
+      const email = emailInput.value.trim();
+      const password = passwordInput.value;
+      const name = nameInput ? nameInput.value.trim() : '';
+
+      const res = Auth.registerUser({ role, username, email, password, name });
+      if (res.success) {
+        alert(`[${role === 'staff' ? '교직원' : '대학생'}] 회원가입이 완료되었습니다!\n맞춤 강의실로 입장합니다.`);
+        closeLoginModal();
+        window.location.href = 'dashboard.html';
+      } else {
+        alert(res.message || '회원가입에 실패했습니다.');
       }
     }
 
