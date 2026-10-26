@@ -3,8 +3,8 @@
 /**
  * @file report.css
  * @description 대학생 AI 리터러시 진단 개별 프로파일 레포트 전용 스타일 (A4 1:1 완벽 정합 규격)
- * 1페이지: 개별 프로파일 요약 + 레이더 차트 + 제안점 요약 (5개 역량 전체 짤림 없이 수록)
- * 2페이지: 맞춤형 실천 가이드 + 영역별 세부 실천 과제
+ * 1페이지: 개별 프로파일 요약 + 대형 레이더 차트 + 제안점 요약 (하단 여백 최적화 및 가독성 향상)
+ * 2페이지: 맞춤형 실천 가이드 + 영역별 세부 실천 과제 (하단 공백 제거 및 폰트/줄간격 최적화)
  */
 
 /* --------------------------------------------------------------------------
@@ -30,7 +30,7 @@
   min-height: 1123px;
   max-height: 1123px;
   background: #ffffff;
-  padding: 28px 40px;
+  padding: 30px 42px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   color: #111827;
@@ -48,7 +48,7 @@
 /* 1. 상단 메인 제목 */
 .report-header-title {
   text-align: center;
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 800;
   letter-spacing: 1.5px;
   margin-top: 0;
@@ -59,65 +59,65 @@
 /* 2. 인적사항 박스 그리드 */
 .report-meta-box {
   background-color: #d1d5db; /* 은은한 회색 바탕 */
-  padding: 8px 14px;
-  margin-bottom: 12px;
+  padding: 9px 16px;
+  margin-bottom: 14px;
 }
 
 .report-meta-grid {
   display: grid;
   grid-template-columns: 75px 180px 75px 1fr;
-  gap: 6px 10px;
+  gap: 6px 12px;
   align-items: center;
 }
 
 .report-meta-label {
   text-align: center;
   font-weight: 700;
-  font-size: 12.5px;
+  font-size: 13px;
   color: #000;
 }
 
 .report-meta-value {
   background: #ffffff;
   border: 1px solid #4b5563;
-  padding: 3px 8px;
-  font-size: 12.5px;
+  padding: 4px 10px;
+  font-size: 13px;
   font-weight: 500;
   min-height: 18px;
 }
 
 /* 3. 섹션 타이틀 */
 .report-section-title {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 800;
   color: #000000;
-  margin-bottom: 6px;
+  margin-bottom: 8px;
   display: flex;
   align-items: center;
   gap: 4px;
 }
 
-/* 4. 결과 요약 섹션 (좌: 표, 우: 전체지수) - 높이 축소 최적화 */
+/* 4. 결과 요약 섹션 (좌: 표, 우: 전체지수) */
 .report-summary-row {
   display: flex;
-  gap: 14px;
-  margin-bottom: 10px;
+  gap: 16px;
+  margin-bottom: 12px;
   align-items: stretch;
 }
 
 .report-summary-table {
   flex: 1.65;
   border-collapse: collapse;
-  font-size: 11.5px;
+  font-size: 12px;
   width: 100%;
 }
 
 .report-summary-table th,
 .report-summary-table td {
   border: 1px solid #111827;
-  padding: 4px 6px;
+  padding: 4.5px 8px;
   text-align: center;
-  height: 24px;
+  height: 25px;
   box-sizing: border-box;
 }
 
@@ -136,7 +136,7 @@
 .report-summary-table td.factor-name {
   text-align: left;
   font-weight: 700;
-  padding-left: 8px;
+  padding-left: 10px;
 }
 
 .report-summary-table td.rating {
@@ -152,83 +152,83 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 8px;
+  padding: 10px;
   text-align: center;
   background-color: #ffffff;
 }
 
 .overall-score-card h4 {
-  font-size: 13.5px;
+  font-size: 14px;
   font-weight: 700;
   color: #000000;
   margin-bottom: 6px;
 }
 
 .overall-score-card .score-number {
-  font-size: 22px;
+  font-size: 24px;
   font-weight: 800;
   color: #111827;
 }
 
-/* 5. 레이더 차트 영역 - 컴팩트 높이로 역량 5 짤림 방지 */
+/* 5. 레이더 차트 영역 - 290px 대형화로 가독성 극대화 */
 .report-chart-container {
   width: 100%;
-  max-width: 580px;
-  height: 220px;
-  margin: 0 auto 6px auto;
+  max-width: 620px;
+  height: 290px;
+  margin: 0 auto 8px auto;
   position: relative;
 }
 
 .chart-legend-custom {
   display: flex;
   justify-content: flex-end;
-  gap: 12px;
-  font-size: 11px;
+  gap: 14px;
+  font-size: 11.5px;
   font-weight: 700;
   margin-top: -4px;
-  margin-bottom: 4px;
+  margin-bottom: 6px;
 }
 .legend-item {
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 6px;
 }
 .legend-color-box {
-  width: 10px;
-  height: 10px;
+  width: 12px;
+  height: 12px;
   border-radius: 2px;
 }
-.color-my-score { background-color: #f97316; }
-.color-avg-score { background-color: #22c55e; }
+.color-my-score { background-color: #ea580c; }
+.color-avg-score { background-color: #16a34a; }
 
-/* 6. 1페이지 제안점 요약 (5개 역량 전체가 짤림 없이 들어가도록 패딩·마진 최적화) */
+/* 6. 1페이지 제안점 요약 - 가독성 향상 */
 .suggestion-block {
-  margin-bottom: 5px;
+  margin-bottom: 7px;
 }
 
 .suggestion-header-bar {
   background-color: #d1d5db;
-  padding: 3px 8px;
-  font-size: 11px;
+  padding: 4px 10px;
+  font-size: 12px;
   font-weight: 700;
   color: #000000;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 
 .suggestion-body-text {
-  font-size: 10.5px;
+  font-size: 11.5px;
   color: #1f2937;
-  line-height: 1.4;
+  line-height: 1.48;
   text-align: justify;
   padding: 0 4px;
 }
 
 /* --------------------------------------------------------------------------
-   [2페이지] 실천 가이드 세부 스타일
+   [2페이지] 실천 가이드 세부 스타일 - 하단 여백 채우고 가독성 극대화
    -------------------------------------------------------------------------- */
 .report-page-2 .suggestion-item-group {
-  margin-bottom: 8px;
-  padding-bottom: 6px;
+  margin-bottom: 14px;
+  padding-bottom: 11px;
   border-bottom: 1px dashed #cbd5e1;
 }
 
@@ -238,20 +238,46 @@
   padding-bottom: 0;
 }
 
+.report-page-2 .suggestion-header-bar {
+  background-color: #d1d5db;
+  padding: 5px 12px;
+  font-size: 12.5px;
+  font-weight: 700;
+  color: #000000;
+  margin-bottom: 4px;
+}
+
+.report-page-2 .suggestion-body-text {
+  font-size: 12px;
+  color: #1f2937;
+  line-height: 1.5;
+  margin-bottom: 6px;
+  text-align: justify;
+}
+
+.detail-sub-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #1e3a8a;
+  margin-top: 4px;
+  margin-bottom: 3px;
+  padding-left: 2px;
+}
+
 .report-detail-list {
   list-style: none;
-  padding-left: 6px;
+  padding-left: 4px;
   margin-top: 2px;
   margin-bottom: 0;
 }
 
 .report-detail-list li {
-  font-size: 10.5px;
-  line-height: 1.38;
+  font-size: 11.5px;
+  line-height: 1.48;
   color: #374151;
   position: relative;
-  padding-left: 12px;
-  margin-bottom: 2px;
+  padding-left: 14px;
+  margin-bottom: 3px;
 }
 
 .report-detail-list li::before {
@@ -260,14 +286,6 @@
   left: 2px;
   color: var(--primary);
   font-weight: bold;
-}
-
-.detail-sub-title {
-  font-size: 10.5px;
-  font-weight: 700;
-  color: #1e3a8a;
-  margin-top: 3px;
-  padding-left: 4px;
 }
 
 /* --------------------------------------------------------------------------

@@ -267,34 +267,28 @@ const DiagnosisApp = {
     // 전체 역량 지수 (배지 포함)
     document.getElementById('rep-overall-score').textContent = `${report.overallScore} 점 (${report.overallRating})`;
 
-    // 2. 1페이지: 제안점 요약 (해당 문항 번호 배지 포함)
+    // 2. 1페이지: 제안점 요약
     const sugBox1 = document.getElementById('rep-suggestions-p1');
     sugBox1.innerHTML = Object.keys(factors).map(k => {
-      const qNums = factors[k].questions || (SURVEY_DATA.factors[k] ? SURVEY_DATA.factors[k].questions : []);
-      const qBadge = qNums.length > 0 ? `<span style="font-size: 11px; font-weight: 600; color: #374151; background: #e5e7eb; padding: 2px 7px; border-radius: 4px;">해당 문항: ${qNums.join(', ')}번</span>` : '';
       return `
         <div class="suggestion-block">
-          <div class="suggestion-header-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
+          <div class="suggestion-header-bar">
             <span>[ ${factors[k].shortName} : ${factors[k].name} ] 이렇게 해보세요!</span>
-            ${qBadge}
           </div>
           <div class="suggestion-body-text">${factors[k].suggestion}</div>
         </div>
       `;
     }).join('');
 
-    // 3. 2페이지: 제안점 재표시 + 제안 세부내용 4종 (해당 문항 번호 배지 포함)
+    // 3. 2페이지: 제안점 재표시 + 제안 세부내용 4종 (문항 번호 완전 삭제)
     const sugBox2 = document.getElementById('rep-details-p2');
     sugBox2.innerHTML = Object.keys(factors).map(k => {
-      const qNums = factors[k].questions || (SURVEY_DATA.factors[k] ? SURVEY_DATA.factors[k].questions : []);
-      const qBadge = qNums.length > 0 ? `<span style="font-size: 11px; font-weight: 600; color: #374151; background: #e5e7eb; padding: 2px 7px; border-radius: 4px;">해당 문항: ${qNums.join(', ')}번</span>` : '';
       return `
         <div class="suggestion-item-group">
-          <div class="suggestion-header-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
+          <div class="suggestion-header-bar">
             <span>[ ${factors[k].shortName} : ${factors[k].name} ] 이렇게 해보세요!</span>
-            ${qBadge}
           </div>
-          <div class="suggestion-body-text" style="margin-bottom: 6px;">${factors[k].suggestion}</div>
+          <div class="suggestion-body-text">${factors[k].suggestion}</div>
           <div class="detail-sub-title">▶ 추천 세부 실천 과제</div>
           <ul class="report-detail-list">
             ${factors[k].details.map(d => `<li>${d}</li>`).join('')}
@@ -345,20 +339,24 @@ const DiagnosisApp = {
           {
             label: '내 점수',
             data: myScores,
-            borderColor: '#f97316',
-            backgroundColor: 'rgba(249, 115, 22, 0.45)',
-            borderWidth: 2,
+            borderColor: '#ea580c',
+            backgroundColor: 'rgba(234, 88, 12, 0.45)',
+            borderWidth: 2.5,
             pointBackgroundColor: '#ea580c',
-            pointRadius: 4
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 1.5,
+            pointRadius: 4.5
           },
           {
             label: '영역별 평균',
             data: fixedAverages,
-            borderColor: '#22c55e',
-            backgroundColor: 'rgba(34, 197, 94, 0.35)',
-            borderWidth: 2,
+            borderColor: '#16a34a',
+            backgroundColor: 'rgba(22, 163, 74, 0.30)',
+            borderWidth: 2.5,
             pointBackgroundColor: '#16a34a',
-            pointRadius: 4
+            pointBorderColor: '#ffffff',
+            pointBorderWidth: 1.5,
+            pointRadius: 4.5
           }
         ]
       },
@@ -375,19 +373,20 @@ const DiagnosisApp = {
             ticks: {
               stepSize: 20,
               display: true,
-              font: { size: 9, family: "'KoPubWorld Dotum', sans-serif" },
-              color: '#333333'
+              font: { size: 9.5, family: "'KoPubWorld Dotum', sans-serif" },
+              color: '#333333',
+              backdropColor: 'rgba(255, 255, 255, 0.8)'
             },
             pointLabels: {
-              font: { size: 10.5, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
+              font: { size: 12, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
               color: '#000000',
-              padding: 4
+              padding: 6
             },
             grid: {
-              color: '#d1d5db'
+              color: '#cbd5e1'
             },
             angleLines: {
-              color: '#9ca3af'
+              color: '#94a3b8'
             }
           }
         }
