@@ -788,6 +788,69 @@ button {
 }
 
 /* ==========================================================================
+   Caldera Floating Bottom Tools Bar (Floating Pill Style mirroring Top Navbar)
+   ========================================================================== */
+.floating-bottom-wrapper {
+  position: fixed;
+  bottom: var(--spacing-16);
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  padding: 0 var(--spacing-20);
+  pointer-events: none;
+}
+
+.floating-partner-strip {
+  pointer-events: auto;
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  height: 60px;
+  background-color: rgba(247, 246, 242, 0.95);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-radius: var(--radius-pills);
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  padding: 0 var(--spacing-24);
+  border: 1px solid rgba(7, 6, 7, 0.08);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.floating-partner-strip .partner-item {
+  font-family: var(--font-display);
+  font-size: clamp(13px, 1.15vw, 17px);
+  letter-spacing: 0.05em;
+  color: var(--color-obsidian);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  padding: 8px 14px;
+  border-radius: var(--radius-pills);
+  transition: color 0.15s ease, background-color 0.15s ease, transform 0.15s ease;
+}
+
+.floating-partner-strip .partner-item:hover {
+  color: var(--color-ember);
+  background-color: rgba(85, 56, 150, 0.08);
+  transform: translateY(-2px);
+}
+
+.floating-partner-strip .dotted-v-divider {
+  width: 0;
+  height: 20px;
+  border-left: 1.5px dotted var(--color-obsidian);
+  opacity: 0.35;
+  margin: 0 4px;
+  flex-shrink: 0;
+}
+
+/* ==========================================================================
    Google Login & Guest Entry Modal
    ========================================================================== */
 .modal-overlay {
@@ -1224,6 +1287,29 @@ button {
   .navbar {
     height: 56px;
     padding: 0 12px 0 16px;
+  }
+
+  /* Floating Bottom Tools Bar Mobile */
+  .floating-bottom-wrapper {
+    bottom: 8px;
+    padding: 0 12px;
+  }
+
+  .floating-partner-strip {
+    height: 52px;
+    padding: 0 12px;
+    justify-content: flex-start;
+    gap: 4px;
+    scrollbar-width: none;
+  }
+
+  .floating-partner-strip::-webkit-scrollbar {
+    display: none;
+  }
+
+  .floating-partner-strip .partner-item {
+    font-size: 13px;
+    padding: 6px 10px;
   }
 
   .nav-brand {
