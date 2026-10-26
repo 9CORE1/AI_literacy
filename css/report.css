@@ -51,19 +51,19 @@
 /* 1. 상단 메인 제목 */
 .report-header-title {
   text-align: center;
-  font-size: 24px;
+  font-size: 23px;
   font-weight: 800;
   letter-spacing: 1.5px;
   margin-top: 0;
-  margin-bottom: 14px;
+  margin-bottom: 10px;
   color: #000000;
 }
 
 /* 2. 인적사항 박스 그리드 */
 .report-meta-box {
   background-color: #d1d5db; /* 은은한 회색 바탕 */
-  padding: 9px 16px;
-  margin-bottom: 14px;
+  padding: 7px 16px;
+  margin-bottom: 10px;
 }
 
 .report-meta-grid {
@@ -76,25 +76,25 @@
 .report-meta-label {
   text-align: center;
   font-weight: 700;
-  font-size: 13px;
+  font-size: 12.5px;
   color: #000;
 }
 
 .report-meta-value {
   background: #ffffff;
   border: 1px solid #4b5563;
-  padding: 4px 10px;
-  font-size: 13px;
+  padding: 3px 10px;
+  font-size: 12.5px;
   font-weight: 500;
   min-height: 18px;
 }
 
 /* 3. 섹션 타이틀 */
 .report-section-title {
-  font-size: 15px;
+  font-size: 14.5px;
   font-weight: 800;
   color: #000000;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   display: flex;
   align-items: center;
   gap: 4px;
@@ -104,7 +104,7 @@
 .report-summary-row {
   display: flex;
   gap: 16px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
   align-items: stretch;
 }
 
@@ -188,11 +188,11 @@
   margin: 2px 0;
 }
 
-/* 레이더 차트 영역 - 325px 안정적 고정 높이 */
+/* 레이더 차트 영역 - 260px 최적 규격으로 차트 시인성 유지 및 하단 역량 5 완전 표시 보장 */
 .report-chart-container {
   width: 100%;
   max-width: 630px;
-  height: 325px;
+  height: 260px;
   margin: 0 auto;
   position: relative;
 }
@@ -203,7 +203,7 @@
   width: 100%;
   max-width: 630px;
   gap: 14px;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   margin-top: 0;
   margin-bottom: 2px;
@@ -227,7 +227,7 @@
 }
 
 .suggestion-block {
-  margin-bottom: 6px;
+  margin-bottom: 4px;
 }
 
 .suggestion-block:last-child {
@@ -236,17 +236,17 @@
 
 .suggestion-header-bar {
   background-color: #d1d5db;
-  padding: 4px 10px;
-  font-size: 12px;
+  padding: 3px 8px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #000000;
   margin-bottom: 2px;
 }
 
 .suggestion-body-text {
-  font-size: 11.5px;
+  font-size: 11px;
   color: #1f2937;
-  line-height: 1.45;
+  line-height: 1.4;
   text-align: justify;
   padding: 0 4px;
 }
