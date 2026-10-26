@@ -228,6 +228,11 @@ const DiagnosisApp = {
       localStorage.setItem('ai_lit_user', JSON.stringify(user));
     }
 
+    // PDF 캐시 초기화 (스타일 변경사항 즉시 반영)
+    this.cachedPdf = null;
+    this.cachedPdfBlob = null;
+    this.cachedFileName = null;
+
     // 화면 전환
     document.getElementById('survey-container').style.display = 'none';
     document.getElementById('report-container').style.display = 'block';

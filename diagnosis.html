@@ -116,85 +116,98 @@
       <div class="report-paper-container">
         
         <!-- [1페이지] 개별 프로파일 요약 및 레이더 차트 -->
-        <div id="report-page-1" class="report-page">
-          <div class="report-header-title">AI 리터러시 역량 개별 프로파일</div>
+        <div id="report-page-1" class="report-page report-page-1">
+          <!-- 상단 영역: 제목, 인적사항, 결과 요약 표 -->
+          <div class="report-p1-top">
+            <div class="report-header-title">AI 리터러시 역량 개별 프로파일</div>
 
-          <!-- 인적사항 테이블 그리드 -->
-          <div class="report-meta-box">
-            <div class="report-meta-grid">
-              <div class="report-meta-label">학과</div>
-              <div id="rep-dept" class="report-meta-value">인공지능</div>
-              <div class="report-meta-label">이름</div>
-              <div id="rep-name" class="report-meta-value">정재원</div>
+            <!-- 인적사항 테이블 그리드 -->
+            <div class="report-meta-box">
+              <div class="report-meta-grid">
+                <div class="report-meta-label">학과</div>
+                <div id="rep-dept" class="report-meta-value">인공지능</div>
+                <div class="report-meta-label">이름</div>
+                <div id="rep-name" class="report-meta-value">정재원</div>
 
-              <div class="report-meta-label">학년</div>
-              <div id="rep-grade" class="report-meta-value">2학년</div>
-              <div class="report-meta-label">이메일</div>
-              <div id="rep-email" class="report-meta-value">student@univ.ac.kr</div>
+                <div class="report-meta-label">학년</div>
+                <div id="rep-grade" class="report-meta-value">2학년</div>
+                <div class="report-meta-label">이메일</div>
+                <div id="rep-email" class="report-meta-value">student@univ.ac.kr</div>
+              </div>
+            </div>
+
+            <!-- 섹션 타이틀: 결과 요약 -->
+            <div class="report-section-title">※ 결과 요약</div>
+
+            <div class="report-summary-row">
+              <!-- 요약 테이블 -->
+              <table class="report-summary-table">
+                <thead>
+                  <tr>
+                    <th style="width: 75px; white-space: nowrap;">연번</th>
+                    <th>역량 요소</th>
+                    <th style="width: 65px; white-space: nowrap;">평가</th>
+                  </tr>
+                </thead>
+                <tbody id="rep-summary-tbody">
+                  <!-- JS 동적 생성 -->
+                </tbody>
+              </table>
+
+              <!-- 전체 역량 지수 카드 -->
+              <div class="overall-score-card">
+                <h4>당신의 전체 역량 지수는?</h4>
+                <div id="rep-overall-score" class="score-number">86.4 점 (상)</div>
+              </div>
             </div>
           </div>
 
-          <!-- 섹션 타이틀: 결과 요약 -->
-          <div class="report-section-title">※ 결과 요약</div>
+          <!-- 중간 영역: 범례 + 레이더 차트 -->
+          <div class="report-p1-mid">
+            <!-- 커스텀 차트 범례 -->
+            <div class="chart-legend-custom">
+              <div class="legend-item">
+                <div class="legend-color-box color-my-score"></div>
+                <span>내 점수</span>
+              </div>
+              <div class="legend-item">
+                <div class="legend-color-box color-avg-score"></div>
+                <span>영역별 평균</span>
+              </div>
+            </div>
 
-          <div class="report-summary-row">
-            <!-- 요약 테이블 -->
-            <table class="report-summary-table">
-              <thead>
-                <tr>
-                  <th style="width: 75px; white-space: nowrap;">연번</th>
-                  <th>역량 요소</th>
-                  <th style="width: 65px; white-space: nowrap;">평가</th>
-                </tr>
-              </thead>
-              <tbody id="rep-summary-tbody">
-                <!-- JS 동적 생성 -->
-              </tbody>
-            </table>
-
-            <!-- 전체 역량 지수 카드 -->
-            <div class="overall-score-card">
-              <h4>당신의 전체 역량 지수는?</h4>
-              <div id="rep-overall-score" class="score-number">86.4 점 (상)</div>
+            <!-- 방사형 레이더 차트 -->
+            <div class="report-chart-container">
+              <canvas id="radarChart"></canvas>
             </div>
           </div>
 
-          <!-- 커스텀 차트 범례 -->
-          <div class="chart-legend-custom">
-            <div class="legend-item">
-              <div class="legend-color-box color-my-score"></div>
-              <span>내 점수</span>
+          <!-- 하단 영역: 제안점 요약 -->
+          <div class="report-p1-bot">
+            <!-- 섹션 타이틀: 결과에 따른 제안점 요약 -->
+            <div class="report-section-title">※ 결과에 따른 제안점 요약</div>
+            <div id="rep-suggestions-p1">
+              <!-- JS 동적 생성 -->
             </div>
-            <div class="legend-item">
-              <div class="legend-color-box color-avg-score"></div>
-              <span>영역별 평균</span>
-            </div>
-          </div>
-
-          <!-- 방사형 레이더 차트 -->
-          <div class="report-chart-container">
-            <canvas id="radarChart"></canvas>
-          </div>
-
-          <!-- 섹션 타이틀: 결과에 따른 제안점 요약 -->
-          <div class="report-section-title">※ 결과에 따른 제안점 요약</div>
-          <div id="rep-suggestions-p1">
-            <!-- JS 동적 생성 -->
           </div>
         </div>
 
         <!-- [2페이지] 역량별 맞춤형 세부 실천 가이드 -->
         <div id="report-page-2" class="report-page report-page-2">
-          <div class="report-header-title">
-            AI 리터러시 역량 맞춤형 실천 가이드
+          <!-- 상단 영역: 제목 및 안내 문구 -->
+          <div class="report-p2-top">
+            <div class="report-header-title">
+              AI 리터러시 역량 맞춤형 실천 가이드
+            </div>
+
+            <div class="report-section-title">※ 역량별 맞춤형 세부 실천 과제</div>
+            <p class="report-intro-desc">
+              자가진단 결과를 바탕으로 본인의 강점을 더욱 강화하고 보완할 수 있는 영역별 추천 실천 프로그램입니다.
+            </p>
           </div>
 
-          <div class="report-section-title">※ 역량별 맞춤형 세부 실천 과제</div>
-          <p class="report-intro-desc">
-            자가진단 결과를 바탕으로 본인의 강점을 더욱 강화하고 보완할 수 있는 영역별 추천 실천 프로그램입니다.
-          </p>
-
-          <div id="rep-details-p2">
+          <!-- 본문 영역: 5개 세부 실천과제 (균등 자동 분배) -->
+          <div id="rep-details-p2" class="report-p2-content">
             <!-- JS 동적 생성 -->
           </div>
         </div>

@@ -30,7 +30,7 @@
   min-height: 1123px;
   max-height: 1123px;
   background: #ffffff;
-  padding: 32px 42px; /* 상단 32px, 하단 32px 완벽 대칭 일치 */
+  padding: 36px 42px; /* 상단 36px, 하단 36px 완벽 대칭 일치 (A4 기준 상하 9.5mm) */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   color: #111827;
@@ -45,6 +45,7 @@
   overflow: hidden; /* 페이지 밖으로 내용이 넘치지 않도록 차단 */
   display: flex;
   flex-direction: column;
+  justify-content: space-between; /* 첫 요소는 상단 패딩선에, 마지막 요소는 하단 패딩선에 딱 안착 */
 }
 
 /* 1. 상단 메인 제목 */
@@ -172,23 +173,40 @@
   color: #111827;
 }
 
-/* 5. 레이더 차트 영역 - 345px 대형화로 차트 가독성 극대화 및 하단 여백 균형 */
+/* --------------------------------------------------------------------------
+   [1페이지] 레이아웃 블록 및 차트·제안점
+   -------------------------------------------------------------------------- */
+.report-p1-top {
+  flex-shrink: 0;
+}
+
+.report-p1-mid {
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2px 0;
+}
+
+/* 레이더 차트 영역 - 325px 안정적 고정 높이 */
 .report-chart-container {
   width: 100%;
   max-width: 630px;
-  height: 345px;
-  margin: 0 auto 8px auto;
+  height: 325px;
+  margin: 0 auto;
   position: relative;
 }
 
 .chart-legend-custom {
   display: flex;
   justify-content: flex-end;
+  width: 100%;
+  max-width: 630px;
   gap: 14px;
   font-size: 11.5px;
   font-weight: 700;
-  margin-top: -4px;
-  margin-bottom: 6px;
+  margin-top: 0;
+  margin-bottom: 2px;
 }
 .legend-item {
   display: flex;
@@ -203,9 +221,13 @@
 .color-my-score { background-color: #ea580c; }
 .color-avg-score { background-color: #16a34a; }
 
-/* 6. 1페이지 제안점 요약 - 가독성 향상 */
+/* 1페이지 하단 제안점 요약 - flex-shrink: 0 */
+.report-p1-bot {
+  flex-shrink: 0;
+}
+
 .suggestion-block {
-  margin-bottom: 7px;
+  margin-bottom: 6px;
 }
 
 .suggestion-block:last-child {
@@ -218,80 +240,97 @@
   font-size: 12px;
   font-weight: 700;
   color: #000000;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
 }
 
 .suggestion-body-text {
   font-size: 11.5px;
   color: #1f2937;
-  line-height: 1.48;
+  line-height: 1.45;
   text-align: justify;
   padding: 0 4px;
 }
 
 /* --------------------------------------------------------------------------
-   [2페이지] 실천 가이드 세부 스타일 - 상단·하단 여백 완벽 대칭
+   [2페이지] 실천 가이드 세부 스타일 - space-between 균등 배분 (상·하단 여백 일치)
    -------------------------------------------------------------------------- */
+.report-p2-top {
+  flex-shrink: 0;
+  margin-bottom: 4px;
+}
+
 .report-intro-desc {
   font-size: 12px;
   color: #4b5563;
   margin-top: 0;
-  margin-bottom: 14px;
-  line-height: 1.5;
+  margin-bottom: 8px;
+  line-height: 1.45;
+}
+
+.report-p2-content,
+#rep-details-p2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 0;
 }
 
 .report-page-2 .suggestion-item-group {
-  margin-bottom: 15px;
-  padding-bottom: 12px;
+  margin-bottom: 0;
+  padding-bottom: 6px;
   border-bottom: 1px dashed #cbd5e1;
 }
 
 .report-page-2 .suggestion-item-group:last-child {
   border-bottom: none;
-  margin-bottom: 0;
   padding-bottom: 0;
 }
 
 .report-page-2 .suggestion-header-bar {
   background-color: #d1d5db;
-  padding: 5px 12px;
-  font-size: 12.5px;
+  padding: 4px 10px;
+  font-size: 12px;
   font-weight: 700;
   color: #000000;
-  margin-bottom: 4px;
+  margin-bottom: 3px;
 }
 
 .report-page-2 .suggestion-body-text {
-  font-size: 12px;
+  font-size: 11.5px;
   color: #1f2937;
-  line-height: 1.5;
-  margin-bottom: 6px;
+  line-height: 1.44;
+  margin-bottom: 3px;
   text-align: justify;
 }
 
 .detail-sub-title {
-  font-size: 12px;
+  font-size: 11.5px;
   font-weight: 700;
   color: #1e3a8a;
-  margin-top: 4px;
-  margin-bottom: 3px;
+  margin-top: 2px;
+  margin-bottom: 2px;
   padding-left: 2px;
 }
 
 .report-detail-list {
   list-style: none;
   padding-left: 4px;
-  margin-top: 2px;
+  margin-top: 1px;
   margin-bottom: 0;
 }
 
 .report-detail-list li {
-  font-size: 11.5px;
-  line-height: 1.48;
+  font-size: 11px;
+  line-height: 1.4;
   color: #374151;
   position: relative;
   padding-left: 14px;
-  margin-bottom: 3px;
+  margin-bottom: 2px;
+}
+
+.report-detail-list li:last-child {
+  margin-bottom: 0;
 }
 
 .report-detail-list li::before {
@@ -389,7 +428,7 @@
     height: 297mm !important;
     min-height: 297mm !important;
     max-height: 297mm !important;
-    padding: 10mm 14mm !important;
+    padding: 10mm 14mm !important; /* 상단 10mm, 하단 10mm 완벽 대칭 */
     box-sizing: border-box !important;
     box-shadow: none !important;
     margin: 0 !important;
@@ -399,10 +438,22 @@
     break-after: page !important;
     overflow: hidden !important;
     border-radius: 0 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
   }
 
   .report-page:last-child {
     page-break-after: auto !important;
     break-after: auto !important;
+  }
+
+  .report-p2-content,
+  #rep-details-p2 {
+    flex: 1 !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    min-height: 0 !important;
   }
 }
