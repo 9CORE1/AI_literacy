@@ -66,7 +66,7 @@ const DashboardApp = {
     const factorQuestionsSection = isCompleted
       ? `<div style="margin-top: 14px; padding-top: 12px; border-top: 1.5px dashed #d5d5d0;">
           <button type="button" onclick="DashboardApp.toggleFactorQuestions(this)" style="background: none; border: none; padding: 0; color: var(--color-ember); font-weight: 700; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
-            <span>💡 5대 요인별 측정 문항 확인하기</span>
+            <span>💡 나의 진단 결과 레포트 확인하기</span>
             <span class="chevron-icon" style="display: inline-block; transition: transform 0.2s; font-size: 10px;">▼</span>
           </button>
           <div class="factor-q-details" style="display: none; margin-top: 10px; font-size: 12px; color: #374151; background: #faf9f6; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--color-pumice); line-height: 1.55;">
