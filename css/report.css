@@ -100,11 +100,11 @@
   gap: 4px;
 }
 
-/* 4. 결과 요약 섹션 (좌: 표, 우: 전체지수) */
+/* 4. 결과 요약 섹션 (좌: 표, 우: 전체지수) - 그래프와의 간격을 밀착 */
 .report-summary-row {
   display: flex;
   gap: 16px;
-  margin-bottom: 8px;
+  margin-bottom: 2px;
   align-items: stretch;
 }
 
@@ -176,23 +176,17 @@
 /* --------------------------------------------------------------------------
    [1페이지] 레이아웃 블록 및 차트·제안점
    -------------------------------------------------------------------------- */
-.report-p1-top {
-  flex-shrink: 0;
-}
-
-.report-p1-mid {
+.report-p1-upper {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  margin: 2px 0;
 }
 
-/* 레이더 차트 영역 - 260px 최적 규격으로 차트 시인성 유지 및 하단 역량 5 완전 표시 보장 */
+/* 레이더 차트 영역 - 295px로 대폭 확대 및 시인성 극대화 */
 .report-chart-container {
   width: 100%;
   max-width: 630px;
-  height: 260px;
+  height: 295px;
   margin: 0 auto;
   position: relative;
 }
