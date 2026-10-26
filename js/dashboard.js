@@ -818,10 +818,132 @@ const DashboardApp = {
             </div>
           </div>
 
-          <!-- 카드 4: 200% 활용 꿀팁 및 학술 윤리 준수 가이드 -->
+          <!-- 카드 4: 슬라이드(PPT) & 인포그래픽 제작을 위한 스튜디오 활용 가이드 -->
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+              <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>📊 4. 슬라이드 자료 & 인포그래픽 제작을 위한 스튜디오 활용 가이드</span>
+              </h3>
+              <span style="background: #fdf2f8; color: #be185d; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                Gamma · Canva · PowerPoint 초고속 연계
+              </span>
+            </div>
+
+            <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+              NotebookLM은 직접 그래픽 이미지나 PPTX 파일을 그려내지는 않지만, 업로드된 방대한 문서에서 <strong>'슬라이드별 레이아웃·핵심 문구·발표 대본'</strong> 및 <strong>'인포그래픽용 데이터·비교 구조'</strong>를 가장 정확하게 추출해 주므로, 이를 복사하여 <strong>Gamma, Canva, PowerPoint</strong>에 붙여넣으면 5분 만에 고품질 시각 자료가 완성됩니다.
+            </p>
+
+            <div style="display: flex; flex-direction: column; gap: 1.15rem; margin-bottom: 1.5rem;">
+              <!-- 1. 슬라이드 발표자료 제작용 프롬프트 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">PPT 제작</span>
+                    <span>1. 📊 슬라이드(PPT) 발표 자료 제작용 요청 가이드</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: 긴 논문이나 전공 교안을 "발표용 6~8장 슬라이드 덱 구조"로 변환할 때 중앙 채팅창에 입력합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 자료를 바탕으로 대학생 팀플 발표용 "7장 슬라이드 기획안"을 작성해 줘.
+
+[자료 설명 및 청중]
+- 대상 청중: 이 분야를 처음 접하는 동료 학부생 및 교수님
+- 발표 시간: 약 7~10분
+
+[슬라이드별 요청 구성]
+각 슬라이드마다 다음 4가지 요소를 반드시 포함해서 정리해 줘:
+1. 슬라이드 제목 & 한 줄 핵심 메시지(헤드카피)
+2. 본문 내용 (단락 글이 아닌, 3~4개의 간결한 개조식 불릿포인트)
+3. 화면 비주얼 연출 아이디어 (배치할 다이어그램 형태, 추천 이미지/아이콘, 좌우 2분할 배치 등)
+4. 발표자 구술 스크립트 (30~40초 분량의 자연스러운 한국어 구어체)
+
+[조건] 업로드된 소스의 수치와 핵심 용어를 그대로 유지하고, 각 슬라이드마다 원문 인용 각주([1], [2])를 달아 팩트체크할 수 있게 해 줘.</pre>
+              </div>
+
+              <!-- 2. 인포그래픽 제작용 프롬프트 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #be185d; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">인포그래픽</span>
+                    <span>2. 🎨 인포그래픽 & 카드뉴스 제작용 요청 가이드</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: 복잡한 개념이나 통계 자료를 한눈에 들어오는 디자인 기획서 포맷으로 추출합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 자료를 인포그래픽(또는 카드뉴스)으로 제작할 수 있도록 "시각화 기획 데이터"를 추출해 줘.
+
+[요청 사항]
+1. 핵심 데이터 & 수치 3선: 가장 충격적이거나 중요한 숫자(%, 연도, 증감율 등)를 큰 폰트로 강조할 수 있게 추출
+2. 구조화 다이어그램:
+   - 문서의 핵심 흐름을 '단계별 프로세스(Step 1 → Step 2 → Step 3)' 또는 '비교 대조(기존 vs 신규)' 구조로 정리
+   - Mermaid 플로우차트 코드나 마크다운 표(Table)로 시각화 표현 제공
+3. 키워드 & 픽토그램 매칭:
+   - 슬라이드나 카드뉴스 아이콘으로 쓸 수 있는 핵심 키워드 4개와 어울리는 아이콘 메타포(예: 돋보기, 방패, 번개 등) 추천
+4. 3줄 요약 테이크어웨이(Takeaway): 독자가 기억해야 할 핵심 결론
+
+[조건] 텍스트를 길게 쓰지 말고, 디자이너에게 바로 전달할 수 있는 디자인 기획서 포맷으로 작성해 줘.</pre>
+              </div>
+
+              <!-- 3. 오디오 오버뷰 맞춤설정 프롬프트 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #7c3aed; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">오디오 맞춤</span>
+                    <span>3. 🎙️ 스튜디오 '오디오 오버뷰' 커스터마이징 지시문</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: NotebookLM 우측 Studio의 [오디오 생성] 옆 <strong>[맞춤설정(Customize)]</strong> 창에 입력하여 발표 전 예행연습 및 쟁점 토론을 유도합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">이번 발표 슬라이드의 핵심 주제는 [예: 인공지능 윤리와 저작권 분쟁]입니다. 
+지루한 학술 용어 나열보다는, 대학생들이 실생활에서 겪을 수 있는 구체적인 딜레마 사례를 중심으로 남녀 호스트가 열띤 토론을 벌여 주세요. 
+특히 청중들이 가장 궁금해할 '핵심 쟁점 3가지'와 '한계점'을 집중적으로 다뤄 주면 좋겠습니다.</pre>
+              </div>
+            </div>
+
+            <!-- 4. 실전 연계 워크플로우 3단계 -->
+            <div style="border-top: 1px solid #e5e7eb; padding-top: 1.25rem;">
+              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 0.85rem;">
+                🚀 4. 추천 실전 연계 워크플로우 (초고속 시각화 3단계)
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
+                  <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 4px;">Step 1. NotebookLM 추출 & 저장</div>
+                  <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    위 프롬프트로 슬라이드 개요 및 시각화 데이터를 생성한 후, 우하단 <strong>[노트로 저장]</strong> 핀 아이콘을 누릅니다.
+                  </div>
+                </div>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
+                  <div style="font-weight: 700; font-size: 13px; color: #be185d; margin-bottom: 4px;">Step 2. Gamma App으로 10초 PPT</div>
+                  <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    <a href="https://gamma.app" target="_blank" rel="noopener noreferrer" style="color: #be185d; font-weight: 600;">Gamma App ↗</a>에 추출된 슬라이드 개요를 붙여넣으면 10초 만에 완벽한 비주얼 슬라이드가 자동 렌더링됩니다.
+                  </div>
+                </div>
+                <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
+                  <div style="font-weight: 700; font-size: 13px; color: #10b981; margin-bottom: 4px;">Step 3. Canva & PPT 리허설</div>
+                  <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    Canva 템플릿에 핵심 수치를 대입하거나, PowerPoint 발표자 메모란에 NotebookLM 구술 스크립트를 넣어 리허설을 진행합니다.
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 5: 200% 활용 꿀팁 및 학술 윤리 준수 가이드 -->
           <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
-              <span>💡 4. NotebookLM 200% 활용 실전 꿀팁 & 필수 학술 윤리</span>
+              <span>💡 5. NotebookLM 200% 활용 실전 꿀팁 & 필수 학술 윤리</span>
             </h3>
 
             <!-- 꿀팁 3선 -->
