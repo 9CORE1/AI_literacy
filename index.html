@@ -645,6 +645,36 @@
       draw();
     }
 
+    /**
+     * AI 역량진단 완료자에게만 메인 5대 요인 아코디언 내 해당 문항 번호 표시
+     */
+    function checkAndShowCompletedFactorQuestions() {
+      const user = (typeof Auth !== 'undefined' && Auth.getCurrentUser) ? Auth.getCurrentUser() : null;
+      if (!user || !user.email) return;
+
+      const savedReport = localStorage.getItem('ai_lit_diagnosis_' + user.email);
+      if (!savedReport) return; // 진단 미완료자에게는 문항 번호 노출 차단
+
+      const factorMapping = [
+        "7, 9, 10, 15, 21, 22, 23, 24, 25", // 요인 1
+        "1, 2, 3, 4, 5, 8, 14",             // 요인 2
+        "6, 26, 27, 28, 29, 30",            // 요인 3
+        "16, 17, 18, 20",                   // 요인 4
+        "11, 12, 13, 19"                    // 요인 5
+      ];
+
+      const descEls = document.querySelectorAll('.hero-factor-item .hero-factor-desc');
+      descEls.forEach((desc, idx) => {
+        if (factorMapping[idx] && !desc.querySelector('.completed-factor-tag')) {
+          const tag = document.createElement('div');
+          tag.className = 'completed-factor-tag';
+          tag.style.cssText = "margin-top: 8px; font-size: 11px; font-weight: 700; color: var(--color-sulfur); background: rgba(0,0,0,0.3); padding: 3px 8px; border-radius: 6px; display: inline-block;";
+          tag.textContent = `📋 나의 측정 문항: ${factorMapping[idx]}번`;
+          desc.appendChild(tag);
+        }
+      });
+    }
+
     // Init on DOM Load
     document.addEventListener('DOMContentLoaded', async () => {
       renderCurriculum();
@@ -660,6 +690,7 @@
             window.location.href = 'dashboard.html';
           }
         });
+        checkAndShowCompletedFactorQuestions();
       }
 
       // Check URL query parameters & Clean URL 마스킹

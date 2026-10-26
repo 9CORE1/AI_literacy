@@ -46,6 +46,40 @@ const DashboardApp = {
     const loginTime = user.loginAt ? new Date(user.loginAt).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '방금';
     const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
 
+    // 역량진단 완료 여부 확인
+    const savedDiagnosis = localStorage.getItem('ai_lit_diagnosis_' + user.email);
+    const diagReport = savedDiagnosis ? JSON.parse(savedDiagnosis) : null;
+    const isCompleted = Boolean(diagReport);
+
+    const ctaBtnText = isCompleted ? '나의 진단 결과 레포트 확인하기 →' : '지금 역량 진단 시작하기 →';
+    const completedBadge = isCompleted
+      ? `<div style="margin-top: 10px;">
+          <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-weight: 800; font-size: 13px; padding: 4px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
+            <span>✓ 역량진단 완료</span>
+            <span style="opacity: 0.75;">|</span>
+            <span>종합 ${diagReport.overallScore}점 (${diagReport.overallRating})</span>
+          </span>
+         </div>`
+      : '';
+
+    // 진단 완료자에게만 표시되는 5대 요인별 측정 문항 가이드
+    const factorQuestionsSection = isCompleted
+      ? `<div style="margin-top: 14px; padding-top: 12px; border-top: 1.5px dashed #d5d5d0;">
+          <button type="button" onclick="DashboardApp.toggleFactorQuestions(this)" style="background: none; border: none; padding: 0; color: var(--color-ember); font-weight: 700; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
+            <span>💡 5대 요인별 측정 문항 확인하기</span>
+            <span class="chevron-icon" style="display: inline-block; transition: transform 0.2s; font-size: 10px;">▼</span>
+          </button>
+          <div class="factor-q-details" style="display: none; margin-top: 10px; font-size: 12px; color: #374151; background: #faf9f6; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--color-pumice); line-height: 1.65;">
+            <div style="font-weight: 700; color: var(--color-obsidian); margin-bottom: 6px; font-size: 12.5px;">📋 나의 역량 진단 문항 매핑</div>
+            <div style="margin-bottom: 4px;">• <strong>역량 1 (문제해결·적용)</strong>: 7, 9, 10, 15, 21~25번 (9문항)</div>
+            <div style="margin-bottom: 4px;">• <strong>역량 2 (개념·원리 이해)</strong>: 1~5, 8, 14번 (7문항)</div>
+            <div style="margin-bottom: 4px;">• <strong>역량 3 (태도·진로 인식)</strong>: 6, 26~30번 (6문항)</div>
+            <div style="margin-bottom: 4px;">• <strong>역량 4 (윤리·보안 인식)</strong>: 16, 17, 18, 20번 (4문항)</div>
+            <div>• <strong>역량 5 (프롬프트·비판적)</strong>: 11, 12, 13, 19번 (4문항)</div>
+          </div>
+        </div>`
+      : '';
+
     return `
       <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Ember / Caldera Style) -->
       <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
@@ -65,25 +99,23 @@ const DashboardApp = {
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
               나의 AI 리터러시 역량 진단 평가
             </h2>
-            <p style="opacity: 0.95; font-size: 1rem; color: #fff3ee; line-height: 1.6;">
+            <p style="opacity: 0.95; font-size: 1rem; color: #fff3ee; line-height: 1.6; margin: 0;">
               30문항(약 7분 소요) 진단을 통해 나의 5대 AI 리터러시 강점과 취약점 분석 방사형 차트, 맞춤 피드백 및 PDF 공식 레포트를 발급받으세요.
             </p>
+            ${completedBadge}
           </div>
           <div>
             <a href="diagnosis.html" class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 17px; padding: 16px 32px;">
-              지금 역량 진단 시작하기 →
+              ${ctaBtnText}
             </a>
           </div>
         </div>
       </div>
 
       <!-- 학생 120분 강의 모듈 헤더 -->
-      <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: var(--spacing-20); flex-wrap: wrap; gap: 12px;">
-        <div>
-          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">CURRICULUM FOR UNIVERSITY STUDENTS</span>
-          <h2 style="font-size: 32px; color: var(--color-obsidian);">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
-        </div>
-        <a href="diagnosis.html" class="btn btn-secondary btn-sm">진단 평가 바로가기</a>
+      <div style="margin-bottom: var(--spacing-20);">
+        <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">CURRICULUM FOR UNIVERSITY STUDENTS</span>
+        <h2 style="font-size: 32px; color: var(--color-obsidian);">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
       </div>
 
       <!-- 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
@@ -94,6 +126,7 @@ const DashboardApp = {
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             대학생 전용 30문항 표준 척도를 통해 나의 5대 리터러시 역량을 정밀 진단하고 개별 레포트를 발급받습니다.
           </p>
+          ${factorQuestionsSection}
         </div>
 
         <!-- 모듈 2 -->
@@ -217,6 +250,22 @@ const DashboardApp = {
         }
       });
     });
+  },
+
+  /**
+   * 진단 완료자 전용 5대 요인 문항 목록 아코디언 토글
+   */
+  toggleFactorQuestions(btn) {
+    const parent = btn.parentElement;
+    const details = parent.querySelector('.factor-q-details');
+    const chevron = btn.querySelector('.chevron-icon');
+    if (!details) return;
+
+    const isOpen = details.style.display === 'block';
+    details.style.display = isOpen ? 'none' : 'block';
+    if (chevron) {
+      chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
+    }
   }
 };
 

@@ -24,8 +24,27 @@ const DiagnosisApp = {
       return;
     }
 
-    this.renderQuestionPage();
     this.bindEvents();
+
+    // 이전에 완료한 진단 결과가 있는지 확인 (재진단 모드가 아닐 때 복원)
+    const urlParams = new URLSearchParams(window.location.search);
+    const forceRetake = urlParams.get('retake') === 'true';
+    const savedData = localStorage.getItem('ai_lit_diagnosis_' + user.email);
+
+    if (savedData && !forceRetake) {
+      try {
+        this.calculatedReport = JSON.parse(savedData);
+        document.getElementById('survey-container').style.display = 'none';
+        document.getElementById('report-container').style.display = 'block';
+        this.renderReportDOM(this.calculatedReport);
+        this.renderRadarChart(this.calculatedReport.factorResults);
+        return;
+      } catch (e) {
+        console.error('진단 결과 복원 오류:', e);
+      }
+    }
+
+    this.renderQuestionPage();
   },
 
   bindEvents() {
@@ -52,9 +71,12 @@ const DiagnosisApp = {
       }
     });
 
-    // 다운로드 버튼 이벤트
+    // 다운로드 및 공유 버튼 이벤트
     document.getElementById('download-pdf-btn')?.addEventListener('click', () => this.exportToPdf());
-    document.getElementById('download-jpg-btn')?.addEventListener('click', () => this.exportToJpg());
+    document.getElementById('share-pdf-btn')?.addEventListener('click', () => this.sharePdf());
+    document.getElementById('download-jpg-btn')?.addEventListener('click', () => this.exportToJpg('all'));
+    document.getElementById('download-jpg-p1-btn')?.addEventListener('click', () => this.exportToJpg('1'));
+    document.getElementById('download-jpg-p2-btn')?.addEventListener('click', () => this.exportToJpg('2'));
     document.getElementById('retake-btn')?.addEventListener('click', () => {
       if (confirm('진단을 다시 진행하시겠습니까? 현재 결과 화면은 초기화됩니다.')) {
         this.answers = {};
@@ -164,6 +186,7 @@ const DiagnosisApp = {
       factorResults[key] = {
         name: f.name,
         shortName: f.shortName,
+        questions: f.questions,
         mean: Math.round(mean * 100) / 100,
         score: score,
         rating: rating,
@@ -189,6 +212,15 @@ const DiagnosisApp = {
       timestamp: new Date().toLocaleDateString('ko-KR')
     };
 
+    // 진단 완료 데이터 로컬 영구 저장 (역량진단 완료자 식별)
+    const user = Auth.getCurrentUser();
+    if (user && user.email) {
+      localStorage.setItem('ai_lit_diagnosis_' + user.email, JSON.stringify(this.calculatedReport));
+      user.hasCompletedDiagnosis = true;
+      user.lastDiagnosisAt = new Date().toISOString();
+      localStorage.setItem('ai_lit_user', JSON.stringify(user));
+    }
+
     // 화면 전환
     document.getElementById('survey-container').style.display = 'none';
     document.getElementById('report-container').style.display = 'block';
@@ -200,6 +232,7 @@ const DiagnosisApp = {
 
   /**
    * 샘플 이미지 규격에 맞춰 1페이지 및 2페이지 레포트 DOM 렌더링
+   * (역량진단이 완료된 사용자에게만 각 요인별 해당 문항 번호가 표시됨)
    */
   renderReportDOM(report) {
     const user = Auth.getCurrentUser() || {};
@@ -211,40 +244,61 @@ const DiagnosisApp = {
     document.getElementById('rep-grade').textContent = user.gradeOrPosition || '2학년';
     document.getElementById('rep-email').textContent = user.email || 'student@univ.ac.kr';
 
-    // 결과 요약 표
+    // 1. 결과 요약 표 (해당 문항 번호 포함)
     const tbody = document.getElementById('rep-summary-tbody');
-    tbody.innerHTML = Object.keys(factors).map(k => `
-      <tr>
-        <td>${factors[k].shortName}</td>
-        <td class="factor-name">${factors[k].name}</td>
-        <td class="rating">${factors[k].rating}</td>
-      </tr>
-    `).join('');
+    tbody.innerHTML = Object.keys(factors).map(k => {
+      const qNums = factors[k].questions || (SURVEY_DATA.factors[k] ? SURVEY_DATA.factors[k].questions : []);
+      const qText = qNums.length > 0 ? `(해당 문항: ${qNums.join(', ')}번)` : '';
+      return `
+        <tr>
+          <td>${factors[k].shortName}</td>
+          <td class="factor-name">
+            <div style="font-weight: 700;">${factors[k].name}</div>
+            <div style="font-size: 11px; color: #4b5563; margin-top: 2px; font-weight: 500;">${qText}</div>
+          </td>
+          <td class="rating">${factors[k].rating}</td>
+        </tr>
+      `;
+    }).join('');
 
     // 전체 역량 지수 (배지 포함)
     document.getElementById('rep-overall-score').textContent = `${report.overallScore} 점 (${report.overallRating})`;
 
-    // 1페이지: 제안점 요약
+    // 2. 1페이지: 제안점 요약 (해당 문항 번호 배지 포함)
     const sugBox1 = document.getElementById('rep-suggestions-p1');
-    sugBox1.innerHTML = Object.keys(factors).map(k => `
-      <div class="suggestion-block">
-        <div class="suggestion-header-bar">[ ${factors[k].shortName} : ${factors[k].name} ] 이렇게 해보세요!</div>
-        <div class="suggestion-body-text">${factors[k].suggestion}</div>
-      </div>
-    `).join('');
+    sugBox1.innerHTML = Object.keys(factors).map(k => {
+      const qNums = factors[k].questions || (SURVEY_DATA.factors[k] ? SURVEY_DATA.factors[k].questions : []);
+      const qBadge = qNums.length > 0 ? `<span style="font-size: 11px; font-weight: 600; color: #374151; background: #e5e7eb; padding: 2px 7px; border-radius: 4px;">해당 문항: ${qNums.join(', ')}번</span>` : '';
+      return `
+        <div class="suggestion-block">
+          <div class="suggestion-header-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
+            <span>[ ${factors[k].shortName} : ${factors[k].name} ] 이렇게 해보세요!</span>
+            ${qBadge}
+          </div>
+          <div class="suggestion-body-text">${factors[k].suggestion}</div>
+        </div>
+      `;
+    }).join('');
 
-    // 2페이지: 제안점 재표시 + 제안 세부내용 4종
+    // 3. 2페이지: 제안점 재표시 + 제안 세부내용 4종 (해당 문항 번호 배지 포함)
     const sugBox2 = document.getElementById('rep-details-p2');
-    sugBox2.innerHTML = Object.keys(factors).map(k => `
-      <div class="suggestion-item-group">
-        <div class="suggestion-header-bar">[ ${factors[k].shortName} : ${factors[k].name} ] 이렇게 해보세요!</div>
-        <div class="suggestion-body-text" style="margin-bottom: 6px;">${factors[k].suggestion}</div>
-        <div class="detail-sub-title">▶ 추천 세부 실천 과제</div>
-        <ul class="report-detail-list">
-          ${factors[k].details.map(d => `<li>${d}</li>`).join('')}
-        </ul>
-      </div>
-    `).join('');
+    sugBox2.innerHTML = Object.keys(factors).map(k => {
+      const qNums = factors[k].questions || (SURVEY_DATA.factors[k] ? SURVEY_DATA.factors[k].questions : []);
+      const qBadge = qNums.length > 0 ? `<span style="font-size: 11px; font-weight: 600; color: #374151; background: #e5e7eb; padding: 2px 7px; border-radius: 4px;">해당 문항: ${qNums.join(', ')}번</span>` : '';
+      return `
+        <div class="suggestion-item-group">
+          <div class="suggestion-header-bar" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 4px;">
+            <span>[ ${factors[k].shortName} : ${factors[k].name} ] 이렇게 해보세요!</span>
+            ${qBadge}
+          </div>
+          <div class="suggestion-body-text" style="margin-bottom: 6px;">${factors[k].suggestion}</div>
+          <div class="detail-sub-title">▶ 추천 세부 실천 과제</div>
+          <ul class="report-detail-list">
+            ${factors[k].details.map(d => `<li>${d}</li>`).join('')}
+          </ul>
+        </div>
+      `;
+    }).join('');
   },
 
   /**
@@ -339,81 +393,200 @@ const DiagnosisApp = {
   },
 
   /**
-   * PDF 저장 다운로드 (사용자가 명시적으로 클릭했을 때만 실행)
+   * PDF 문서 인스턴스 생성 헬퍼
+   * @param {HTMLElement} btn - 로딩 상태를 표시할 버튼 엘리먼트
+   * @returns {Promise<{ pdf: any, fileName: string, user: any }>}
    */
-  async exportToPdf() {
+  async generatePdfDocument(btn) {
     const user = Auth.getCurrentUser() || {};
     const fileName = `AI리터러시_역량프로파일_${user.name || '학생'}.pdf`;
-
     const page1 = document.getElementById('report-page-1');
     const page2 = document.getElementById('report-page-2');
 
+    if (btn) btn.textContent = '1p 캡처 중 (1/2)...';
+    const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true, logging: false });
+    const imgData1 = canvas1.toDataURL('image/jpeg', 0.95);
+
+    if (btn) btn.textContent = '2p 캡처 중 (2/2)...';
+    const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true, logging: false });
+    const imgData2 = canvas2.toDataURL('image/jpeg', 0.95);
+
+    if (btn) btn.textContent = 'PDF 합성 중...';
+    const { jsPDF } = window.jspdf;
+    const pdf = new jsPDF('p', 'mm', 'a4');
+    pdf.addImage(imgData1, 'JPEG', 0, 0, 210, 297);
+    pdf.addPage();
+    pdf.addImage(imgData2, 'JPEG', 0, 0, 210, 297);
+
+    return { pdf, fileName, user };
+  },
+
+  /**
+   * PDF 저장 다운로드
+   */
+  async exportToPdf() {
     const downloadBtn = document.getElementById('download-pdf-btn');
-    const originalText = downloadBtn.textContent;
-    downloadBtn.textContent = 'PDF 생성 중...';
-    downloadBtn.disabled = true;
+    const originalText = downloadBtn ? downloadBtn.textContent : '📥 PDF 다운로드';
+    if (downloadBtn) downloadBtn.disabled = true;
 
     try {
-      const { jsPDF } = window.jspdf;
-      const pdf = new jsPDF('p', 'mm', 'a4');
-
-      // 1페이지 캡처
-      const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true });
-      const imgData1 = canvas1.toDataURL('image/jpeg', 0.95);
-      pdf.addImage(imgData1, 'JPEG', 0, 0, 210, 297);
-
-      // 2페이지 캡처
-      pdf.addPage();
-      const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true });
-      const imgData2 = canvas2.toDataURL('image/jpeg', 0.95);
-      pdf.addImage(imgData2, 'JPEG', 0, 0, 210, 297);
-
+      const { pdf, fileName } = await this.generatePdfDocument(downloadBtn);
+      if (downloadBtn) downloadBtn.textContent = 'PDF 저장 중...';
       pdf.save(fileName);
     } catch (e) {
       console.error('PDF 생성 실패:', e);
       alert('PDF 생성 중 오류가 발생했습니다. 브라우저의 인쇄 기능(Ctrl+P)을 사용할 수도 있습니다.');
     } finally {
-      downloadBtn.textContent = originalText;
-      downloadBtn.disabled = false;
+      if (downloadBtn) {
+        downloadBtn.textContent = originalText;
+        downloadBtn.disabled = false;
+      }
     }
   },
 
   /**
-   * JPG 저장 다운로드 (1페이지, 2페이지 고화질 JPG 각각 다운로드)
+   * 모바일/브라우저 네이티브 PDF 공유 (Web Share API)
    */
-  async exportToJpg() {
+  async sharePdf() {
+    const shareBtn = document.getElementById('share-pdf-btn');
+    const originalText = shareBtn ? shareBtn.textContent : '📤 PDF 공유하기';
+    if (shareBtn) shareBtn.disabled = true;
+
+    try {
+      const { pdf, fileName, user } = await this.generatePdfDocument(shareBtn);
+      if (shareBtn) shareBtn.textContent = '공유 창 여는 중...';
+
+      const pdfBlob = pdf.output('blob');
+      const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+
+      // Web Share API 지원 및 파일 공유 가능 여부 확인
+      if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        await navigator.share({
+          files: [pdfFile],
+          title: `[AI 리터러시 진단 결과] ${user.name || '학생'}`,
+          text: `${user.name || '학생'}님의 대학생 AI 리터러시 역량 진단 결과 레포트입니다.`
+        });
+      } else if (navigator.share) {
+        // 파일 공유는 지원하지 않으나 텍스트 공유는 지원하는 브라우저
+        await navigator.share({
+          title: `[AI 리터러시 진단 결과] ${user.name || '학생'}`,
+          text: `${user.name || '학생'}님의 대학생 AI 리터러시 역량 진단 결과입니다.`
+        });
+        pdf.save(fileName);
+      } else {
+        // Web Share API를 미지원하는 데스크톱 브라우저: 안내 후 PDF 파일 다운로드 진행
+        alert('현재 브라우저에서는 메신저 직접 공유를 지원하지 않아, PDF 파일 다운로드로 대체 진행합니다.');
+        pdf.save(fileName);
+      }
+    } catch (e) {
+      // 사용자가 공유 창을 닫거나 취소한 경우는 오류 팝업 생략 (정상 취소)
+      if (e.name !== 'AbortError') {
+        console.error('PDF 공유 실패:', e);
+        alert('PDF 공유 중 오류가 발생했습니다. 다운로드 기능을 이용해 주세요.');
+      }
+    } finally {
+      if (shareBtn) {
+        shareBtn.textContent = originalText;
+        shareBtn.disabled = false;
+      }
+    }
+  },
+
+  /**
+   * 캔버스를 고화질 JPG 파일로 안전하게 다운로드 트리거
+   * @param {HTMLCanvasElement} canvas
+   * @param {string} fileName
+   * @returns {Promise<void>}
+   */
+  downloadCanvasAsJpg(canvas, fileName) {
+    return new Promise((resolve, reject) => {
+      canvas.toBlob((blob) => {
+        if (!blob) {
+          reject(new Error('이미지 Blob 변환에 실패했습니다.'));
+          return;
+        }
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = fileName;
+        link.style.display = 'none';
+        document.body.appendChild(link);
+        link.click();
+
+        setTimeout(() => {
+          document.body.removeChild(link);
+          URL.revokeObjectURL(url);
+          resolve();
+        }, 300);
+      }, 'image/jpeg', 0.95);
+    });
+  },
+
+  /**
+   * JPG 저장 다운로드 (1페이지, 2페이지 고화질 JPG 각각 다운로드)
+   * @param {'all' | '1' | '2'} pageOption
+   */
+  async exportToJpg(pageOption = 'all') {
     const user = Auth.getCurrentUser() || {};
     const downloadBtn = document.getElementById('download-jpg-btn');
-    const originalText = downloadBtn.textContent;
-    downloadBtn.textContent = 'JPG 저장 중...';
-    downloadBtn.disabled = true;
+    const originalText = downloadBtn ? downloadBtn.textContent : '🖼️ JPG 전체 저장';
+
+    const allJpgBtns = [
+      downloadBtn,
+      document.getElementById('download-jpg-p1-btn'),
+      document.getElementById('download-jpg-p2-btn')
+    ].filter(Boolean);
+
+    allJpgBtns.forEach(btn => { btn.disabled = true; });
 
     try {
       const page1 = document.getElementById('report-page-1');
       const page2 = document.getElementById('report-page-2');
+      const userName = user.name || '학생';
+      const file1Name = `AI리터러시_역량프로파일_${userName}_1p.jpg`;
+      const file2Name = `AI리터러시_실천가이드_${userName}_2p.jpg`;
+
+      // 1페이지 단독 다운로드
+      if (pageOption === '1') {
+        if (downloadBtn) downloadBtn.textContent = '1p 캡처 중...';
+        const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true, logging: false });
+        await this.downloadCanvasAsJpg(canvas1, file1Name);
+        return;
+      }
+
+      // 2페이지 단독 다운로드
+      if (pageOption === '2') {
+        if (downloadBtn) downloadBtn.textContent = '2p 캡처 중...';
+        const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true, logging: false });
+        await this.downloadCanvasAsJpg(canvas2, file2Name);
+        return;
+      }
+
+      // 1페이지 & 2페이지 모두 순차 다운로드 ('all')
+      if (downloadBtn) downloadBtn.textContent = '1p 캡처 중 (1/2)...';
+      const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true, logging: false });
+
+      if (downloadBtn) downloadBtn.textContent = '2p 캡처 중 (2/2)...';
+      const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true, logging: false });
 
       // 1페이지 다운로드
-      const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true });
-      const link1 = document.createElement('a');
-      link1.download = `AI리터러시_역량프로파일_${user.name || '학생'}_1p.jpg`;
-      link1.href = canvas1.toDataURL('image/jpeg', 0.95);
-      link1.click();
+      if (downloadBtn) downloadBtn.textContent = '1p 파일 저장 중...';
+      await this.downloadCanvasAsJpg(canvas1, file1Name);
 
-      // 2페이지 다운로드
-      setTimeout(async () => {
-        const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true });
-        const link2 = document.createElement('a');
-        link2.download = `AI리터러시_실천가이드_${user.name || '학생'}_2p.jpg`;
-        link2.href = canvas2.toDataURL('image/jpeg', 0.95);
-        link2.click();
-      }, 500);
+      // 브라우저의 '다중 다운로드 자동 차단' 정책 우회를 위해 대기 후 2페이지 다운로드 실행
+      if (downloadBtn) downloadBtn.textContent = '2p 파일 저장 중...';
+      await new Promise(resolve => setTimeout(resolve, 800));
+      await this.downloadCanvasAsJpg(canvas2, file2Name);
+
+      if (downloadBtn) downloadBtn.textContent = '✅ 1·2p 저장 완료!';
+      await new Promise(resolve => setTimeout(resolve, 800));
 
     } catch (e) {
       console.error('JPG 생성 실패:', e);
       alert('JPG 이미지 저장 중 오류가 발생했습니다.');
     } finally {
-      downloadBtn.textContent = originalText;
-      downloadBtn.disabled = false;
+      if (downloadBtn) downloadBtn.textContent = originalText;
+      allJpgBtns.forEach(btn => { btn.disabled = false; });
     }
   }
 };
