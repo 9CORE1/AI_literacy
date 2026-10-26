@@ -187,11 +187,11 @@
   align-items: center;
 }
 
-/* 레이더 차트 영역 - 280px 최적 확대 규격 */
+/* 레이더 차트 영역 - 268px 안정적 확대 규격 (페이지 번호 공간 확보) */
 .report-chart-container {
   width: 100%;
   max-width: 630px;
-  height: 280px;
+  height: 268px;
   margin: 0 auto;
   position: relative;
 }
@@ -226,7 +226,7 @@
 }
 
 .suggestion-block {
-  margin-bottom: 7px; /* 각 역량별 간격 설정 */
+  margin-bottom: 6px; /* 각 역량별 간격 설정 */
 }
 
 .suggestion-block:last-child {
@@ -251,18 +251,33 @@
 }
 
 /* --------------------------------------------------------------------------
+   페이지 하단 번호 스타일 (- 1 -, - 2 -)
+   -------------------------------------------------------------------------- */
+.report-page-number {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  color: #4b5563;
+  letter-spacing: 3px;
+  line-height: 1;
+  margin-top: 4px;
+  margin-bottom: 0;
+  flex-shrink: 0;
+}
+
+/* --------------------------------------------------------------------------
    [2페이지] 실천 가이드 세부 스타일 - space-between 균등 배분 (상·하단 여백 일치)
    -------------------------------------------------------------------------- */
 .report-p2-top {
   flex-shrink: 0;
-  margin-bottom: 4px;
+  margin-bottom: 2px;
 }
 
 .report-intro-desc {
   font-size: 12px;
   color: #4b5563;
   margin-top: 0;
-  margin-bottom: 8px;
+  margin-bottom: 6px;
   line-height: 1.45;
 }
 
@@ -277,7 +292,7 @@
 
 .report-page-2 .suggestion-item-group {
   margin-bottom: 0;
-  padding-bottom: 6px;
+  padding-bottom: 5px;
   border-bottom: 1px dashed #cbd5e1;
 }
 
