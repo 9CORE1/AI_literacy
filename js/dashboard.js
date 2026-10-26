@@ -157,7 +157,7 @@ const DashboardApp = {
       <!-- 대학생의 AI리터러시 진단 개요 섹션 -->
       <div style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32);">
         <div style="margin-bottom: var(--spacing-20);">
-          <span style="font-family: var(--font-display); font-size: 15px; color: var(--color-ember); letter-spacing: 0.05em; font-weight: 700;">DIAGNOSIS OVERVIEW & FRAMEWORK</span>
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">DIAGNOSIS OVERVIEW & FRAMEWORK</span>
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📊 대학생의 AI리터러시 진단 개요</h2>
         </div>
 
