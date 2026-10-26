@@ -528,7 +528,7 @@ const DashboardApp = {
 
           <!-- 5대 유의사항 가로 1줄 배치 (5열 그리드 + 반응형 터치 스크롤) -->
           <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
-            <div style="display: grid; grid-template-columns: repeat(5, minmax(180px, 1fr)); gap: 0.75rem; min-width: 900px;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.65rem; width: 100%; min-width: 680px;">
               <!-- 유의사항 1 -->
               <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
                 <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">1. 환각 팩트체크</div>
@@ -675,46 +675,46 @@ const DashboardApp = {
               <span>⚡ 2. 대학생을 위한 핵심 탑재 기능 5선</span>
             </h3>
 
-            <!-- 5대 핵심 기능 가로 1줄 배치 (5열 그리드 + 반응형 터치 스크롤) -->
+            <!-- 5대 핵심 기능 가로 1줄 5개 블록 배치 -->
             <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-              <div style="display: grid; grid-template-columns: repeat(5, minmax(180px, 1fr)); gap: 0.75rem; min-width: 900px;">
+              <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.65rem; width: 100%; min-width: 680px;">
                 <!-- 기능 1 -->
-                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 1rem 1rem;">
-                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">① 멀티 포맷 대용량 업로드</div>
-                  <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
-                    PDF, 구글 문서, 슬라이드, 웹 링크, 텍스트는 물론 <strong>유튜브 강의 링크</strong>까지 지원합니다. (노트북당 50개 소스, 소스당 50만 단어)
+                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                  <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">① 멀티 포맷 업로드</div>
+                  <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    PDF, 구글 문서, 슬라이드, 웹 링크, 텍스트, <strong>유튜브 강의 링크</strong>까지 지원 (노트북당 50개 소스, 소스당 50만 단어)
                   </div>
                 </div>
 
                 <!-- 기능 2 -->
-                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 1rem 1rem;">
-                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">② 인라인 각주 원문 이동</div>
-                  <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
-                    답변 속 각주([1], [2])를 클릭하면 원본 문서의 해당 페이지와 형광펜 하이라이트 문장으로 즉시 화면이 전환되어 1초 만에 팩트체크합니다.
+                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                  <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">② 인라인 각주 원문 이동</div>
+                  <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    답변 속 각주([1], [2]) 클릭 시 원본 문서의 해당 페이지와 형광펜 하이라이트 문장으로 즉시 화면 전환 및 1초 팩트체크
                   </div>
                 </div>
 
                 <!-- 기능 3 -->
-                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 1rem 1rem;">
-                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">③ Studio 자동 학습 도구</div>
-                  <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
-                    원클릭으로 <strong>스터디 가이드(핵심 질문·정답)</strong>, <strong>FAQ</strong>, <strong>브리핑 문서</strong>, <strong>타임라인</strong>을 자동 생성합니다.
+                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                  <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">③ Studio 자동 학습 도구</div>
+                  <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    원클릭으로 <strong>스터디 가이드(핵심 질문·정답)</strong>, <strong>FAQ</strong>, <strong>브리핑 문서</strong>, <strong>타임라인</strong> 자동 생성
                   </div>
                 </div>
 
                 <!-- 기능 4 -->
-                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 1rem 1rem;">
-                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">④ 오디오 팟캐스트 복습</div>
-                  <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
-                    남/여 AI 호스트가 10~15분 라디오 토크로 재구성합니다. 등하굣길이나 이동 중에 귀로 들으며 핵심 개념을 복습하세요.
+                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                  <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">④ 오디오 팟캐스트 복습</div>
+                  <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    남/여 AI 호스트가 10~15분 라디오 토크로 재구성, 등하굣길이나 이동 중에 귀로 들으며 핵심 개념 복습
                   </div>
                 </div>
 
                 <!-- 기능 5 -->
-                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 1rem 1rem;">
-                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">⑤ 소스 선택형 핀포인트 Q&A</div>
-                  <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
-                    전체가 아니라 체크박스로 선택한 특정 1~2개 논문만을 타깃으로 지정해 질문하고 상반된 차이점을 대조 분석합니다.
+                <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                  <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">⑤ 핀포인트 선택 Q&A</div>
+                  <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                    전체가 아니라 체크박스로 선택한 특정 1~2개 논문만을 타깃으로 지정해 질문하고 상반된 차이점 대조 분석
                   </div>
                 </div>
               </div>
