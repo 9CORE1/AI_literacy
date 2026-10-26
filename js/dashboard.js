@@ -26,6 +26,7 @@ const DashboardApp = {
 
     this.renderDashboard(user);
     this.bindCopyEvents();
+    this.initScrollSpy();
   },
 
   renderDashboard(user) {
@@ -80,6 +81,9 @@ const DashboardApp = {
               <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
                 🎓 대학생 강의실 · ${displayName} 님
               </span>
+              <a href="https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link" target="_blank" rel="noopener noreferrer" style="background: #ffffff; color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); transition: all 0.15s ease;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" title="새 창에서 공식 노션 강의노트 열기">
+                <span>📝 노션 강의노트 보기 ↗</span>
+              </a>
               <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
                 🏫 ${affiliation}
               </span>
@@ -112,7 +116,7 @@ const DashboardApp = {
       <!-- 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
       <div class="dashboard-grid">
         <!-- 모듈 1 -->
-        <div class="card module-card">
+        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-1')">
           <h3><span>01</span> 대학생의 AI 리터러시 진단</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             대학생 전용 30문항 표준 척도를 통해 나의 5대 리터러시 역량을 정밀 진단하고 개별 레포트를 발급받습니다.
@@ -121,7 +125,7 @@ const DashboardApp = {
         </div>
 
         <!-- 모듈 2 -->
-        <div class="card module-card">
+        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
           <h3><span>02</span> 프롬프트 공식 4+2</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             [역할·배경·지시·형식]의 4대 뼈대와 [조건·샘플]의 2대 보강재를 결합하여 과제 리서치 답변의 정확도를 극대화합니다.
@@ -129,7 +133,7 @@ const DashboardApp = {
         </div>
 
         <!-- 모듈 3 -->
-        <div class="card module-card">
+        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
           <h3><span>03</span> NotebookLM 활용</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             전공 교재 PDF나 학술 논문을 소스로 지정하여 각주 기반의 팩트체크 스터디 비서를 구축합니다.
@@ -137,7 +141,7 @@ const DashboardApp = {
         </div>
 
         <!-- 모듈 4 -->
-        <div class="card module-card">
+        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-4')">
           <h3><span>04</span> 구글 시트에서 Gemini 함수 활용</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역을 자동화합니다.
@@ -146,7 +150,7 @@ const DashboardApp = {
       </div>
 
       <!-- 대학생의 AI리터러시 진단 개요 섹션 -->
-      <div style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32);">
+      <div id="lecture-sec-1" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <div style="margin-bottom: var(--spacing-20);">
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">DIAGNOSIS OVERVIEW & FRAMEWORK</span>
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📊 대학생의 AI리터러시 진단 개요</h2>
@@ -183,7 +187,7 @@ const DashboardApp = {
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
             <span>🧩 5대 핵심 역량 요인 및 정의</span>
-            <span style="font-size: 12px; font-weight: 500; color: #6b7280;">(전국 대학생 기준 평균 대비 비교)</span>
+            <span style="font-size: 12px; font-weight: 500; color: #6b7280;">(대학생 기준 평균 대비 비교)</span>
           </h3>
           
           <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
@@ -284,7 +288,7 @@ const DashboardApp = {
       </div>
 
       <!-- 프롬프트 공식 4+2 & LLM 안전 활용 가이드 섹션 -->
-      <div style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32);">
+      <div id="lecture-sec-2" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <div style="margin-bottom: var(--spacing-20);">
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">PROMPT FRAMEWORK & ETHICS GUIDELINES</span>
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">💡 프롬프트 공식 4+2 & LLM 안전 활용 가이드</h2>
@@ -575,7 +579,7 @@ const DashboardApp = {
         </div>
 
       <!-- Google NotebookLM 완벽 사용 및 대학생 학업 활용 가이드 섹션 -->
-      <div style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32);">
+      <div id="lecture-sec-3" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <!-- 섹션 헤더 -->
         <div style="margin-bottom: var(--spacing-20);">
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">AI RESEARCH & STUDY NOTE WORKFLOW</span>
@@ -981,8 +985,8 @@ const DashboardApp = {
         <!-- ======================================================== -->
         <!-- 6. Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드 -->
         <!-- ======================================================== -->
-        <div style="margin-top: 3.5rem; margin-bottom: var(--spacing-20);">
-          <span style="font-family: var(--font-display); font-size: 16px; color: #059669; letter-spacing: 0.05em; font-weight: 700;">SPREADSHEET AUTOMATION & BULK AI WORKFLOW</span>
+        <div id="lecture-sec-4" class="lecture-nav-section" style="margin-top: 3.5rem; margin-bottom: var(--spacing-20); scroll-margin-top: 96px;">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">SPREADSHEET AUTOMATION & BULK AI WORKFLOW</span>
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📊 Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드</h2>
         </div>
 
@@ -1048,9 +1052,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>⚡ 2. 대표 활용 분야 5선 & 실전 수식 예시 (원클릭 복사)</span>
             </h3>
-            <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #bae6fd;">
-              GEMINI.md 9대 실전 엑셀 수식 전수 탑재
-            </span>
           </div>
 
           <p style="font-size: 13.5px; color: #64748b; line-height: 1.6; margin-bottom: 1.5rem; word-break: keep-all;">
@@ -1218,9 +1219,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🎯 3. 프롬프트 작성 시 핵심 팁 2선 (시트 최적화 요령)</span>
             </h3>
-            <span style="background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #fde68a;">
-              가독성 보호 & 동적 변수 주입 노하우
-            </span>
           </div>
 
           <p style="font-size: 13.5px; color: #64748b; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
@@ -1274,9 +1272,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>⚠️ 4. 실무자가 반드시 알아야 할 주의사항 3가지</span>
             </h3>
-            <span style="background: #fee2e2; color: #b91c1c; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #fecaca;">
-              API 쿼터 관리 & 데이터 무결성 보장
-            </span>
           </div>
 
           <p style="font-size: 13.5px; color: #64748b; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
@@ -1485,6 +1480,70 @@ const DashboardApp = {
       alert('복사에 실패했습니다. 텍스트를 직접 드래그하여 복사해 주세요.');
     }
     document.body.removeChild(textArea);
+  },
+
+  /**
+   * 우측 하단 플로팅 퀵 네비게이션 토글 (열기/닫기)
+   */
+  toggleQuickNav() {
+    const nav = document.getElementById('floating-quick-nav');
+    const btn = document.getElementById('quick-nav-toggle-btn');
+    if (!nav) return;
+    const isOpen = nav.classList.toggle('open');
+    if (btn) btn.setAttribute('aria-expanded', String(isOpen));
+  },
+
+  /**
+   * 지정된 강의 섹션으로 부드러운 스크롤 이동
+   * @param {string} sectionId
+   */
+  scrollToSection(sectionId) {
+    const target = document.getElementById(sectionId);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      // 모바일 환경 등에서 이동 후 패널 닫기
+      if (window.innerWidth <= 768) {
+        const nav = document.getElementById('floating-quick-nav');
+        const btn = document.getElementById('quick-nav-toggle-btn');
+        if (nav) nav.classList.remove('open');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    }
+  },
+
+  /**
+   * 스크롤 위치에 따른 현재 활성 강의 섹션 하이라이트 감지
+   */
+  initScrollSpy() {
+    const sectionIds = ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4'];
+    let ticking = false;
+
+    window.addEventListener('scroll', () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const scrollPos = window.scrollY + 160;
+          let currentSecId = '';
+
+          for (const id of sectionIds) {
+            const el = document.getElementById(id);
+            if (el && el.offsetTop <= scrollPos) {
+              currentSecId = id;
+            }
+          }
+
+          document.querySelectorAll('.quick-nav-item').forEach(item => {
+            if (item.getAttribute('data-target') === currentSecId) {
+              item.classList.add('active');
+            } else {
+              item.classList.remove('active');
+            }
+          });
+
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
   }
 };
 

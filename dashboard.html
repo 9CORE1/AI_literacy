@@ -46,6 +46,46 @@
     </div>
   </main>
 
+  <!-- 우측 하단 강의 퀵 네비게이션 (Floating Quick Navigation Dock) -->
+  <aside id="floating-quick-nav" class="floating-quick-nav" aria-label="강의 바로가기 네비게이션">
+    <div class="quick-nav-panel" id="quick-nav-panel">
+      <div class="quick-nav-header">
+        <span class="quick-nav-title">📚 강의 바로가기</span>
+        <button type="button" class="quick-nav-close" onclick="DashboardApp.toggleQuickNav()" aria-label="네비게이션 닫기">✕</button>
+      </div>
+      <nav class="quick-nav-list">
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-1" onclick="DashboardApp.scrollToSection('lecture-sec-1')">
+          <span class="nav-badge">01</span>
+          <span class="nav-text">AI 리터러시 진단</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-2" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+          <span class="nav-badge">02</span>
+          <span class="nav-text">프롬프트 공식 4+2</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-3" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+          <span class="nav-badge">03</span>
+          <span class="nav-text">NotebookLM 활용</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-4" onclick="DashboardApp.scrollToSection('lecture-sec-4')">
+          <span class="nav-badge">04</span>
+          <span class="nav-text">구글 시트 Gemini</span>
+        </button>
+      </nav>
+      <div class="quick-nav-footer">
+        <button type="button" class="quick-nav-top-btn" onclick="window.scrollTo({ top: 0, behavior: 'smooth' })">
+          <span>▲ 맨 위로 (Top)</span>
+        </button>
+      </div>
+    </div>
+    
+    <!-- 플로팅 토글 버튼 (메뉴 열기/닫기) -->
+    <button type="button" class="quick-nav-toggle-btn" id="quick-nav-toggle-btn" onclick="DashboardApp.toggleQuickNav()" aria-expanded="false" title="강의 바로가기 메뉴 열기/닫기">
+      <span class="toggle-icon">🧭</span>
+      <span class="toggle-label">강의 이동</span>
+      <span class="toggle-indicator">▲</span>
+    </button>
+  </aside>
+
   <!-- 하단 플로팅 AI 도구 바로가기 바 (상단 네비게이션과 동일한 Floating Pill 스타일) -->
   <div class="floating-bottom-wrapper">
     <div class="container">

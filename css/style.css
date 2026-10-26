@@ -1574,3 +1574,212 @@ button {
   }
 }
 
+/* ==========================================================================
+   Floating Quick Navigation Dock (Right-Bottom)
+   ========================================================================== */
+.floating-quick-nav {
+  position: fixed;
+  right: 28px;
+  bottom: 84px;
+  z-index: 950;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  font-family: var(--font-sans);
+}
+
+.quick-nav-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background-color: var(--color-obsidian);
+  color: var(--color-chalk);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: var(--radius-pills);
+  padding: 10px 18px;
+  font-size: 13.5px;
+  font-weight: 700;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(7, 6, 7, 0.22), 0 2px 6px rgba(7, 6, 7, 0.12);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  user-select: none;
+}
+
+.quick-nav-toggle-btn:hover {
+  background-color: var(--color-ember);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 28px rgba(226, 92, 52, 0.35);
+}
+
+.quick-nav-toggle-btn .toggle-icon {
+  font-size: 15px;
+}
+
+.quick-nav-toggle-btn .toggle-indicator {
+  font-size: 10px;
+  opacity: 0.8;
+  transition: transform 0.25s ease;
+}
+
+.floating-quick-nav.open .quick-nav-toggle-btn .toggle-indicator {
+  transform: rotate(180deg);
+}
+
+.quick-nav-panel {
+  width: 230px;
+  background: rgba(255, 255, 255, 0.98);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--color-pumice);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(7, 6, 7, 0.16), 0 2px 8px rgba(7, 6, 7, 0.04);
+  padding: 14px 14px 12px;
+  margin-bottom: 10px;
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  animation: quickNavSlideUp 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.floating-quick-nav.open .quick-nav-panel {
+  display: flex;
+}
+
+@keyframes quickNavSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.quick-nav-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2px 4px 8px 4px;
+  border-bottom: 1px solid #f1f0ea;
+  margin-bottom: 4px;
+}
+
+.quick-nav-title {
+  font-size: 12.5px;
+  font-weight: 700;
+  color: var(--color-obsidian);
+  letter-spacing: -0.01em;
+}
+
+.quick-nav-close {
+  background: transparent;
+  border: none;
+  color: #94a3b8;
+  font-size: 14px;
+  cursor: pointer;
+  padding: 2px 6px;
+  border-radius: 6px;
+  line-height: 1;
+}
+
+.quick-nav-close:hover {
+  background: #f1f5f9;
+  color: var(--color-obsidian);
+}
+
+.quick-nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.quick-nav-item {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 12px;
+  padding: 8px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #334155;
+  text-align: left;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quick-nav-item:hover {
+  background: #f8fafc;
+  border-color: #e2e8f0;
+  color: var(--color-ember);
+  transform: translateX(-2px);
+}
+
+.quick-nav-item.active {
+  background: #fff4ed;
+  border-color: #fed7aa;
+  color: var(--color-ember);
+  font-weight: 700;
+}
+
+.quick-nav-item .nav-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: #f1f5f9;
+  color: #64748b;
+  font-size: 11px;
+  font-weight: 700;
+  font-family: var(--font-display);
+}
+
+.quick-nav-item.active .nav-badge {
+  background: var(--color-ember);
+  color: #ffffff;
+}
+
+.quick-nav-footer {
+  margin-top: 4px;
+  padding-top: 6px;
+  border-top: 1px dashed #f1f0ea;
+}
+
+.quick-nav-top-btn {
+  width: 100%;
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 6px 0;
+  font-size: 11.5px;
+  font-weight: 600;
+  color: #64748b;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.quick-nav-top-btn:hover {
+  background: var(--color-limestone);
+  color: var(--color-obsidian);
+}
+
+@media (max-width: 768px) {
+  .floating-quick-nav {
+    right: 16px;
+    bottom: 74px;
+  }
+  .quick-nav-panel {
+    width: 210px;
+  }
+  .quick-nav-toggle-btn {
+    padding: 8px 14px;
+    font-size: 12.5px;
+  }
+}
+
+
