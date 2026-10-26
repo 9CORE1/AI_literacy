@@ -50,10 +50,10 @@
   <aside id="floating-quick-nav" class="floating-quick-nav" aria-label="강의 바로가기 네비게이션">
     <div class="quick-nav-panel" id="quick-nav-panel">
       <div class="quick-nav-header">
-        <span class="quick-nav-title">📚 강의 바로가기</span>
+        <span class="quick-nav-title" id="quick-nav-title">📚 강의 바로가기</span>
         <button type="button" class="quick-nav-close" onclick="DashboardApp.toggleQuickNav()" aria-label="네비게이션 닫기">✕</button>
       </div>
-      <nav class="quick-nav-list">
+      <nav class="quick-nav-list" id="quick-nav-list">
         <button type="button" class="quick-nav-item" data-target="lecture-sec-1" onclick="DashboardApp.scrollToSection('lecture-sec-1')">
           <span class="nav-badge">01</span>
           <span class="nav-text">AI 리터러시 진단</span>

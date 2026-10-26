@@ -25,8 +25,9 @@ const DashboardApp = {
     }
 
     this.renderDashboard(user);
+    this.renderQuickNav(user);
     this.bindCopyEvents();
-    this.initScrollSpy();
+    this.initScrollSpy(user);
   },
 
   renderDashboard(user) {
@@ -689,7 +690,7 @@ const DashboardApp = {
         </div>
 
         <!-- 모듈 3 -->
-        <div class="card module-card">
+        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
           <h3><span>03</span> 카드뉴스 제작(나노바나나 활용)</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             기획된 홍보 문구를 AI 시각 템플릿과 결합하여 모바일 친화형 고화질 카드뉴스를 신속하게 제작합니다.
@@ -697,7 +698,7 @@ const DashboardApp = {
         </div>
 
         <!-- 모듈 4 -->
-        <div class="card module-card">
+        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
           <h3><span>04</span> 구글 폼 제작 및 집계시스템 설정</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
             AI로 행사 및 특강 설문 문항을 기획하고, 구글 폼 생성 후 스프레드시트 실시간 집계 대시보드를 구축합니다.
@@ -705,10 +706,14 @@ const DashboardApp = {
         </div>
       </div>
 
-      <!-- 교직원 페이지에도 프롬프트 공식 4+2 및 NotebookLM 가이드 연동 표시 -->
+      <!-- 교직원 4대 핵심 커리큘럼 실무 가이드 연동 -->
       ${this.getPromptSectionHtml()}
 
       ${this.getNotebookLMSectionHtml()}
+
+      ${this.getStaffCardNewsSectionHtml()}
+
+      ${this.getStaffGoogleFormSectionHtml()}
     `;
   },
 
@@ -1540,10 +1545,66 @@ const DashboardApp = {
   },
 
   /**
-   * 스크롤 위치에 따른 현재 활성 강의 섹션 하이라이트 감지
+   * 학습자 역할(대학생 / 교직원)에 맞춘 플로팅 퀵 네비게이션 목록 렌더링
+   * @param {Object} user
    */
-  initScrollSpy() {
-    const sectionIds = ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4'];
+  renderQuickNav(user) {
+    const listEl = document.getElementById('quick-nav-list');
+    const titleEl = document.getElementById('quick-nav-title');
+    if (!listEl) return;
+
+    if (user && user.role === 'staff') {
+      if (titleEl) titleEl.textContent = '🏛️ 교직원 커리큘럼 이동';
+      listEl.innerHTML = `
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-2" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+          <span class="nav-badge">01</span>
+          <span class="nav-text">프롬프트 공식 4+2</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-3" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+          <span class="nav-badge">02</span>
+          <span class="nav-text">NotebookLM 활용</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-staff-sec-3" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
+          <span class="nav-badge">03</span>
+          <span class="nav-text">카드뉴스 제작</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-staff-sec-4" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
+          <span class="nav-badge">04</span>
+          <span class="nav-text">구글 폼 & 집계</span>
+        </button>
+      `;
+    } else {
+      if (titleEl) titleEl.textContent = '📚 강의 바로가기';
+      listEl.innerHTML = `
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-1" onclick="DashboardApp.scrollToSection('lecture-sec-1')">
+          <span class="nav-badge">01</span>
+          <span class="nav-text">AI 리터러시 진단</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-2" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+          <span class="nav-badge">02</span>
+          <span class="nav-text">프롬프트 공식 4+2</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-3" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+          <span class="nav-badge">03</span>
+          <span class="nav-text">NotebookLM 활용</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-4" onclick="DashboardApp.scrollToSection('lecture-sec-4')">
+          <span class="nav-badge">04</span>
+          <span class="nav-text">구글 시트 Gemini</span>
+        </button>
+      `;
+    }
+  },
+
+  /**
+   * 스크롤 위치에 따른 현재 활성 강의 섹션 하이라이트 감지
+   * @param {Object} user
+   */
+  initScrollSpy(user) {
+    const isStaff = user && user.role === 'staff';
+    const sectionIds = isStaff
+      ? ['lecture-sec-2', 'lecture-sec-3', 'lecture-staff-sec-3', 'lecture-staff-sec-4']
+      : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4'];
     let ticking = false;
 
     window.addEventListener('scroll', () => {
@@ -1572,6 +1633,221 @@ const DashboardApp = {
         ticking = true;
       }
     }, { passive: true });
+  },
+
+  /**
+   * 교직원 모듈 03: 카드뉴스 제작(나노바나나 활용) 실무 가이드 HTML
+   */
+  getStaffCardNewsSectionHtml() {
+    return `
+      <!-- 03. 카드뉴스 제작(나노바나나 활용) 실무 가이드 섹션 -->
+      <div id="lecture-staff-sec-3" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
+        <!-- 섹션 헤더 -->
+        <div style="margin-bottom: var(--spacing-20);">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">CARD NEWS & VISUAL ASSET WORKFLOW</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🎨 03. 카드뉴스 제작 (나노바나나 & 비주얼 AI 활용)</h2>
+        </div>
+
+        <!-- 카드 3-1: 3단계 카드뉴스 제작 파이프라인 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📐 1. 나노바나나 & 생성형 AI 연계 3단계 제작 파이프라인</span>
+            </h3>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              기획 → AI 비주얼 생성 → 캔바 한글 마감
+            </span>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            복잡한 학사 공지나 행사 요강을 모바일 화면에 최적화된 4~5컷 카드뉴스로 신속하게 시각화합니다. <strong>NotebookLM/Gemini</strong>로 도출한 홍보 카피를 <strong>나노바나나(NanoBanana)</strong> 등 비주얼 생성 AI에 입력하여 맞춤형 그래픽을 생성하고, Canva나 미리캔버스에서 타이포그래피를 완성합니다.
+          </p>
+
+          <!-- 3단계 그리드 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: #fdfbf7; border: 1px solid #fde68a; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: var(--color-ember); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">1</span>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">콘텐츠 컷 구성 기획</strong>
+              </div>
+              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
+                표지 컷(시선 유도 헤드라인) → 본문 3컷(핵심 혜택/일정/장소) → 마감 컷(신청 링크/문의처) 표준 5컷 구조 도출
+              </p>
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: #16a34a; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">2</span>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">AI 비주얼 에셋 생성</strong>
+              </div>
+              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
+                나노바나나 등 이미지 생성 AI로 대학 캠퍼스 분위기, 미니멀 3D 일러스트, 인포그래픽 배경을 1:1 또는 4:5 비율로 일관성 있게 생성
+              </p>
+            </div>
+
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: #2563eb; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">3</span>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">타이포그래피 & 배포</strong>
+              </div>
+              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
+                Canva·미리캔버스에 생성된 이미지를 배경으로 얹고, 정갈한 고딕 폰트(Pretendard, 에스코어 드림)로 교내 공식 로고와 함께 마감
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 3-2: 카드뉴스 생성 실무 프롬프트 예시 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
+            <span>💬 2. 교직원 실무: 카드뉴스 기획 & 이미지 프롬프트 복사</span>
+          </h3>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
+            <!-- 프롬프트 1 -->
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📋 [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
+                <button type="button" class="btn btn-secondary" style="padding: 3px 10px; font-size: 12px; height: auto;" data-copy-target="prompt-staff-cardnews-1">복사</button>
+              </div>
+              <pre id="prompt-staff-cardnews-1" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12.5px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: monospace;">다음 대학 행사 공문(또는 특강 안내문)을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
+
+[공문 내용 / 행사 요강 붙여넣기]
+
+[작성 규칙]
+1. 1컷(표지): 클릭을 유도하는 직관적이고 매력적인 헤드카피 (15자 이내)
+2. 2~4컷(본문): 학생들이 얻을 수 있는 실질적 혜택 3가지를 컷당 1개씩 요약
+3. 5컷(신청 안내): 일시, 장소, 신청 기한, 구글 폼 링크 안내 문구
+4. 각 컷마다 배경 이미지로 생성할 수 있는 AI 이미지 프롬프트(영문)를 1줄씩 제안해줘.</pre>
+            </div>
+
+            <!-- 프롬프트 2 -->
+            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">🖼️ [비주얼 AI용] 대학 특강 홍보 배경 프롬프트</span>
+                <button type="button" class="btn btn-secondary" style="padding: 3px 10px; font-size: 12px; height: auto;" data-copy-target="prompt-staff-cardnews-2">복사</button>
+              </div>
+              <pre id="prompt-staff-cardnews-2" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12.5px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: monospace;">A modern university campus seminar hall, bright and hopeful daylight, minimal 3D glassmorphic style, glowing technological abstract nodes, subtle corporate orange and navy accents, ample negative space at the center for text overlay, clean isometric composition, 8k resolution, photorealistic, professional academic flyer aesthetic --ar 1:1 --v 6.0</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 3-3: 공공기관 및 대학 AI 생성물 저작권 준수 가이드 -->
+        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid #fee2e2; border-radius: 24px; background: #fffafb; margin-bottom: 1.5rem;">
+          <h4 style="font-size: 15px; color: #991b1b; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
+            <span>🛡️ 대학 행정 실무자를 위한 AI 저작권 & 표기 원칙</span>
+          </h4>
+          <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #7f1d1d; line-height: 1.6; word-break: keep-all;">
+            <li><strong>AI 생성물 표기 권장:</strong> 교내 공식 홍보물에 AI로 생성한 이미지를 사용할 경우, 하단에 작게 <em>"본 이미지는 생성형 AI를 활용하여 제작되었습니다."</em> 안내 문구를 표기하는 것이 권장됩니다.</li>
+            <li><strong>특정인 초상권 및 상표권 침해 금지:</strong> 특정 유명인이나 타 대학의 상징 로고, 특정 학생의 얼굴 사진을 AI 학습/생성 소스로 사용하지 마세요.</li>
+            <li><strong>공공누리(KOGL) 연계:</strong> 공공 데이터 및 학교 공식 보도자료를 2차 가공할 때는 저작물 이용 조건을 확인하여 출처를 명시합니다.</li>
+          </ul>
+        </div>
+      </div>
+    `;
+  },
+
+  /**
+   * 교직원 모듈 04: 구글 폼 제작 및 집계시스템 설정 가이드 HTML
+   */
+  getStaffGoogleFormSectionHtml() {
+    return `
+      <!-- 04. 구글 폼 제작 및 집계시스템 설정 실무 가이드 섹션 -->
+      <div id="lecture-staff-sec-4" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
+        <!-- 섹션 헤더 -->
+        <div style="margin-bottom: var(--spacing-20);">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">FORM DESIGN & AUTOMATED REPORTING</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 및 집계시스템 설정 (업무 자동화)</h2>
+        </div>
+
+        <!-- 카드 4-1: 설문 기획부터 자동 집계까지의 프로세스 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 1. AI 기반 설문 문항 설계 및 스프레드시트 실시간 집계 파이프라인</span>
+            </h3>
+            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
+              AI 문항 기획 → Google Forms 제작 → 실시간 대시보드
+            </span>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            행사 만족도 조사, 비교과 프로그램 수요 조사, 교직원 연수 설문지를 만들 때 생성형 AI를 활용하면 통계적으로 유의미한 객관식 문항(리커트 5점 척도)과 심층 정성 피드백 문항을 3분 만에 설계할 수 있습니다. 수집된 응답은 Google 스프레드시트와 실시간 연동되어 별도의 수작업 없이 즉시 차트와 보고서로 요약됩니다.
+          </p>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: #fdfbf7; border: 1px solid #fde68a; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: var(--color-ember); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">1</span>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">AI 설문 문항 초안 기획</strong>
+              </div>
+              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
+                교육 만족도, 강사 전문성, 운영 편의성, 향후 개설 희망 주제 등 교육 평가 표준 4대 영역 구조화 문항 도출
+              </p>
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: #16a34a; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">2</span>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">구글 폼 원클릭 구성</strong>
+              </div>
+              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
+                Google Forms에서 객관식 그리드 및 단답형 필터링을 적용하고, 학번/부서 유효성 검사 규칙 설정
+              </p>
+            </div>
+
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
+                <span style="background: #2563eb; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">3</span>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">스프레드시트 자동 집계</strong>
+              </div>
+              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
+                응답 시트와 연동하여 =AVERAGE, =COUNTIF, =GEMINI() 함수로 정량 지표 산출 및 주관식 피드백 감정 분석 일괄 실행
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 4-2: 실무 프롬프트 예시 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
+            <span>💬 2. 교직원 실무: 만족도 조사 문항 설계 프롬프트</span>
+          </h3>
+
+          <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📋 대학 비교과 프로그램 & 교직원 특강 만족도 조사 문항 생성</span>
+              <button type="button" class="btn btn-secondary" style="padding: 3px 10px; font-size: 12px; height: auto;" data-copy-target="prompt-staff-form-1">복사</button>
+            </div>
+            <pre id="prompt-staff-form-1" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12.5px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: monospace;">너는 대학 교육평가 및 학사행정 전문가야.
+이번에 진행한 [행사/특강명: 2026 교직원 맞춤형 스마트 행정 AI 실무 특강]의 만족도 조사를 구글 폼으로 진행하려고 해.
+
+다음 기준에 맞추어 구글 폼에 바로 복사해 넣을 수 있는 설문 문항 초안을 작성해줘:
+
+1. [응답자 기본 정보]: 소속 단과대/부서, 직급(교원/행정/연구원/기타)
+2. [정량 평가 (리커트 5점 척도: 매우불만족~매우만족)]:
+   - 교육 내용의 실무 유용성
+   - 강사의 강의 전달력 및 실습 지원
+   - 교육 환경 및 교재/실습 자료 만족도
+   - 향후 업무 적용 의향
+3. [정성 평가 (단답형 / 장문형)]:
+   - 이번 교육에서 가장 유익했던 실습 모듈은 무엇인가요?
+   - 향후 심화 과정으로 개설되길 희망하는 AI 행정 주제를 자유롭게 작성해 주세요.
+4. 구글 폼에서 설정해야 할 '필수 응답' 여부도 문항별로 함께 표기해줘.</pre>
+          </div>
+        </div>
+
+        <!-- 카드 4-3: 실무 팁 (자동 집계 수식) -->
+        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid #d1fae5; border-radius: 24px; background: #f0fdf4; margin-bottom: 1.5rem;">
+          <h4 style="font-size: 15px; color: #065f46; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
+            <span>💡 행정 꿀팁: 구글 시트 실시간 자동 요약 공식</span>
+          </h4>
+          <p style="font-size: 13px; color: #047857; margin: 0 0 8px 0; line-height: 1.6; word-break: keep-all;">
+            설문 응답이 들어오는 즉시 <strong>=AVERAGE('설문응답 1'!C2:C)</strong>로 실시간 평점을 구하고, 주관식 건의사항 열 옆에 <strong>=GEMINI("다음 건의사항의 핵심 요구사항을 1줄로 요약해줘: ", F2)</strong>를 적용하면 수백 건의 피드백도 10초 만에 보고서용으로 요약됩니다.
+          </p>
+        </div>
+      </div>
+    `;
   }
 };
 
