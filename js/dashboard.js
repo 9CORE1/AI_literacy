@@ -406,10 +406,15 @@ const DashboardApp = {
 
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             <!-- 템플릿 1 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">과제 기획</span>
-                <span>1. 뻔한 주제를 차별화하는 「주제 구체화 프롬프트」</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">과제 기획</span>
+                  <span>1. 뻔한 주제를 차별화하는 「주제 구체화 프롬프트」</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 학술 글쓰기 지도 교수이자 연구 설계 전문가야.
 [배경] [경영학/컴퓨터공학/사회복지학] 전공 과제로 [생성형 AI의 도입]에 관한 A4 5장 분량의 리포트 주제를 정해야 해.
@@ -420,10 +425,15 @@ const DashboardApp = {
             </div>
 
             <!-- 템플릿 2 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">시험 대비</span>
-                <span>2. 어려운 전공 개념을 뚫어주는 「파인만 튜터 프롬프트」</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">시험 대비</span>
+                  <span>2. 어려운 전공 개념을 뚫어주는 「파인만 튜터 프롬프트」</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 복잡한 전공 이론을 아주 쉽고 직관적으로 설명해 주는 친절한 대학 1:1 튜터야.
 [배경] 나는 [전공명] 전공 [학년] 학생이고, 이번 중간고사를 위해 [이해하기 어려운 개념이나 공식 명칭]을 완벽히 이해해야 해.
@@ -436,10 +446,15 @@ const DashboardApp = {
             </div>
 
             <!-- 템플릿 3 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">팀 프로젝트</span>
-                <span>3. 발표 전 약점을 미리 잡는 「악마의 변호인(반박 검증) 프롬프트」</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">팀 프로젝트</span>
+                  <span>3. 발표 전 약점을 미리 잡는 「악마의 변호인(반박 검증) 프롬프트」</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 팀 프로젝트 평가에서 가장 까다롭고 날카로운 질문을 던지는 심사위원(악마의 변호인)이야.
 [배경] 우리 팀은 [과목명] 수업에서 [팀 프로젝트 주제/기획안 개요 요약]에 대해 15분간 발표할 예정이야.
@@ -452,10 +467,15 @@ const DashboardApp = {
             </div>
 
             <!-- 템플릿 4 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">글쓰기 윤리</span>
-                <span>4. 표절 없이 문장력만 올리는 「논리 구조 첨삭 프롬프트」</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">글쓰기 윤리</span>
+                  <span>4. 표절 없이 문장력만 올리는 「논리 구조 첨삭 프롬프트」</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학술 논문 및 대학 리포트 전문 에디터야.
 [배경] 대학 전공 과제로 내가 직접 작성한 리포트 단락이야. 인공지능이 새로 글을 창작해서는 안 되며, 내 원래 문장과 주장을 그대로 살려야 해.
@@ -470,10 +490,15 @@ const DashboardApp = {
             </div>
 
             <!-- 템플릿 5 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
-                <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">취업·진로</span>
-                <span>5. 학과 활동을 스펙으로 바꾸는 「STAR 역량 분해 프롬프트」</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">취업·진로</span>
+                  <span>5. 학과 활동을 스펙으로 바꾸는 「STAR 역량 분해 프롬프트」</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대기업 및 IT 기업 출신의 채용 면접관이자 커리어 컨설턴트야.
 [배경] [희망 직무: 예) 서비스 기획 / 데이터 분석 / 마케팅 / 연구개발] 인턴십 지원을 위해 내 대학 활동 경험을 정리하고 있어.
@@ -497,44 +522,47 @@ const DashboardApp = {
             <span>⚠️ LLM 서비스 이용 5대 핵심 유의사항</span>
           </h3>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-            <!-- 유의사항 1 -->
-            <div style="background: #faf9f6; border-left: 4px solid var(--color-ember); padding: 1rem 1.25rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 4px;">1. 환각 현상(Hallucination) 팩트체크</div>
-              <div style="font-size: 12.5px; color: #555; line-height: 1.55; word-break: keep-all;">
-                AI는 그럴듯한 거짓말을 지어낼 수 있습니다. 논문명, 저자, 통계 수치는 반드시 RISS나 학술 DB에서 직접 원문을 교차 검증하세요.
+          <!-- 5대 유의사항 가로 1줄 배치 (5열 그리드 + 반응형 터치 스크롤) -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(5, minmax(180px, 1fr)); gap: 0.75rem; min-width: 900px;">
+              <!-- 유의사항 1 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">1. 환각 팩트체크</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  AI는 거짓말을 지어낼 수 있습니다. 논문·통계 출처는 RISS 등 학술 DB에서 직접 원문을 교차 검증하세요.
+                </div>
               </div>
-            </div>
 
-            <!-- 유의사항 2 -->
-            <div style="background: #faf9f6; border-left: 4px solid var(--color-ember); padding: 1rem 1.25rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 4px;">2. 개인정보 및 기밀 데이터 입력 금지</div>
-              <div style="font-size: 12.5px; color: #555; line-height: 1.55; word-break: keep-all;">
-                입력한 프롬프트는 AI 재학습에 활용될 수 있습니다. 주민번호, 학번, 미발표 연구 데이터, 기업 대외비 문서는 절대 입력하지 마세요.
+              <!-- 유의사항 2 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">2. 개인정보·기밀 금지</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  프롬프트는 AI 재학습에 활용될 수 있습니다. 주민번호, 학번, 미발표 연구 데이터는 절대 입력 금지!
+                </div>
               </div>
-            </div>
 
-            <!-- 유의사항 3 -->
-            <div style="background: #faf9f6; border-left: 4px solid var(--color-ember); padding: 1rem 1.25rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 4px;">3. 학술 윤리 준수 및 출처 명시</div>
-              <div style="font-size: 12.5px; color: #555; line-height: 1.55; word-break: keep-all;">
-                AI 답변을 그대로 복사·제출하면 표절에 해당합니다. AI는 초안 검토 튜터로만 활용하고, 과제 제출 시 AI 활용 사실을 정직하게 밝히세요.
+              <!-- 유의사항 3 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">3. 학술 윤리·출처 명시</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  답변을 그대로 복사해 제출하면 표절입니다. AI는 초안 검토 튜터로만 쓰고 활용 사실을 정직하게 밝히세요.
+                </div>
               </div>
-            </div>
 
-            <!-- 유의사항 4 -->
-            <div style="background: #faf9f6; border-left: 4px solid var(--color-ember); padding: 1rem 1.25rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 4px;">4. 데이터 편향성(Bias) 비판적 검토</div>
-              <div style="font-size: 12.5px; color: #555; line-height: 1.55; word-break: keep-all;">
-                학습 데이터에 내재된 성별, 인종, 문화적 편향이 답변에 투영될 수 있습니다. AI 의견을 맹신하지 말고 다각도에서 검토하세요.
+              <!-- 유의사항 4 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">4. 데이터 편향성 경계</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  학습 데이터에 내재된 성별·인종·문화 편향이 투영될 수 있습니다. AI 의견을 다각도에서 비판 검토하세요.
+                </div>
               </div>
-            </div>
 
-            <!-- 유의사항 5 -->
-            <div style="background: #faf9f6; border-left: 4px solid var(--color-ember); padding: 1rem 1.25rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 4px;">5. 생각의 외주화(Thinking Delegation) 경계</div>
-              <div style="font-size: 12.5px; color: #555; line-height: 1.55; word-break: keep-all;">
-                스스로 고민하는 사고 과정을 AI에 넘기면 문제해결력이 퇴화합니다. 항상 내 생각과 가설이 먼저이고, AI는 보조 도구여야 합니다.
+              <!-- 유의사항 5 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">5. 생각의 외주화 경계</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  사고 과정을 AI에 넘기면 문제해결력이 퇴화합니다. 항상 내 생각이 먼저이고, AI는 보조 도구여야 합니다.
+                </div>
               </div>
             </div>
           </div>
@@ -664,6 +692,61 @@ const DashboardApp = {
     if (chevron) {
       chevron.style.transform = isOpen ? 'rotate(0deg)' : 'rotate(180deg)';
     }
+  },
+
+  /**
+   * 프롬프트 템플릿 클립보드 복사 헬퍼
+   * @param {HTMLElement} btn
+   */
+  copyPrompt(btn) {
+    const card = btn.closest('.prompt-template-card');
+    const pre = card ? card.querySelector('pre') : null;
+    if (!pre) return;
+    const textToCopy = pre.innerText || pre.textContent;
+
+    const onSuccess = () => {
+      const originalHtml = btn.innerHTML;
+      btn.innerHTML = '<span>✓ 복사완료!</span>';
+      btn.style.background = 'var(--color-sulfur)';
+      btn.style.color = 'var(--color-obsidian)';
+      btn.style.borderColor = 'var(--color-sulfur)';
+      btn.style.fontWeight = '700';
+      setTimeout(() => {
+        btn.innerHTML = originalHtml;
+        btn.style.background = '#ffffff';
+        btn.style.color = '';
+        btn.style.borderColor = '#d1d5db';
+        btn.style.fontWeight = '';
+      }, 1800);
+    };
+
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(textToCopy).then(onSuccess).catch(() => {
+        this.fallbackCopyText(textToCopy, onSuccess);
+      });
+    } else {
+      this.fallbackCopyText(textToCopy, onSuccess);
+    }
+  },
+
+  /**
+   * 클립보드 미지원 환경 대체 복사 헬퍼
+   */
+  fallbackCopyText(text, callback) {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.opacity = '0';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    try {
+      document.execCommand('copy');
+      if (callback) callback();
+    } catch (e) {
+      alert('복사에 실패했습니다. 텍스트를 직접 드래그하여 복사해 주세요.');
+    }
+    document.body.removeChild(textArea);
   }
 };
 
