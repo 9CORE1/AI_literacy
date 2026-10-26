@@ -3,6 +3,7 @@ node_modules/
 .DS_Store
 *.txt
 *.md
+!대학생의 AI리터러시 진단개요.md
 server.js
 package*.json
 server/
