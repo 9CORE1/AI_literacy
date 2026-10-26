@@ -30,7 +30,7 @@
   min-height: 1123px;
   max-height: 1123px;
   background: #ffffff;
-  padding: 30px 42px;
+  padding: 32px 42px; /* 상단 32px, 하단 32px 완벽 대칭 일치 */
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.25);
   box-sizing: border-box;
   color: #111827;
@@ -43,6 +43,8 @@
   page-break-inside: avoid;
   break-inside: avoid;
   overflow: hidden; /* 페이지 밖으로 내용이 넘치지 않도록 차단 */
+  display: flex;
+  flex-direction: column;
 }
 
 /* 1. 상단 메인 제목 */
@@ -170,11 +172,11 @@
   color: #111827;
 }
 
-/* 5. 레이더 차트 영역 - 290px 대형화로 가독성 극대화 */
+/* 5. 레이더 차트 영역 - 345px 대형화로 차트 가독성 극대화 및 하단 여백 균형 */
 .report-chart-container {
   width: 100%;
-  max-width: 620px;
-  height: 290px;
+  max-width: 630px;
+  height: 345px;
   margin: 0 auto 8px auto;
   position: relative;
 }
@@ -206,6 +208,10 @@
   margin-bottom: 7px;
 }
 
+.suggestion-block:last-child {
+  margin-bottom: 0;
+}
+
 .suggestion-header-bar {
   background-color: #d1d5db;
   padding: 4px 10px;
@@ -224,11 +230,19 @@
 }
 
 /* --------------------------------------------------------------------------
-   [2페이지] 실천 가이드 세부 스타일 - 하단 여백 채우고 가독성 극대화
+   [2페이지] 실천 가이드 세부 스타일 - 상단·하단 여백 완벽 대칭
    -------------------------------------------------------------------------- */
-.report-page-2 .suggestion-item-group {
+.report-intro-desc {
+  font-size: 12px;
+  color: #4b5563;
+  margin-top: 0;
   margin-bottom: 14px;
-  padding-bottom: 11px;
+  line-height: 1.5;
+}
+
+.report-page-2 .suggestion-item-group {
+  margin-bottom: 15px;
+  padding-bottom: 12px;
   border-bottom: 1px dashed #cbd5e1;
 }
 
