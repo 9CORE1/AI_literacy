@@ -62,20 +62,35 @@ const DashboardApp = {
          </div>`
       : '';
 
-    // 진단 완료자에게만 표시되는 5대 요인별 측정 문항 가이드
+    // 진단 완료자에게만 표시되는 5대 요인별 역량 안내 가이드 (문항번호 삭제 및 역량명/설명 제공)
     const factorQuestionsSection = isCompleted
       ? `<div style="margin-top: 14px; padding-top: 12px; border-top: 1.5px dashed #d5d5d0;">
           <button type="button" onclick="DashboardApp.toggleFactorQuestions(this)" style="background: none; border: none; padding: 0; color: var(--color-ember); font-weight: 700; font-size: 12.5px; cursor: pointer; display: flex; align-items: center; gap: 6px;">
             <span>💡 5대 요인별 측정 문항 확인하기</span>
             <span class="chevron-icon" style="display: inline-block; transition: transform 0.2s; font-size: 10px;">▼</span>
           </button>
-          <div class="factor-q-details" style="display: none; margin-top: 10px; font-size: 12px; color: #374151; background: #faf9f6; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--color-pumice); line-height: 1.65;">
-            <div style="font-weight: 700; color: var(--color-obsidian); margin-bottom: 6px; font-size: 12.5px;">📋 나의 역량 진단 문항 매핑</div>
-            <div style="margin-bottom: 4px;">• <strong>역량 1 (문제해결·적용)</strong>: 7, 9, 10, 15, 21~25번 (9문항)</div>
-            <div style="margin-bottom: 4px;">• <strong>역량 2 (개념·원리 이해)</strong>: 1~5, 8, 14번 (7문항)</div>
-            <div style="margin-bottom: 4px;">• <strong>역량 3 (태도·진로 인식)</strong>: 6, 26~30번 (6문항)</div>
-            <div style="margin-bottom: 4px;">• <strong>역량 4 (윤리·보안 인식)</strong>: 16, 17, 18, 20번 (4문항)</div>
-            <div>• <strong>역량 5 (프롬프트·비판적)</strong>: 11, 12, 13, 19번 (4문항)</div>
+          <div class="factor-q-details" style="display: none; margin-top: 10px; font-size: 12px; color: #374151; background: #faf9f6; padding: 12px 14px; border-radius: 14px; border: 1px solid var(--color-pumice); line-height: 1.55;">
+            <div style="font-weight: 700; color: var(--color-obsidian); margin-bottom: 8px; font-size: 12.5px;">📋 5대 핵심 역량 요인 정의</div>
+            <div style="margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px dashed #e5e7eb;">
+              <strong style="color: var(--color-ember);">• 역량 1 [AI 기반 문제해결·창의적 적용]</strong><br>
+              <span style="color: #4b5563;">학업과 실제 문제를 해결하기 위해 적절한 AI 도구를 선별·활용하고 창의적 결과물을 만들어내는 실무적 적용 역량</span>
+            </div>
+            <div style="margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px dashed #e5e7eb;">
+              <strong style="color: var(--color-ember);">• 역량 2 [AI 개념·원리 및 생성형 AI 이해]</strong><br>
+              <span style="color: #4b5563;">데이터 학습 원리, 머신러닝·딥러닝, 생성형 AI 작동 방식 등 인공지능 기술의 기초 원리와 배경을 이해하는 인지적 기초 역량</span>
+            </div>
+            <div style="margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px dashed #e5e7eb;">
+              <strong style="color: var(--color-ember);">• 역량 3 [AI 활용 태도·진로 및 사회적 영향 인식]</strong><br>
+              <span style="color: #4b5563;">AI가 전공과 미래 진로에 미치는 파급효과를 통찰하고, 긍정적·부정적 영향을 균형 있게 바라보며 지속 학습하려는 미래지향적 태도</span>
+            </div>
+            <div style="margin-bottom: 7px; padding-bottom: 6px; border-bottom: 1px dashed #e5e7eb;">
+              <strong style="color: var(--color-ember);">• 역량 4 [AI 데이터·윤리·보안 인식]</strong><br>
+              <span style="color: #4b5563;">개인정보 보호, 저작권, 데이터 편향 주의, 사회적 책임 등 AI 활용 시 요구되는 규범과 윤리 의식을 준수하는 역량</span>
+            </div>
+            <div>
+              <strong style="color: var(--color-ember);">• 역량 5 [프롬프트 설계 및 비판적 활용 역량]</strong><br>
+              <span style="color: #4b5563;">원하는 결과를 도출하기 위해 구체적인 프롬프트를 설계하고, AI 결과를 비판적으로 검토 및 교차 검증하는 분석·통제 역량</span>
+            </div>
           </div>
         </div>`
       : '';
