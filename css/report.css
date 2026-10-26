@@ -100,11 +100,11 @@
   gap: 4px;
 }
 
-/* 4. 결과 요약 섹션 (좌: 표, 우: 전체지수) - 그래프와의 간격을 밀착 */
+/* 4. 결과 요약 섹션 (좌: 표, 우: 전체지수) */
 .report-summary-row {
   display: flex;
   gap: 16px;
-  margin-bottom: 2px;
+  margin-bottom: 6px;
   align-items: stretch;
 }
 
@@ -174,19 +174,24 @@
 }
 
 /* --------------------------------------------------------------------------
-   [1페이지] 레이아웃 블록 및 차트·제안점
+   [1페이지] 3대 섹션 레이아웃 블록 및 차트·제안점
    -------------------------------------------------------------------------- */
-.report-p1-upper {
+.report-p1-section-summary {
+  flex-shrink: 0;
+}
+
+.report-p1-section-chart {
   flex-shrink: 0;
   display: flex;
   flex-direction: column;
+  align-items: center;
 }
 
-/* 레이더 차트 영역 - 295px로 대폭 확대 및 시인성 극대화 */
+/* 레이더 차트 영역 - 280px 최적 확대 규격 */
 .report-chart-container {
   width: 100%;
   max-width: 630px;
-  height: 295px;
+  height: 280px;
   margin: 0 auto;
   position: relative;
 }
@@ -200,7 +205,7 @@
   font-size: 11px;
   font-weight: 700;
   margin-top: 0;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
 }
 .legend-item {
   display: flex;
@@ -221,7 +226,7 @@
 }
 
 .suggestion-block {
-  margin-bottom: 4px;
+  margin-bottom: 7px; /* 각 역량별 간격 설정 */
 }
 
 .suggestion-block:last-child {

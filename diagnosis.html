@@ -117,8 +117,8 @@
         
         <!-- [1페이지] 개별 프로파일 요약 및 레이더 차트 -->
         <div id="report-page-1" class="report-page report-page-1">
-          <!-- 상단 통합 영역: 제목, 인적사항, 결과 요약 표, 범례, 대형 그래프 (간격 밀착) -->
-          <div class="report-p1-upper">
+          <!-- 1구역: 제목, 인적사항, 결과 요약 표 -->
+          <div class="report-p1-section-summary">
             <div class="report-header-title">AI 리터러시 역량 개별 프로파일</div>
 
             <!-- 인적사항 테이블 그리드 -->
@@ -160,8 +160,10 @@
                 <div id="rep-overall-score" class="score-number">86.4 점 (상)</div>
               </div>
             </div>
+          </div>
 
-            <!-- 커스텀 차트 범례 (결과 요약 바로 아래 밀착) -->
+          <!-- 2구역: 커스텀 차트 범례 및 대형 레이더 차트 -->
+          <div class="report-p1-section-chart">
             <div class="chart-legend-custom">
               <div class="legend-item">
                 <div class="legend-color-box color-my-score"></div>
@@ -173,7 +175,7 @@
               </div>
             </div>
 
-            <!-- 방사형 레이더 차트 (확대) -->
+            <!-- 방사형 레이더 차트 (280px 최적 확대) -->
             <div class="report-chart-container">
               <canvas id="radarChart"></canvas>
             </div>
