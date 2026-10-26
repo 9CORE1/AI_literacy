@@ -586,14 +586,9 @@ const DashboardApp = {
       <!-- Google NotebookLM 완벽 사용 및 대학생 학업 활용 가이드 섹션 -->
       <div style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32);">
         <!-- 섹션 헤더 -->
-        <div style="margin-bottom: var(--spacing-20); display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;">
-          <div>
-            <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">AI RESEARCH & STUDY NOTE WORKFLOW</span>
-            <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📚 Google NotebookLM 완벽 사용 & 학업 활용 가이드</h2>
-          </div>
-          <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 8px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 700; font-size: 13.5px;" title="Google NotebookLM 공식 웹사이트 열기">
-            <span>🚀 NotebookLM 바로가기 ↗</span>
-          </a>
+        <div style="margin-bottom: var(--spacing-20);">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">AI RESEARCH & STUDY NOTE WORKFLOW</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📚 Google NotebookLM 완벽 사용 & 학업 활용 가이드</h2>
         </div>
 
           <!-- 카드 1: NotebookLM 개념 및 ChatGPT와의 결정적 차이 비교표 -->
