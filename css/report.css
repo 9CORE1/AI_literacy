@@ -1,3 +1,5 @@
+@import url('https://cdn.jsdelivr.net/npm/font-kopubworld@1.0.3/css/dotum.css');
+
 /**
  * @file report.css
  * @description 대학생 AI 리터러시 진단 개별 프로파일 레포트 전용 스타일 (샘플 이미지 1:1 매칭)
@@ -23,7 +25,9 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   box-sizing: border-box;
   color: #111827;
-  font-family: -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", Dotum, sans-serif;
+  font-family: 'KoPubWorld Dotum', 'KoPubWorldDotum', -apple-system, BlinkMacSystemFont, "Malgun Gothic", "맑은 고딕", sans-serif;
+  letter-spacing: -0.015em;
+  word-break: keep-all;
   position: relative;
   page-break-after: always;
 }
@@ -89,7 +93,7 @@
 }
 
 .report-summary-table {
-  flex: 1.4;
+  flex: 1.65;
   border-collapse: collapse;
   font-size: 13px;
   width: 100%;
@@ -107,6 +111,13 @@
   font-weight: 700;
 }
 
+.report-summary-table td:first-child {
+  white-space: nowrap;
+  font-weight: 700;
+  width: 75px;
+  background-color: #fafafa;
+}
+
 .report-summary-table td.factor-name {
   text-align: left;
   font-weight: 600;
@@ -114,10 +125,12 @@
 
 .report-summary-table td.rating {
   font-weight: 700;
+  white-space: nowrap;
+  width: 65px;
 }
 
 .overall-score-card {
-  flex: 1;
+  flex: 0.95;
   border: 1.5px solid #111827;
   display: flex;
   flex-direction: column;
@@ -144,9 +157,9 @@
 /* 5. 레이더 차트 영역 */
 .report-chart-container {
   width: 100%;
-  max-width: 520px;
-  height: 290px;
-  margin: 0 auto 25px auto;
+  max-width: 650px;
+  height: 380px;
+  margin: 0 auto 20px auto;
   position: relative;
 }
 

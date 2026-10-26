@@ -292,7 +292,7 @@ const DiagnosisApp = {
             backgroundColor: 'rgba(249, 115, 22, 0.45)',
             borderWidth: 2,
             pointBackgroundColor: '#ea580c',
-            pointRadius: 3
+            pointRadius: 4
           },
           {
             label: '영역별 평균',
@@ -301,7 +301,7 @@ const DiagnosisApp = {
             backgroundColor: 'rgba(34, 197, 94, 0.35)',
             borderWidth: 2,
             pointBackgroundColor: '#16a34a',
-            pointRadius: 3
+            pointRadius: 4
           }
         ]
       },
@@ -318,12 +318,13 @@ const DiagnosisApp = {
             ticks: {
               stepSize: 20,
               display: true,
-              font: { size: 9 },
+              font: { size: 9.5, family: "'KoPubWorld Dotum', sans-serif" },
               color: '#333333'
             },
             pointLabels: {
-              font: { size: 10, weight: 'bold' },
-              color: '#000000'
+              font: { size: 11, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
+              color: '#000000',
+              padding: 6
             },
             grid: {
               color: '#d1d5db'
