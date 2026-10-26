@@ -252,18 +252,13 @@ const DiagnosisApp = {
     document.getElementById('rep-grade').textContent = user.gradeOrPosition || '2학년';
     document.getElementById('rep-email').textContent = user.email || 'student@univ.ac.kr';
 
-    // 1. 결과 요약 표 (해당 문항 번호 포함)
+    // 1. 결과 요약 표 (문항 내용 삭제 및 표 높이 최소화)
     const tbody = document.getElementById('rep-summary-tbody');
     tbody.innerHTML = Object.keys(factors).map(k => {
-      const qNums = factors[k].questions || (SURVEY_DATA.factors[k] ? SURVEY_DATA.factors[k].questions : []);
-      const qText = qNums.length > 0 ? `(해당 문항: ${qNums.join(', ')}번)` : '';
       return `
         <tr>
           <td>${factors[k].shortName}</td>
-          <td class="factor-name">
-            <div style="font-weight: 700;">${factors[k].name}</div>
-            <div style="font-size: 11px; color: #4b5563; margin-top: 2px; font-weight: 500;">${qText}</div>
-          </td>
+          <td class="factor-name">${factors[k].name}</td>
           <td class="rating">${factors[k].rating}</td>
         </tr>
       `;
@@ -380,13 +375,13 @@ const DiagnosisApp = {
             ticks: {
               stepSize: 20,
               display: true,
-              font: { size: 9.5, family: "'KoPubWorld Dotum', sans-serif" },
+              font: { size: 9, family: "'KoPubWorld Dotum', sans-serif" },
               color: '#333333'
             },
             pointLabels: {
-              font: { size: 11.5, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
+              font: { size: 10.5, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
               color: '#000000',
-              padding: 6
+              padding: 4
             },
             grid: {
               color: '#d1d5db'
