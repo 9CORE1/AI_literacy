@@ -259,6 +259,13 @@
   flex-wrap: wrap;
 }
 
+/* PC(데스크톱) 환경에서는 'PDF 공유하기' 버튼 삭제(숨김) - 모바일(768px 이하)에서만 노출 */
+@media (min-width: 769px) {
+  #share-pdf-btn {
+    display: none !important;
+  }
+}
+
 @media (max-width: 768px) {
   .report-action-toolbar {
     flex-direction: column;

@@ -24,6 +24,12 @@ const DiagnosisApp = {
       return;
     }
 
+    // PC(데스크톱) 환경에서 접속 시 'PDF 공유하기' 버튼 삭제 (모바일 환경에서만 노출)
+    const isMobileDevice = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || (window.innerWidth <= 768);
+    if (!isMobileDevice) {
+      document.getElementById('share-pdf-btn')?.remove();
+    }
+
     this.bindEvents();
 
     // 이전에 완료한 진단 결과가 있는지 확인 (재진단 모드가 아닐 때 복원)
@@ -38,6 +44,7 @@ const DiagnosisApp = {
         document.getElementById('report-container').style.display = 'block';
         this.renderReportDOM(this.calculatedReport);
         this.renderRadarChart(this.calculatedReport.factorResults);
+        this.preparePdfBackground();
         return;
       } catch (e) {
         console.error('진단 결과 복원 오류:', e);
@@ -228,6 +235,7 @@ const DiagnosisApp = {
     this.renderReportDOM(this.calculatedReport);
     this.renderRadarChart(factorResults);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    this.preparePdfBackground();
   },
 
   /**
@@ -393,9 +401,29 @@ const DiagnosisApp = {
   },
 
   /**
+   * 백그라운드에서 PDF Blob 사전 생성 (모바일 공유 시 사용자 제스처 만료 에러 방지)
+   */
+  preparePdfBackground() {
+    setTimeout(async () => {
+      try {
+        if (!this.cachedPdfBlob) {
+          const res = await this.generatePdfDocument(null);
+          if (res && res.pdfBlob) {
+            this.cachedPdf = res.pdf;
+            this.cachedPdfBlob = res.pdfBlob;
+            this.cachedFileName = res.fileName;
+          }
+        }
+      } catch (err) {
+        console.warn('PDF 백그라운드 프리렌더링 대기:', err);
+      }
+    }, 800);
+  },
+
+  /**
    * PDF 문서 인스턴스 생성 헬퍼
    * @param {HTMLElement} btn - 로딩 상태를 표시할 버튼 엘리먼트
-   * @returns {Promise<{ pdf: any, fileName: string, user: any }>}
+   * @returns {Promise<{ pdf: any, fileName: string, user: any, pdfBlob: Blob }>}
    */
   async generatePdfDocument(btn) {
     const user = Auth.getCurrentUser() || {};
@@ -403,12 +431,15 @@ const DiagnosisApp = {
     const page1 = document.getElementById('report-page-1');
     const page2 = document.getElementById('report-page-2');
 
+    // 모바일 기기는 메모리 효율과 렌더링 속도를 위해 1.5배율, 데스크톱은 2배율 적용
+    const captureScale = (window.innerWidth <= 768) ? 1.5 : 2;
+
     if (btn) btn.textContent = '1p 캡처 중 (1/2)...';
-    const canvas1 = await html2canvas(page1, { scale: 2, useCORS: true, logging: false });
+    const canvas1 = await html2canvas(page1, { scale: captureScale, useCORS: true, logging: false });
     const imgData1 = canvas1.toDataURL('image/jpeg', 0.95);
 
     if (btn) btn.textContent = '2p 캡처 중 (2/2)...';
-    const canvas2 = await html2canvas(page2, { scale: 2, useCORS: true, logging: false });
+    const canvas2 = await html2canvas(page2, { scale: captureScale, useCORS: true, logging: false });
     const imgData2 = canvas2.toDataURL('image/jpeg', 0.95);
 
     if (btn) btn.textContent = 'PDF 합성 중...';
@@ -418,7 +449,12 @@ const DiagnosisApp = {
     pdf.addPage();
     pdf.addImage(imgData2, 'JPEG', 0, 0, 210, 297);
 
-    return { pdf, fileName, user };
+    const pdfBlob = pdf.output('blob');
+    this.cachedPdf = pdf;
+    this.cachedPdfBlob = pdfBlob;
+    this.cachedFileName = fileName;
+
+    return { pdf, fileName, user, pdfBlob };
   },
 
   /**
@@ -430,6 +466,10 @@ const DiagnosisApp = {
     if (downloadBtn) downloadBtn.disabled = true;
 
     try {
+      if (this.cachedPdf) {
+        this.cachedPdf.save(this.cachedFileName || 'AI리터러시_역량프로파일.pdf');
+        return;
+      }
       const { pdf, fileName } = await this.generatePdfDocument(downloadBtn);
       if (downloadBtn) downloadBtn.textContent = 'PDF 저장 중...';
       pdf.save(fileName);
@@ -453,36 +493,72 @@ const DiagnosisApp = {
     if (shareBtn) shareBtn.disabled = true;
 
     try {
-      const { pdf, fileName, user } = await this.generatePdfDocument(shareBtn);
+      const user = Auth.getCurrentUser() || {};
+      const koreanFileName = `AI리터러시_역량프로파일_${user.name || '학생'}.pdf`;
+      const asciiFileName = `AI_Literacy_Profile_${Date.now()}.pdf`;
+
+      let pdfBlob = this.cachedPdfBlob;
+      let pdfObj = this.cachedPdf;
+
+      // 캐시된 PDF가 아직 없다면 즉시 생성
+      if (!pdfBlob) {
+        if (shareBtn) shareBtn.textContent = 'PDF 생성 중...';
+        const res = await this.generatePdfDocument(shareBtn);
+        pdfObj = res.pdf;
+        pdfBlob = res.pdfBlob;
+      }
+
       if (shareBtn) shareBtn.textContent = '공유 창 여는 중...';
 
-      const pdfBlob = pdf.output('blob');
-      const pdfFile = new File([pdfBlob], fileName, { type: 'application/pdf' });
+      const ua = navigator.userAgent || '';
+      const isKakao = /KAKAOTALK/i.test(ua);
+      const isNaver = /NAVER/i.test(ua);
 
-      // Web Share API 지원 및 파일 공유 가능 여부 확인
-      if (navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
-        await navigator.share({
-          files: [pdfFile],
-          title: `[AI 리터러시 진단 결과] ${user.name || '학생'}`,
-          text: `${user.name || '학생'}님의 대학생 AI 리터러시 역량 진단 결과 레포트입니다.`
-        });
-      } else if (navigator.share) {
-        // 파일 공유는 지원하지 않으나 텍스트 공유는 지원하는 브라우저
-        await navigator.share({
-          title: `[AI 리터러시 진단 결과] ${user.name || '학생'}`,
-          text: `${user.name || '학생'}님의 대학생 AI 리터러시 역량 진단 결과입니다.`
-        });
-        pdf.save(fileName);
-      } else {
-        // Web Share API를 미지원하는 데스크톱 브라우저: 안내 후 PDF 파일 다운로드 진행
-        alert('현재 브라우저에서는 메신저 직접 공유를 지원하지 않아, PDF 파일 다운로드로 대체 진행합니다.');
-        pdf.save(fileName);
+      // WebKit/Chrome 파일 공유용 안전 File 객체 (영문 파일명으로 iOS/Android 호환성 확보)
+      const pdfFile = new File([pdfBlob], asciiFileName, { type: 'application/pdf' });
+      let sharedSuccessfully = false;
+
+      // Web Share API 지원 확인 및 실행
+      if (!isKakao && !isNaver && navigator.canShare && navigator.canShare({ files: [pdfFile] })) {
+        try {
+          await navigator.share({
+            files: [pdfFile],
+            title: `[AI 리터러시 진단 결과] ${user.name || '학생'}`,
+            text: `${user.name || '학생'}님의 대학생 AI 리터러시 역량 진단 결과 레포트입니다.`
+          });
+          sharedSuccessfully = true;
+        } catch (shareErr) {
+          if (shareErr.name === 'AbortError') {
+            // 사용자가 공유 창을 닫은 경우 (정상 취소)
+            return;
+          }
+          console.warn('Web Share API 파일 공유 실패, 대체 방식 시도:', shareErr);
+        }
+      }
+
+      // 공유 실패 또는 인앱 브라우저일 때 대체 방식: PDF 새 탭 열기 & 자동 다운로드
+      if (!sharedSuccessfully) {
+        const blobUrl = URL.createObjectURL(pdfBlob);
+
+        if (isKakao) {
+          alert('카카오톡 인앱 브라우저에서는 파일 직접 공유가 제한되어 있습니다.\n새 창으로 열리는 PDF 화면에서 다운로드하시거나, 우측 상단 메뉴(⋮)에서 [다른 브라우저로 열기]를 권장합니다.');
+        }
+
+        // 모바일 브라우저 새 탭에 PDF 뷰어 띄우기 (iOS 사파리는 기본 뷰어에서 바로 공유 [↑] 가능)
+        const openWin = window.open(blobUrl, '_blank');
+        if (!openWin) {
+          const a = document.createElement('a');
+          a.href = blobUrl;
+          a.download = koreanFileName;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => a.remove(), 600);
+        }
       }
     } catch (e) {
-      // 사용자가 공유 창을 닫거나 취소한 경우는 오류 팝업 생략 (정상 취소)
       if (e.name !== 'AbortError') {
         console.error('PDF 공유 실패:', e);
-        alert('PDF 공유 중 오류가 발생했습니다. 다운로드 기능을 이용해 주세요.');
+        alert('PDF 공유 중 문제가 발생했습니다. 상단의 [📥 PDF 다운로드] 또는 [1p JPG 저장] 기능을 이용해 주세요.');
       }
     } finally {
       if (shareBtn) {
