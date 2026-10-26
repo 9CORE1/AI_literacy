@@ -936,7 +936,7 @@ const DashboardApp = {
           </div>
 
           <!-- 카드 5: 200% 활용 꿀팁 및 학술 윤리 준수 가이드 -->
-          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
               <span>💡 5. NotebookLM 200% 활용 실전 꿀팁 & 필수 학술 윤리</span>
             </h3>
@@ -987,6 +987,126 @@ const DashboardApp = {
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+
+          <!-- 카드 6: Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드 -->
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+              <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>📊 6. Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드</span>
+              </h3>
+              <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                Google Sheets × Gemini 자동화
+              </span>
+            </div>
+
+            <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+              Google 스프레드시트의 <code>=GEMINI()</code> 함수는 셀 안에서 거대언어모델을 엑셀 수식처럼 직접 호출하여, <strong>텍스트 요약·분류·데이터 정제·번역·콘텐츠 생성</strong>을 수백~수천 행 단위로 일괄 자동화할 수 있는 강력한 기능입니다.
+            </p>
+
+            <!-- 기본 문법 배너 -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-left: 4px solid #10b981; padding: 1rem 1.25rem; border-radius: 14px; margin-bottom: 1.35rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #065f46; margin-bottom: 4px;">📌 기본 수식 문법 (Syntax)</div>
+              <code style="font-family: var(--font-mono); font-size: 13px; color: #047857; background: #ffffff; padding: 4px 8px; border-radius: 6px; border: 1px solid #a7f3d0; display: inline-block; margin-bottom: 6px;">=GEMINI("프롬프트(지시문)", [참조_셀_또는_범위])</code>
+              <div style="font-size: 12px; color: #374151; line-height: 1.5; word-break: keep-all;">
+                • <strong>"프롬프트"</strong>: Gemini에게 지시할 구체적인 명령 (따옴표로 감싸서 작성)<br>
+                • <strong>[참조_셀]</strong> (선택/권장): 분석 또는 변환할 텍스트가 들어있는 셀 (예: <code>A2</code>, <code>B2:C2</code>)
+              </div>
+            </div>
+
+            <!-- 대표 활용 5선 그리드 -->
+            <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 0.85rem;">
+              ⚡ 대표 활용 분야 5선 & 실전 수식 (클릭하여 복사)
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 0.85rem; margin-bottom: 1.5rem;">
+              <!-- 1. 감정 분석 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 14px; padding: 1rem 1.15rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-weight: 700; font-size: 13px; color: #0369a1;">① 데이터 분류 및 감정 분석</span>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; background: #fff; border-color: #cbd5e1; cursor: pointer;">
+                    <span>📋 수식 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-bottom: 6px;">설문조사 주관식 답변이나 고객 리뷰를 단어 하나로 라벨링합니다.</div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 리뷰의 감정을 [긍정 / 부정 / 중립] 중 단어 하나로만 분류해줘:", A2)</pre>
+              </div>
+
+              <!-- 2. 요약 및 추출 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 14px; padding: 1rem 1.15rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-weight: 700; font-size: 13px; color: #0369a1;">② 비정형 텍스트 요약 및 핵심 추출</span>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; background: #fff; border-color: #cbd5e1; cursor: pointer;">
+                    <span>📋 수식 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-bottom: 6px;">긴 줄글 상담 내용이나 회의록에서 핵심만 1문장으로 요약하거나 특정 데이터만 추출합니다.</div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 고객 상담 내용의 핵심 쟁점을 30자 이내의 한 문장으로 요약해줘:", A2)</pre>
+              </div>
+
+              <!-- 3. 데이터 정제 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 14px; padding: 1rem 1.15rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-weight: 700; font-size: 13px; color: #0369a1;">③ 데이터 정제 및 양식 표준화</span>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; background: #fff; border-color: #cbd5e1; cursor: pointer;">
+                    <span>📋 수식 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-bottom: 6px;">오타 교정 및 비정형 주소를 표준 행정구역 포맷으로 일괄 변환합니다.</div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 비정형 주소를 [시/도 구/군 동/면/읍] 표준 행정구역 포맷으로 변환해줘:", B2)</pre>
+              </div>
+
+              <!-- 4. 번역 및 톤앤매너 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 14px; padding: 1rem 1.15rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-weight: 700; font-size: 13px; color: #0369a1;">④ 다국어 번역 및 비즈니스 문체 톤앤매너</span>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; background: #fff; border-color: #cbd5e1; cursor: pointer;">
+                    <span>📋 수식 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-bottom: 6px;">상황과 상대에 맞게 격식 있는 비즈니스 영어 또는 친근한 안내문 말투로 변환합니다.</div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 문장을 해외 바이어에게 보낼 정중하고 격식 있는 비즈니스 영어로 번역해줘:", A2)</pre>
+              </div>
+
+              <!-- 5. 마케팅 카피 대량 생성 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 14px; padding: 1rem 1.15rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                  <span style="font-weight: 700; font-size: 13px; color: #0369a1;">⑤ 마케팅 카피 대량 생성</span>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; background: #fff; border-color: #cbd5e1; cursor: pointer;">
+                    <span>📋 수식 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 11.5px; color: #64748b; margin-bottom: 6px;">여러 열의 데이터를 조합하여 20자 내외의 맞춤형 인스타그램/SNS 광고 문구를 생성합니다.</div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("A열의 [상품명]과 B열의 [핵심 타깃]을 고려해 20자 내외의 매력적인 인스타그램 광고 카피를 써줘", A2:B2)</pre>
+              </div>
+            </div>
+
+            <!-- 필수 주의사항 3선 배너 -->
+            <div style="border-top: 1px solid #e5e7eb; padding-top: 1.25rem;">
+              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 0.85rem;">
+                ⚠️ 실무자가 반드시 알아야 할 시트 최적화 핵심 수칙 3가지
+              </div>
+              <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
+                <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px; padding: 1rem;">
+                  <div style="font-weight: 700; font-size: 13px; color: #b45309; margin-bottom: 4px;">1. '값으로 붙여넣기' 필수</div>
+                  <div style="font-size: 12px; color: #78350f; line-height: 1.5; word-break: keep-all;">
+                    수식 결과가 나오면 즉시 복사(Ctrl+C) 후 <strong>값만 붙여넣기(Ctrl+Shift+V)</strong>로 고정하세요. 시트 새로고침 시 불필요한 API 재호출과 값 변경을 방지합니다.
+                  </div>
+                </div>
+                <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px; padding: 1rem;">
+                  <div style="font-weight: 700; font-size: 13px; color: #b45309; margin-bottom: 4px;">2. 출력 형식 엄격 제한</div>
+                  <div style="font-size: 12px; color: #78350f; line-height: 1.5; word-break: keep-all;">
+                    셀 높이와 가독성을 위해 프롬프트 끝에 <code>"부가 설명 없이 [답변]만 출력할 것"</code> 또는 <code>"마크다운 기호 없이 텍스트만 출력할 것"</code>을 명시하세요.
+                  </div>
+                </div>
+                <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px; padding: 1rem;">
+                  <div style="font-weight: 700; font-size: 13px; color: #b45309; margin-bottom: 4px;">3. 50~100행 단위 분할 처리</div>
+                  <div style="font-size: 12px; color: #78350f; line-height: 1.5; word-break: keep-all;">
+                    수천 행을 한 번에 드래그하면 API 쿼터 초과로 #ERROR!가 발생할 수 있습니다. 50~100행 단위로 나누어 적용하고 값으로 고정하는 방식을 권장합니다.
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
