@@ -21,8 +21,310 @@
       window.location.replace('index.html?login=true');
     }
   </script>
+  <style>
+    /* Profile Page — Caldera Design System */
+    .profile-viewport {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-color: var(--surface-limestone-surface);
+      word-break: keep-all;
+    }
+
+    .profile-main-container {
+      max-width: 680px;
+      margin: 0 auto;
+      padding-top: var(--spacing-24);
+      padding-bottom: var(--spacing-64);
+      flex: 1;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* 1. 상단 프로필 헤더 배너 */
+    .profile-header-card {
+      background: var(--color-ember);
+      color: var(--color-chalk);
+      border-radius: 32px;
+      padding: 30px 36px;
+      margin-bottom: 24px;
+      box-shadow: 0 16px 36px rgba(85, 56, 150, 0.16);
+      border: none;
+    }
+
+    .profile-header-inner {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      flex-wrap: wrap;
+    }
+
+    .profile-avatar-box {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      font-weight: 800;
+      color: #ffffff;
+      border: 2.5px solid rgba(255, 255, 255, 0.35);
+      flex-shrink: 0;
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile-header-info {
+      flex: 1;
+      min-width: 220px;
+    }
+
+    .profile-role-pill {
+      display: inline-flex;
+      align-items: center;
+      background: var(--color-sulfur);
+      color: var(--color-obsidian);
+      font-size: 12px;
+      font-weight: 800;
+      padding: 3px 12px;
+      border-radius: var(--radius-pills);
+      margin-bottom: 8px;
+      letter-spacing: 0.02em;
+    }
+
+    .profile-header-title {
+      font-size: clamp(22px, 3.5vw, 26px);
+      font-weight: 800;
+      color: #ffffff;
+      margin: 0 0 4px 0;
+      line-height: 1.25;
+    }
+
+    .profile-header-subtitle {
+      font-size: 13.5px;
+      color: #eee8fc;
+      opacity: 0.92;
+      margin: 0;
+    }
+
+    /* 2. 프로필 입력 카드 */
+    .profile-card {
+      background: var(--color-chalk);
+      border: 1.5px solid var(--color-pumice);
+      border-radius: 36px;
+      padding: 40px 36px;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.04);
+      box-sizing: border-box;
+    }
+
+    .profile-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 12px;
+      border-radius: var(--radius-pills);
+      font-size: 12px;
+      font-weight: 700;
+      background: #eee8fc;
+      color: var(--color-ember);
+      margin-bottom: 10px;
+    }
+
+    .profile-card-title {
+      font-family: var(--font-display);
+      font-size: 26px;
+      font-weight: 800;
+      color: var(--color-obsidian);
+      margin-bottom: 12px;
+    }
+
+    .profile-notice-box {
+      background: #f7f5fd;
+      border: 1.5px solid #ded5fa;
+      border-radius: 18px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      margin-bottom: 28px;
+      font-size: 13.5px;
+      color: #493375;
+      line-height: 1.6;
+    }
+
+    .profile-notice-box .notice-icon {
+      font-size: 18px;
+      line-height: 1.3;
+      flex-shrink: 0;
+    }
+
+    .profile-notice-box p {
+      margin: 0;
+    }
+
+    /* Form Fields Grid */
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px 18px;
+      margin-bottom: 32px;
+    }
+
+    .form-col-full {
+      grid-column: 1 / -1;
+    }
+
+    .form-col-half {
+      grid-column: span 1;
+    }
+
+    .form-label {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--color-obsidian);
+      margin-bottom: 8px;
+    }
+
+    .badge-lock {
+      font-size: 11px;
+      font-weight: 600;
+      color: #777;
+      background: #e9e8e3;
+      padding: 2px 7px;
+      border-radius: 6px;
+    }
+
+    .required-mark {
+      color: #e11d48;
+      margin-left: 4px;
+    }
+
+    .form-control {
+      width: 100%;
+      height: 48px;
+      padding: 10px 16px;
+      border-radius: 14px;
+      border: 1.5px solid var(--color-pumice);
+      background: #ffffff;
+      font-size: 14.5px;
+      color: var(--color-obsidian);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-sizing: border-box;
+      font-family: inherit;
+    }
+
+    .form-control:focus {
+      border-color: var(--color-ember);
+      outline: none;
+      box-shadow: 0 0 0 4px rgba(85, 56, 150, 0.12);
+    }
+
+    .form-control-readonly {
+      background: #f7f6f2;
+      border-color: #e4e3dd;
+      color: #666;
+      cursor: not-allowed;
+    }
+
+    /* Actions */
+    .profile-btn-actions {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 12px;
+      padding-top: 24px;
+      border-top: 1.5px dashed var(--color-pumice);
+    }
+
+    .btn-save {
+      background: var(--color-ember);
+      color: #ffffff;
+      border-radius: var(--radius-pills);
+      padding: 13px 32px;
+      font-weight: 700;
+      font-size: 15.5px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border: none;
+      cursor: pointer;
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 4px 14px rgba(85, 56, 150, 0.2);
+    }
+
+    .btn-save:hover {
+      background: var(--color-violet-hover);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 22px rgba(85, 56, 150, 0.3);
+    }
+
+    .btn-cancel {
+      border-radius: var(--radius-pills);
+      padding: 13px 26px;
+      font-weight: 700;
+      font-size: 14.5px;
+      background: transparent;
+      border: 1.5px solid var(--color-pumice);
+      color: var(--color-obsidian);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      transition: all 0.2s ease;
+    }
+
+    .btn-cancel:hover {
+      background: #eee8fc;
+      border-color: var(--color-ember);
+      color: var(--color-ember);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+      .profile-main-container {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .profile-header-card {
+        padding: 24px 20px;
+        border-radius: 24px;
+      }
+      .profile-header-inner {
+        gap: 16px;
+      }
+      .profile-avatar-box {
+        width: 56px;
+        height: 56px;
+        font-size: 22px;
+      }
+      .profile-card {
+        padding: 28px 20px;
+        border-radius: 28px;
+      }
+      .form-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .form-col-half {
+        grid-column: 1 / -1;
+      }
+      .profile-btn-actions {
+        flex-direction: column-reverse;
+        gap: 10px;
+      }
+      .btn-cancel, .btn-save {
+        width: 100%;
+        text-align: center;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+    }
+  </style>
 </head>
-<body>
+<body class="profile-viewport">
   <!-- 상단 네비게이션 (Pill Style) -->
   <div class="navbar-wrapper">
     <div class="container">
@@ -37,52 +339,107 @@
     </div>
   </div>
 
-  <main class="container" style="max-width: 600px;">
-    <div class="card">
-      <h2 style="font-size: 1.35rem; margin-bottom: 0.5rem;">내 프로필 관리</h2>
-      <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-        입력하신 학과 및 학년 정보는 AI 리터러시 진단 개별 레포트에 자동으로 반영됩니다.
-      </p>
+  <main class="profile-main-container">
+    <!-- 1. 프로필 상단 요약 배너 (Caldera Ember Card) -->
+    <div class="profile-header-card">
+      <div class="profile-header-inner">
+        <div class="profile-avatar-box" id="prof-avatar-box">
+          <span id="prof-avatar-text">👤</span>
+        </div>
+        <div class="profile-header-info">
+          <div class="profile-role-pill" id="prof-badge-role">회원</div>
+          <h1 class="profile-header-title"><span id="prof-header-name">사용자</span> 님의 프로필</h1>
+          <p class="profile-header-subtitle" id="prof-header-email">user@email.com</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. 내 정보 수정 폼 카드 -->
+    <div class="profile-card">
+      <div class="profile-badge">
+        <span>⚙️ ACCOUNT SETTINGS</span>
+      </div>
+      <h2 class="profile-card-title">내 정보 관리</h2>
+      
+      <div class="profile-notice-box">
+        <span class="notice-icon">💡</span>
+        <p>
+          입력하신 <strong>소속 학교, 학과 및 학년/직급</strong> 정보는 <strong>AI 리터러시 진단 평가 개별 레포트</strong>에 자동으로 반영됩니다.
+        </p>
+      </div>
 
       <form id="profile-form">
-        <div class="form-group">
-          <label class="form-label">이메일 계정 (Google)</label>
-          <input type="text" id="prof-email" class="form-control" readonly>
+        <div class="form-grid">
+          <!-- 계정 기본 정보 (Read-only) -->
+          <div class="form-group form-col-half">
+            <label class="form-label">
+              이메일 계정 <span class="badge-lock">🔒 변경 불가</span>
+            </label>
+            <input type="text" id="prof-email" class="form-control form-control-readonly" readonly>
+          </div>
+
+          <div class="form-group form-col-half">
+            <label class="form-label">
+              회원 구분 <span class="badge-lock">🔒 변경 불가</span>
+            </label>
+            <input type="text" id="prof-role" class="form-control form-control-readonly" readonly>
+          </div>
+
+          <!-- 성명 -->
+          <div class="form-group form-col-full">
+            <label class="form-label">성명 <span class="required-mark">*</span></label>
+            <input type="text" id="prof-name" class="form-control" required placeholder="성함을 입력하세요">
+          </div>
+
+          <!-- 소속 학교 -->
+          <div class="form-group form-col-full">
+            <label class="form-label">소속 대학교 / 기관</label>
+            <input type="text" id="prof-university" class="form-control" placeholder="예: 한국대학교">
+          </div>
+
+          <!-- 학과 / 부서 -->
+          <div class="form-group form-col-half">
+            <label id="label-dept" class="form-label">학과 / 전공</label>
+            <input type="text" id="prof-dept" class="form-control" placeholder="예: 인공지능학과">
+          </div>
+
+          <!-- 학년 / 직급 -->
+          <div class="form-group form-col-half">
+            <label id="label-grade" class="form-label">학년 / 직급</label>
+            <input type="text" id="prof-grade" class="form-control" placeholder="예: 2학년 / 주임">
+          </div>
         </div>
 
-        <div class="form-group">
-          <label class="form-label">이름</label>
-          <input type="text" id="prof-name" class="form-control" required placeholder="성함을 입력하세요">
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">회원 구분</label>
-          <input type="text" id="prof-role" class="form-control" readonly>
-        </div>
-
-        <div class="form-group">
-          <label class="form-label">학교명</label>
-          <input type="text" id="prof-university" class="form-control" placeholder="예: 한국대학교">
-        </div>
-
-        <div class="form-group">
-          <label id="label-dept" class="form-label">학과 / 전공</label>
-          <input type="text" id="prof-dept" class="form-control" placeholder="예: 인공지능학과">
-        </div>
-
-        <div class="form-group">
-          <label id="label-grade" class="form-label">학년 / 직급</label>
-          <input type="text" id="prof-grade" class="form-control" placeholder="예: 2학년 / 담당">
-        </div>
-
-        <div style="display: flex; gap: 0.75rem; justify-content: flex-end; margin-top: 2rem;">
-          <a href="dashboard.html" class="btn btn-secondary">취소</a>
-          <button type="submit" class="btn btn-primary">저장하기</button>
+        <div class="profile-btn-actions">
+          <a href="dashboard.html" class="btn-cancel">취소</a>
+          <button type="submit" class="btn-save">
+            <span>변경사항 저장하기</span>
+            <span>✓</span>
+          </button>
         </div>
       </form>
     </div>
-
   </main>
+
+  <!-- Caldera Footer -->
+  <footer class="caldera-footer" style="margin-top: auto;">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">AI LITERACY LAB</div>
+        <div>
+          <a href="dashboard.html" style="font-weight: 600;">맞춤형 강의실</a>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; line-height: 1.6;">
+        <div>
+          © 2026 AI Literacy Lab. Caldera Light Theme Architecture. All rights reserved.
+        </div>
+        <div>
+          본 플랫폼의 진단 척도 및 결과 알고리즘은 학술 연구 윤리 지침을 준수합니다.
+        </div>
+      </div>
+    </div>
+  </footer>
 
   <!-- Firebase SDK (v10 compat) & Config -->
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>

@@ -116,7 +116,7 @@ const DashboardApp = {
         <div class="card module-card">
           <h3><span>04</span> 구글 시트에서 Gemini 함수 활용</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역을 자동화합니다. (시연)
+            스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역을 자동화합니다.
           </p>
         </div>
       </div>
@@ -197,7 +197,7 @@ const DashboardApp = {
         <div class="card module-card">
           <h3><span>04</span> 구글 폼 제작 및 집계시스템 설정</h3>
           <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            AI로 행사 및 특강 설문 문항을 기획하고, 구글 폼 생성 후 스프레드시트 실시간 집계 대시보드를 구축합니다. (시연)
+            AI로 행사 및 특강 설문 문항을 기획하고, 구글 폼 생성 후 스프레드시트 실시간 집계 대시보드를 구축합니다.
           </p>
         </div>
       </div>

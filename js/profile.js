@@ -25,6 +25,20 @@ const ProfileApp = {
     document.getElementById('prof-dept').value = user.department || '';
     document.getElementById('prof-grade').value = user.gradeOrPosition || '';
 
+    // 상단 요약 배너 요소 바인딩
+    const headerName = document.getElementById('prof-header-name');
+    if (headerName) headerName.textContent = user.name || '사용자';
+    const headerEmail = document.getElementById('prof-header-email');
+    if (headerEmail) headerEmail.textContent = user.email || '';
+    const badgeRole = document.getElementById('prof-badge-role');
+    if (badgeRole) {
+      badgeRole.textContent = user.role === 'staff' ? '🏛️ 교직원' : (user.role === 'student' ? '🎓 대학생' : '회원');
+    }
+    const avatarText = document.getElementById('prof-avatar-text');
+    if (avatarText && user.name) {
+      avatarText.textContent = user.name.trim().charAt(0).toUpperCase();
+    }
+
     // 역할에 따른 라벨 변경
     const deptLabel = document.getElementById('label-dept');
     const gradeLabel = document.getElementById('label-grade');
