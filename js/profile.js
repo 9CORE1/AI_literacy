@@ -13,7 +13,6 @@ const ProfileApp = {
     }
 
     this.renderForm(user);
-    this.renderLoginHistory();
     this.bindEvents();
   },
 
@@ -36,39 +35,6 @@ const ProfileApp = {
       if (deptLabel) deptLabel.textContent = '학과 / 전공';
       if (gradeLabel) gradeLabel.textContent = '학년 (예: 2학년)';
     }
-  },
-
-  renderLoginHistory() {
-    const listEl = document.getElementById('login-history-list');
-    if (!listEl) return;
-
-    const history = typeof Auth.getLoginHistory === 'function' ? Auth.getLoginHistory() : [];
-    if (!history || history.length === 0) {
-      listEl.innerHTML = '<div style="padding: 12px; color: #888; font-size: 13.5px; background: #faf8f5; border-radius: 8px;">최근 기록된 입장 이력이 없습니다.</div>';
-      return;
-    }
-
-    const recentLogs = history.slice(0, 10);
-    listEl.innerHTML = recentLogs.map((log) => {
-      const dateStr = log.timestamp ? new Date(log.timestamp).toLocaleString('ko-KR') : '-';
-      const methodLabel = log.method === 'google' ? 'Google 간편입장' : (log.method === 'register' ? '신규 회원가입' : '아이디/비밀번호');
-      const roleBadge = log.role === 'staff' ? '🏛️ 교직원' : (log.role === 'student' ? '🎓 대학생' : '일반');
-      const esc = window.escapeHtml || ((s) => s);
-      const safeDisplayName = esc(log.name || log.email || '사용자');
-
-      return `
-        <div style="display: flex; justify-content: space-between; align-items: center; padding: 10px 14px; background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 12px; font-size: 13.5px; flex-wrap: wrap; gap: 8px;">
-          <div style="display: flex; align-items: center; gap: 8px;">
-            <span style="font-weight: 700; color: var(--color-ember);">${roleBadge}</span>
-            <span style="font-weight: 600;">${safeDisplayName}</span>
-            <span style="background: var(--color-pumice); padding: 2px 8px; border-radius: 6px; font-size: 11.5px; color: #555;">${methodLabel}</span>
-          </div>
-          <div style="color: #777; font-size: 12.5px;">
-            ${dateStr}
-          </div>
-        </div>
-      `;
-    }).join('');
   },
 
   bindEvents() {
