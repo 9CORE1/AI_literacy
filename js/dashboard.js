@@ -582,6 +582,86 @@ const DashboardApp = {
             </div>
           </div>
         </div>
+
+        <!-- 4. Google NotebookLM 사용 및 대학생 학업 활용 가이드 카드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.25rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px;">연구·과제 특화 AI</span>
+                <span style="font-size: 13px; color: #6b7280; font-weight: 500;">Google Gemini 1.5 Pro 기반 맞춤형 연구 노트</span>
+              </div>
+              <h3 style="font-size: 19px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>📚 Google NotebookLM 사용 및 대학생 학업 활용 가이드</span>
+              </h3>
+            </div>
+            <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 6px 14px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 600;" title="Google NotebookLM 공식 웹사이트 열기">
+              <span>🚀 NotebookLM 바로가기 ↗</span>
+            </a>
+          </div>
+
+          <!-- 1. 핵심 차별점 3대 비교 박스 (소스 접지형 RAG) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem;">
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-left: 4px solid #0284c7; padding: 1rem 1.15rem; border-radius: 12px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📌 철저한 소스 접지(Source-Grounded)</div>
+              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                인터넷 전체가 아니라, 내가 직접 업로드한 PDF·교안·문서만을 엄격한 진실의 원천으로 삼아 답변합니다.
+              </div>
+            </div>
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-left: 4px solid var(--color-ember); padding: 1rem 1.15rem; border-radius: 12px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">🔍 환각(거짓 정보)의 극소화</div>
+              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                문서 밖의 정보는 마음대로 지어내지 않으므로, 신뢰성이 생명인 대학 학술 리포트와 시험 공부에 최적입니다.
+              </div>
+            </div>
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-left: 4px solid #10b981; padding: 1rem 1.15rem; border-radius: 12px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📑 1초 만에 원문 대조 (인라인 각주)</div>
+              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                모든 답변 속 번호 각주를 클릭하면 원본 문서의 해당 페이지와 형광펜 하이라이트로 즉시 이동해 팩트체크합니다.
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. 대학생 실전 4대 활용 시나리오 -->
+          <div style="margin-bottom: 1.25rem;">
+            <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px;">
+              <span>🎯 대학생 학업 실전 4대 활용 시나리오</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem;">
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">① 전공 논문·원서 초고속 분석</div>
+                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  50페이지 넘는 학술 논문 PDF를 올리고 가설, 연구 방법론, 결론 및 한계점을 인용 출처와 함께 10초 만에 추출
+                </div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">② 시험 대비 맞춤형 족보·퀴즈</div>
+                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  교수님의 강의 교안(PPT)과 필기 노트를 합쳐 '스터디 가이드' 생성 및 예상 객관식·서술형 시험 문제 자동 출제
+                </div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">③ 팀 프로젝트 자료 대조 분석</div>
+                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  조원들이 조사한 논문·통계 자료를 한곳에 모으고, 각 문서 간 상반된 주장이나 관점 차이를 비교표로 정리
+                </div>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">④ 오디오 팟캐스트 복습 & 영상 요약</div>
+                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  '오디오 오버뷰'로 문서를 두 AI 진행자의 15분 라디오 토크로 변환해 등하굣길에 듣고, 학술 유튜브 영상 요약
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 3. 실전 팁 & 학술 윤리 가이드 바 -->
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 0.95rem 1.25rem;">
+            <div style="font-size: 12.5px; color: #166534; line-height: 1.55; word-break: keep-all;">
+              💡 <strong>핵심 팁</strong>: 영문 논문 PDF를 올린 뒤 <strong>한국어로 질문</strong>해도 원문 인용 각주와 함께 고품질 한글 답변을 제공합니다. (단, 요약문 단순 복붙 제출은 표절이며 반드시 인라인 각주를 확인 후 원저자 정식 출처를 표기하세요.)
+            </div>
+          </div>
+        </div>
       </div>
     `;
   },
