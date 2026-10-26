@@ -384,9 +384,9 @@ const DiagnosisApp = {
               color: '#333333'
             },
             pointLabels: {
-              font: { size: 13, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
+              font: { size: 11.5, weight: 'bold', family: "'KoPubWorld Dotum', sans-serif" },
               color: '#000000',
-              padding: 8
+              padding: 6
             },
             grid: {
               color: '#d1d5db'
