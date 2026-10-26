@@ -583,82 +583,301 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 4. Google NotebookLM 사용 및 대학생 학업 활용 가이드 카드 -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; margin-bottom: 1.25rem;">
+        <!-- 4. Google NotebookLM 완벽 사용 및 대학생 학업 활용 가이드 섹션 -->
+        <div style="margin-top: 1.5rem;">
+          <!-- 섹션 헤더 -->
+          <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px; margin-bottom: 1.25rem;">
             <div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
-                <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 3px 8px; border-radius: 4px;">연구·과제 특화 AI</span>
-                <span style="font-size: 13px; color: #6b7280; font-weight: 500;">Google Gemini 1.5 Pro 기반 맞춤형 연구 노트</span>
-              </div>
-              <h3 style="font-size: 19px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-                <span>📚 Google NotebookLM 사용 및 대학생 학업 활용 가이드</span>
-              </h3>
+              <span style="font-family: var(--font-display); font-size: 15px; color: #0284c7; letter-spacing: 0.05em; font-weight: 700;">AI RESEARCH & STUDY NOTE WORKFLOW</span>
+              <h2 style="font-size: clamp(22px, 3.2vw, 28px); color: var(--color-obsidian); margin: 4px 0 0 0; display: flex; align-items: center; gap: 8px;">
+                <span>📚 Google NotebookLM 완벽 사용 & 학업 활용 가이드</span>
+              </h2>
             </div>
-            <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 6px 14px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 600;" title="Google NotebookLM 공식 웹사이트 열기">
+            <a href="https://notebooklm.google.com" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="padding: 8px 18px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0369a1; background: #f0f9ff; font-weight: 700; font-size: 13.5px;" title="Google NotebookLM 공식 웹사이트 열기">
               <span>🚀 NotebookLM 바로가기 ↗</span>
             </a>
           </div>
 
-          <!-- 1. 핵심 차별점 3대 비교 박스 (소스 접지형 RAG) -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem;">
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-left: 4px solid #0284c7; padding: 1rem 1.15rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📌 철저한 소스 접지(Source-Grounded)</div>
-              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                인터넷 전체가 아니라, 내가 직접 업로드한 PDF·교안·문서만을 엄격한 진실의 원천으로 삼아 답변합니다.
-              </div>
+          <!-- 카드 1: NotebookLM 개념 및 ChatGPT와의 결정적 차이 비교표 -->
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+              <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>🔍 1. NotebookLM이란? (ChatGPT와의 결정적 차이)</span>
+              </h3>
+              <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                Google Gemini 1.5 Pro 기반 소스 접지(Source-Grounded) RAG
+              </span>
             </div>
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-left: 4px solid var(--color-ember); padding: 1rem 1.15rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">🔍 환각(거짓 정보)의 극소화</div>
-              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                문서 밖의 정보는 마음대로 지어내지 않으므로, 신뢰성이 생명인 대학 학술 리포트와 시험 공부에 최적입니다.
-              </div>
+            
+            <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+              NotebookLM은 사용자가 직접 업로드한 문서만을 <strong>엄격한 진실의 원천(Source of Truth)</strong>으로 삼아 답변하는 맞춤형 AI 연구 노트입니다. 일반 생성형 AI와 달리 인터넷 전체의 불확실한 지식을 검색하지 않고, 제공된 자료 범위 내에서만 작동합니다.
+            </p>
+
+            <!-- 비교 테이블 -->
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; min-width: 620px; word-break: keep-all;">
+                <thead>
+                  <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                    <th style="padding: 12px 14px; font-weight: 700; color: #334155; width: 18%;">구분</th>
+                    <th style="padding: 12px 14px; font-weight: 700; color: #64748b; width: 41%;">일반 범용 LLM (ChatGPT, Claude 등)</th>
+                    <th style="padding: 12px 14px; font-weight: 700; color: #0284c7; width: 41%; background: #f0f9ff;">Google NotebookLM</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">지식 출처</td>
+                    <td style="padding: 12px 14px; color: #6b7280;">인터넷 전체 학습 데이터 (방대하지만 부정확할 수 있음)</td>
+                    <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">사용자가 직접 업로드한 문서(Source)에만 엄격히 한정</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">환각 (거짓 정보)</td>
+                    <td style="padding: 12px 14px; color: #6b7280;">발생 가능성 상존 (그럴듯한 가짜 논문/통계 생성)</td>
+                    <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">내가 준 문서 밖의 정보는 답변하지 않아 극소화</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #e5e7eb;">
+                    <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">출처 표기</td>
+                    <td style="padding: 12px 14px; color: #6b7280;">출처가 없거나 지어낸 가짜 링크를 제공하는 경우 발생</td>
+                    <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">모든 문장마다 원문 페이지/단락 번호 각주([1], [2]) 자동 첨부</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">최적 용도</td>
+                    <td style="padding: 12px 14px; color: #6b7280;">브레인스토밍, 범용 코딩, 창의적 글쓰기, 언어 번역</td>
+                    <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">전공 서적·학술 논문 분석, 시험 대비 족보 제작, 팀플 자료 대조</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-left: 4px solid #10b981; padding: 1rem 1.15rem; border-radius: 12px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📑 1초 만에 원문 대조 (인라인 각주)</div>
-              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                모든 답변 속 번호 각주를 클릭하면 원본 문서의 해당 페이지와 형광펜 하이라이트로 즉시 이동해 팩트체크합니다.
+
+            <!-- 핵심 특징 3대 배너 -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; padding: 1rem 1.15rem; border-radius: 12px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📌 철저한 소스 접지(Source-Grounded)</div>
+                <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  인터넷이 아니라, 내가 직접 올린 자료만을 근거로 하므로 연구의 객관적 맥락이 100% 보존됩니다.
+                </div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-ember); padding: 1rem 1.15rem; border-radius: 12px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">🔍 환각(거짓 정보)의 극소화</div>
+                <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  문서에 명시되지 않은 내용은 답변을 거부하므로, 엄밀한 사실 확인이 필요한 학술 리포트에 최적입니다.
+                </div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; padding: 1rem 1.15rem; border-radius: 12px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📑 1초 만에 원문 대조 (인라인 각주)</div>
+                <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                  각주 번호를 클릭하면 원본 문서의 해당 페이지와 형광펜 하이라이트로 즉시 이동하여 검증이 완료됩니다.
+                </div>
               </div>
             </div>
           </div>
 
-          <!-- 2. 대학생 실전 4대 활용 시나리오 -->
-          <div style="margin-bottom: 1.25rem;">
-            <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px;">
-              <span>🎯 대학생 학업 실전 4대 활용 시나리오</span>
-            </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem;">
-              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
-                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">① 전공 논문·원서 초고속 분석</div>
-                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                  50페이지 넘는 학술 논문 PDF를 올리고 가설, 연구 방법론, 결론 및 한계점을 인용 출처와 함께 10초 만에 추출
+          <!-- 카드 2: 대학생을 위한 핵심 기능 5선 -->
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+              <span>⚡ 2. 대학생을 위한 핵심 탑재 기능 5선</span>
+            </h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem;">
+              <!-- 기능 1 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 14px; color: #0284c7; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <span>① 멀티 포맷 대용량 업로드</span>
+                </div>
+                <div style="font-size: 12.5px; color: #555; line-height: 1.6; word-break: keep-all;">
+                  PDF, 구글 문서(Docs), 슬라이드(Slides), 웹 링크, 텍스트는 물론 <strong>유튜브(YouTube) 강의 링크</strong>까지 지원합니다. (노트북당 최대 50개 소스, 소스당 50만 단어)
                 </div>
               </div>
-              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
-                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">② 시험 대비 맞춤형 족보·퀴즈</div>
-                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                  교수님의 강의 교안(PPT)과 필기 노트를 합쳐 '스터디 가이드' 생성 및 예상 객관식·서술형 시험 문제 자동 출제
+
+              <!-- 기능 2 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 14px; color: #0284c7; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <span>② 인라인 각주 원문 이동</span>
+                </div>
+                <div style="font-size: 12.5px; color: #555; line-height: 1.6; word-break: keep-all;">
+                  답변 속 숫자 각주([1], [2])를 클릭하면 업로드한 원본 문서의 해당 페이지와 형광펜 하이라이트 문장으로 즉시 화면이 전환되어 1초 만에 팩트체크가 가능합니다.
                 </div>
               </div>
-              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
-                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">③ 팀 프로젝트 자료 대조 분석</div>
-                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                  조원들이 조사한 논문·통계 자료를 한곳에 모으고, 각 문서 간 상반된 주장이나 관점 차이를 비교표로 정리
+
+              <!-- 기능 3 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 14px; color: #0284c7; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <span>③ Studio 자동 학습 도구</span>
+                </div>
+                <div style="font-size: 12.5px; color: #555; line-height: 1.6; word-break: keep-all;">
+                  소스 등록 즉시 버튼 하나로 <strong>스터디 가이드(핵심 질문·정답)</strong>, <strong>FAQ</strong>, <strong>브리핑 문서</strong>, <strong>사건 타임라인</strong>을 자동 생성하여 시험 준비를 돕습니다.
                 </div>
               </div>
-              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 14px; padding: 1rem;">
-                <div style="font-weight: 700; font-size: 13px; color: var(--color-ember); margin-bottom: 4px;">④ 오디오 팟캐스트 복습 & 영상 요약</div>
-                <div style="font-size: 12px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                  '오디오 오버뷰'로 문서를 두 AI 진행자의 15분 라디오 토크로 변환해 등하굣길에 듣고, 학술 유튜브 영상 요약
+
+              <!-- 기능 4 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 14px; color: #0284c7; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <span>④ 오디오 오버뷰 (AI 팟캐스트)</span>
+                </div>
+                <div style="font-size: 12.5px; color: #555; line-height: 1.6; word-break: keep-all;">
+                  수십 장의 논문·교안을 남/여 AI 호스트가 10~15분 분량의 생생한 라디오 대화로 재구성합니다. 등하굣길이나 이동 중에 귀로 들으며 핵심 개념을 복습할 수 있습니다.
+                </div>
+              </div>
+
+              <!-- 기능 5 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 14px; color: #0284c7; margin-bottom: 6px; display: flex; align-items: center; gap: 6px;">
+                  <span>⑤ 소스 선택형 핀포인트 Q&A</span>
+                </div>
+                <div style="font-size: 12.5px; color: #555; line-height: 1.6; word-break: keep-all;">
+                  전체 문서가 아니라 내가 체크박스로 선택한 특정 1~2개 논문만을 타깃으로 지정해 질문하고, 두 논문 간의 차이점을 대조 분석할 수 있습니다.
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- 3. 실전 팁 & 학술 윤리 가이드 바 -->
-          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 0.95rem 1.25rem;">
-            <div style="font-size: 12.5px; color: #166534; line-height: 1.55; word-break: keep-all;">
-              💡 <strong>핵심 팁</strong>: 영문 논문 PDF를 올린 뒤 <strong>한국어로 질문</strong>해도 원문 인용 각주와 함께 고품질 한글 답변을 제공합니다. (단, 요약문 단순 복붙 제출은 표절이며 반드시 인라인 각주를 확인 후 원저자 정식 출처를 표기하세요.)
+          <!-- 카드 3: 대학생 학업 실전 4대 시나리오 & 복사 가능한 실전 프롬프트 -->
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
+              <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+                <span>🎯 3. 대학생 학업 실전 활용 시나리오 4선 & 복사 프롬프트</span>
+              </h3>
+              <span style="font-size: 12.5px; color: #6b7280;">NotebookLM 채팅창에 붙여넣어 바로 실행하세요</span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 1.15rem;">
+              <!-- 시나리오 1 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">논문·원서 분석</span>
+                    <span>시나리오 1. 50페이지가 넘는 전공 논문/원서 초고속 분석</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: 전공 논문 PDF를 소스로 등록한 뒤, 연구 가설과 방법론, 한계점을 인용 각주와 함께 10초 만에 추출합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학술 논문 분석 전문 연구 튜터야.
+[지시] 업로드된 논문 소스를 바탕으로 아래 핵심 내용을 명확하게 정리해 줘:
+1. 연구의 핵심 배경 및 연구 질문(가설)
+2. 실증 분석에 사용된 데이터와 연구 방법론
+3. 최종 도출된 주요 결과 3가지와 연구의 한계점
+[형식] 각 항목마다 반드시 본문 인용 각주([1], [2])를 표기하고, 표(Table) 또는 개조식으로 요약해 줘.</pre>
+              </div>
+
+              <!-- 시나리오 2 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">시험 대비</span>
+                    <span>시나리오 2. 기말고사 대비 '나만의 족보 & 모의 퀴즈' 만들기</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: 교수님의 한 학기 교안(PPT)과 필기 노트를 모두 업로드하고, 서술형 예상 문제와 객관식 퀴즈를 출제합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 전공 시험 출제 위원이자 학습 코치야.
+[지시] 이번 학기 업로드된 교수님의 교안(PPT)과 강의 노트 전체를 분석해서:
+1. 기말고사 서술형/단답형으로 출제될 확률이 가장 높은 핵심 개념 5개를 선정해 줘.
+2. 각 개념마다 학부생 수준의 4지선다형 연습문제 1문제씩 출제하고, 해설과 정답은 맨 아래에 따로 배치해 줘.
+[조건] 교안에 명시된 용어와 정의만을 근거로 출제할 것.</pre>
+              </div>
+
+              <!-- 시나리오 3 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">팀 프로젝트</span>
+                    <span>시나리오 3. 팀 프로젝트 자료 취합 및 교차 비교 대조</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: 조원들이 각자 조사한 보고서·기사·통계를 한 노트북에 모으고, 상호 상충되는 관점이나 수치 차이를 비교합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 팀 프로젝트 리서치 검토 전문가야.
+[지시] 우리 조원들이 각자 업로드한 소스 자료들을 교차 분석해 줘:
+1. 각 소스가 공통적으로 동의하고 지지하는 핵심 논점 요약
+2. 소스 간에 서로 상충되거나 데이터 수치 및 관점이 엇갈리는 부분 비교 대조
+[형식] '논점 | 소스A 관점 | 소스B 관점 | 시사점' 형태의 비교표로 정리해 줘.</pre>
+              </div>
+
+              <!-- 시나리오 4 -->
+              <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                    <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">영상 특강</span>
+                    <span>시나리오 4. 유튜브 학술 특강 & 긴 발표 영상 요약</span>
+                  </div>
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
+                <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                  <strong>활용 방법</strong>: 1~2시간짜리 해외 석학 강의나 세미나 유튜브 URL을 추가하여 핵심 메시지와 타임라인을 일목요연하게 파악합니다.
+                </div>
+                <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학술 세미나 및 콘퍼런스 전문 서머라이저야.
+[지시] 추가된 유튜브 영상 소스의 전체 내용을 분석해서:
+1. 연사가 청중에게 전달하고자 하는 3대 핵심 메시지 요약
+2. 주요 발표 구간(타임스탬프 흐름)별 핵심 논의 내용 정리
+3. 우리 전공 과제에 접목할 수 있는 실천 아이디어 2가지 제안</pre>
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드 4: 200% 활용 꿀팁 및 학술 윤리 준수 가이드 -->
+          <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+              <span>💡 4. NotebookLM 200% 활용 실전 꿀팁 & 필수 학술 윤리</span>
+            </h3>
+
+            <!-- 꿀팁 3선 -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">1. 과목별/프로젝트별 노트북 분리</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  모든 교양과 전공 자료를 한 노트북에 섞지 말고, [경영학 중간고사], [캡스톤 기획서]처럼 프로젝트별로 노트북을 분리해야 답변 정확도가 유지됩니다.
+                </div>
+              </div>
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">2. 복사한 메모(Notes)를 소스로 승격</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  질문-답변 중 유용한 내용을 '노트로 저장'한 뒤, 해당 노트들을 다시 소스로 지정하여 2차 종합 보고서를 작성하는 '심층 학습 파이프라인'을 구성할 수 있습니다.
+                </div>
+              </div>
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">3. 영문 논문도 한국어로 질문 가능</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  외국 원서나 영어 논문 PDF를 올린 뒤 한국어로 질문하면, 영문 원문의 맥락과 인용을 정확히 유지하면서 자연스러운 고품질 한국어로 답변합니다.
+                </div>
+              </div>
+            </div>
+
+            <!-- 대학생 이용 수칙 표 -->
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 580px; word-break: keep-all;">
+                <thead>
+                  <tr style="background: #fef2f2; border-bottom: 2px solid #fecaca;">
+                    <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 25%;">필수 준수 수칙</th>
+                    <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 75%;">핵심 실천 지침</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #fee2e2;">
+                    <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">저작권 보호</td>
+                    <td style="padding: 11px 14px; color: #4b5563;">유료 도서 전체 복제본이나 비공개 유료 학술 DB 논문을 외부에 무단 공개된 공용 노트북에 업로드하지 마세요.</td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #fee2e2;">
+                    <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">정식 학술 인용</td>
+                    <td style="padding: 11px 14px; color: #4b5563;">요약문을 그대로 복붙 제출하면 표절입니다. 반드시 인라인 각주를 클릭해 원저자·논문명·페이지를 확인 후 정식 출처를 명시하세요.</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">시험 치팅 금지</td>
+                    <td style="padding: 11px 14px; color: #4b5563;">시험 도중 실시간 검색 용도로 사용하는 것은 학칙상 부정행위입니다. 반드시 시험 전 사전 학습 및 복습 용도로만 활용해야 합니다.</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
           </div>
         </div>
