@@ -793,13 +793,13 @@ const DashboardApp = {
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 03</span>
             <span style="background: #fdf4ff; color: #9333ea; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">고화질 비주얼 & 홍보</span>
           </div>
-          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>03</span> 카드뉴스 제작 (나노바나나 & 캔바)</h3>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>03</span> 카드뉴스 제작 (나노바나나 활용)</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
             기획된 홍보 문구를 AI 시각 템플릿과 결합하여 모바일 친화형 고화질 카드뉴스를 신속하게 제작합니다.
           </p>
           <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
             <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎨 나노바나나 AI</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📐 캔바 타이포마감</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📐 한글 타이포마감</span>
             <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📱 모바일 최적화</span>
             <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚖️ 공공 저작권</span>
           </div>
@@ -1440,12 +1440,12 @@ const DashboardApp = {
               <span>📊 4. 보고용 슬라이드 & 카드뉴스 제작을 위한 스튜디오 가이드</span>
             </h3>
             <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              Gamma · Canva 연동 10초 완성
+              Gamma · PPT 연동 10초 완성
             </span>
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            NotebookLM은 직접 그래픽 이미지나 PPT 파일을 생성하지는 않지만, 소스 문서에서 <strong>'보고서용 슬라이드 덱 구조·헤드카피·구술 대본'</strong> 및 <strong>'인포그래픽용 데이터 시트'</strong>를 가장 정확한 팩트 기반으로 추출해 주므로, 이를 복사하여 <strong>Gamma, Canva, PowerPoint</strong>에 붙여넣으면 5분 만에 완성도 높은 행정 시각 자료가 완성됩니다.
+            NotebookLM은 직접 그래픽 이미지나 PPT 파일을 생성하지는 않지만, 소스 문서에서 <strong>'보고서용 슬라이드 덱 구조·헤드카피·구술 대본'</strong> 및 <strong>'인포그래픽용 데이터 시트'</strong>를 가장 정확한 팩트 기반으로 추출해 주므로, 이를 복사하여 <strong>Gamma, PowerPoint 등</strong>에 붙여넣으면 5분 만에 완성도 높은 행정 시각 자료가 완성됩니다.
           </p>
 
           <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
@@ -1496,7 +1496,7 @@ const DashboardApp = {
 
 [시각화 타깃]
 - 대상: 복잡한 공문을 읽기 힘들어하는 학생 및 신임 교직원
-- 형식: 캔바(Canva) 및 웹 공지용 세로형(Long Form) 인포그래픽
+- 형식: 웹 공지용 세로형(Long Form) 인포그래픽
 
 [요청 구성]
 1. 인포그래픽 헤드카피: 사업의 핵심 혜택을 담은 직관적인 제목 (예: "3단계로 끝내는 2026 00장학금 올인원 가이드")
@@ -1582,9 +1582,9 @@ const DashboardApp = {
                 </div>
               </div>
               <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
-                <div style="font-weight: 700; font-size: 13px; color: #10b981; margin-bottom: 4px;">Step 3. Canva & PPT 리허설</div>
+                <div style="font-weight: 700; font-size: 13px; color: #10b981; margin-bottom: 4px;">Step 3. PPT 실무 리허설</div>
                 <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  Canva 템플릿에 핵심 수치를 대입하거나, PowerPoint 발표자 메모란에 NotebookLM 구술 스크립트를 넣어 리허설을 진행합니다.
+                  PowerPoint 발표자 메모란에 NotebookLM 구술 스크립트를 넣고 슬라이드와 대조하며 리허설을 진행합니다.
                 </div>
               </div>
             </div>
@@ -2243,7 +2243,7 @@ const DashboardApp = {
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            NotebookLM은 직접 그래픽 이미지나 PPTX 파일을 그려내지는 않지만, 업로드된 방대한 문서에서 <strong>'슬라이드별 레이아웃·핵심 문구·발표 대본'</strong> 및 <strong>'인포그래픽용 데이터·비교 구조'</strong>를 가장 정확하게 추출해 주므로, 이를 복사하여 <strong>Gamma, Canva, PowerPoint</strong>에 붙여넣으면 5분 만에 고품질 시각 자료가 완성됩니다.
+            NotebookLM은 직접 그래픽 이미지나 PPTX 파일을 그려내지는 않지만, 업로드된 방대한 문서에서 <strong>'슬라이드별 레이아웃·핵심 문구·발표 대본'</strong> 및 <strong>'인포그래픽용 데이터·비교 구조'</strong>를 가장 정확하게 추출해 주므로, 이를 복사하여 <strong>Gamma, PowerPoint 등</strong>에 붙여넣으면 5분 만에 고품질 시각 자료가 완성됩니다.
           </p>
 
           <div style="display: flex; flex-direction: column; gap: 1.15rem; margin-bottom: 1.5rem;">
@@ -2344,9 +2344,9 @@ const DashboardApp = {
                 </div>
               </div>
               <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
-                <div style="font-weight: 700; font-size: 13px; color: #10b981; margin-bottom: 4px;">Step 3. Canva & PPT 리허설</div>
+                <div style="font-weight: 700; font-size: 13px; color: #10b981; margin-bottom: 4px;">Step 3. PPT 실무 리허설</div>
                 <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  Canva 템플릿에 핵심 수치를 대입하거나, PowerPoint 발표자 메모란에 NotebookLM 구술 스크립트를 넣어 리허설을 진행합니다.
+                  PowerPoint 발표자 메모란에 NotebookLM 구술 스크립트를 넣고 슬라이드와 대조하며 리허설을 진행합니다.
                 </div>
               </div>
             </div>
@@ -2723,12 +2723,12 @@ const DashboardApp = {
               <span>📐 1. 나노바나나 & 생성형 AI 연계 3단계 제작 파이프라인</span>
             </h3>
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              기획 → AI 비주얼 생성 → 캔바 한글 마감
+              기획 → AI 비주얼 생성 → 한글 타이포 마감
             </span>
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            복잡한 학사 공지나 행사 요강을 모바일 화면에 최적화된 4~5컷 카드뉴스로 신속하게 시각화합니다. <strong>NotebookLM/Gemini</strong>로 도출한 홍보 카피를 <strong>나노바나나(NanoBanana)</strong> 등 비주얼 생성 AI에 입력하여 맞춤형 그래픽을 생성하고, Canva나 미리캔버스에서 타이포그래피를 완성합니다.
+            복잡한 학사 공지나 행사 요강을 모바일 화면에 최적화된 4~5컷 카드뉴스로 신속하게 시각화합니다. <strong>NotebookLM/Gemini</strong>로 도출한 홍보 카피를 <strong>나노바나나(NanoBanana)</strong> 등 비주얼 생성 AI에 입력하여 맞춤형 그래픽을 생성하고, 미리캔버스 등 그래픽 도구에서 타이포그래피를 완성합니다.
           </p>
 
           <!-- 3단계 그리드 -->
@@ -2759,7 +2759,7 @@ const DashboardApp = {
                 <strong style="font-size: 14.5px; color: var(--color-obsidian);">타이포그래피 & 배포</strong>
               </div>
               <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
-                Canva·미리캔버스에 생성된 이미지를 배경으로 얹고, 정갈한 안심 고딕 폰트(Pretendard, 에스코어 드림)로 교내 공식 로고와 함께 마감
+                미리캔버스 등 그래픽 도구에 생성된 이미지를 배경으로 얹고, 정갈한 안심 고딕 폰트(Pretendard, 에스코어 드림)로 교내 공식 로고와 함께 마감
               </p>
             </div>
           </div>
@@ -2791,7 +2791,7 @@ const DashboardApp = {
               <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px 12px;">
                 <strong style="font-size: 13px; color: #7c3aed;">④ 한글 텍스트 분리 원칙</strong>
                 <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
-                  AI에게 한글을 직접 쓰게 하지 말고, 이미지는 '순수 배경/오브젝트'로만 뽑고 글자는 캔바에서 얹습니다.
+                  AI에게 한글을 직접 쓰게 하지 말고, 이미지는 '순수 배경/오브젝트'로만 뽑고 글자는 그래픽 도구에서 얹습니다.
                 </p>
               </div>
             </div>
@@ -2944,7 +2944,7 @@ const DashboardApp = {
                   <td style="padding: 11px 16px; font-weight: 700; color: #0284c7; white-space: nowrap;">본문용 (상세내용)</td>
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">Pretendard (프리텐다드)</td>
                   <td style="padding: 11px 16px; color: #374151; white-space: nowrap;">현대적 UI 표준 고딕. 작은 글씨로 축소되어도 뭉개지지 않고 가독성 최상</td>
-                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">눈누 / Canva 기본</span></td>
+                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">눈누 / 웹폰트</span></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#fafaf9'" onmouseout="this.style.background='transparent'">
                   <td style="padding: 11px 16px; font-weight: 700; color: #0284c7; white-space: nowrap;">본문용 (상세내용)</td>
