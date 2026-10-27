@@ -728,9 +728,9 @@ const DashboardApp = {
             </p>
           </div>
           <div>
-            <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 16px; padding: 14px 28px; cursor: default;">
-              🏛️ 공식 워크숍 코스
-            </span>
+            <a href="https://9core.notion.site/AI-4060ce4c022480bcace7f6cf5209c762?source=copy_link" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 16px; padding: 14px 28px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(0,0,0,0.06); transition: transform 0.2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='translateY(0)'">
+              <span>📝 노션 강의노트 보기 ↗</span>
+            </a>
           </div>
         </div>
       </div>

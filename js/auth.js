@@ -758,9 +758,13 @@ const Auth = {
 
     if (this.isLoggedIn()) {
       const roleText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '구분 미선택');
-      const safeName = this.escapeHtml(this.user.name || '사용자');
-      const notionNoteBtn = this.user.role === 'student'
-        ? `<a href="https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; background: #ffffff; color: var(--color-obsidian); border-color: #d1d5db;" title="새 창에서 노션 강의노트 열기">
+      const notionUrl = this.user.role === 'staff'
+        ? 'https://9core.notion.site/AI-4060ce4c022480bcace7f6cf5209c762?source=copy_link'
+        : (this.user.role === 'student'
+          ? 'https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link'
+          : '');
+      const notionNoteBtn = notionUrl
+        ? `<a href="${notionUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; background: #ffffff; color: var(--color-obsidian); border-color: #d1d5db;" title="새 창에서 노션 강의노트 열기">
              <span>📝 노션 강의노트 보기 ↗</span>
            </a>`
         : '';
