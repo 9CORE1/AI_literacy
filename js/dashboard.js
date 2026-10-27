@@ -721,7 +721,7 @@ const DashboardApp = {
               </span>
             </div>
             <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
-              스마트 학사 행정 업무 혁신 & 홍보 콘텐츠 AI 실무
+              스마트 행정 업무 혁신 & 홍보 콘텐츠 AI 실무
             </h2>
             <p style="opacity: 0.95; font-size: 1rem; color: #fff3ee; line-height: 1.6;">
               공문 기안, 학칙 규정집 질의응답 챗봇, 원클릭 카드뉴스 제작 및 설문 집계 자동화까지 교직원의 반복 업무를 줄이고 행정 생산성을 극대화합니다.
