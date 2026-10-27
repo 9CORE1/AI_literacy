@@ -2975,25 +2975,8 @@ const DashboardApp = {
       <div id="lecture-staff-sec-4" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <!-- 섹션 헤더 -->
         <div style="margin-bottom: var(--spacing-20);">
-          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
-            <span style="font-family: var(--font-display); font-size: 15px; color: var(--color-ember); letter-spacing: 0.05em; font-weight: 700;">FORM DESIGN & AUTOMATED REPORTING</span>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11.5px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글폼.MD 원문 100% 탑재</span>
-          </div>
-          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin: 0 0 10px 0;">📋 04. 구글 폼 제작 및 집계시스템 설정 (구글폼.MD 실무 마스터)</h2>
-          <p style="color: #555; font-size: 14.5px; line-height: 1.6; margin: 0; word-break: keep-all;">
-            설문 설정 체크리스트, 표준 10대 문항 세트, 구글 스프레드시트 =GEMINI() 실시간 집계, 비전문가용 원클릭 자동 생성(GAS) 코드까지 모든 실무 자료를 제공합니다.
-          </p>
-        </div>
-
-        <!-- 구글폼.MD 6대 핵심 빠른 점프 가이드 바 -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: var(--spacing-24); background: #fdfaf7; padding: 12px 16px; border-radius: 16px; border: 1px solid #fed7aa;">
-          <span style="font-size: 12.5px; font-weight: 800; color: var(--color-ember); align-self: center; margin-right: 4px;">📑 6대 마스터 목차:</span>
-          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">⚙️ 1. 필수 설정 4선</span>
-          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">📝 2. 표준 10대 문항</span>
-          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">📊 3. 시트 실시간 수식</span>
-          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">🤖 4. AI 프롬프트 3선</span>
-          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">🚀 5. GAS 원클릭 생성</span>
-          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">🛡️ 6. 보안 3대 수칙</span>
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">FORM DESIGN & AUTOMATED REPORTING</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 및 집계시스템 설정 (업무 자동화 & 만족도 조사)</h2>
         </div>
 
         <!-- 카드 4-1: 필수 설정 체크리스트 4선 -->
