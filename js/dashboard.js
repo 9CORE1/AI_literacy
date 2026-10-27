@@ -203,11 +203,15 @@ const DashboardApp = {
           <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
             스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역 및 데이터 정제를 수백 행 단위로 자동화합니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚡ =GEMINI() 수식</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📈 감정분석·라벨링</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🌐 다국어 번역</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🧹 비정형 정제</span>
+          <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
+            <div style="display: flex; gap: 4px;">
+              <span style="background: #f1f5f9; color: #475569; font-size: 10.5px; font-weight: 600; padding: 2px 4px; border-radius: 6px; white-space: nowrap; flex: 1; text-align: center; letter-spacing: -0.3px;">⚡ =GEMINI() 수식</span>
+              <span style="background: #eef2ff; color: #4338ca; font-size: 10.5px; font-weight: 600; padding: 2px 4px; border-radius: 6px; white-space: nowrap; flex: 1; text-align: center; letter-spacing: -0.3px;">📈 감정분석·라벨링</span>
+            </div>
+            <div style="display: flex; gap: 4px;">
+              <span style="background: #ecfdf5; color: #047857; font-size: 10.5px; font-weight: 600; padding: 2px 4px; border-radius: 6px; white-space: nowrap; flex: 1; text-align: center; letter-spacing: -0.3px;">🌐 다국어 번역</span>
+              <span style="background: #fff7ed; color: #c2410c; font-size: 10.5px; font-weight: 600; padding: 2px 4px; border-radius: 6px; white-space: nowrap; flex: 1; text-align: center; letter-spacing: -0.3px;">🧹 비정형 정제</span>
+            </div>
           </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 04 섹션으로 바로 이동하기</span>
