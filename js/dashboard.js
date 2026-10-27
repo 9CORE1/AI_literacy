@@ -3032,7 +3032,7 @@ const DashboardApp = {
         <!-- 섹션 헤더 -->
         <div style="margin-bottom: var(--spacing-20);">
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">FORM DESIGN & AUTOMATED REPORTING</span>
-          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 & 스프레드시트 실시간 집계 (15분 라이브 시연 가이드)</h2>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 & 스프레드시트 실시간 집계</h2>
         </div>
 
         <!-- 카드 4-0: ⏱️ 15분 완성: 라이브 시연 8단계 로드맵 & 타임라인 -->
