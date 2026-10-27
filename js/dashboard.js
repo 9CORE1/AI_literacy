@@ -96,9 +96,6 @@ const DashboardApp = {
               <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
                 🎓 대학생 강의실 · ${displayName} 님
               </span>
-              <a href="https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link" target="_blank" rel="noopener noreferrer" style="background: #ffffff; color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 4px; box-shadow: 0 2px 6px rgba(0,0,0,0.12); transition: all 0.15s ease;" onmouseover="this.style.transform='translateY(-1px)'" onmouseout="this.style.transform='translateY(0)'" title="새 창에서 공식 노션 강의노트 열기">
-                <span>📝 노션 강의노트 보기 ↗</span>
-              </a>
               <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
                 🏫 ${affiliation}
               </span>
