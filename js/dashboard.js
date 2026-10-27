@@ -688,7 +688,7 @@ const DashboardApp = {
       <!-- 교직원 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
       <div class="dashboard-grid">
         <!-- 모듈 1 -->
-        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 01</span>
             <span style="background: #f1f5f9; color: #334155; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">공문서 & 품의서 혁신</span>
@@ -703,14 +703,14 @@ const DashboardApp = {
             <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚡ 톤앤매너</span>
             <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🛡️ 보안·환각예방</span>
           </div>
-          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 01 섹션으로 바로 이동하기</span>
             <span>↓</span>
           </div>
         </div>
 
         <!-- 모듈 2 -->
-        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 02</span>
             <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">규정 Q&A & 근거 접지</span>
@@ -725,14 +725,14 @@ const DashboardApp = {
             <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🔍 보도자료 요약</span>
             <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 행정 FAQ 추출</span>
           </div>
-          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 02 섹션으로 바로 이동하기</span>
             <span>↓</span>
           </div>
         </div>
 
         <!-- 모듈 3 -->
-        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 03</span>
             <span style="background: #fdf4ff; color: #9333ea; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">고화질 비주얼 & 홍보</span>
@@ -747,14 +747,14 @@ const DashboardApp = {
             <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📱 모바일 최적화</span>
             <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚖️ 공공 저작권</span>
           </div>
-          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 03 섹션으로 바로 이동하기</span>
             <span>↓</span>
           </div>
         </div>
 
         <!-- 모듈 4 -->
-        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 04</span>
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글폼.MD 완벽 탑재</span>
@@ -769,7 +769,7 @@ const DashboardApp = {
             <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📊 실시간 집계</span>
             <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🚀 원클릭 생성</span>
           </div>
-          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 04 섹션으로 바로 이동하기</span>
             <span>↓</span>
           </div>
