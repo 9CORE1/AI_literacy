@@ -758,6 +758,7 @@ const Auth = {
 
     if (this.isLoggedIn()) {
       const roleText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '구분 미선택');
+      const safeName = this.escapeHtml(this.user.name || '사용자');
       const notionUrl = this.user.role === 'staff'
         ? 'https://9core.notion.site/AI-4060ce4c022480bcace7f6cf5209c762?source=copy_link'
         : (this.user.role === 'student'
