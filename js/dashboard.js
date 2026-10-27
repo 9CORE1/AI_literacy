@@ -1126,74 +1126,87 @@ const DashboardApp = {
             <span style="font-size: 12.5px; color: #6b7280;">행정 연구 및 공문 분석 생산성을 5배 끌어올리는 특화 엔진</span>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-            <!-- 기능 1 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">① 멀티 포맷 대용량 업로드</span>
-                <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">최대 50만 단어</span>
+          <!-- 가로 1줄 5열 균등 배치 컨테이너 -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 4px;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; width: 100%; min-width: 980px;">
+              <!-- 기능 1 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">① 멀티 포맷 업로드</span>
+                    <span style="background: #e0f2fe; color: #0369a1; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">50만 단어</span>
+                  </div>
+                  <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
+                    PDF, 구글 문서, 슬라이드, 웹 URL, <strong>유튜브 설명회 영상 링크</strong>까지 지원합니다.
+                  </p>
+                </div>
+                <div style="font-size: 11px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 8px; line-height: 1.45; word-break: keep-all;">
+                  💡 <strong>용량</strong>: 노트북당 50개 소스, 소스당 50만 단어 탑재 가능
+                </div>
               </div>
-              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
-                PDF, 구글 문서(Docs), 구글 슬라이드(Slides), 웹페이지 URL, 텍스트 복사, <strong>유튜브(YouTube) 사업설명회 링크</strong>까지 모두 지원합니다.
-              </p>
-              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
-                💡 <strong>용량 한도</strong>: 노트북당 최대 50개 소스, 소스당 최대 50만 단어(수백 페이지 편람 여러 권 분량 탑재 가능)
-              </div>
-            </div>
 
-            <!-- 기능 2 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">② 인라인 각주 원문 이동</span>
-                <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">1초 팩트체크</span>
+              <!-- 기능 2 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">② 인라인 각주 원문 대조</span>
+                    <span style="background: #ecfdf5; color: #047857; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">1초 검증</span>
+                  </div>
+                  <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
+                    답변 속 각주(<strong>[1]</strong>, <strong>[2]</strong>) 클릭 시 원본 규정집의 해당 페이지와 형광펜 조항으로 즉시 화면 전환됩니다.
+                  </p>
+                </div>
+                <div style="font-size: 11px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 8px; line-height: 1.45; word-break: keep-all;">
+                  💡 <strong>실무</strong>: 결재 근거 조항을 1초 만에 팩트체크 검증
+                </div>
               </div>
-              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
-                AI 답변 속 숫자 각주(<strong>[1]</strong>, <strong>[2]</strong>)를 클릭하면 원본 규정집의 해당 페이지와 형광펜 하이라이트 조항으로 화면이 즉시 전환됩니다.
-              </p>
-              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
-                💡 <strong>실무 효과</strong>: 부서장 보고나 감사 대응 시 결재 근거 조항을 1초 만에 검증하고 원본 문맥을 직접 확인할 수 있습니다.
-              </div>
-            </div>
 
-            <!-- 기능 3 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">③ Studio 자동 행정 도구</span>
-                <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">원클릭 산출물</span>
+              <!-- 기능 3 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">③ Studio 자동 행정 도구</span>
+                    <span style="background: #fef3c7; color: #92400e; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">원클릭 산출</span>
+                  </div>
+                  <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
+                    버튼 하나로 <strong>브리핑 문서(One-page)</strong>, <strong>행정 FAQ</strong>, <strong>업무 매뉴얼</strong>, <strong>추진 타임라인</strong>을 자동 생성합니다.
+                  </p>
+                </div>
+                <div style="font-size: 11px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 8px; line-height: 1.45; word-break: keep-all;">
+                  💡 <strong>산출물</strong>: 브리핑문서 / FAQ / 스터디가이드 / 타임라인
+                </div>
               </div>
-              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
-                우측 Studio 패널에서 버튼 하나로 <strong>브리핑 문서(One-page 요약)</strong>, <strong>행정 FAQ</strong>, <strong>신임직원 스터디 가이드</strong>, <strong>사업 타임라인</strong>을 자동 생성합니다.
-              </p>
-              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
-                💡 <strong>산출물 4선</strong>: 브리핑 문서 / FAQ(자주 묻는 질문) / 스터디 가이드(업무매뉴얼) / 타임라인(일정 연대기)
-              </div>
-            </div>
 
-            <!-- 기능 4 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">④ 오디오 오버뷰 (Audio Overview)</span>
-                <span style="background: #ede9fe; color: #6d28d9; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">팟캐스트 브리핑</span>
+              <!-- 기능 4 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">④ 오디오 정책 브리핑</span>
+                    <span style="background: #ede9fe; color: #6d28d9; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">팟캐스트</span>
+                  </div>
+                  <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
+                    수십 장의 정부 정책 보고서를 남/여 AI 호스트가 <strong>10~15분 대화형 라디오 방송</strong>으로 재구성합니다.
+                  </p>
+                </div>
+                <div style="font-size: 11px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 8px; line-height: 1.45; word-break: keep-all;">
+                  💡 <strong>실무</strong>: 출퇴근길/이동 중 핵심 정책 쟁점 사전 청취
+                </div>
               </div>
-              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
-                수십 장의 교육부 정책 보고서나 자체평가서를 남/여 AI 호스트가 <strong>10~15분 대화형 라디오 방송</strong>으로 생생하게 풀어냅니다.
-              </p>
-              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
-                💡 <strong>실무 효과</strong>: 출퇴근길이나 이동 중에 귀로 들으며 핵심 정책 방향성과 주요 쟁점을 사전 파악할 수 있습니다.
-              </div>
-            </div>
 
-            <!-- 기능 5 -->
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem; grid-column: 1 / -1;">
-              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">⑤ 소스 선택형 핀포인트 Q&A (Source Checkbox)</span>
-                <span style="background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">정밀 비교 대조</span>
-              </div>
-              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
-                전체 업로드 문서가 아니라, <strong>체크박스로 선택한 특정 1~2개 규정이나 사업 공고문만을 타깃으로 지정</strong>하여 질문하고 답변을 유도할 수 있습니다.
-              </p>
-              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
-                💡 <strong>실무 예시</strong>: '[2025 규정]'과 '[2026 개정 규정]' 2개 소스만 체크한 후 "변경된 조항과 직원에게 미치는 영향을 비교표로 정리해 줘"라고 질문하면 정확한 개정 전/후 비교표를 도출합니다.
+              <!-- 기능 5 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
+                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">⑤ 핀포인트 선택 Q&A</span>
+                    <span style="background: #fee2e2; color: #991b1b; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">선택 대조</span>
+                  </div>
+                  <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
+                    전체가 아닌 <strong>체크박스로 선택한 특정 1~2개 규정이나 공고문만을 타깃</strong>으로 지정해 정밀 대조 분석합니다.
+                  </p>
+                </div>
+                <div style="font-size: 11px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 8px; line-height: 1.45; word-break: keep-all;">
+                  💡 <strong>실무</strong>: 개정 전/후 2개 규정만 체크해 변경점 비교표 도출
+                </div>
               </div>
             </div>
           </div>
