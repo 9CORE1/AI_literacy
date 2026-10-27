@@ -227,6 +227,16 @@ const DashboardApp = {
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📊 대학생의 AI리터러시 진단 개요</h2>
         </div>
 
+        <!-- 진단 프로파일 2페이지 샘플 이미지 1줄 배치 -->
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); background: #ffffff;">
+            <img src="images/AILiteracy_profile01.jpg?v=20261027" alt="대학생 AI 리터러시 진단 프로파일 레포트 1페이지" style="width: 100%; height: auto; display: block; object-fit: contain;" loading="lazy">
+          </div>
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); background: #ffffff;">
+            <img src="images/AILiteracy_profile02.jpg?v=20261027" alt="대학생 AI 리터러시 진단 프로파일 레포트 2페이지" style="width: 100%; height: auto; display: block; object-fit: contain;" loading="lazy">
+          </div>
+        </div>
+
         <!-- 1. 진단 목적 및 기본 규격 요약 그리드 (3개 미니 카드) -->
         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
           <div class="card" style="padding: 1.25rem 1.5rem; border: 1px solid var(--color-pumice); border-radius: 20px; background: #ffffff;">
