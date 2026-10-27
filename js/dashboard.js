@@ -91,15 +91,15 @@ const DashboardApp = {
       <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Ember / Caldera Style) -->
       <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
-          <div style="max-width: 680px;">
+          <div style="flex: 1; max-width: 880px;">
             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
-              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase; white-space: nowrap;">
                 🎓 대학생 강의실 · ${displayName} 님
               </span>
-              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
                 🏫 ${affiliation}
               </span>
-              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
                 🕒 최근 입장: ${loginTime} (${loginMethodTag})
               </span>
             </div>
@@ -704,15 +704,15 @@ const DashboardApp = {
       <!-- 교직원 안내 배너 (학생 전용과 동일한 Ember / Caldera Style) -->
       <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
-          <div style="max-width: 680px;">
+          <div style="flex: 1; max-width: 880px;">
             <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
-              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase;">
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase; white-space: nowrap;">
                 🏛️ 교직원 전용 코스 · ${displayName} 님
               </span>
-              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
                 🏫 ${affiliation}
               </span>
-              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px;">
+              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
                 🕒 최근 입장: ${loginTime} (${loginMethodTag})
               </span>
             </div>
