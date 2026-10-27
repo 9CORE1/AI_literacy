@@ -1132,9 +1132,8 @@ const DashboardApp = {
               <!-- 기능 1 -->
               <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
-                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">① 멀티 포맷 업로드</span>
-                    <span style="background: #e0f2fe; color: #0369a1; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">50만 단어</span>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 8px; word-break: keep-all;">
+                    ① 멀티 포맷 업로드
                   </div>
                   <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
                     PDF, 구글 문서, 슬라이드, 웹 URL, <strong>유튜브 설명회 영상 링크</strong>까지 지원합니다.
@@ -1148,9 +1147,8 @@ const DashboardApp = {
               <!-- 기능 2 -->
               <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
-                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">② 인라인 각주 원문 대조</span>
-                    <span style="background: #ecfdf5; color: #047857; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">1초 검증</span>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 8px; word-break: keep-all;">
+                    ② 인라인 각주 원문 대조
                   </div>
                   <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
                     답변 속 각주(<strong>[1]</strong>, <strong>[2]</strong>) 클릭 시 원본 규정집의 해당 페이지와 형광펜 조항으로 즉시 화면 전환됩니다.
@@ -1164,9 +1162,8 @@ const DashboardApp = {
               <!-- 기능 3 -->
               <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
-                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">③ Studio 자동 행정 도구</span>
-                    <span style="background: #fef3c7; color: #92400e; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">원클릭 산출</span>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 8px; word-break: keep-all;">
+                    ③ Studio 자동 행정 도구
                   </div>
                   <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
                     버튼 하나로 <strong>브리핑 문서(One-page)</strong>, <strong>행정 FAQ</strong>, <strong>업무 매뉴얼</strong>, <strong>추진 타임라인</strong>을 자동 생성합니다.
@@ -1180,9 +1177,8 @@ const DashboardApp = {
               <!-- 기능 4 -->
               <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
-                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">④ 오디오 정책 브리핑</span>
-                    <span style="background: #ede9fe; color: #6d28d9; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">팟캐스트</span>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 8px; word-break: keep-all;">
+                    ④ 오디오 정책 브리핑
                   </div>
                   <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
                     수십 장의 정부 정책 보고서를 남/여 AI 호스트가 <strong>10~15분 대화형 라디오 방송</strong>으로 재구성합니다.
@@ -1196,9 +1192,8 @@ const DashboardApp = {
               <!-- 기능 5 -->
               <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1rem 0.9rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="display: flex; align-items: center; justify-content: space-between; gap: 4px; margin-bottom: 8px;">
-                    <span style="font-weight: 700; font-size: 13.5px; color: #0284c7; word-break: keep-all;">⑤ 핀포인트 선택 Q&A</span>
-                    <span style="background: #fee2e2; color: #991b1b; font-size: 10.5px; font-weight: 700; padding: 2px 6px; border-radius: 999px; white-space: nowrap;">선택 대조</span>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #0284c7; margin-bottom: 8px; word-break: keep-all;">
+                    ⑤ 핀포인트 선택 Q&A
                   </div>
                   <p style="font-size: 12px; color: #4b5563; line-height: 1.5; margin: 0 0 10px 0; word-break: keep-all;">
                     전체가 아닌 <strong>체크박스로 선택한 특정 1~2개 규정이나 공고문만을 타깃</strong>으로 지정해 정밀 대조 분석합니다.
