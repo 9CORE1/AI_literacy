@@ -2906,94 +2906,354 @@ const DashboardApp = {
         <!-- 섹션 헤더 -->
         <div style="margin-bottom: var(--spacing-20);">
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">FORM DESIGN & AUTOMATED REPORTING</span>
-          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 및 집계시스템 설정 (업무 자동화)</h2>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 및 집계시스템 설정 (업무 자동화 & 만족도 조사)</h2>
         </div>
 
-        <!-- 카드 4-1: 설문 기획부터 자동 집계까지의 프로세스 -->
+        <!-- 카드 4-1: 필수 설정 체크리스트 4선 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>📊 1. AI 기반 설문 문항 설계 및 스프레드시트 실시간 집계 파이프라인</span>
+              <span>⚙️ 1. 구글 폼 제작 시 필수 설정 체크리스트 4선</span>
             </h3>
-            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
-              AI 문항 기획 → Google Forms 제작 → 실시간 대시보드
+            <span style="background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #fde68a;">
+              설문 오류 & 민원 원천 방지
             </span>
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            행사 만족도 조사, 비교과 프로그램 수요 조사, 교직원 연수 설문지를 만들 때 생성형 AI를 활용하면 통계적으로 유의미한 객관식 문항(리커트 5점 척도)과 심층 정성 피드백 문항을 3분 만에 설계할 수 있습니다. 수집된 응답은 Google 스프레드시트와 실시간 연동되어 별도의 수작업 없이 즉시 차트와 보고서로 요약됩니다.
+            설문을 배포하기 전 구글 폼의 <strong>[설정(Settings)]</strong> 탭에서 아래 4가지 항목을 점검하지 않으면, 외부 응답자가 접근하지 못하거나 중복 제출로 인해 데이터 신뢰도가 훼손될 수 있습니다.
           </p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-            <div style="background: #fdfbf7; border: 1px solid #fde68a; border-radius: 16px; padding: 16px;">
+          <!-- 체크리스트 표 -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1rem; border: 1px solid #e5e7eb; border-radius: 14px; background: #ffffff;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 720px;">
+              <thead>
+                <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                  <th style="padding: 12px 16px; width: 22%; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">설정 항목</th>
+                  <th style="padding: 12px 16px; width: 20%; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">권장 설정</th>
+                  <th style="padding: 12px 16px; color: var(--color-obsidian); font-weight: 700;">실무 팁 및 설정 이유</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">조직 도메인 사용자 제한</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #1e293b; white-space: nowrap;">교내 구성원: <strong>ON</strong><br>외부/수강생: <strong>OFF</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">학교 계정(@univ.ac.kr) 로그인 필수 여부입니다. 예비 대학생이나 외부 참가자 대상 행사에서 ON으로 켜두면 접근 불가 민원이 발생합니다.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">응답 1회로 제한</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #0284c7; white-space: nowrap;">만족도 조사: <strong>ON 권장</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">동일 인물의 중복 제출로 인한 평가 결과 왜곡을 막습니다. (단, 응답자의 구글 계정 로그인이 필수가 됩니다)</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">이메일 주소 수집</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #059669; white-space: nowrap;">익명 평가: <strong>수집 안 함</strong><br>출석/기프티콘: <strong>직접 입력</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">솔직한 주관식 피드백이 필요한 만족도 조사는 '수집 안 함'으로 설정해야 익명성이 보장되어 솔직한 응답률이 올라갑니다.</td>
+                </tr>
+                <tr>
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">제출 후 확인 메시지</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #7c3aed; white-space: nowrap;"><strong>맞춤 메시지 설정</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">"응답이 기록되었습니다" 대신 <strong>'강의 교안/수료증 다운로드 드라이브 링크'</strong>나 <strong>'차기 일정 안내'</strong>를 적어두면 행정 문의가 70% 감소합니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 카드 4-2: 구글 스프레드시트 실시간 집계 시스템 구축 3단계 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 2. 구글 스프레드시트 실시간 집계 시스템 구축 3단계</span>
+            </h3>
+            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
+              원시 데이터 보존 & 실시간 통계
+            </span>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            구글 폼 상단의 <strong>[응답] ➔ [Sheets에 연결]</strong>을 클릭하여 스프레드시트를 생성한 뒤, 아래 3단계 파이프라인으로 실시간 통계 대시보드를 구축합니다.
+          </p>
+
+          <!-- 3단계 그리드 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+            <!-- 1단계 -->
+            <div style="background: #fffaf0; border: 1px solid #fed7aa; border-radius: 18px; padding: 1.2rem;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <span style="background: var(--color-ember); color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">1</span>
-                <strong style="font-size: 14.5px; color: var(--color-obsidian);">AI 설문 문항 초안 기획</strong>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">원본 응답 탭 보존 철칙</strong>
               </div>
-              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
-                교육 만족도, 강사 전문성, 운영 편의성, 향후 개설 희망 주제 등 교육 평가 표준 4대 영역 구조화 문항 도출
+              <p style="font-size: 12.5px; color: #7c2d12; margin: 0; line-height: 1.55; word-break: keep-all;">
+                폼과 연동된 첫 번째 시트(<code>'설문지 응답 1'</code>)는 열 순서를 바꾸거나 직접 편집하지 마세요. 통계용 새 탭(<code>[집계 대시보드]</code>)을 별도로 만들어 계산합니다.
               </p>
             </div>
 
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 16px;">
+            <!-- 2단계 -->
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 18px; padding: 1.2rem;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <span style="background: #16a34a; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">2</span>
-                <strong style="font-size: 14.5px; color: var(--color-obsidian);">구글 폼 원클릭 구성</strong>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">핵심 통계 자동 공식</strong>
               </div>
-              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
-                Google Forms에서 객관식 그리드 및 단답형 필터링을 적용하고, 학번/부서 유효성 검사 규칙 설정
+              <p style="font-size: 12.5px; color: #166534; margin: 0; line-height: 1.55; word-break: keep-all;">
+                응답이 들어오는 즉시 <code>=AVERAGE()</code>, <code>=COUNTIF()</code>로 5점 만점 평균 평점과 4점 이상 만족 비율을 실시간 산출합니다.
               </p>
             </div>
 
-            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 16px; padding: 16px;">
+            <!-- 3단계 -->
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 18px; padding: 1.2rem;">
               <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 8px;">
                 <span style="background: #2563eb; color: #fff; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800;">3</span>
-                <strong style="font-size: 14.5px; color: var(--color-obsidian);">스프레드시트 자동 집계</strong>
+                <strong style="font-size: 14.5px; color: var(--color-obsidian);">=GEMINI() 주관식 분류</strong>
               </div>
-              <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
-                응답 시트와 연동하여 =AVERAGE, =COUNTIF, =GEMINI() 함수로 정량 지표 산출 및 주관식 피드백 감정 분석 일괄 실행
+              <p style="font-size: 12.5px; color: #1e40af; margin: 0; line-height: 1.55; word-break: keep-all;">
+                수백 건의 서술형 피드백을 스프레드시트 셀 안에서 <code>=GEMINI()</code> 함수로 [긍정/건의/불만] 감정 라벨링과 핵심 키워드를 일괄 추출합니다.
               </p>
             </div>
           </div>
-        </div>
 
-        <!-- 카드 4-2: 실무 프롬프트 예시 -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>💬 2. 교직원 실무: 만족도 조사 문항 설계 프롬프트</span>
-          </h3>
-
-          <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-              <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📋 대학 비교과 프로그램 & 교직원 특강 만족도 조사 문항 생성</span>
-              <button type="button" class="btn btn-secondary" style="padding: 3px 10px; font-size: 12px; height: auto;" data-copy-target="prompt-staff-form-1">복사</button>
+          <!-- 실무 수식 코드 블록 -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1rem 1.25rem;">
+            <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin-bottom: 8px;">💡 [집계 대시보드] 탭에 바로 넣는 실전 엑셀/시트 수식</div>
+            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; font-family: monospace; color: #334155;">
+              <div><strong style="font-family: inherit; color: var(--color-ember);">• 총 응답 인원:</strong> <code>=COUNTA('설문지 응답 1'!A2:A)</code></div>
+              <div><strong style="font-family: inherit; color: #0284c7;">• 5점 만점 평균:</strong> <code>=AVERAGE('설문지 응답 1'!E2:E)</code></div>
+              <div><strong style="font-family: inherit; color: #059669;">• 4점 이상 만족 비율:</strong> <code>=COUNTIF('설문지 응답 1'!E2:E, ">=4") / COUNTA('설문지 응답 1'!E2:E)</code></div>
+              <div><strong style="font-family: inherit; color: #7c3aed;">• 주관식 감정 분류:</strong> <code>=GEMINI("다음 피드백을 [매우긍정/긍정/건의사항/불만족] 중 하나로 분류해줘:", '설문지 응답 1'!F2)</code></div>
             </div>
-            <pre id="prompt-staff-form-1" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12.5px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: monospace;">너는 대학 교육평가 및 학사행정 전문가야.
-이번에 진행한 [행사/특강명: 2026 교직원 맞춤형 스마트 행정 AI 실무 특강]의 만족도 조사를 구글 폼으로 진행하려고 해.
-
-다음 기준에 맞추어 구글 폼에 바로 복사해 넣을 수 있는 설문 문항 초안을 작성해줘:
-
-1. [응답자 기본 정보]: 소속 단과대/부서, 직급(교원/행정/연구원/기타)
-2. [정량 평가 (리커트 5점 척도: 매우불만족~매우만족)]:
-   - 교육 내용의 실무 유용성
-   - 강사의 강의 전달력 및 실습 지원
-   - 교육 환경 및 교재/실습 자료 만족도
-   - 향후 업무 적용 의향
-3. [정성 평가 (단답형 / 장문형)]:
-   - 이번 교육에서 가장 유익했던 실습 모듈은 무엇인가요?
-   - 향후 심화 과정으로 개설되길 희망하는 AI 행정 주제를 자유롭게 작성해 주세요.
-4. 구글 폼에서 설정해야 할 '필수 응답' 여부도 문항별로 함께 표기해줘.</pre>
           </div>
         </div>
 
-        <!-- 카드 4-3: 실무 팁 (자동 집계 수식) -->
-        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid #d1fae5; border-radius: 24px; background: #f0fdf4; margin-bottom: 1.5rem;">
-          <h4 style="font-size: 15px; color: #065f46; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
-            <span>💡 행정 꿀팁: 구글 시트 실시간 자동 요약 공식</span>
-          </h4>
-          <p style="font-size: 13px; color: #047857; margin: 0 0 8px 0; line-height: 1.6; word-break: keep-all;">
-            설문 응답이 들어오는 즉시 <strong>=AVERAGE('설문응답 1'!C2:C)</strong>로 실시간 평점을 구하고, 주관식 건의사항 열 옆에 <strong>=GEMINI("다음 건의사항의 핵심 요구사항을 1줄로 요약해줘: ", F2)</strong>를 적용하면 수백 건의 피드백도 10초 만에 보고서용으로 요약됩니다.
+        <!-- 카드 4-3: 만족도 조사 문항 설계 실무 프롬프트 3선 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
+            <span>🤖 3. 만족도 조사 문항 설계 실무 프롬프트 3선</span>
+          </h3>
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            아래 프롬프트를 <strong>ChatGPT, Gemini, Claude</strong> 등에 복사하여 대괄호 <code>[ ]</code> 안의 내용만 수정해 입력하면, 통계 분석에 최적화된 리커트 5점 척도와 심층 서술형 문항 세트가 3초 만에 설계됩니다.
           </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- 프롬프트 1: 특강/워크숍/교육 만족도 조사 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">특강/워크숍</span>
+                  <span>1. 🎯 대학 비교과 프로그램 & 교직원 특강 만족도 조사 문항 설계</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 목적</strong>: 강사 전문성, 실무 적합성, 운영 환경, 타인 추천 의향 및 차기 개설 희망 주제를 체계적으로 추출합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">당신은 대학교 및 교육기관의 교육 프로그램 기획 및 성과관리 전문 행정관입니다.
+이번에 진행된 [프로그램명: 2026 생성형 AI 활용 행정 실무 역량 강화 워크숍]의 사후 만족도 조사를 구글 폼(Google Forms)으로 제작하려고 합니다.
+
+[기본 정보]
+- 교육 대상: [대학 교직원 60명]
+- 교육 형태: [3시간 실습 및 이론 병행]
+- 평가 목적: 향후 차기 교육과정 개편 및 대학혁신지원사업 성과보고서 증빙 데이터 확보
+
+다음 조건에 맞추어 구글 폼에 바로 복사-붙여넣기 할 수 있는 문항 목록을 작성해 주세요:
+1. 설문 도입 안내문 (조사 목적, 소요 시간 2분, 익명성 보장 멘트 포함)
+2. 정량 평가 문항 (리커트 5점 척도: 1점 전혀 그렇지 않다 ~ 5점 매우 그렇다)
+   - 강사 전문성 및 전달력 (2문항)
+   - 교육 내용의 실무 적합성 및 유용성 (2문항)
+   - 교육 환경 및 운영 지원 (교재, 실습환경, 사전안내 등 2문항)
+   - 종합 만족도 및 타인 추천 의향 (2문항)
+3. 정성 평가 문항 (단답형 또는 장문형 주관식)
+   - 가장 유익했던 교육 내용 (필수 선택 또는 서술)
+   - 현업 적용 시 예상되는 애로사항 또는 개선 희망 사항
+   - 차기 희망 연수 주제
+4. 각 문항마다 [문항 유형: 객관식 질문 / 선형 배율 / 체크박스 / 장문형], [필수 여부]를 명시해 주세요.</pre>
+            </div>
+
+            <!-- 프롬프트 2: 행정 부서 서비스 품질 만족도 조사 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">부서 CS</span>
+                  <span>2. 🏛️ 행정 부서 서비스 품질 만족도 조사 문항 설계</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 목적</strong>: 산학협력단, 학생처, 전산정보원 등 학내 서비스 품질(신속성, 친절성, 전문성, 접근성)을 종합 진단합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">당신은 교육기관의 고객만족도(CS) 및 행정 혁신 평가 전문가입니다.
+[부서명: 산학협력단 / 학생처 / 전산정보원]의 행정 서비스 이용 만족도 조사를 구글 폼으로 구성하고자 합니다.
+
+[평가 영역 요구사항]
+1. 응답자 기본 배경 (신분: 교원/연구원/직원/학생, 최근 6개월 내 이용 빈도)
+2. 서비스 품질 4대 영역 (5점 척도):
+   - 신속성 (업무 처리 소요 시간의 적절성)
+   - 친절성 (문의 응대 태도 및 경청)
+   - 전문성 (규정 안내의 명확성 및 문제 해결력)
+   - 접근성 (홈페이지 서식 접근성, 전화/이메일 연락의 용이성)
+3. 종합 체감 만족도 및 전년 대비 개선 체감도
+4. 자유 서술형 건의사항 (장문형)
+
+교직원 및 이용자들이 설문 피로도를 느끼지 않도록 전체 문항은 10문항 이내로 컴팩트하게 구성하고, 구글 폼 세팅 가이드(문항 형식, 필수 여부)를 포함해 작성해 주세요.</pre>
+            </div>
+
+            <!-- 프롬프트 3: 주관식 피드백 일괄 분석 & 보고서 요약 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: #059669; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">결과 분석</span>
+                  <span>3. 📊 주관식 피드백 일괄 분석 & 보고서 요약 프롬프트</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 목적</strong>: 스프레드시트의 주관식 열 텍스트를 복사해 붙여넣으면, 상급자 보고용 요약 보고서 형태로 1초 만에 분석합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">다음은 [프로그램명: 2026 교직원 AI 실무 특강] 종료 후 수집된 주관식 피드백 원문 데이터입니다.
+당신은 교육 성과분석관으로서, 상급자 보고용 [결과 요약 보고서]를 작성해야 합니다.
+
+[주관식 원문 데이터]
+"""
+(여기에 스프레드시트의 주관식 열 텍스트를 그대로 복사하여 붙여넣기)
+"""
+
+다음 구조로 요약 분석해 주세요:
+1. 총평 (주요 긍정 반응 요약 - 3줄 이내)
+2. 가장 호평받은 핵심 요인 TOP 3
+3. 제기된 주요 불만 및 개선 건의사항 (우선순위순 정렬)
+4. 차기 연수 기획 시 반영해야 할 실무 제언 (Action Item 3가지)
+5. 결과 보고서 본문에 인용하기 좋은 대표 생생 후기(Best Quote) 3선</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 4-4: 채팅으로 조절 후 구글 폼 자동 생성(Google Apps Script) & 테스트 매뉴얼 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🚀 4. 비전문가를 위한 구글 폼 자동 생성(GAS) & 테스트 가이드</span>
+            </h3>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              타이핑 0번 ➔ 1클릭 자동 완성
+            </span>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            구글 폼에서 질문과 보기를 일일이 입력할 필요가 없습니다! AI와 대화하며 설문 문항을 조절한 뒤, <strong>"구글 앱스 스크립트 코드로 짜줘"</strong>라고 일상어로 요청하면 1초 만에 실행 가능한 코드가 완성됩니다.
+          </p>
+
+          <!-- 4단계 워크플로우 카드 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 0.85rem; margin-bottom: 1.5rem;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin-bottom: 4px;">1단계: 채팅창 문항 조절</div>
+              <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5; word-break: keep-all;">
+                "전체 문항을 7개로 줄여줘", "ZOOM 접속 품질 묻는 문항 추가해줘" 등 일상어로 피드백하여 최종 확정합니다.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin-bottom: 4px;">2단계: 자연어로 코드 요청</div>
+              <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5; word-break: keep-all;">
+                아래 <strong>비전문가용 프롬프트</strong>를 복사해 입력하면, AI가 복잡한 프로그래밍 함수를 알아서 채워 코드를 작성합니다.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin-bottom: 4px;">3단계: script.google.com 실행</div>
+              <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5; word-break: keep-all;">
+                새 프로젝트에 코드를 붙여넣고 [실행] 클릭! (최초 1회 '고급 ➔ 이동 ➔ 허용' 보안 승인 진행)
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin-bottom: 4px;">4단계: 결과 링크 확인 & 연동</div>
+              <p style="font-size: 12px; color: #64748b; margin: 0; line-height: 1.5; word-break: keep-all;">
+                로그창의 편집용/배포용 URL 및 구글 드라이브를 확인하고, [Sheets에 연결]을 눌러 테스트 응답을 제출합니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- 비전문가용 코드 요청 프롬프트 -->
+          <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem; margin-bottom: 1.25rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+              <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">비전문가 전용</span>
+                <span>💬 [복사해서 쓰는] 구글 폼 자동 생성 스크립트 요청문</span>
+              </div>
+              <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                <span>📋 프롬프트 복사</span>
+              </button>
+            </div>
+            <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">위에서 만든 설문 문항들을 내가 구글 폼에 일일이 타이핑하기 번거로워.  
+구글 드라이브에서 복사해 넣고 [실행] 버튼만 누르면 이 설문지가 자동으로 뚝딱 만들어지는 '구글 앱스 스크립트(Google Apps Script)' 코드로 짜줘.  
+
+- 5점 척도, 객관식, 주관식에 맞게 알아서 설정해 줘.  
+- 필수 질문도 잘 체크해 줘.  
+- 다 만들고 나면 내가 수정할 수 있는 링크와 참가자에게 보낼 링크가 콘솔에 나오게 해줘.  
+- 코딩을 전혀 모르니까 내가 손댈 필요 없이 그냥 통째로 복사해서 쓸 수 있게 완성된 코드만 줘.</pre>
+          </div>
+
+          <!-- 스크립트 코드 표준 예시 -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.15rem 1.35rem;">
+            <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px;">💡 AI가 작성해 주는 완성형 스크립트(GAS) 예시</div>
+            <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 11.5px; color: #334151; overflow-x: auto; margin: 0; line-height: 1.5; font-family: monospace;">function createSurveyForm() {
+  var form = FormApp.create('[만족도 조사] 생성형 AI 활용 행정 실무 워크숍');
+  form.setDescription('본 조사는 교육 만족도 평가를 위한 설문입니다. 성실한 응답 부탁드립니다. (소요: 2분)');
+  form.setAllowResponseEdits(false);
+
+  // 1. 5점 리커트 척도 문항
+  form.addScaleItem()
+    .setTitle('1. 강사는 교육 주제에 대해 전문성을 가지고 알기 쉽게 강의하였습니까?')
+    .setBounds(1, 5)
+    .setLabels('전혀 그렇지 않다', '매우 그렇다')
+    .setRequired(true);
+
+  // 2. 객관식 선택 문항
+  form.addMultipleChoiceItem()
+    .setTitle('2. 오늘 교육 중 가장 도움이 되었던 실무 세션을 선택해 주세요.')
+    .setChoiceValues(['보고서 초안 작성', '카드뉴스 제작', '구글 시트 연동 자동화'])
+    .setRequired(true);
+
+  // 3. 주관식 서술형 문항
+  form.addParagraphTextItem()
+    .setTitle('3. 향후 개설을 희망하는 연수 주제나 개선 건의사항을 자유롭게 작성해 주세요.')
+    .setRequired(false);
+
+  Logger.log('👉 [관리자 편집용 URL]: ' + form.getEditUrl());
+  Logger.log('👉 [응답자 배포용 URL]: ' + form.getPublishedUrl());
+}</pre>
+          </div>
+        </div>
+
+        <!-- 카드 4-5: 행정 실무자를 위한 꿀팁 & 보안 원칙 3대 수칙 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
+            <span>🛡️ 5. 교직원 행정 실무자를 위한 꿀팁 & 보안 원칙 3대 수칙</span>
+          </h3>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
+            <div style="background: #fffafb; border: 1px solid #fee2e2; border-radius: 16px; padding: 1rem 1.2rem;">
+              <strong style="font-size: 13.5px; color: #991b1b; display: block; margin-bottom: 6px;">1. 개인정보 최소 수집 원칙</strong>
+              <p style="font-size: 12.5px; color: #7f1d1d; margin: 0; line-height: 1.5; word-break: keep-all;">
+                기프티콘 추첨용 학번/전화번호는 본 설문과 섞지 마세요. <strong>'별도 섹션'</strong>으로 분리하거나 <strong>'추첨용 별도 폼 링크'</strong>로 유도해야 본 설문의 익명성이 철저히 보장됩니다.
+              </p>
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1rem 1.2rem;">
+              <strong style="font-size: 13.5px; color: #166534; display: block; margin-bottom: 6px;">2. 단축 URL & QR코드 즉시 생성</strong>
+              <p style="font-size: 12.5px; color: #14532d; margin: 0; line-height: 1.5; word-break: keep-all;">
+                구글 폼 [보내기] ➔ [URL 단축]을 체크하여 짧은 링크를 만들고, 마지막 강의 슬라이드에 QR코드를 띄워 <strong>"현장에서 완료 후 퇴실"</strong>을 유도하면 응답률이 85% 이상 달성됩니다.
+              </p>
+            </div>
+
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 16px; padding: 1rem 1.2rem;">
+              <strong style="font-size: 13.5px; color: #1e40af; display: block; margin-bottom: 6px;">3. 공유 권한(협업자) 철저 관리</strong>
+              <p style="font-size: 12.5px; color: #1e3a8a; margin: 0; line-height: 1.5; word-break: keep-all;">
+                동료 교직원과 공동 작업 시 [보내기] 링크가 아니라 더보기(⋮) ➔ <strong>[공동작업자 추가]</strong>로 권한을 부여하세요. 이때 '링크가 있는 모든 사용자'에게 편집자 권한을 주지 않도록 주의합니다.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     `;
