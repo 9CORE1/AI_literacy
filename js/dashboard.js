@@ -125,42 +125,98 @@ const DashboardApp = {
       <!-- 학생 120분 강의 모듈 헤더 -->
       <div style="margin-bottom: var(--spacing-20);">
         <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">CURRICULUM FOR UNIVERSITY STUDENTS</span>
-        <h2 style="font-size: 32px; color: var(--color-obsidian);">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
+        <h2 style="font-size: 32px; color: var(--color-obsidian); margin: 0.25rem 0 0 0;">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
       </div>
 
       <!-- 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
       <div class="dashboard-grid">
         <!-- 모듈 1 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-1')">
-          <h3><span>01</span> 대학생의 AI 리터러시 진단</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            대학생 전용 30문항 표준 척도를 통해 나의 5대 리터러시 역량을 정밀 진단하고 개별 레포트를 발급받습니다.
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-sec-1')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 01</span>
+            <span style="background: #f1f5f9; color: #334155; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">30문항 표준 척도</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>01</span> 대학생의 AI 리터러시 진단 & 레포트</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+            대학생 전용 30문항(7점 리커트) 표준 척도를 통해 나의 5대 리터러시 역량을 정밀 진단하고 개별 성과 레포트를 발급받습니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📊 5대 역량 진단</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📝 30문항 표준척도</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 A4 공인 레포트</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎯 맞춤 로드맵</span>
+          </div>
           ${factorQuestionsSection}
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 01 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
 
         <!-- 모듈 2 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
-          <h3><span>02</span> 프롬프트 공식 4+2</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            [역할·배경·지시·형식]의 4대 뼈대와 [조건·샘플]의 2대 보강재를 결합하여 과제 리서치 답변의 정확도를 극대화합니다.
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 02</span>
+            <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">학술 과제 & 리서치</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>02</span> 프롬프트 공식 4+2 & 리서치 기법</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+            [역할·배경·지시·형식]의 4대 뼈대와 [조건·샘플]의 2대 보강재를 결합하여 전공 리포트 및 과제 리서치 답변의 정확도를 극대화합니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📋 4+2 공식</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🔍 과제 리서치</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">💡 CoT 추론설계</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🛡️ 표절·환각 차단</span>
+          </div>
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 02 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
 
         <!-- 모듈 3 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
-          <h3><span>03</span> NotebookLM 활용</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            전공 교재 PDF나 학술 논문을 소스로 지정하여 각주 기반의 팩트체크 스터디 비서를 구축합니다.
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 03</span>
+            <span style="background: #fdf4ff; color: #9333ea; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">논문·전공서 스터디</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>03</span> NotebookLM 논문 분석 & 팩트체크</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+            전공 교재 PDF나 학술 논문을 소스로 지정하여 할루시네이션 없는 각주 기반의 팩트체크 스터디 및 시험 대비 Q&A 비서를 구축합니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📚 논문·PDF 원문</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📌 각주 출처인용</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 시험대비 가이드</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎧 Audio 요약</span>
+          </div>
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 03 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
 
         <!-- 모듈 4 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-4')">
-          <h3><span>04</span> 구글 시트에서 Gemini 함수 활용</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역을 자동화합니다.
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-sec-4')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 04</span>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">데이터 분석 & 번역</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 시트 =GEMINI() 함수 자동화</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+            스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역 및 데이터 정제를 수백 행 단위로 자동화합니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚡ =GEMINI() 수식</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📈 감정분석·라벨링</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🌐 다국어 번역</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🧹 비정형 정제</span>
+          </div>
+          <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 04 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
       </div>
 
