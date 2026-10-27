@@ -765,9 +765,14 @@ const Auth = {
            </a>`
         : '';
       
+      const switchRoleBtn = this.user.role === 'student'
+        ? `<button type="button" class="btn btn-outline btn-sm" onclick="typeof DashboardApp !== 'undefined' ? DashboardApp.switchRole('staff') : (Auth.setUser({...Auth.user, role:'staff'}), window.location.href='dashboard.html?role=staff')" style="font-weight: 700; color: var(--color-ember); border-color: var(--color-ember); background: #ffffff; padding: 4px 12px; font-size: 12px; border-radius: 999px; cursor: pointer;" title="교직원 스마트 행정 코스로 화면 전환">🏛️ 교직원 코스로 보기</button>`
+        : `<button type="button" class="btn btn-outline btn-sm" onclick="typeof DashboardApp !== 'undefined' ? DashboardApp.switchRole('student') : (Auth.setUser({...Auth.user, role:'student'}), window.location.href='dashboard.html?role=student')" style="font-weight: 700; color: #0284c7; border-color: #0284c7; background: #ffffff; padding: 4px 12px; font-size: 12px; border-radius: 999px; cursor: pointer;" title="대학생 120분 마스터 코스로 화면 전환">🎓 대학생 코스로 보기</button>`;
+      
       navMenu.innerHTML = `
-        <div class="user-badge" style="display: flex; align-items: center; gap: 8px;">
+        <div class="user-badge" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
           <span class="role-badge" style="background: var(--color-pumice); padding: 4px 10px; border-radius: 999px; font-size: 12px; font-weight: 700;">${roleText}</span>
+          ${switchRoleBtn}
           ${notionNoteBtn}
           <a href="profile.html" style="font-weight: 600; font-size: 14px; color: var(--color-obsidian); text-decoration: none;" title="프로필 및 입장 이력 관리">
             ${safeName} 님 ⚙️

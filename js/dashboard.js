@@ -5,11 +5,19 @@
 
 const DashboardApp = {
   init() {
-    const user = Auth.getCurrentUser();
+    let user = Auth.getCurrentUser();
     if (!user) {
       alert('로그인이 필요한 서비스입니다.');
       window.location.href = 'index.html';
       return;
+    }
+
+    // URL 파라미터 ?role=staff 또는 ?role=student 처리
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetRole = urlParams.get('role');
+    if (targetRole && (targetRole === 'staff' || targetRole === 'student')) {
+      user.role = targetRole;
+      Auth.setUser(user);
     }
 
     if (!user.role) {
@@ -28,6 +36,19 @@ const DashboardApp = {
     this.renderQuickNav(user);
     this.bindCopyEvents();
     this.initScrollSpy(user);
+  },
+
+  /**
+   * 대학생 / 교직원 역할 즉시 전환
+   * @param {'student'|'staff'} role 
+   */
+  switchRole(role) {
+    const user = Auth.getCurrentUser();
+    if (user) {
+      user.role = role;
+      Auth.setUser(user);
+      window.location.href = 'dashboard.html?role=' + role;
+    }
   },
 
   renderDashboard(user) {
