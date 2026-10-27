@@ -3041,9 +3041,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>⏱️ 15분 완성: 라이브 시연 8단계 로드맵 & 타임라인</span>
             </h3>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              구글폼2.md 표준 시연 시나리오
-            </span>
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
@@ -3053,72 +3050,64 @@ const DashboardApp = {
           <!-- 8단계 그리드 -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem; margin-bottom: 0.5rem;">
             <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #9333ea;">STEP 01</span>
-                <span style="font-size: 11px; background: #f3e8ff; color: #7e22ce; padding: 1px 6px; border-radius: 4px; font-weight: 700;">2분</span>
               </div>
               <strong style="font-size: 13px; color: #581c87; display: block; margin-bottom: 3px;">AI 문항 1분 기획</strong>
               <p style="font-size: 11.5px; color: #6b21a8; margin: 0; line-height: 1.45;">리커트 5점 척도 & 주관식이 결합된 표준 문항 설계</p>
             </div>
 
             <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #2563eb;">STEP 02</span>
-                <span style="font-size: 11px; background: #dbeafe; color: #1d4ed8; padding: 1px 6px; border-radius: 4px; font-weight: 700;">1분</span>
               </div>
               <strong style="font-size: 13px; color: #1e3a8a; display: block; margin-bottom: 3px;">GAS 코드 자연어 요청</strong>
               <p style="font-size: 11.5px; color: #1e40af; margin: 0; line-height: 1.45;">"원클릭 폼 생성 스크립트로 짜줘" 비전문가 프롬프트</p>
             </div>
 
             <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #16a34a;">STEP 03</span>
-                <span style="font-size: 11px; background: #dcfce7; color: #15803d; padding: 1px 6px; border-radius: 4px; font-weight: 700;">2분</span>
               </div>
               <strong style="font-size: 13px; color: #14532d; display: block; margin-bottom: 3px;">1클릭 폼 자동 생성</strong>
               <p style="font-size: 11.5px; color: #166534; margin: 0; line-height: 1.45;">script.google.com 복붙 후 실행 ➔ 구글 드라이브에 폼 완성</p>
             </div>
 
             <div style="background: #fffbeb; border: 1px solid #fde68a; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #d97706;">STEP 04</span>
-                <span style="font-size: 11px; background: #fef3c7; color: #b45309; padding: 1px 6px; border-radius: 4px; font-weight: 700;">1분</span>
               </div>
               <strong style="font-size: 13px; color: #78350f; display: block; margin-bottom: 3px;">필수 설정 4선 점검</strong>
               <p style="font-size: 11.5px; color: #92400e; margin: 0; line-height: 1.45;">도메인 제한 해제, 응답 1회, 익명성, 맞춤 메시지</p>
             </div>
 
             <div style="background: #fff7ed; border: 1px solid #fed7aa; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #ea580c;">STEP 05</span>
-                <span style="font-size: 11px; background: #ffedd5; color: #c2410c; padding: 1px 6px; border-radius: 4px; font-weight: 700;">2분</span>
               </div>
               <strong style="font-size: 13px; color: #7c2d12; display: block; margin-bottom: 3px;">응답 제출 & 시트 연동</strong>
               <p style="font-size: 11.5px; color: #9a3412; margin: 0; line-height: 1.45;">미리보기로 가상 응답 제출 ➔ [Sheets에 연결] 클릭</p>
             </div>
 
             <div style="background: #f0fdfa; border: 1px solid #99f6e4; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #0d9488;">STEP 06</span>
-                <span style="font-size: 11px; background: #ccfbf1; color: #0f766e; padding: 1px 6px; border-radius: 4px; font-weight: 700;">2분</span>
               </div>
               <strong style="font-size: 13px; color: #134e4a; display: block; margin-bottom: 3px;">실시간 집계 대시보드</strong>
               <p style="font-size: 11.5px; color: #115e59; margin: 0; line-height: 1.45;">COUNTA, AVERAGE, COUNTIF로 5점 만점 실시간 계산</p>
             </div>
 
             <div style="background: #fdf2f8; border: 1px solid #fbcfe8; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #db2777;">STEP 07</span>
-                <span style="font-size: 11px; background: #fce7f3; color: #be185d; padding: 1px 6px; border-radius: 4px; font-weight: 700;">3분</span>
               </div>
               <strong style="font-size: 13px; color: #831843; display: block; margin-bottom: 3px;">=GEMINI() 감정 분석</strong>
               <p style="font-size: 11.5px; color: #9d174d; margin: 0; line-height: 1.45;">수백 건 주관식 텍스트 [긍정/건의/불만] 자동 라벨링</p>
             </div>
 
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+              <div style="margin-bottom: 4px;">
                 <span style="font-size: 11px; font-weight: 800; color: #475569;">STEP 08</span>
-                <span style="font-size: 11px; background: #f1f5f9; color: #334155; padding: 1px 6px; border-radius: 4px; font-weight: 700;">2분</span>
               </div>
               <strong style="font-size: 13px; color: #0f172a; display: block; margin-bottom: 3px;">1-Page 보고서 요약</strong>
               <p style="font-size: 11.5px; color: #334155; margin: 0; line-height: 1.45;">주관식 열 복사 ➔ 상급자 보고용 5대 분석표 완성</p>
@@ -3132,9 +3121,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>💬 [STEP 1 & 2] AI 문항 기획 & 비전문가용 GAS 코드 요청 프롬프트</span>
             </h3>
-            <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              소요 시간: 약 3분
-            </span>
           </div>
 
 
@@ -3199,9 +3185,6 @@ const DashboardApp = {
               <span>⚡ [STEP 3] Google Apps Script 원클릭 폼 자동 완성 (10초 실행 & 표준 코드)</span>
             </h3>
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="background: #dcfce7; color: #15803d; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-                소요 시간: 2분
-              </span>
               <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #16a34a; color: #16a34a; background: #ffffff; cursor: pointer; font-weight: 700;" title="GAS 코드 전체 복사하기">
                 <span>📋 GAS 코드 전체 복사</span>
               </button>
@@ -3283,9 +3266,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>⚙️ [STEP 4] 구글 폼 배포 전 필수 설정 체크리스트 4선</span>
             </h3>
-            <span style="background: #fef3c7; color: #92400e; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              소요 시간: 1분
-            </span>
           </div>
 
 
@@ -3331,9 +3311,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>📊 [STEP 5 & 6] 가상 응답 제출 & 스프레드시트 실시간 집계 대시보드</span>
             </h3>
-            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              소요 시간: 약 4분
-            </span>
           </div>
 
 
@@ -3385,9 +3362,6 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🤖 [STEP 7] 스프레드시트 =GEMINI() 함수로 주관식 피드백 자동 분류 & 감정 분석</span>
             </h3>
-            <span style="background: #fdf4ff; color: #9333ea; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              소요 시간: 3분
-            </span>
           </div>
 
 
@@ -3422,9 +3396,6 @@ const DashboardApp = {
               <span>📑 [STEP 8] 전체 설문 결과 상급자 보고용 1-Page 요약 생성 프롬프트</span>
             </h3>
             <div style="display: flex; align-items: center; gap: 8px;">
-              <span style="background: #f1f5f9; color: #334155; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-                소요 시간: 1분
-              </span>
               <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700;" title="프롬프트 복사하기">
                 <span>📋 프롬프트 복사</span>
               </button>
