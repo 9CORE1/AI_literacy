@@ -13,4 +13,5 @@ public/
 *.jpeg
 *.png
 !literacy_logo.png
+!public/Gemini_cardnews*.png
 .agents/

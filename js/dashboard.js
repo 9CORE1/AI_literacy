@@ -1313,12 +1313,77 @@ const DashboardApp = {
 [조건] 원문의 수치(예산, 일정, 통계)를 왜곡 없이 그대로 반영하고, 슬라이드마다 원문 인용 각주([1], [2])를 달아 팩트체크할 수 있게 해 줘.</pre>
             </div>
 
-            <!-- 2. 오디오 오버뷰 맞춤설정 프롬프트 -->
+            <!-- 2. 프로세스형 인포그래픽 프롬프트 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: #059669; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">절차 인포그래픽</span>
+                  <span>2. 📌 [프로세스형] 학사·사업 신청 절차 인포그래픽 데이터 시트 추출</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: 장학금, 비교과, 연구비 정산 등 복잡한 학사·사업 공고를 4단계 순서도 및 D-Day 일정표 인포그래픽으로 구조화합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 문서를 분석하여 학내 포털 및 웹페이지 게시용 "단계별 절차 인포그래픽(Process Infographic) 기획안"을 작성해 줘.
+
+[시각화 타깃]
+- 대상: 복잡한 공문을 읽기 힘들어하는 학생 및 신임 교직원
+- 형식: 캔바(Canva) 및 웹 공지용 세로형(Long Form) 인포그래픽
+
+[요청 구성]
+1. 인포그래픽 헤드카피: 사업의 핵심 혜택을 담은 직관적인 제목 (예: "3단계로 끝내는 2026 00장학금 올인원 가이드")
+2. 단계별 프로세스 흐름 (Timeline Flow):
+   - [1단계 신청] ➔ [2단계 자격 검증] ➔ [3단계 심사/면접] ➔ [4단계 최종 선발 및 지급]
+   - 각 단계마다 [행정 일정/기한], [신청자 필수 액션], [제출 서류 체크리스트]를 2~3줄로 압축 정리
+3. 💡 담당 부서 꿀팁 & 주의사항 (Callout Box): 탈락 방지를 위한 빈출 실수 2가지와 문의처
+4. 시각화 아이콘 가이드: 각 단계별로 배치하면 어울릴 추천 아이콘 명칭 (예: 캘린더, 서류, 돋보기, 계좌 등)
+
+[규칙] 일정, 기한, 서류명은 원문 소스의 명칭을 100% 동일하게 유지해 줘.</pre>
+            </div>
+
+            <!-- 3. 성과/통계형 인포그래픽 프롬프트 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: #ea580c; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">성과 인포그래픽</span>
+                  <span>3. 📊 [성과/통계형] 대학 재정지원사업 & 성과보고 1페이지 인포그래픽</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: 사업 결과보고서의 핵심 수치 3~4선과 전년 대비 성과(Before vs After)를 1페이지 대시보드형으로 추출합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 사업 결과보고서 소스를 분석하여 "1페이지 대시보드형 성과 인포그래픽(Stat Infographic) 기획안"을 추출해 줘.
+
+[청중 및 목적]
+- 대상 청중: 대학 본부 보직자 및 대외 평가위원
+- 목적: 사업의 핵심 성과 수치와 전년 대비 성장세를 단 10초 만에 인지시키는 것
+
+[요청 구성]
+1. Big Numbers (핵심 강조 지표 3~4선):
+   - 폰트를 가장 크게 키워 배치할 핵심 수치 추출 (예: 예산 집행률 98.5%, 참여 학생 수 1,240명, 만족도 4.8/5.0 등)
+   - 각 숫자 밑에 들어갈 설명 문구 (15자 이내)
+2. 성과 비교표 (Before vs After):
+   - 사업 도입 전과 도입 후의 변화를 비교할 수 있는 3대 비교 항목과 수치
+3. 우수 사례(Highlight) 1선:
+   - 정량 지표 외에 가장 돋보이는 정성적 성공 사례 또는 학생 대표 수기 1문장 요약
+4. 색상 및 차트 연출 제안:
+   - 본 지표를 가장 잘 전달할 수 있는 차트 형태(원형 차트, 막대그래프, 게이지 바 등) 추천
+
+[규칙] 수치는 반올림하지 말고 원문 데이터 그대로 정확하게 표기해 줘.</pre>
+            </div>
+
+            <!-- 4. 오디오 오버뷰 맞춤설정 프롬프트 -->
             <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #7c3aed; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">오디오 브리핑</span>
-                  <span>2. 🎙️ 스튜디오 '오디오 오버뷰' 정책 쟁점 토론 맞춤설정 지시문</span>
+                  <span>4. 🎙️ 스튜디오 '오디오 오버뷰' 정책 쟁점 토론 맞춤설정 지시문</span>
                 </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
@@ -1333,10 +1398,10 @@ const DashboardApp = {
             </div>
           </div>
 
-          <!-- 3. 실전 연계 워크플로우 3단계 -->
+          <!-- 실전 연계 워크플로우 3단계 -->
           <div style="border-top: 1px solid #e5e7eb; padding-top: 1.25rem;">
             <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 0.85rem;">
-              🚀 3. 추천 실전 행정 연계 워크플로우 (초고속 시각화 3단계)
+              🚀 5. 추천 실전 행정 연계 워크플로우 (초고속 시각화 3단계)
             </div>
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
               <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
