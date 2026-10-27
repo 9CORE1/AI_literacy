@@ -682,53 +682,79 @@ const DashboardApp = {
       <!-- 교직원 120분 강의 모듈 헤더 -->
       <div style="margin-bottom: var(--spacing-20);">
         <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">ADMINISTRATIVE PRODUCTIVITY WORKFLOW</span>
-        <h2 style="font-size: 32px; color: var(--color-obsidian); margin-bottom: 0.75rem;">📋 교직원 120분 스마트 행정 커리큘럼</h2>
-        
-        <!-- 모듈 바로가기 퀵 네비게이션 탭 -->
-        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
-          <button type="button" class="btn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--color-pumice); color: var(--color-obsidian);" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
-            01 프롬프트 공식 4+2 ➔
-          </button>
-          <button type="button" class="btn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--color-pumice); color: var(--color-obsidian);" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
-            02 NotebookLM 규정 Q&A ➔
-          </button>
-          <button type="button" class="btn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--color-pumice); color: var(--color-obsidian);" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
-            03 카드뉴스 제작 ➔
-          </button>
-          <button type="button" class="btn" style="padding: 8px 18px; font-size: 13px; font-weight: 800; border-radius: 999px; background: var(--color-ember); border: 1px solid var(--color-ember); color: #fff; box-shadow: 0 4px 12px rgba(224, 76, 25, 0.25);" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
-            🔥 04 구글 폼 & 집계시스템 (구글폼.MD) ➔
-          </button>
-        </div>
+        <h2 style="font-size: 32px; color: var(--color-obsidian); margin: 0.25rem 0 0 0;">📋 교직원 120분 스마트 행정 커리큘럼</h2>
       </div>
 
       <!-- 교직원 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
       <div class="dashboard-grid">
         <!-- 모듈 1 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
-          <h3><span>01</span> 프롬프트 공식 4+2</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 01</span>
+            <span style="background: #f1f5f9; color: #334155; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">공문서 & 품의서 혁신</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>01</span> 프롬프트 공식 4+2 & 기안문 작성</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
             행정 격식에 맞춘 톤앤매너 설정, 공문서·안내문 초안 생성 및 품의서 작성 시간을 80% 단축합니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📋 4+2 공식</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">✍️ 품의서 초안</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚡ 톤앤매너</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🛡️ 보안·환각예방</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 01 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
 
         <!-- 모듈 2 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
-          <h3><span>02</span> NotebookLM 활용</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 02</span>
+            <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">규정 Q&A & 근거 접지</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>02</span> NotebookLM 활용 행정 실무</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
             학내 보도자료나 규정집 PDF를 연동하여 근거 조항 기반의 행정 질의응답 및 홍보 카드뉴스 기획안을 도출합니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📚 학칙·규정 연동</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📌 100% 출처인용</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🔍 보도자료 요약</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 행정 FAQ 추출</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 02 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
 
         <!-- 모듈 3 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
-          <h3><span>03</span> 카드뉴스 제작(나노바나나 활용)</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 03</span>
+            <span style="background: #fdf4ff; color: #9333ea; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">고화질 비주얼 & 홍보</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>03</span> 카드뉴스 제작 (나노바나나 & 캔바)</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
             기획된 홍보 문구를 AI 시각 템플릿과 결합하여 모바일 친화형 고화질 카드뉴스를 신속하게 제작합니다.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎨 나노바나나 AI</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📐 캔바 타이포마감</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📱 모바일 최적화</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚖️ 공공 저작권</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 03 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
 
         <!-- 모듈 4 -->
-        <div class="card module-card" style="cursor: pointer; border: 2px solid var(--color-ember); background: #fffcfb; box-shadow: 0 6px 20px rgba(224, 76, 25, 0.08);" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
+        <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 04</span>
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글폼.MD 완벽 탑재</span>
