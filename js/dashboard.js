@@ -3049,7 +3049,7 @@ const DashboardApp = {
 
           <!-- 8단계 인포그래픽 비주얼 로드맵 -->
           <div style="margin-bottom: 1.5rem; border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); background: #ffffff;">
-            <img src="images/staff_form_roadmap_infographic.jpg?v=20261027_korean" alt="15분 완성: 라이브 시연 8단계 로드맵 & 타임라인 한국어 인포그래픽" style="width: 100%; height: auto; display: block; object-fit: cover;" loading="lazy">
+            <img src="images/staff_form_roadmap_infographic.jpg?v=20261027_crop" alt="15분 완성: 라이브 시연 8단계 로드맵 & 타임라인 한국어 인포그래픽" style="width: 100%; height: auto; display: block; object-fit: cover;" loading="lazy">
           </div>
 
           <!-- 8단계 그리드 -->
