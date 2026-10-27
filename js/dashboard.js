@@ -3137,10 +3137,6 @@ const DashboardApp = {
             </span>
           </div>
 
-          <!-- 시연 멘트 배너 -->
-          <div style="background: #fdfbf7; border-left: 4px solid var(--color-ember); padding: 10px 14px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #7c2d12; line-height: 1.5;">
-            <strong>🗣️ 강사 시연 멘트</strong>: "설문지를 만들 때 질문을 하나하나 타이핑할 필요 없이, AI에게 교육 목적과 대상만 알려주면 리커트 5점 척도 표준 문항과 원클릭 생성 코드를 1분 만에 완성해 줍니다."
-          </div>
 
           <div style="display: flex; flex-direction: column; gap: 1rem;">
             <!-- 프롬프트 1: 설문 문항 설계 -->
@@ -3212,10 +3208,6 @@ const DashboardApp = {
             </div>
           </div>
 
-          <!-- 시연 멘트 배너 -->
-          <div style="background: #f0fdf4; border-left: 4px solid #16a34a; padding: 10px 14px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #14532d; line-height: 1.5;">
-            <strong>🗣️ 강사 시연 멘트</strong>: "구글 앱스 스크립트 사이트에 코드를 붙여넣고 [실행] 버튼을 누르는 즉시 구글 드라이브에 구글 폼이 실제로 자동 생성되는 과정을 보여드리겠습니다."
-          </div>
 
           <!-- 4단계 조작 순서 안내 -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
@@ -3296,10 +3288,6 @@ const DashboardApp = {
             </span>
           </div>
 
-          <!-- 시연 멘트 배너 -->
-          <div style="background: #fffbeb; border-left: 4px solid #f59e0b; padding: 10px 14px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #78350f; line-height: 1.5;">
-            <strong>🗣️ 강사 시연 멘트</strong>: "배포 전 '설정(Settings)' 탭에서 이 4가지를 확인해야 교내/외 설문 시 로그인 불가 민원이나 중복 왜곡을 100% 방지할 수 있습니다."
-          </div>
 
           <!-- 체크리스트 표 -->
           <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 0.5rem; border: 1px solid #e5e7eb; border-radius: 14px; background: #ffffff;">
@@ -3348,10 +3336,6 @@ const DashboardApp = {
             </span>
           </div>
 
-          <!-- 시연 멘트 배너 -->
-          <div style="background: #f0fdfa; border-left: 4px solid #0d9488; padding: 10px 14px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #115e59; line-height: 1.5;">
-            <strong>🗣️ 강사 시연 멘트</strong>: "설문 원본 데이터가 쌓이는 첫 번째 시트는 절대 수정하지 않고, 새 탭을 만들어 실시간으로 업데이트되는 자동 집계 대시보드를 만듭니다."
-          </div>
 
           <!-- 2단계 절차 안내 -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
@@ -3406,10 +3390,6 @@ const DashboardApp = {
             </span>
           </div>
 
-          <!-- 시연 멘트 배너 -->
-          <div style="background: #fdf2f8; border-left: 4px solid #db2777; padding: 10px 14px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #9d174d; line-height: 1.5;">
-            <strong>🗣️ 강사 시연 멘트</strong>: "주관식 의견이 수백 건씩 쏟아져도 직접 눈으로 읽지 않습니다. 스프레드시트 셀 안에서 Gemini AI를 함수처럼 호출해 감정 분류와 키워드 추출을 수백 행 단위로 일괄 처리합니다."
-          </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1rem; word-break: keep-all;">
             <code>'설문지 응답 1'</code> 시트의 주관식 열(예: <code>F열</code>) 옆에 새 열을 생성하고 아래 수식을 입력합니다:
@@ -3451,10 +3431,6 @@ const DashboardApp = {
             </div>
           </div>
 
-          <!-- 시연 멘트 배너 -->
-          <div style="background: #f8fafc; border-left: 4px solid #475569; padding: 10px 14px; border-radius: 8px; margin-bottom: 1.25rem; font-size: 13px; color: #334155; line-height: 1.5;">
-            <strong>🗣️ 강사 시연 멘트</strong>: "설문이 종료되면 스프레드시트의 주관식 열을 복사하여 AI에게 넣는 것만으로, 부서장/총장 보고용 1-Page 요약 보고서가 5초 만에 완성됩니다."
-          </div>
 
           <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12px; color: #334155; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.6; font-family: inherit;">다음은 [생성형 AI 활용 행정 실무 워크숍] 종료 후 수집된 주관식 피드백 원문 데이터입니다.
 당신은 교육 성과분석관으로서, 상급자 보고용 [결과 요약 보고서]를 작성해야 합니다.
