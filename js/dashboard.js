@@ -5,24 +5,30 @@
 
 const DashboardApp = {
   init() {
-    let user = Auth.getCurrentUser();
-    if (!user) {
-      alert('로그인이 필요한 서비스입니다.');
-      window.location.href = 'index.html';
+    const user = Auth.getCurrentUser();
+    if (!user || !user.email) {
+      alert('로그인이 필요한 서비스입니다.\n메인 화면에서 로그인 또는 회원가입 후 입장해 주세요.');
+      window.location.replace('index.html?login=true');
       return;
-    }
-
-    // URL 파라미터 ?role=staff 또는 ?role=student 처리
-    const urlParams = new URLSearchParams(window.location.search);
-    const targetRole = urlParams.get('role');
-    if (targetRole && (targetRole === 'staff' || targetRole === 'student')) {
-      user.role = targetRole;
-      Auth.setUser(user);
     }
 
     if (!user.role) {
       alert('대학생 또는 교직원 구분을 먼저 선택해 주셔야 합니다.');
-      window.location.href = 'index.html?selectRole=true';
+      window.location.replace('index.html?selectRole=true');
+      return;
+    }
+
+    // [RBAC 보안] URL 쿼리스트링(?role=...)을 통한 타 대상자 코스 부정 접근 엄격 차단
+    const urlParams = new URLSearchParams(window.location.search);
+    const requestedRole = urlParams.get('role');
+    if (requestedRole && requestedRole !== user.role) {
+      if (requestedRole === 'staff' && user.role === 'student') {
+        alert('⛔ [접근 제한 안내]\n\n해당 코스는 🏛️ [교직원 전용] 코스입니다.\n대학생 계정으로는 교직원 코스를 열람하실 수 없습니다.\n\n대학생 전용 강의실로 이동합니다.');
+      } else if (requestedRole === 'student' && user.role === 'staff') {
+        alert('⛔ [접근 제한 안내]\n\n해당 코스는 🎓 [대학생 전용] 코스입니다.\n교직원 계정으로는 대학생 코스를 열람하실 수 없습니다.\n\n교직원 전용 강의실로 이동합니다.');
+      }
+      // 불법 요청 파라미터를 정리하고 본인의 전용 대시보드로 이동
+      window.location.replace('dashboard.html');
       return;
     }
 
@@ -36,19 +42,6 @@ const DashboardApp = {
     this.renderQuickNav(user);
     this.bindCopyEvents();
     this.initScrollSpy(user);
-  },
-
-  /**
-   * 대학생 / 교직원 역할 즉시 전환
-   * @param {'student'|'staff'} role 
-   */
-  switchRole(role) {
-    const user = Auth.getCurrentUser();
-    if (user) {
-      user.role = role;
-      Auth.setUser(user);
-      window.location.href = 'dashboard.html?role=' + role;
-    }
   },
 
   renderDashboard(user) {

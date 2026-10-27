@@ -337,7 +337,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js"></script>
+  <script src="js/auth.js?v=20261027_11"></script>
   <script>
     // State
     let currentRole = 'student';
@@ -446,8 +446,18 @@
       el.classList.toggle('open');
     }
 
-    // Switch Role
+    // Switch Role (로그인 상태 시 타 대상자 코스 열람 차단)
     function switchRole(role) {
+      const user = (typeof Auth !== 'undefined' && Auth.getCurrentUser) ? Auth.getCurrentUser() : null;
+      if (user && user.role && user.role !== role) {
+        if (user.role === 'staff') {
+          alert('🏛️ [열람 제한]\n현재 교직원 전용 계정으로 로그인되어 있습니다.\n대학생 코스는 대학생 계정으로 로그인해야 열람하실 수 있습니다.');
+        } else {
+          alert('🎓 [열람 제한]\n현재 대학생 전용 계정으로 로그인되어 있습니다.\n교직원 코스는 교직원 계정으로 로그인해야 열람하실 수 있습니다.');
+        }
+        return;
+      }
+
       currentRole = role;
       document.getElementById('btn-role-student').classList.toggle('active', role === 'student');
       document.getElementById('btn-role-staff').classList.toggle('active', role === 'staff');
@@ -682,6 +692,10 @@
 
       if (typeof Auth !== 'undefined') {
         await Auth.init();
+        const loggedUser = Auth.getCurrentUser();
+        if (loggedUser && loggedUser.role) {
+          switchRole(loggedUser.role);
+        }
         Auth.initGoogleIdentity({
           containerId: 'google-gis-btn-container',
           getRoleCallback: () => currentModalRole,
