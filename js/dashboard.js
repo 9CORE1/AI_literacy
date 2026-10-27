@@ -2356,7 +2356,7 @@ const DashboardApp = {
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🎨 03. 카드뉴스 제작 (나노바나나 & 비주얼 AI 활용)</h2>
         </div>
 
-        <!-- 카드 3-1: 3단계 카드뉴스 제작 파이프라인 -->
+        <!-- 카드 3-1: 3단계 카드뉴스 제작 파이프라인 & 나노바나나 프롬프트 팁 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
@@ -2399,26 +2399,64 @@ const DashboardApp = {
                 <strong style="font-size: 14.5px; color: var(--color-obsidian);">타이포그래피 & 배포</strong>
               </div>
               <p style="font-size: 13px; color: #4b5563; margin: 0; line-height: 1.5; word-break: keep-all;">
-                Canva·미리캔버스에 생성된 이미지를 배경으로 얹고, 정갈한 고딕 폰트(Pretendard, 에스코어 드림)로 교내 공식 로고와 함께 마감
+                Canva·미리캔버스에 생성된 이미지를 배경으로 얹고, 정갈한 안심 고딕 폰트(Pretendard, 에스코어 드림)로 교내 공식 로고와 함께 마감
               </p>
+            </div>
+          </div>
+
+          <!-- 나노바나나 프롬프트 실무 팁 4선 배너 -->
+          <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 0.75rem;">
+              💡 나노바나나 프롬프트 작성 시 교직원 실무 핵심 팁 4가지
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.75rem;">
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px 12px;">
+                <strong style="font-size: 13px; color: var(--color-ember);">① 여백(Negative Space) 확보 ⭐</strong>
+                <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                  <code>ample negative space for text overlay</code>를 추가하여 한글 문구가 들어갈 빈 공간을 남겨둡니다.
+                </p>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px 12px;">
+                <strong style="font-size: 13px; color: #0284c7;">② 화면 비율(Aspect Ratio) 지정</strong>
+                <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                  인스타그램/알림톡용 <code>--ar 1:1</code>(정사각) 또는 <code>--ar 4:5</code>(모바일 세로형)를 지정합니다.
+                </p>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px 12px;">
+                <strong style="font-size: 13px; color: #059669;">③ 시리즈 화풍(Style) 일관성</strong>
+                <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                  1~5컷 전체에 <code>modern 3D claymorphism</code> 등 동일한 스타일 키워드를 고정하여 브랜드 톤을 통일합니다.
+                </p>
+              </div>
+              <div style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 10px 12px;">
+                <strong style="font-size: 13px; color: #7c3aed;">④ 한글 텍스트 분리 원칙</strong>
+                <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                  AI에게 한글을 직접 쓰게 하지 말고, 이미지는 '순수 배경/오브젝트'로만 뽑고 글자는 캔바에서 얹습니다.
+                </p>
+              </div>
             </div>
           </div>
         </div>
 
-        <!-- 카드 3-2: 카드뉴스 생성 실무 프롬프트 예시 -->
+        <!-- 카드 3-2: 카드뉴스 생성 실무 프롬프트 예시 (4종) -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>💬 2. 교직원 실무: 카드뉴스 기획 & 이미지 프롬프트 복사</span>
-          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>💬 2. 교직원 실무: 카드뉴스 기획 & 나노바나나 이미지 프롬프트 복사</span>
+            </h3>
+            <span style="font-size: 12.5px; color: #6b7280;">원클릭 복사 후 나노바나나 또는 챗봇에 붙여넣기 하세요.</span>
+          </div>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
-            <!-- 프롬프트 1 -->
-            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+            <!-- 프롬프트 1: 5컷 기획안 -->
+            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📋 [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
-                <button type="button" class="btn btn-secondary" style="padding: 3px 10px; font-size: 12px; height: auto;" data-copy-target="prompt-staff-cardnews-1">복사</button>
+                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📋 1. [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
-              <pre id="prompt-staff-cardnews-1" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12.5px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: monospace;">다음 대학 행사 공문(또는 특강 안내문)을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">다음 대학 행사 공문(또는 특강 안내문)을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
 
 [공문 내용 / 행사 요강 붙여넣기]
 
@@ -2429,27 +2467,157 @@ const DashboardApp = {
 4. 각 컷마다 배경 이미지로 생성할 수 있는 AI 이미지 프롬프트(영문)를 1줄씩 제안해줘.</pre>
             </div>
 
-            <!-- 프롬프트 2 -->
-            <div style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+            <!-- 프롬프트 2: 특강 홍보 배경 -->
+            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
               <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">🖼️ [비주얼 AI용] 대학 특강 홍보 배경 프롬프트</span>
-                <button type="button" class="btn btn-secondary" style="padding: 3px 10px; font-size: 12px; height: auto;" data-copy-target="prompt-staff-cardnews-2">복사</button>
+                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">🚀 2. [비교과/특강] AI·SW 신기술 워크숍 홍보 표지</span>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
-              <pre id="prompt-staff-cardnews-2" style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12.5px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: monospace;">A modern university campus seminar hall, bright and hopeful daylight, minimal 3D glassmorphic style, glowing technological abstract nodes, subtle corporate orange and navy accents, ample negative space at the center for text overlay, clean isometric composition, 8k resolution, photorealistic, professional academic flyer aesthetic --ar 1:1 --v 6.0</pre>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">A bright and futuristic university computer lab, glowing 3D AI nodes and data particles floating in the air, modern minimalist claymorphism style, soft pastel orange and corporate navy color palette, ample clean negative space at the center for Korean text overlay, bright daylight, 8k resolution, professional academic flyer aesthetic --ar 1:1</pre>
+            </div>
+
+            <!-- 프롬프트 3: 학사/장학 본문컷 -->
+            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📜 3. [학사/장학] 장학금 신청 및 학사일정 안내 본문컷</span>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">Minimalist 3D isometric university desk with an open scholarship certificate, graduation cap, and golden star coins, clean white background, soft studio lighting, subtle blue accents, lots of empty space on the right side for text, neat and professional educational infographic style --ar 1:1</pre>
+            </div>
+
+            <!-- 프롬프트 4: 행사/캠프 홍보컷 -->
+            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">🤝 4. [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷</span>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">Two cheerful Korean university students discussing together with laptops in a sunny modern campus lounge, bright aesthetic, soft focus background, warm and welcoming atmosphere, modern college lifestyle photography, clean composition with negative space on top for headline --ar 4:5</pre>
             </div>
           </div>
         </div>
 
-        <!-- 카드 3-3: 공공기관 및 대학 AI 생성물 저작권 준수 가이드 -->
-        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid #fee2e2; border-radius: 24px; background: #fffafb; margin-bottom: 1.5rem;">
-          <h4 style="font-size: 15px; color: #991b1b; margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px;">
-            <span>🛡️ 대학 행정 실무자를 위한 AI 저작권 & 표기 원칙</span>
-          </h4>
-          <ul style="margin: 0; padding-left: 20px; font-size: 13px; color: #7f1d1d; line-height: 1.6; word-break: keep-all;">
-            <li><strong>AI 생성물 표기 권장:</strong> 교내 공식 홍보물에 AI로 생성한 이미지를 사용할 경우, 하단에 작게 <em>"본 이미지는 생성형 AI를 활용하여 제작되었습니다."</em> 안내 문구를 표기하는 것이 권장됩니다.</li>
-            <li><strong>특정인 초상권 및 상표권 침해 금지:</strong> 특정 유명인이나 타 대학의 상징 로고, 특정 학생의 얼굴 사진을 AI 학습/생성 소스로 사용하지 마세요.</li>
-            <li><strong>공공누리(KOGL) 연계:</strong> 공공 데이터 및 학교 공식 보도자료를 2차 가공할 때는 저작물 이용 조건을 확인하여 출처를 명시합니다.</li>
-          </ul>
+        <!-- 카드 3-3: 글꼴(폰트) 사용 및 저작권 준수 실무 가이드 (신규) -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>✍️ 3. 글꼴(폰트) 사용 및 라이선스 안심 실무 가이드</span>
+            </h3>
+            <span style="background: #fee2e2; color: #991b1b; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              폰트 저작권 분쟁 원천 예방
+            </span>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            한글(HWP)이나 MS 오피스 기본 탑재 폰트는 '문서 작성용'일 뿐, 웹/SNS 이미지로 제작 시 <strong>저작권 침해 합의금 요구 사고</strong>가 발생할 수 있습니다. 반드시 <strong>'상업적 이용 가능한 안심 무료 폰트(OFL)'</strong>만을 사용해야 합니다.
+          </p>
+
+          <!-- 추천 폰트 테이블 -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 600px; word-break: keep-all;">
+              <thead>
+                <tr style="background-color: #f3f4f6; border-bottom: 2px solid #e5e7eb;">
+                  <th style="padding: 10px 14px; width: 18%; color: var(--color-obsidian); font-weight: 700;">구분</th>
+                  <th style="padding: 10px 14px; width: 25%; color: var(--color-obsidian); font-weight: 700;">추천 폰트명</th>
+                  <th style="padding: 10px 14px; color: var(--color-obsidian); font-weight: 700;">특징 및 권장 용도</th>
+                  <th style="padding: 10px 14px; width: 20%; color: var(--color-obsidian); font-weight: 700;">배포처</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-ember);">제목용 (헤드카피)</td>
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-obsidian);">에스코어 드림</td>
+                  <td style="padding: 10px 14px; color: #4b5563;">1~9단계 굵기 지원. 모바일 화면에서 한눈에 꽂히는 단단하고 신뢰감 있는 제목 서체</td>
+                  <td style="padding: 10px 14px; color: #6b7280;">눈누 / 에스코어</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-ember);">제목용 (헤드카피)</td>
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-obsidian);">Gmarket Sans</td>
+                  <td style="padding: 10px 14px; color: #4b5563;">세련되고 트렌디한 인상. 비교과 워크숍, 페스티벌, 창업 특강 표지에 최적</td>
+                  <td style="padding: 10px 14px; color: #6b7280;">눈누 / G마켓</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 10px 14px; font-weight: 700; color: #0284c7;">본문용 (상세내용)</td>
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-obsidian);">Pretendard (프리텐다드)</td>
+                  <td style="padding: 10px 14px; color: #4b5563;">현대적 UI 표준 고딕. 작은 글씨로 축소되어도 뭉개지지 않고 가독성 최상</td>
+                  <td style="padding: 10px 14px; color: #6b7280;">눈누 / Canva 기본탑재</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 10px 14px; font-weight: 700; color: #0284c7;">본문용 (상세내용)</td>
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-obsidian);">Noto Sans KR (본고딕)</td>
+                  <td style="padding: 10px 14px; color: #4b5563;">구글-어도비 표준 폰트. 공식 학사일정, 장학 공지 등 정중한 공문에 적합</td>
+                  <td style="padding: 10px 14px; color: #6b7280;">Google Fonts</td>
+                </tr>
+                <tr>
+                  <td style="padding: 10px 14px; font-weight: 700; color: #059669;">브랜드 아이덴티티</td>
+                  <td style="padding: 10px 14px; font-weight: 700; color: var(--color-obsidian);">대학 자체 전용 서체</td>
+                  <td style="padding: 10px 14px; color: #4b5563;">대학별 자체 개발 공식 무료 서체(서울대체 등). 소속감 및 브랜드 통일</td>
+                  <td style="padding: 10px 14px; color: #6b7280;">각 대학 홍보팀</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 가독성 4대 원칙 그리드 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid var(--color-ember); padding: 12px 14px; border-radius: 12px;">
+              <strong style="font-size: 13px; color: var(--color-obsidian);">1. 원/투 폰트(One/Two) 룰</strong>
+              <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                한 카드뉴스에 서체를 3개 이상 섞지 말고, [제목: 에스코어 드림] + [본문: 프리텐다드] 2개로 통일합니다.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #0284c7; padding: 12px 14px; border-radius: 12px;">
+              <strong style="font-size: 13px; color: var(--color-obsidian);">2. 명도 대비 & 딤(Dim) 처리</strong>
+              <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                밝은 배경엔 차콜 글씨, 어두운 배경엔 흰색 글씨를 얹고, 복잡한 그림 위엔 반투명 박스를 깔아 글자를 분리합니다.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #059669; padding: 12px 14px; border-radius: 12px;">
+              <strong style="font-size: 13px; color: var(--color-obsidian);">3. 크기 계층(Hierarchy) 분리</strong>
+              <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                헤드라인(가장 큼) → 소제목(중간) → 본문 세부 설명(작음)으로 폰트 크기 위계를 명확히 둡니다.
+              </p>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 3px solid #7c3aed; padding: 12px 14px; border-radius: 12px;">
+              <strong style="font-size: 13px; color: var(--color-obsidian);">4. 의미 단위 줄바꿈(keep-all)</strong>
+              <p style="font-size: 12px; color: #555; margin: 4px 0 0 0; line-height: 1.45;">
+                모바일 화면에서 단어 중간이 끊기지 않고 의미 단위로 읽히도록 문장 개행을 조절합니다.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 3-4: 공공기관 및 대학 AI 저작권 표기 & 최종 자가 점검표 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
+            <span>🛡️ 4. 대학 행정 실무자를 위한 AI 저작권 표기 & 최종 자가 점검표</span>
+          </h3>
+
+          <div style="background: #fffafb; border: 1px solid #fee2e2; border-radius: 16px; padding: 1.15rem 1.35rem; margin-bottom: 1.25rem;">
+            <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 6px;">공공 표기 및 컴플라이언스 3대 수칙</div>
+            <ul style="margin: 0; padding-left: 20px; font-size: 12.5px; color: #7f1d1d; line-height: 1.6; word-break: keep-all;">
+              <li><strong>AI 생성물 표기 권장:</strong> 교내 공식 홍보물에 AI 생성 이미지를 사용할 경우, 하단 귀퉁이에 <em>"본 이미지는 생성형 AI를 활용하여 제작되었습니다."</em> 안내 문구를 표기하는 것이 권장됩니다.</li>
+              <li><strong>특정인 초상권 및 상표권 침해 금지:</strong> 특정 재학생 얼굴이나 타 대학 상징 로고를 AI 프롬프트에 넣지 마세요.</li>
+              <li><strong>개인정보 비식별화:</strong> 이벤트 당첨자나 수혜자 안내 카드뉴스에 학생 성명(홍*동 처리), 학번, 전화번호를 이미지로 박제 배포하지 않습니다.</li>
+            </ul>
+          </div>
+
+          <!-- 자가 점검 체크리스트 바 -->
+          <div style="background: #fdfbf7; border: 1px solid #fed7aa; border-radius: 16px; padding: 1.1rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 6px;">📋 카드뉴스 배포 전 3초 자가 점검 체크리스트</div>
+            <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.6; display: flex; flex-direction: column; gap: 3px;">
+              <span>✓ 공문 문구를 NotebookLM으로 5컷 구조(헤드라인+혜택+신청)로 압축했는가?</span>
+              <span>✓ 나노바나나에 '텍스트가 들어갈 여백(Negative Space)'을 지정하여 이미지를 생성했는가?</span>
+              <span>✓ 상업적 이용이 검증된 안심 폰트(에스코어 드림, 프리텐다드 등)를 사용했는가?</span>
+              <span>✓ 모바일 작은 화면으로 보았을 때 글씨가 배경에 묻히지 않고 또렷하게 읽히는가?</span>
+              <span>✓ AI 생성물 표기 문구를 넣고, 학생 개인 식별 정보를 비식별화했는가?</span>
+            </div>
+          </div>
         </div>
       </div>
     `;
