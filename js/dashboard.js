@@ -1056,7 +1056,7 @@ const DashboardApp = {
           </div>
           
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            NotebookLM은 교직원이 직접 업로드한 공문, 학내 규정집, 사업 편람만을 <strong>엄격한 진실의 원천(Source of Truth)</strong>으로 삼아 답변하는 맞춤형 AI 행정 연구 노트입니다. 일반 생성형 AI와 달리 인터넷 전체의 불확실한 지식을 검색하지 않고, 제공된 학내 문서 범위 내에서만 작동합니다.
+            Google NotebookLM은 구글의 최신 거대언어모델(Gemini 1.5 Pro) 기반의 <strong>'소스 접지형(Source-Grounded) 스마트 행정 연구 및 문서 분석 AI 도구'</strong>입니다. 일반 범용 챗봇과 달리 교직원이 직접 업로드한 <strong>학내 규정집, 사업 편람, 회의록만을 엄격한 진실의 원천(Source of Truth)</strong>으로 삼아 답변을 생성합니다.
           </p>
 
           <!-- 비교 테이블 -->
@@ -1078,17 +1078,17 @@ const DashboardApp = {
                 <tr style="border-bottom: 1px solid #e5e7eb;">
                   <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">환각 (거짓 정보)</td>
                   <td style="padding: 12px 14px; color: #6b7280;">가짜 법령 조항이나 없는 학칙 번호를 지어낼 위험 상존</td>
-                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">내가 준 규정집 밖의 정보는 답변하지 않아 환각 극소화</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">내가 준 규정집 밖의 정보는 원칙적으로 답변하지 않아 환각 극소화</td>
                 </tr>
                 <tr style="border-bottom: 1px solid #e5e7eb;">
                   <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">출처 표기</td>
                   <td style="padding: 12px 14px; color: #6b7280;">출처가 없거나 지어낸 가짜 링크를 제공하는 경우 발생</td>
-                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">모든 문장마다 원문 페이지/조항 번호 각주([1], [2]) 자동 첨부</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">모든 문장마다 원문 페이지/조항 번호 인라인 각주([1], [2]) 자동 첨부</td>
                 </tr>
                 <tr>
                   <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">최적 용도</td>
                   <td style="padding: 12px 14px; color: #6b7280;">브레인스토밍, 범용 코딩, 창의적 글쓰기, 다국어 번역</td>
-                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">학내 규정 Q&A, 국고사업 편람 분석, 회의록 1장 요약, 홍보 기획안</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">학내 규정 Q&A, 국고사업 편람 분석, 회의록 1장 요약, 홍보 기획안 도출</td>
                 </tr>
               </tbody>
             </table>
@@ -1099,7 +1099,7 @@ const DashboardApp = {
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; padding: 1rem 1.15rem; border-radius: 12px;">
               <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📌 철저한 소스 접지(Source-Grounded)</div>
               <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
-                인터넷이 아니라, 내가 직접 올린 학내 규정과 사업 편람만을 근거로 하므로 행정적 맥락이 100% 보존됩니다.
+                인터넷이 아니라 내가 직접 올린 학내 규정과 사업 편람만을 근거로 하므로 행정적 맥락이 100% 보존됩니다.
               </div>
             </div>
             <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-ember); padding: 1rem 1.15rem; border-radius: 12px;">
@@ -1117,52 +1117,83 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 2: 교직원을 위한 핵심 탑재 기능 5선 (가로 1줄 5열 배치) -->
+        <!-- 카드 2: 교직원을 위한 핵심 탑재 기능 5선 (상세 가이드) -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
-            <span>⚡ 2. 교직원을 위한 핵심 탑재 기능 5선</span>
-          </h3>
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>⚡ 2. 교직원을 위한 핵심 탑재 기능 5선</span>
+            </h3>
+            <span style="font-size: 12.5px; color: #6b7280;">행정 연구 및 공문 분석 생산성을 5배 끌어올리는 특화 엔진</span>
+          </div>
 
-          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.65rem; width: 100%; min-width: 680px;">
-              <!-- 기능 1 -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
-                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">① 멀티 포맷 업로드</div>
-                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  PDF, 구글 문서, 슬라이드, 웹 링크, <strong>유튜브 사업설명회 링크</strong>까지 지원 (노트북당 50개 소스, 소스당 50만 단어)
-                </div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+            <!-- 기능 1 -->
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">① 멀티 포맷 대용량 업로드</span>
+                <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">최대 50만 단어</span>
               </div>
-
-              <!-- 기능 2 -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
-                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">② 인라인 각주 원문 이동</div>
-                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  답변 속 각주([1], [2]) 클릭 시 원본 규정집의 해당 페이지와 형광펜 하이라이트 조항으로 즉시 화면 전환 및 1초 팩트체크
-                </div>
+              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
+                PDF, 구글 문서(Docs), 구글 슬라이드(Slides), 웹페이지 URL, 텍스트 복사, <strong>유튜브(YouTube) 사업설명회 링크</strong>까지 모두 지원합니다.
+              </p>
+              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
+                💡 <strong>용량 한도</strong>: 노트북당 최대 50개 소스, 소스당 최대 50만 단어(수백 페이지 편람 여러 권 분량 탑재 가능)
               </div>
+            </div>
 
-              <!-- 기능 3 -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
-                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">③ Studio 자동 행정 도구</div>
-                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  원클릭으로 <strong>브리핑 문서(One-page 요약)</strong>, <strong>행정 FAQ</strong>, <strong>업무 매뉴얼</strong>, <strong>사업 타임라인</strong> 자동 생성
-                </div>
+            <!-- 기능 2 -->
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">② 인라인 각주 원문 이동</span>
+                <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">1초 팩트체크</span>
               </div>
-
-              <!-- 기능 4 -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
-                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">④ 오디오 정책 브리핑</div>
-                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  남/여 AI 호스트가 10~15분 라디오 대화로 재구성, 출퇴근길이나 이동 중에 정부 정책 보고서 핵심 쟁점 청취
-                </div>
+              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
+                AI 답변 속 숫자 각주(<strong>[1]</strong>, <strong>[2]</strong>)를 클릭하면 원본 규정집의 해당 페이지와 형광펜 하이라이트 조항으로 화면이 즉시 전환됩니다.
+              </p>
+              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
+                💡 <strong>실무 효과</strong>: 부서장 보고나 감사 대응 시 결재 근거 조항을 1초 만에 검증하고 원본 문맥을 직접 확인할 수 있습니다.
               </div>
+            </div>
 
-              <!-- 기능 5 -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
-                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">⑤ 핀포인트 선택 Q&A</div>
-                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
-                  전체가 아니라 체크박스로 선택한 특정 1~2개 규정이나 사업 공고문만을 타깃으로 지정해 질문하고 개정 전/후 대조 분석
-                </div>
+            <!-- 기능 3 -->
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">③ Studio 자동 행정 도구</span>
+                <span style="background: #fef3c7; color: #92400e; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">원클릭 산출물</span>
+              </div>
+              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
+                우측 Studio 패널에서 버튼 하나로 <strong>브리핑 문서(One-page 요약)</strong>, <strong>행정 FAQ</strong>, <strong>신임직원 스터디 가이드</strong>, <strong>사업 타임라인</strong>을 자동 생성합니다.
+              </p>
+              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
+                💡 <strong>산출물 4선</strong>: 브리핑 문서 / FAQ(자주 묻는 질문) / 스터디 가이드(업무매뉴얼) / 타임라인(일정 연대기)
+              </div>
+            </div>
+
+            <!-- 기능 4 -->
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">④ 오디오 오버뷰 (Audio Overview)</span>
+                <span style="background: #ede9fe; color: #6d28d9; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">팟캐스트 브리핑</span>
+              </div>
+              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
+                수십 장의 교육부 정책 보고서나 자체평가서를 남/여 AI 호스트가 <strong>10~15분 대화형 라디오 방송</strong>으로 생생하게 풀어냅니다.
+              </p>
+              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
+                💡 <strong>실무 효과</strong>: 출퇴근길이나 이동 중에 귀로 들으며 핵심 정책 방향성과 주요 쟁점을 사전 파악할 수 있습니다.
+              </div>
+            </div>
+
+            <!-- 기능 5 -->
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 16px; padding: 1.1rem; grid-column: 1 / -1;">
+              <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px;">
+                <span style="font-weight: 700; font-size: 14px; color: #0284c7;">⑤ 소스 선택형 핀포인트 Q&A (Source Checkbox)</span>
+                <span style="background: #fee2e2; color: #991b1b; font-size: 11px; font-weight: 700; padding: 2px 8px; border-radius: 999px;">정밀 비교 대조</span>
+              </div>
+              <p style="font-size: 12.5px; color: #4b5563; line-height: 1.55; margin: 0 0 8px 0; word-break: keep-all;">
+                전체 업로드 문서가 아니라, <strong>체크박스로 선택한 특정 1~2개 규정이나 사업 공고문만을 타깃으로 지정</strong>하여 질문하고 답변을 유도할 수 있습니다.
+              </p>
+              <div style="font-size: 11.5px; color: #64748b; background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 6px 10px;">
+                💡 <strong>실무 예시</strong>: '[2025 규정]'과 '[2026 개정 규정]' 2개 소스만 체크한 후 "변경된 조항과 직원에게 미치는 영향을 비교표로 정리해 줘"라고 질문하면 정확한 개정 전/후 비교표를 도출합니다.
               </div>
             </div>
           </div>
@@ -1280,7 +1311,7 @@ const DashboardApp = {
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            NotebookLM은 업로드된 방대한 문서에서 <strong>'슬라이드별 레이아웃·헤드카피·구술 대본'</strong>을 가장 정확하게 추출해 주므로, 이를 복사하여 <strong>Gamma, Canva, PowerPoint</strong>에 붙여넣으면 5분 만에 완성도 높은 행정 시각 자료가 완성됩니다.
+            NotebookLM은 직접 그래픽 이미지나 PPT 파일을 생성하지는 않지만, 소스 문서에서 <strong>'보고서용 슬라이드 덱 구조·헤드카피·구술 대본'</strong> 및 <strong>'인포그래픽용 데이터 시트'</strong>를 가장 정확한 팩트 기반으로 추출해 주므로, 이를 복사하여 <strong>Gamma, Canva, PowerPoint</strong>에 붙여넣으면 5분 만에 완성도 높은 행정 시각 자료가 완성됩니다.
           </p>
 
           <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
@@ -1426,64 +1457,108 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 5: 200% 활용 꿀팁 및 데이터 보안 준수 가이드 -->
+        <!-- 카드 5: 200% 활용 꿀팁 4선 & 교직원 필수 데이터 보안 3대 수칙 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
-            <span>💡 5. NotebookLM 200% 활용 실전 꿀팁 & 필수 데이터 보안 수칙</span>
+            <span>💡 5. NotebookLM 200% 활용 실전 꿀팁 4선 & 필수 데이터 보안 수칙</span>
           </h3>
 
-          <!-- 꿀팁 3선 -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+          <!-- 실전 꿀팁 4선 그리드 (완벽 반영) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.75rem;">
             <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">1. 부서별/업무단위별 노트북 분리</div>
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">
+                1. 📂 부서별/업무단위별 노트북 분리
+              </div>
               <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
-                모든 업무 문서를 한 곳에 섞지 말고, [2026 학내 규정집 Q&A], [RISE 사업 편람]처럼 업무 단위로 노트북을 분리해야 답변 정확도가 유지됩니다.
+                모든 업무 문서를 한 곳에 섞지 말고, [2026 학내 규정집 Q&A], [글로컬대학 편람]처럼 업무 단위로 노트북을 분리해야 답변 정확도가 유지됩니다.
               </div>
             </div>
             <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">2. 부서원 실시간 공유(Share) 협업</div>
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">
+                2. 👥 부서원 실시간 공유(Share) 협업
+              </div>
               <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
                 노트북 우측 상단 '공유(Share)' 버튼으로 부서원들을 초대하여, 부서 전체가 동일한 규정 소스를 기반으로 AI 자문 비서를 공동 활용할 수 있습니다.
               </div>
             </div>
             <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
-              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">3. 복사한 메모(Notes)를 소스로 승격</div>
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">
+                3. 📝 중간 답변 메모(Notes)를 소스로 승격
+              </div>
               <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
                 질문-답변 중 유용한 내용을 '노트로 저장'한 뒤, 해당 노트들을 다시 소스로 지정하여 2차 종합 보고서를 작성하는 '심층 행정 파이프라인'을 구성할 수 있습니다.
               </div>
             </div>
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">
+                4. 🌐 외국인 유학생 영문 규정 한/영 교차 질문
+              </div>
+              <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                GKS 정부초청장학생 지침이나 해외 대학 협약서(MOU) 등 영문 문서를 올리고 한국어로 질문해도 완벽한 한국어 행정 용어로 답변을 받을 수 있습니다.
+              </div>
+            </div>
           </div>
 
-          <!-- 교직원 데이터 보안 준수 수칙 표 -->
-          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 580px; word-break: keep-all;">
-              <thead>
-                <tr style="background: #fef2f2; border-bottom: 2px solid #fecaca;">
-                  <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 25%;">필수 보안 수칙</th>
-                  <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 75%;">핵심 실천 지침</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr style="border-bottom: 1px solid #fee2e2;">
-                  <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">개인정보 및 기밀 금지</td>
-                  <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
-                    학생 성명, 학번, 성적, 장학금 소득분위, 학생상담센터 심층 상담일지, 입시 면접 채점표 등 민감 정보가 포함된 원본 문서는 절대 소스로 업로드하지 마세요. (반드시 사전 가명/비식별화 처리)
-                  </td>
-                </tr>
-                <tr style="border-bottom: 1px solid #fee2e2;">
-                  <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">대학 Workspace 계정 사용</td>
-                  <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
-                    개인 무료 Gmail 계정 대신 대학 기관 도메인(@ac.kr)의 Google Workspace for Education 계정을 활용하여 기관 데이터 보호 정책을 적용받으세요.
-                  </td>
-                </tr>
-                <tr>
-                  <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">공유 권한(Share) 보안 관리</td>
-                  <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
-                    대외비 성격의 사업 기획서나 자체평가 자료가 포함된 노트북은 '링크가 있는 모든 사용자 공개'를 엄격히 금지하고, 인가된 학내 업무 담당자 이메일로만 제한적 접근 권한을 부여하세요.
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+          <!-- 교직원 필수 데이터 보안 준수 수칙 표 -->
+          <div style="margin-bottom: 1.5rem;">
+            <div style="font-weight: 700; font-size: 14.5px; color: #991b1b; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 6px;">
+              <span>🔒 교직원이 반드시 준수해야 할 데이터 보안 및 컴플라이언스 3대 수칙</span>
+            </div>
+            <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+              <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 580px; word-break: keep-all;">
+                <thead>
+                  <tr style="background: #fef2f2; border-bottom: 2px solid #fecaca;">
+                    <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 28%;">보안 수칙</th>
+                    <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 72%;">핵심 실천 지침</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style="border-bottom: 1px solid #fee2e2;">
+                    <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">개인정보 및 기밀 입력 절대 금지</td>
+                    <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
+                      <strong>학생 성명, 주민번호, 학번, 성적, 장학금 소득분위, 학생상담센터 심층 상담일지, 입시 면접 채점표</strong> 등 민감 정보가 포함된 원본 문서는 절대 소스로 업로드하지 마세요. (반드시 사전 가명/비식별화 처리)
+                    </td>
+                  </tr>
+                  <tr style="border-bottom: 1px solid #fee2e2;">
+                    <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">대학 공식 Google Workspace 계정 사용</td>
+                    <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
+                      개인 무료 Gmail 계정 대신 대학 기관 도메인(<strong>@ac.kr</strong>)의 Google Workspace for Education 계정을 활용하여 기관 데이터 보호 정책을 적용받으세요.
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">노트북 공유 권한(Share) 보안 관리</td>
+                    <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
+                      대외비 성격의 사업 기획서나 자체평가 자료가 포함된 노트북은 <strong>'링크가 있는 모든 사용자 공개'를 엄격히 금지</strong>하고, 인가된 학내 업무 담당자 이메일로만 제한적 접근 권한을 부여하세요.
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <!-- 소스 업로드 전 교직원 보안 자가점검 체크리스트 (인터랙티브 UI) -->
+          <div style="background: #fffbeb; border: 1px solid #fef3c7; border-radius: 18px; padding: 1.25rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 14px; color: #92400e; margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <span>🛡️ 소스 문서 업로드 전 교직원 보안 자가점검 체크리스트</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 12.5px; color: #78350f;">
+              <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+                <input type="checkbox" style="margin-top: 3px; accent-color: var(--color-ember);">
+                <span>업로드할 문서에 학생·교직원의 주민등록번호, 계좌번호, 휴대전화번호 등 고유식별정보가 마스킹(삭제)되었는가?</span>
+              </label>
+              <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+                <input type="checkbox" style="margin-top: 3px; accent-color: var(--color-ember);">
+                <span>입학전형 채점표, 징계위원회 회의록 등 비공개 대외비(Confidential) 문서가 원본 그대로 포함되지 않았는가?</span>
+              </label>
+              <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+                <input type="checkbox" style="margin-top: 3px; accent-color: var(--color-ember);">
+                <span>개인 무료 계정이 아닌 대학 기관 공식 Google Workspace(@ac.kr) 계정으로 로그인하여 작업 중인가?</span>
+              </label>
+              <label style="display: flex; align-items: flex-start; gap: 8px; cursor: pointer;">
+                <input type="checkbox" style="margin-top: 3px; accent-color: var(--color-ember);">
+                <span>노트북 공유 링크가 외부 불특정 다수가 아닌 학내 부서원 이메일로만 한정되어 있는가?</span>
+              </label>
+            </div>
           </div>
         </div>
       </div>
