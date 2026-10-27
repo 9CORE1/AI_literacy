@@ -2224,6 +2224,92 @@ const DashboardApp = {
   },
 
   /**
+   * 카드뉴스 결과 이미지 팝업 모달 열기
+   * @param {string} imageSrc 이미지 경로
+   * @param {string} title 모달 타이틀
+   */
+  showImageModal(imageSrc, title) {
+    let modal = document.getElementById('cardnews-image-modal');
+    if (!modal) {
+      modal = document.createElement('div');
+      modal.id = 'cardnews-image-modal';
+      modal.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(6px); padding: 16px; opacity: 0; transition: opacity 0.2s ease;';
+      modal.setAttribute('role', 'dialog');
+      modal.setAttribute('aria-modal', 'true');
+
+      modal.innerHTML = `
+        <div id="cardnews-modal-content" style="background: #ffffff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); max-width: 640px; width: 100%; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform 0.2s ease; border: 1px solid rgba(255,255,255,0.2);">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; background: #fafafa;">
+            <div id="cardnews-modal-title" style="font-size: 14.5px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 6px; word-break: keep-all;"></div>
+            <button type="button" onclick="DashboardApp.closeImageModal()" style="background: #f1f5f9; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: #64748b; transition: background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'" aria-label="닫기">✕</button>
+          </div>
+          <div style="padding: 16px; text-align: center; background: #0b1120; display: flex; align-items: center; justify-content: center; overflow: hidden;">
+            <img id="cardnews-modal-img" src="" alt="프롬프트 결과 이미지" style="max-width: 100%; max-height: 58vh; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+          </div>
+          <div style="padding: 12px 20px; background: #fafafa; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #64748b;">
+            <span>💡 나노바나나 / 비주얼 AI 생성 예시 결과물</span>
+            <a id="cardnews-modal-link" href="" target="_blank" rel="noopener noreferrer" style="color: var(--color-ember); font-weight: 700; text-decoration: none;">원본 새창 보기 ↗</a>
+          </div>
+        </div>
+      `;
+
+      // 배경 오버레이 클릭 시 닫기
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) {
+          DashboardApp.closeImageModal();
+        }
+      });
+
+      // ESC 키 입력 시 닫기
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.style.display !== 'none') {
+          DashboardApp.closeImageModal();
+        }
+      });
+
+      document.body.appendChild(modal);
+    }
+
+    const titleEl = document.getElementById('cardnews-modal-title');
+    const imgEl = document.getElementById('cardnews-modal-img');
+    const linkEl = document.getElementById('cardnews-modal-link');
+    const contentEl = document.getElementById('cardnews-modal-content');
+
+    if (titleEl) titleEl.textContent = title || '프롬프트 결과 이미지';
+    if (imgEl) {
+      imgEl.dataset.triedFallback = '';
+      imgEl.src = imageSrc;
+      imgEl.onerror = function() {
+        if (!this.dataset.triedFallback) {
+          this.dataset.triedFallback = '1';
+          this.src = imageSrc.startsWith('public/') ? imageSrc.replace('public/', '') : 'public/' + imageSrc;
+        }
+      };
+    }
+    if (linkEl) linkEl.href = imageSrc;
+
+    modal.style.display = 'flex';
+    setTimeout(() => {
+      modal.style.opacity = '1';
+      if (contentEl) contentEl.style.transform = 'scale(1)';
+    }, 10);
+  },
+
+  /**
+   * 카드뉴스 결과 이미지 팝업 모달 닫기
+   */
+  closeImageModal() {
+    const modal = document.getElementById('cardnews-image-modal');
+    if (!modal) return;
+    const contentEl = document.getElementById('cardnews-modal-content');
+    modal.style.opacity = '0';
+    if (contentEl) contentEl.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      modal.style.display = 'none';
+    }, 200);
+  },
+
+  /**
    * 우측 하단 플로팅 퀵 네비게이션 토글 (열기/닫기)
    */
   toggleQuickNav() {
@@ -2480,9 +2566,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">특강 표지</span>
                   <span>2. 🚀 [비교과/특강] AI·SW 신기술 워크숍 홍보 표지</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div style="display: inline-flex; align-items: center; gap: 6px;">
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('public/Gemini_cardnews01.png', '🚀 [비교과/특강] AI·SW 신기술 워크숍 홍보 표지 프롬프트 결과')" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="생성 결과 이미지 팝업 보기">
+                    <span>🖼️ 프롬프트 결과</span>
+                  </button>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: AI 신기술 워크숍, 코딩 캠프 등 미래지향적 특강의 메인 표지 배경(정사각형 1:1)을 생성합니다.
@@ -2497,9 +2588,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">학사 안내</span>
                   <span>3. 📜 [학사/장학] 장학금 신청 및 학사일정 안내 본문컷</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div style="display: inline-flex; align-items: center; gap: 6px;">
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('public/Gemini_cardnews02.png', '📜 [학사/장학] 장학금 신청 및 학사일정 안내 본문컷 프롬프트 결과')" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="생성 결과 이미지 팝업 보기">
+                    <span>🖼️ 프롬프트 결과</span>
+                  </button>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 장학금 신청 기간, 성적 기준, 학사일정을 안내하는 본문 카드(텍스트 여백 확보형 1:1)를 생성합니다.
@@ -2514,9 +2610,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">행사 홍보</span>
                   <span>4. 🤝 [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div style="display: inline-flex; align-items: center; gap: 6px;">
+                  <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('public/Gemini_cardnews03.png', '🤝 [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷 프롬프트 결과')" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="생성 결과 이미지 팝업 보기">
+                    <span>🖼️ 프롬프트 결과</span>
+                  </button>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 모바일 피드에 최적화된 세로형(4:5) 구도로 대학생 라이프스타일 멘토링 모집 홍보컷을 생성합니다.
