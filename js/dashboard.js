@@ -707,13 +707,721 @@ const DashboardApp = {
       </div>
 
       <!-- 교직원 4대 핵심 커리큘럼 실무 가이드 연동 -->
-      ${this.getPromptSectionHtml()}
+      ${this.getStaffPromptSectionHtml()}
 
-      ${this.getNotebookLMSectionHtml()}
+      ${this.getStaffNotebookLMSectionHtml()}
 
       ${this.getStaffCardNewsSectionHtml()}
 
       ${this.getStaffGoogleFormSectionHtml()}
+    `;
+  },
+
+  /**
+   * 교직원 전용: 스마트 행정 프롬프트 공식 4+2 & LLM 안전 활용 가이드 섹션 HTML 반환
+   */
+  getStaffPromptSectionHtml() {
+    return `
+      <!-- 교직원 전용: 프롬프트 공식 4+2 & 스마트 행정 안전 활용 가이드 섹션 -->
+      <div id="lecture-sec-2" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
+        <div style="margin-bottom: var(--spacing-20);">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">ADMINISTRATIVE PROMPT FRAMEWORK & COMPLIANCE</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🏛️ 교직원 스마트 행정 프롬프트 공식 4+2 & 실무 활용 가이드</h2>
+        </div>
+
+        <!-- 1. 「프롬프트 공식 4+2」 프레임워크 카드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🧱 「스마트 행정 프롬프트 공식 4+2」 프레임워크</span>
+            </h3>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
+            </span>
+          </div>
+          
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            생성형 AI로부터 행정 실무 및 교수학습 지원에 즉시 활용 가능한 고품질의 답변을 얻기 위한 표준 프레임워크입니다. 행정 문서의 뼈대를 이루는 <strong>핵심 요소 4개</strong>와, 행정적 오류(환각)를 원천 차단하고 규격에 부합하는 결과를 완성하는 <strong>추가 보강 요소 2개</strong>를 결합합니다.
+          </p>
+
+          <!-- 표: 4+2 공식 상세 (교직원 실무 버전) -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; min-width: 620px; word-break: keep-all;">
+              <thead>
+                <tr style="background-color: #f3f4f6; border-bottom: 2px solid #e5e7eb;">
+                  <th style="padding: 12px 14px; width: 14%; text-align: center; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">구분</th>
+                  <th style="padding: 12px 14px; width: 18%; color: var(--color-obsidian); font-weight: 700;">요소 (영문)</th>
+                  <th style="padding: 12px 14px; width: 34%; color: var(--color-obsidian); font-weight: 700;">정의 및 역할</th>
+                  <th style="padding: 12px 14px; color: var(--color-obsidian); font-weight: 700;">작성 팁 & 실무 예시 문구</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- 핵심 4대 뼈대 -->
+                <tr style="border-bottom: 1px solid #e5e7eb; background: #fffcfb;">
+                  <td rowspan="4" style="padding: 12px 14px; text-align: center; font-weight: 700; color: var(--color-ember); border-right: 1px solid #e5e7eb; white-space: nowrap;">
+                    핵심 4대 요소<br><span style="font-size: 11px; font-weight: 600; color: #6b7280;">(뼈대)</span>
+                  </td>
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-obsidian);">1. 역할 (Role)</td>
+                  <td style="padding: 12px 14px; color: #4b5563; line-height: 1.5;">AI에게 부여할 <strong>전문적 직무 정체성과 시각</strong> 설정</td>
+                  <td style="padding: 12px 14px; color: #374151; font-size: 12.5px;">"너는 대학 학생처 15년 차 학생활동 기획 전문가야."</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb; background: #fffcfb;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-obsidian);">2. 배경 (Context)</td>
+                  <td style="padding: 12px 14px; color: #4b5563; line-height: 1.5;">업무를 추진하게 된 <strong>추진 배경, 대학 환경, 대상 청중</strong> 제시</td>
+                  <td style="padding: 12px 14px; color: #374151; font-size: 12.5px;">"신입생 중도 탈락 방지를 위한 2학기 멘토링 사업 기획 중이야."</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb; background: #fffcfb;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-obsidian);">3. 지시 (Task)</td>
+                  <td style="padding: 12px 14px; color: #4b5563; line-height: 1.5;">AI가 실제로 수행해야 할 <strong>구체적 행정 과업 및 요구사항</strong></td>
+                  <td style="padding: 12px 14px; color: #374151; font-size: 12.5px;">"사업 목적, 세부 절차, 소요 예산 항목, 기대효과를 도출해 줘."</td>
+                </tr>
+                <tr style="border-bottom: 2px solid #e5e7eb; background: #fffcfb;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-obsidian);">4. 형식 (Format)</td>
+                  <td style="padding: 12px 14px; color: #4b5563; line-height: 1.5;">행정 결재 및 배포에 적합한 <strong>시각적 구조 및 문서 형태</strong></td>
+                  <td style="padding: 12px 14px; color: #374151; font-size: 12.5px;">"대학 공문서 규격 개조식(1. - 가. - 1)) 또는 표 형태로 정리해 줘."</td>
+                </tr>
+
+                <!-- 추가 2대 보강재 -->
+                <tr style="border-bottom: 1px solid #e5e7eb; background: #fdfdfd;">
+                  <td rowspan="2" style="padding: 12px 14px; text-align: center; font-weight: 700; color: #0d9488; border-right: 1px solid #e5e7eb; white-space: nowrap;">
+                    추가 2대 요소<br><span style="font-size: 11px; font-weight: 600; color: #6b7280;">(보강재)</span>
+                  </td>
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-obsidian);">5. 조건 (Constraint)</td>
+                  <td style="padding: 12px 14px; color: #4b5563; line-height: 1.5;">반드시 지켜야 할 <strong>학칙 규정, 분량, 톤앤매너, 보안 금지사항</strong></td>
+                  <td style="padding: 12px 14px; color: #374151; font-size: 12.5px;">"개인정보는 일체 배제하고 가짜 법령을 지어내지 말 것."</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-obsidian);">6. 샘플 (Example)</td>
+                  <td style="padding: 12px 14px; color: #4b5563; line-height: 1.5;">결재 서식에 맞춘 <strong>모범 서식 예시(기안 양식, 템플릿)</strong> 직접 제공</td>
+                  <td style="padding: 12px 14px; color: #374151; font-size: 12.5px;">'[추진배경] ➔ [세부계획] ➔ [소요예산] ➔ [기대효과]' 목차 준수</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Before vs After 비교 박스 (행정 실무 버전) -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+            <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 1rem 1.25rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 6px;">❌ 단순 지시형 (일반적인 프롬프트)</div>
+              <div style="font-size: 13px; color: #7f1d1d; line-height: 1.5; font-style: italic;">
+                "신입생 멘토링 프로그램 기획안 써줘."
+              </div>
+              <div style="font-size: 12px; color: #991b1b; margin-top: 6px;">
+                ➔ 인터넷에 흔히 있는 뜬구름 잡는 일반론 나열로 실제 학내 기안문으로 사용 불가
+              </div>
+            </div>
+
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1rem 1.25rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 6px;">✅ 4+2 공식 결합형 (고품질 행정 프롬프트)</div>
+              <div style="font-size: 12.5px; color: #14532d; line-height: 1.5;">
+                <strong>[역할]</strong> 학생처 기획 디렉터 / <strong>[배경]</strong> 2학기 신입생 적응 멘토링<br>
+                <strong>[지시]</strong> 목적, 운영절차(선발-매칭-평가), 예산, 기대효과 도출<br>
+                <strong>[형식]</strong> 공문 개조식(1.-가.-1)) / <strong>[조건]</strong> 장학금 인센티브 및 예산 근거 명시
+              </div>
+              <div style="font-size: 12px; color: #166534; margin-top: 6px;">
+                ➔ 내부 결재선에 즉시 상신할 수 있는 체계적이고 완성도 높은 기안문 초안 완성
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 2. 교직원을 위한 실전 행정·교육 프롬프트 템플릿 5선 (카드) -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0;">
+              📋 교직원 추천 실전 행정·교육 프롬프트 템플릿 5선
+            </h3>
+            <span style="font-size: 12.5px; color: #6b7280;">[대괄호] 부분만 담당 부서 실무 내용으로 변경하여 복사·활용하세요.</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- 템플릿 1: 기획/기안 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">기획·기안</span>
+                  <span>1. [기획/기안] 교육사업 기획서 및 결과보고서 초안 생성</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 기획처 및 국고 재정지원사업 총괄 PM이자 교육행정 기획관이야.
+[배경] 우리 대학 재학생들의 미래 신기술 적응력 강화를 위한 [2026학년도 비교과 AI 리터러시 역량 강화 워크숍] 사업 기획안을 수립 중이야.
+[지시] 교내 내부 결재용 기안문 초안을 작성해 줘. 
+1. 사업 추진 배경 및 필요성 (최근 산업계 수요 및 교육부 정책 방향 반영)
+2. 운영 개요 (대상, 일정, 운영 방식)
+3. 세부 운영 프로그램 구성 (입문-실습-성과발표 3단계)
+4. 소요 예산 산출 내역 (강사료, 다과비, 운영비)
+5. 기대 효과 (정량적 성과 지표 포함)
+[형식] 대학 공문서 표준 개조식(1. - 가. - 1)) 양식으로 작성해 줘.
+[조건] 추상적인 미사여구는 배제하고, 실무 행정에 즉시 반영할 수 있는 구체적인 일정과 숫자를 가상으로 배치해 줘.
+[샘플]
+1. 추진 배경 및 목적
+  가. 추진 배경:
+  나. 사업 목적:
+2. 세부 추진 계획</pre>
+            </div>
+
+            <!-- 템플릿 2: 교수/학습 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">교수·학습</span>
+                  <span>2. [교수/학습] 강의계획서(Syllabus) 및 루브릭(평가기준표) 설계</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학교육 평가 전문가이자 고등교육 교수설계자(Instructional Designer)야.
+[배경] [경영학/IT융합] 전공 3학년 대상의 [생성형 AI를 활용한 비즈니스 모델 기획 및 창업 실습] 전공 선택 과목(3학점, 15주차) 강의계획서를 새로 개발하고 있어.
+[지시]
+1. 15주차 주별 강의 세부 계획 (주차 / 강의 주제 / 학습 목표 / 학생 실습 과제)을 표로 설계해 줘.
+2. 학생들이 학기 말 제출할 [AI 활용 비즈니스 기획서 과제]의 공정한 채점을 위한 4단계 루브릭(Rubric)을 제작해 줘.
+[형식]
+- 1단계: 15주차 강의 계획표 (Table)
+- 2단계: 평가 루브릭 표 (평가 항목 / 배점(비중) / 탁월(A) / 보통(B) / 미흡(C) / 부적합(D) 세부 기준)
+[조건] 평가 루브릭에는 '문제 정의의 독창성', 'AI 도구 활용의 적절성 및 윤리성(출처 명시)', '사업 실현 가능성'을 핵심 평가 척도로 반드시 포함할 것.</pre>
+            </div>
+
+            <!-- 템플릿 3: 문서 요약 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">문서 요약</span>
+                  <span>3. [문서 요약] 긴 회의록 및 교육부 지침 문서의 핵심 1장 요약</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 총장실 및 처장단 회의를 보좌하는 수석 행정관이야.
+[배경] 아래 제공된 [회의록 / 교육부 공문 지침 / 평가 편람]의 텍스트를 검토하여 부서장 보고용 1장(One-page) 핵심 브리핑 문서를 작성해야 해.
+[지시]
+1. 핵심 안건 및 결정 사항 요약 (3줄 이내)
+2. 부서별(교무처, 학생처, 기획처, 전산원) 후속 조치 과제(Action Item) 및 추진 기한
+3. 예상되는 행정적 리스크 및 사전 검토 규정 조항
+---
+[문서 텍스트 입력]
+(여기에 긴 회의록 원문이나 지침 텍스트를 붙여넣기 하세요)
+---
+[형식]
+• [핵심 결정 사항]
+• [부서별 조치 과제 표: 부서명 | 세부 실행 과제 | 담당자 | 권장 완료일]
+• [행정 주의사항 & 규정 검토 사항]
+[조건] 원문에 언급되지 않은 내용을 임의로 추측하여 지어내지 말 것. 불확실한 사안은 '원문 추가 확인 필요'로 명시할 것.</pre>
+            </div>
+
+            <!-- 템플릿 4: 학생 소통 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">학생 소통</span>
+                  <span>4. [학생 소통] 복잡한 학사규정·안내의 학생 눈높이 공지문/FAQ 변환</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학생들의 눈높이에 맞추어 친절하고 명확하게 소통하는 학사지원팀 소통 전문가야.
+[배경] 이번 학기 변경된 [복수전공 이수 요건 및 수강신청 학점 변경 규정]에 대한 공식 학칙 개정문을 재학생 대상 카카오톡 알림톡 및 홈페이지 공지사항으로 게시하려고 해.
+[지시] 딱딱하고 난해한 규정 조항을 학생들이 오해 없이 쉽게 이해할 수 있는 친절한 공지문과 FAQ로 변환해 줘.
+---
+[학칙 개정 조항 원문]
+(여기에 대학 규정집 조항이나 개정 공문 문구를 입력하세요)
+---
+[형식]
+1. 30초 한눈에 보기 요약 (카드뉴스형 3대 핵심 변경사항)
+2. 친절한 본문 상세 안내 (적용 대상, 필수 이수 요건, 신청 기간)
+3. 학생들이 가장 많이 묻는 예상 Q&A 3선
+[조건] 공문서 특유의 한자어(기이수자, 득점 등)를 쉬운 순화어로 바꾸고, 학생들이 놓치기 쉬운 마감 기한과 불이익 사항을 눈에 띄게 강조할 것.</pre>
+            </div>
+
+            <!-- 템플릿 5: 데이터 분석 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">데이터 분석</span>
+                  <span>5. [데이터 분석] 설문조사/강의평가 주관식 피드백 분류 및 개선과제 도출</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 교육성과관리센터(IR)의 교육 품질 분석관이자 정성 데이터 분석 전문가야.
+[배경] 지난 학기 교내 [교직원 직무 연수 프로그램 / 학생 비교과 특강] 종료 후 수집된 주관식 서술형 피드백 응답 텍스트야.
+[지시]
+1. 수집된 모든 주관식 의견을 감정(만족 / 불만족 / 건의사항)별로 분류하고 비율을 요약해 줘.
+2. 불만족 및 건의사항에서 반복적으로 등장하는 핵심 키워드 3가지를 도출해 줘.
+3. 차기 프로그램 개선을 위한 행정 부서 조치 권고사항 3가지를 제안해 줘.
+---
+[설문 주관식 응답 데이터]
+(여기에 학생 또는 교직원의 주관식 응답을 엑셀 등에서 복사하여 붙여넣기 하세요. *개인정보 제외)
+---
+[형식] 표(Table)로 감정 및 카테고리별 분류 정리 후, 하단에 [주요 쟁점 분석] 및 [차기 추진 개선안] 서술
+[조건] 특정 개인을 비난하는 어조는 완곡한 행정 과제로 순화하여 보고서형 문체로 작성할 것.</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 3. 교직원 LLM 행정 안전 활용 5대 수칙 카드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1rem; display: flex; align-items: center; gap: 8px;">
+            <span>⚠️ 교직원 LLM 행정 안전 활용 5대 수칙</span>
+          </h3>
+
+          <!-- 5대 유의사항 가로 1줄 배치 (5열 그리드 + 반응형 터치 스크롤) -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.65rem; width: 100%; min-width: 680px;">
+              <!-- 유의사항 1 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">1. 법령·학칙 팩트체크</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  AI는 가짜 조항을 지어낼 수 있습니다. 인용한 학칙 번호와 법령 문구는 반드시 규정집 원문과 직접 대조하세요.
+                </div>
+              </div>
+
+              <!-- 유의사항 2 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">2. 개인정보·대외비 금지</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  학생 성명, 학번, 성적, 심층 상담일지, 입시 면접 채점표 등 민감정보는 입력 전 반드시 비식별(가명) 처리하세요.
+                </div>
+              </div>
+
+              <!-- 유의사항 3 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">3. 행정 윤리·최종 책임</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  공문서와 보도자료의 모든 행정적·법적 책임은 결재자 본인에게 있습니다. AI는 초안 보조 도구로만 활용하세요.
+                </div>
+              </div>
+
+              <!-- 유의사항 4 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">4. 사정·평가 공정성</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  장학생 선발이나 학생 평가에 AI 편향이 투영되지 않도록, AI 결과에만 의존하지 말고 위원회 교차 검증을 거치세요.
+                </div>
+              </div>
+
+              <!-- 유의사항 5 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid var(--color-ember); padding: 1rem 1rem; border-radius: 14px;">
+                <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 6px; word-break: keep-all;">5. 업무 주도권 유지</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                  대학 발전 계획 및 핵심 정책 수립은 사람의 치열한 논의가 먼저이며, AI에 결정을 외주화해서는 안 됩니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 자가 점검 체크리스트 바 (행정 결재 버전) -->
+          <div style="background: #fdfbf7; border: 1px solid #fed7aa; border-radius: 16px; padding: 1.1rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 6px;">📋 결재 상신 및 공지 배포 전 3초 자가 점검 체크리스트</div>
+            <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.6; display: flex; flex-direction: column; gap: 3px;">
+              <span>✓ 학생 및 교직원의 개인정보(성명, 학번, 주민번호, 성적, 상담기록)가 프롬프트에 입력되지 않았는가?</span>
+              <span>✓ 인용된 법령, 대학 학칙 조항 번호, 공문 번호, 예산 통계가 실제 규정집 원문과 일치하는가?</span>
+              <span>✓ 난해한 행정 용어가 수신자(학생, 학부모, 일반인)의 눈높이에 맞춰 친절하고 명확하게 작성되었는가?</span>
+              <span>✓ AI가 제안한 정책 및 사업 계획의 현실적 실현 가능성을 기안자 본인이 꼼꼼히 확인하였는가?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
+  /**
+   * 교직원 전용: 스마트 행정 Google NotebookLM 완벽 사용 & 실무 활용 가이드 섹션 HTML 반환
+   */
+  getStaffNotebookLMSectionHtml() {
+    return `
+      <!-- 교직원 전용: Google NotebookLM 완벽 사용 및 스마트 행정 실무 활용 가이드 섹션 -->
+      <div id="lecture-sec-3" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
+        <!-- 섹션 헤더 -->
+        <div style="margin-bottom: var(--spacing-20);">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">ADMINISTRATIVE RAG & COMPLIANCE RESEARCH</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🏛️ 교직원 스마트 행정 NotebookLM 완벽 사용 & 실무 활용 가이드</h2>
+        </div>
+
+        <!-- 카드 1: NotebookLM 개념 및 ChatGPT와의 결정적 차이 비교표 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🔍 1. NotebookLM이란? (ChatGPT와의 결정적 차이)</span>
+            </h3>
+            <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              Google Gemini 1.5 Pro 기반 소스 접지(Source-Grounded) 스마트 행정 RAG
+            </span>
+          </div>
+          
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            NotebookLM은 교직원이 직접 업로드한 공문, 학내 규정집, 사업 편람만을 <strong>엄격한 진실의 원천(Source of Truth)</strong>으로 삼아 답변하는 맞춤형 AI 행정 연구 노트입니다. 일반 생성형 AI와 달리 인터넷 전체의 불확실한 지식을 검색하지 않고, 제공된 학내 문서 범위 내에서만 작동합니다.
+          </p>
+
+          <!-- 비교 테이블 -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; min-width: 620px; word-break: keep-all;">
+              <thead>
+                <tr style="background: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                  <th style="padding: 12px 14px; font-weight: 700; color: #334155; width: 18%;">구분</th>
+                  <th style="padding: 12px 14px; font-weight: 700; color: #64748b; width: 41%;">일반 범용 LLM (ChatGPT, Claude 등)</th>
+                  <th style="padding: 12px 14px; font-weight: 700; color: #0284c7; width: 41%; background: #f0f9ff;">Google NotebookLM (스마트 행정 특화)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">지식 출처</td>
+                  <td style="padding: 12px 14px; color: #6b7280;">인터넷 전체 학습 데이터 (방대하지만 부정확할 수 있음)</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">교직원이 직접 업로드한 학내 규정·공문·편람에만 엄격히 한정</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">환각 (거짓 정보)</td>
+                  <td style="padding: 12px 14px; color: #6b7280;">가짜 법령 조항이나 없는 학칙 번호를 지어낼 위험 상존</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">내가 준 규정집 밖의 정보는 답변하지 않아 환각 극소화</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #e5e7eb;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">출처 표기</td>
+                  <td style="padding: 12px 14px; color: #6b7280;">출처가 없거나 지어낸 가짜 링크를 제공하는 경우 발생</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">모든 문장마다 원문 페이지/조항 번호 각주([1], [2]) 자동 첨부</td>
+                </tr>
+                <tr>
+                  <td style="padding: 12px 14px; font-weight: 700; color: #475569; background: #fdfbf9;">최적 용도</td>
+                  <td style="padding: 12px 14px; color: #6b7280;">브레인스토밍, 범용 코딩, 창의적 글쓰기, 다국어 번역</td>
+                  <td style="padding: 12px 14px; font-weight: 600; color: #0369a1; background: #f0f9ff;">학내 규정 Q&A, 국고사업 편람 분석, 회의록 1장 요약, 홍보 기획안</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <!-- 핵심 특징 3대 배너 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #0284c7; padding: 1rem 1.15rem; border-radius: 12px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📌 철저한 소스 접지(Source-Grounded)</div>
+              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                인터넷이 아니라, 내가 직접 올린 학내 규정과 사업 편람만을 근거로 하므로 행정적 맥락이 100% 보존됩니다.
+              </div>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid var(--color-ember); padding: 1rem 1.15rem; border-radius: 12px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">🔍 환각(거짓 규정)의 원천 차단</div>
+              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                문서에 명시되지 않은 조항은 답변을 거부하므로, 엄밀한 사실 확인이 필요한 공문 기안과 법률 검토에 최적입니다.
+              </div>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-left: 4px solid #10b981; padding: 1rem 1.15rem; border-radius: 12px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 4px;">📑 1초 만에 규정 원문 대조 (인라인 각주)</div>
+              <div style="font-size: 12.5px; color: #4b5563; line-height: 1.55; word-break: keep-all;">
+                각주 번호를 클릭하면 원본 규정집의 해당 페이지와 형광펜 하이라이트로 즉시 이동하여 결재선 검증이 끝납니다.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 2: 교직원을 위한 핵심 탑재 기능 5선 (가로 1줄 5열 배치) -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+            <span>⚡ 2. 교직원을 위한 핵심 탑재 기능 5선</span>
+          </h3>
+
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.65rem; width: 100%; min-width: 680px;">
+              <!-- 기능 1 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">① 멀티 포맷 업로드</div>
+                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  PDF, 구글 문서, 슬라이드, 웹 링크, <strong>유튜브 사업설명회 링크</strong>까지 지원 (노트북당 50개 소스, 소스당 50만 단어)
+                </div>
+              </div>
+
+              <!-- 기능 2 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">② 인라인 각주 원문 이동</div>
+                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  답변 속 각주([1], [2]) 클릭 시 원본 규정집의 해당 페이지와 형광펜 하이라이트 조항으로 즉시 화면 전환 및 1초 팩트체크
+                </div>
+              </div>
+
+              <!-- 기능 3 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">③ Studio 자동 행정 도구</div>
+                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  원클릭으로 <strong>브리핑 문서(One-page 요약)</strong>, <strong>행정 FAQ</strong>, <strong>업무 매뉴얼</strong>, <strong>사업 타임라인</strong> 자동 생성
+                </div>
+              </div>
+
+              <!-- 기능 4 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">④ 오디오 정책 브리핑</div>
+                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  남/여 AI 호스트가 10~15분 라디오 대화로 재구성, 출퇴근길이나 이동 중에 정부 정책 보고서 핵심 쟁점 청취
+                </div>
+              </div>
+
+              <!-- 기능 5 -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3px solid #0284c7; border-radius: 14px; padding: 0.95rem 0.85rem; display: flex; flex-direction: column;">
+                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 6px; word-break: keep-all;">⑤ 핀포인트 선택 Q&A</div>
+                <div style="font-size: 11.5px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  전체가 아니라 체크박스로 선택한 특정 1~2개 규정이나 사업 공고문만을 타깃으로 지정해 질문하고 개정 전/후 대조 분석
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 3: 교직원 스마트 행정 실전 활용 시나리오 4선 & 추천 프롬프트 (템플릿 복사 기능 탑재) -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🎯 3. 교직원 스마트 행정 실전 활용 시나리오 4선 & 추천 프롬프트</span>
+            </h3>
+            <span style="font-size: 12.5px; color: #6b7280;">NotebookLM 중앙 채팅창에 그대로 복사·붙여넣기하여 사용하세요.</span>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 1.15rem;">
+            <!-- 시나리오 1: 규정집 Q&A -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">학칙·규정</span>
+                  <span>1. 📜 학내 규정집 연동 '근거 조항 기반 스마트 행정 Q&A 비서'</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 부서</strong>: 교무처, 총무처, 기획처, 학생처 등 전 행정부서 / <strong>활용 방법</strong>: 학내 규정집 PDF를 소스로 등록하고 여비, 복무, 전결 규정을 조항 번호와 함께 즉시 확인합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 우리 대학 학칙 및 교직원 복무 규정 전문 행정 자문 비서야.
+[지시] 업로드된 [교직원 복무 규정 및 여비 지급 규정] 소스만을 근거로 아래 질문에 명확하게 답변해 줘:
+1. 교직원이 공무로 국외 출장을 갈 경우 일비 및 숙박비 지급 기준과 출장 후 정산 기한은 며칠 이내인가?
+2. 출장 신청 시 결재 전결 기준과 필수 첨부 증빙 서류 목록을 정리해 줘.
+[조건] 업로드된 규정에 명시되지 않은 내용은 임의로 추측하지 말고, 답변의 모든 항목마다 반드시 관련 규정의 조항 번호([제0조 제0항])와 인라인 각주([1], [2])를 정확히 표기할 것.</pre>
+            </div>
+
+            <!-- 시나리오 2: 국고사업 편람 분석 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">국고 사업</span>
+                  <span>2. 📊 교육부 국고 재정지원사업(RISE 등) 편람 분석 및 핵심 지표 추출</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 부서</strong>: 기획처, 산학협력단, 국고사업추진단 / <strong>활용 방법</strong>: 수백 페이지의 정부 공모 편람에서 신청 자격, 배점 상위 성과지표, 예산 불인정 기준을 1분 만에 도출합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 교육부 대학 재정지원사업 기획 및 평가 대응 수석 컨설턴트야.
+[지시] 업로드된 [2026 교육부 재정지원사업 신청 편람] 소스를 정밀 분석해서 아래 항목을 일목요연하게 정리해 줘:
+1. 사업 신청 필수 요건 및 결격 사유 (참여 배제 조건)
+2. 정량·정성 평가 항목 중 배점이 가장 높은 3대 핵심 성과지표 및 산출 방식
+3. 국고 사업비 집행 시 '집행 불가 항목(불인정 기준)' 5가지
+[형식] 표(Table) 또는 개조식 보고서 형식으로 작성하고, 세부 페이지 각주를 표기할 것.</pre>
+            </div>
+
+            <!-- 시나리오 3: 회의록 1장 요약 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">보고서 요약</span>
+                  <span>3. 📋 처장단/위원회 회의록 및 자체평가보고서 핵심 1장(One-Page) 브리핑</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 부서</strong>: 총장실, 기획평가팀, 교원인사팀 / <strong>활용 방법</strong>: 긴 회의록 원문을 부서별 후속 조치 과제(Action Item)와 함께 결재용 1장 브리핑으로 압축합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 총장단 및 교무위원회를 보좌하는 기획조정실 수석 행정관이야.
+[지시] 업로드된 [제3차 교무위원회 회의록 및 부서별 현안 보고서]를 바탕으로 부서장 보고용 1장(One-page) 브리핑 문서를 작성해 줘:
+1. 주요 안건별 최종 의결 사항 요약 (의결/보류/조건부 승인 구분)
+2. 각 행정부서별(교무, 학생, 기획, 총무) 향후 실행 조치 과제(Action Item) 및 완료 권장 기한
+3. 차기 회의 전까지 사전 법률·규정 검토가 필요한 잠재적 행정 리스크 2가지
+[형식] '안건 요약 ➔ 부서별 조치 과제 표 ➔ 행정 유의사항' 3단계 구조로 정리해 줘.</pre>
+            </div>
+
+            <!-- 시나리오 4: 홍보 카드뉴스 기획 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">행정 홍보</span>
+                  <span>4. 📢 학내 보도자료 및 행사 요강 기반 홍보 카드뉴스/공지안 도출</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 부서</strong>: 입학홍보처, 학생지원팀, 대외협력팀 / <strong>활용 방법</strong>: 딱딱한 행사 요강을 모바일 친화형 6장 카드뉴스 문구로 자동 변환합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 공식 SNS 및 대외 홍보 전문 콘텐츠 디렉터야.
+[지시] 업로드된 [신입생 역량강화 캠프 모집 요강 및 보도자료] 소스를 분석하여 학생들이 쉽게 읽을 수 있는 '인스타그램 6장 카드뉴스 기획안'을 작성해 줘:
+- 1장 (표지): 학생들의 호기심을 자극하는 직관적인 헤드카피 및 서브카피
+- 2~4장 (핵심 혜택): 참가자에게 주어지는 3대 핵심 특전 (장학금 마일리지, 1:1 멘토링 등)
+- 5장 (신청 안내): 지원 자격, 선발 인원, 접수 일정, 온라인 신청 링크 안내
+- 6장 (마무리): 참여 독려 메시지 및 문의처 (학생처 번호/이메일)
+[조건] 어려운 행정 용어를 배제하고, 모바일 카드뉴스 템플릿에 맞추어 슬라이드별 3줄 이내의 간결한 문구로 작성할 것.</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 4: 슬라이드(PPT) 보고서 & 카드뉴스 스튜디오 활용 가이드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 4. 보고용 슬라이드 & 카드뉴스 제작을 위한 스튜디오 가이드</span>
+            </h3>
+            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              Gamma · Canva 연동 10초 완성
+            </span>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            NotebookLM은 업로드된 방대한 문서에서 <strong>'슬라이드별 레이아웃·헤드카피·구술 대본'</strong>을 가장 정확하게 추출해 주므로, 이를 복사하여 <strong>Gamma, Canva, PowerPoint</strong>에 붙여넣으면 5분 만에 완성도 높은 행정 시각 자료가 완성됩니다.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem; margin-bottom: 1.5rem;">
+            <!-- 1. 보고용 PPT 제작 프롬프트 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">PPT 기획</span>
+                  <span>1. 📊 처장단/위원회 보고용 "5장 슬라이드 덱" 기획안 추출</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: 긴 사업계획서나 정책 보고서를 처장단 보고용 5장 슬라이드 구조와 구술 대본으로 변환합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 자료를 바탕으로 처장단 회의 보고용 "5장 슬라이드 기획안"을 작성해 줘.
+
+[발표 환경]
+- 대상 청중: 총장 및 주요 처장단 (신속한 의사결정 필요)
+- 발표 시간: 약 5~7분
+
+[슬라이드별 필수 구성]
+1. 슬라이드 제목 & 한 줄 핵심 의사결정 메시지(헤드카피)
+2. 본문 내용 (단락 글이 아닌, 3개의 명확한 개조식 불릿포인트)
+3. 화면 비주얼 연출 아이디어 (비교 표, 단계별 프로세스 다이어그램 등 추천)
+4. 발표자 구술 스크립트 (30~40초 분량의 정중하고 격식 있는 행정 구어체)
+
+[조건] 원문의 수치(예산, 일정, 통계)를 왜곡 없이 그대로 반영하고, 슬라이드마다 원문 인용 각주([1], [2])를 달아 팩트체크할 수 있게 해 줘.</pre>
+            </div>
+
+            <!-- 2. 오디오 오버뷰 맞춤설정 프롬프트 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: #7c3aed; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">오디오 브리핑</span>
+                  <span>2. 🎙️ 스튜디오 '오디오 오버뷰' 정책 쟁점 토론 맞춤설정 지시문</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: NotebookLM 우측 Studio의 [오디오 생성] 옆 <strong>[맞춤설정(Customize)]</strong> 창에 입력하여 정책 쟁점 사전 토론을 유도합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">이번 보고서의 핵심 주제는 [예: 2026 RISE 사업 개편안 및 학과 구조혁신 방향]입니다. 
+단순한 요약 나열보다는, 대학 구성원(교수, 학생, 행정) 간에 발생할 수 있는 주요 갈등 요인과 행정적 쟁점을 중심으로 남녀 호스트가 객관적인 토론을 진행해 주세요. 
+특히 의사결정권자가 검토해야 할 '핵심 성공 요인 3가지'와 '예산 리스크'를 집중적으로 다뤄 주세요.</pre>
+            </div>
+          </div>
+
+          <!-- 3. 실전 연계 워크플로우 3단계 -->
+          <div style="border-top: 1px solid #e5e7eb; padding-top: 1.25rem;">
+            <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 0.85rem;">
+              🚀 3. 추천 실전 행정 연계 워크플로우 (초고속 시각화 3단계)
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0.85rem;">
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: #0284c7; margin-bottom: 4px;">Step 1. NotebookLM 추출 & 저장</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  위 프롬프트로 슬라이드 개요 및 핵심 데이터를 생성한 후, 우하단 <strong>[노트로 저장]</strong> 핀 아이콘을 누릅니다.
+                </div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: #be185d; margin-bottom: 4px;">Step 2. Gamma App으로 10초 PPT</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  <a href="https://gamma.app" target="_blank" rel="noopener noreferrer" style="color: #be185d; font-weight: 600;">Gamma App ↗</a>에 추출된 슬라이드 개요를 붙여넣으면 10초 만에 완벽한 비주얼 슬라이드가 자동 렌더링됩니다.
+                </div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 1rem;">
+                <div style="font-weight: 700; font-size: 13px; color: #10b981; margin-bottom: 4px;">Step 3. Canva & PPT 리허설</div>
+                <div style="font-size: 12px; color: #555; line-height: 1.5; word-break: keep-all;">
+                  Canva 템플릿에 핵심 수치를 대입하거나, PowerPoint 발표자 메모란에 NotebookLM 구술 스크립트를 넣어 리허설을 진행합니다.
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 5: 200% 활용 꿀팁 및 데이터 보안 준수 가이드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin-bottom: 1.25rem; display: flex; align-items: center; gap: 8px;">
+            <span>💡 5. NotebookLM 200% 활용 실전 꿀팁 & 필수 데이터 보안 수칙</span>
+          </h3>
+
+          <!-- 꿀팁 3선 -->
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">1. 부서별/업무단위별 노트북 분리</div>
+              <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                모든 업무 문서를 한 곳에 섞지 말고, [2026 학내 규정집 Q&A], [RISE 사업 편람]처럼 업무 단위로 노트북을 분리해야 답변 정확도가 유지됩니다.
+              </div>
+            </div>
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">2. 부서원 실시간 공유(Share) 협업</div>
+              <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                노트북 우측 상단 '공유(Share)' 버튼으로 부서원들을 초대하여, 부서 전체가 동일한 규정 소스를 기반으로 AI 자문 비서를 공동 활용할 수 있습니다.
+              </div>
+            </div>
+            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.15rem;">
+              <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 5px;">3. 복사한 메모(Notes)를 소스로 승격</div>
+              <div style="font-size: 12px; color: #555; line-height: 1.55; word-break: keep-all;">
+                질문-답변 중 유용한 내용을 '노트로 저장'한 뒤, 해당 노트들을 다시 소스로 지정하여 2차 종합 보고서를 작성하는 '심층 행정 파이프라인'을 구성할 수 있습니다.
+              </div>
+            </div>
+          </div>
+
+          <!-- 교직원 데이터 보안 준수 수칙 표 -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 580px; word-break: keep-all;">
+              <thead>
+                <tr style="background: #fef2f2; border-bottom: 2px solid #fecaca;">
+                  <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 25%;">필수 보안 수칙</th>
+                  <th style="padding: 10px 14px; font-weight: 700; color: #991b1b; width: 75%;">핵심 실천 지침</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #fee2e2;">
+                  <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">개인정보 및 기밀 금지</td>
+                  <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
+                    학생 성명, 학번, 성적, 장학금 소득분위, 학생상담센터 심층 상담일지, 입시 면접 채점표 등 민감 정보가 포함된 원본 문서는 절대 소스로 업로드하지 마세요. (반드시 사전 가명/비식별화 처리)
+                  </td>
+                </tr>
+                <tr style="border-bottom: 1px solid #fee2e2;">
+                  <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">대학 Workspace 계정 사용</td>
+                  <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
+                    개인 무료 Gmail 계정 대신 대학 기관 도메인(@ac.kr)의 Google Workspace for Education 계정을 활용하여 기관 데이터 보호 정책을 적용받으세요.
+                  </td>
+                </tr>
+                <tr>
+                  <td style="padding: 11px 14px; font-weight: 700; color: #b91c1c;">공유 권한(Share) 보안 관리</td>
+                  <td style="padding: 11px 14px; color: #4b5563; line-height: 1.5;">
+                    대외비 성격의 사업 기획서나 자체평가 자료가 포함된 노트북은 '링크가 있는 모든 사용자 공개'를 엄격히 금지하고, 인가된 학내 업무 담당자 이메일로만 제한적 접근 권한을 부여하세요.
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
     `;
   },
 
