@@ -146,7 +146,6 @@ const DashboardApp = {
             <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 A4 공인 레포트</span>
             <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎯 맞춤 로드맵</span>
           </div>
-          ${factorQuestionsSection}
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 01 섹션으로 바로 이동하기</span>
             <span>↓</span>
