@@ -2447,16 +2447,22 @@ const DashboardApp = {
             <span style="font-size: 12.5px; color: #6b7280;">원클릭 복사 후 나노바나나 또는 챗봇에 붙여넣기 하세요.</span>
           </div>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 1.25rem;">
+          <div style="display: flex; flex-direction: column; gap: 1.15rem;">
             <!-- 프롬프트 1: 5컷 기획안 -->
-            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📋 1. [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">카피 기획</span>
+                  <span>1. 📋 [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
+                </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">다음 대학 행사 공문(또는 특강 안내문)을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: 공문서나 행사 요강을 바탕으로 인스타그램 5컷 카드뉴스 구성안과 슬라이드별 이미지 프롬프트를 한 번에 기획합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">다음 대학 행사 공문(또는 특강 안내문)을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
 
 [공문 내용 / 행사 요강 붙여넣기]
 
@@ -2468,36 +2474,54 @@ const DashboardApp = {
             </div>
 
             <!-- 프롬프트 2: 특강 홍보 배경 -->
-            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">🚀 2. [비교과/특강] AI·SW 신기술 워크숍 홍보 표지</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">특강 표지</span>
+                  <span>2. 🚀 [비교과/특강] AI·SW 신기술 워크숍 홍보 표지</span>
+                </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">A bright and futuristic university computer lab, glowing 3D AI nodes and data particles floating in the air, modern minimalist claymorphism style, soft pastel orange and corporate navy color palette, ample clean negative space at the center for Korean text overlay, bright daylight, 8k resolution, professional academic flyer aesthetic --ar 1:1</pre>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: AI 신기술 워크숍, 코딩 캠프 등 미래지향적 특강의 메인 표지 배경(정사각형 1:1)을 생성합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">A bright and futuristic university computer lab, glowing 3D AI nodes and data particles floating in the air, modern minimalist claymorphism style, soft pastel orange and corporate navy color palette, ample clean negative space at the center for Korean text overlay, bright daylight, 8k resolution, professional academic flyer aesthetic --ar 1:1</pre>
             </div>
 
             <!-- 프롬프트 3: 학사/장학 본문컷 -->
-            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">📜 3. [학사/장학] 장학금 신청 및 학사일정 안내 본문컷</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">학사 안내</span>
+                  <span>3. 📜 [학사/장학] 장학금 신청 및 학사일정 안내 본문컷</span>
+                </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">Minimalist 3D isometric university desk with an open scholarship certificate, graduation cap, and golden star coins, clean white background, soft studio lighting, subtle blue accents, lots of empty space on the right side for text, neat and professional educational infographic style --ar 1:1</pre>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: 장학금 신청 기간, 성적 기준, 학사일정을 안내하는 본문 카드(텍스트 여백 확보형 1:1)를 생성합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">Minimalist 3D isometric university desk with an open scholarship certificate, graduation cap, and golden star coins, clean white background, soft studio lighting, subtle blue accents, lots of empty space on the right side for text, neat and professional educational infographic style --ar 1:1</pre>
             </div>
 
             <!-- 프롬프트 4: 행사/캠프 홍보컷 -->
-            <div class="prompt-template-card" style="background: #f9fafb; border: 1px solid #e5e7eb; border-radius: 16px; padding: 16px;">
-              <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-                <span style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian);">🤝 4. [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷</span>
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">행사 홍보</span>
+                  <span>4. 🤝 [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷</span>
+                </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; padding: 12px; border-radius: 10px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; font-family: inherit;">Two cheerful Korean university students discussing together with laptops in a sunny modern campus lounge, bright aesthetic, soft focus background, warm and welcoming atmosphere, modern college lifestyle photography, clean composition with negative space on top for headline --ar 4:5</pre>
+              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
+                <strong>활용 방법</strong>: 모바일 피드에 최적화된 세로형(4:5) 구도로 대학생 라이프스타일 멘토링 모집 홍보컷을 생성합니다.
+              </div>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">Two cheerful Korean university students discussing together with laptops in a sunny modern campus lounge, bright aesthetic, soft focus background, warm and welcoming atmosphere, modern college lifestyle photography, clean composition with negative space on top for headline --ar 4:5</pre>
             </div>
           </div>
         </div>
