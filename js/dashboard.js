@@ -3047,6 +3047,11 @@ const DashboardApp = {
             교직원 연수 및 워크숍에서 <strong>문항 기획 ➔ GAS 1클릭 폼 생성 ➔ 폼 배포 설정 ➔ 실시간 시트 집계 ➔ =GEMINI() 감정 분석 ➔ 1-Page 보고서</strong>까지 15분 동안 물 흐르듯 시연할 수 있도록 최적화된 8단계 순서도입니다.
           </p>
 
+          <!-- 8단계 인포그래픽 비주얼 로드맵 -->
+          <div style="margin-bottom: 1.5rem; border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); background: #ffffff;">
+            <img src="images/staff_form_roadmap_infographic.jpg" alt="15분 완성: 라이브 시연 8단계 로드맵 & 타임라인 인포그래픽" style="width: 100%; height: auto; display: block; object-fit: cover;" loading="lazy">
+          </div>
+
           <!-- 8단계 그리드 -->
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 0.75rem; margin-bottom: 0.5rem;">
             <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 14px; padding: 12px;">
