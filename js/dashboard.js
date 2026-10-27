@@ -3140,15 +3140,32 @@ const DashboardApp = {
             </div>
           </div>
 
-          <!-- 실무 수식 코드 블록 -->
-          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1rem 1.25rem;">
-            <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin-bottom: 8px;">💡 [집계 대시보드] 탭에 바로 넣는 실전 엑셀/시트 수식</div>
-            <div style="display: flex; flex-direction: column; gap: 6px; font-size: 12.5px; font-family: monospace; color: #334155;">
-              <div><strong style="font-family: inherit; color: var(--color-ember);">• 총 응답 인원:</strong> <code>=COUNTA('설문지 응답 1'!A2:A)</code></div>
-              <div><strong style="font-family: inherit; color: #0284c7;">• 5점 만점 평균:</strong> <code>=AVERAGE('설문지 응답 1'!E2:E)</code></div>
-              <div><strong style="font-family: inherit; color: #059669;">• 4점 이상 만족 비율:</strong> <code>=COUNTIF('설문지 응답 1'!E2:E, ">=4") / COUNTA('설문지 응답 1'!E2:E)</code></div>
-              <div><strong style="font-family: inherit; color: #7c3aed;">• 주관식 감정 분류:</strong> <code>=GEMINI("다음 피드백을 [매우긍정/긍정/건의사항/불만족] 중 하나로 분류해줘:", '설문지 응답 1'!F2)</code></div>
-              <div><strong style="font-family: inherit; color: #d97706;">• 핵심 키워드 추출:</strong> <code>=GEMINI("다음 건의사항에서 행정 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘:", '설문지 응답 1'!F2)</code></div>
+          <!-- 실무 수식 코드 블록 (기본 폰트 상속 및 정갈한 수식 칩 스타일) -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <span>💡 [집계 대시보드] 탭에 바로 넣는 실전 엑셀/시트 수식</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #334155; font-family: inherit;">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: var(--color-ember); min-width: 140px;">• 총 응답 인원:</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=COUNTA('설문지 응답 1'!A2:A)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #0284c7; min-width: 140px;">• 5점 만점 평균:</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=AVERAGE('설문지 응답 1'!E2:E)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #059669; min-width: 140px;">• 4점 이상 만족 비율:</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=COUNTIF('설문지 응답 1'!E2:E, ">=4") / COUNTA('설문지 응답 1'!E2:E)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #7c3aed; min-width: 140px;">• 주관식 감정 분류:</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=GEMINI("다음 피드백을 [매우긍정/긍정/건의사항/불만족] 중 하나로 분류해줘:", '설문지 응답 1'!F2)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #d97706; min-width: 140px;">• 핵심 키워드 추출:</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=GEMINI("다음 건의사항에서 행정 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘:", '설문지 응답 1'!F2)</code>
+              </div>
             </div>
           </div>
         </div>
