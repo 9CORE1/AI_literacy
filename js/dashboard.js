@@ -813,7 +813,7 @@ const DashboardApp = {
         <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 04</span>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글폼2.MD 완벽 탑재</span>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">설문 자동화 & 실시간 집계</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 폼 제작 및 집계시스템 설정</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
