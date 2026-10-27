@@ -2791,14 +2791,14 @@ const DashboardApp = {
           </p>
 
           <!-- 추천 폰트 테이블 -->
-          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; border: 1px solid #e5e7eb; border-radius: 14px;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 780px;">
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem; border: 1px solid #e5e7eb; border-radius: 14px; background: #ffffff;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 890px;">
               <thead>
                 <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0;">
-                  <th style="padding: 12px 16px; width: 130px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">구분</th>
-                  <th style="padding: 12px 16px; width: 175px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">추천 폰트명</th>
-                  <th style="padding: 12px 16px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">특징 및 권장 용도</th>
-                  <th style="padding: 12px 16px; width: 155px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">배포처</th>
+                  <th style="padding: 12px 16px; width: 14%; min-width: 125px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">구분</th>
+                  <th style="padding: 12px 16px; width: 22%; min-width: 170px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">추천 폰트명</th>
+                  <th style="padding: 12px 16px; width: 48%; min-width: 460px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">특징 및 권장 용도</th>
+                  <th style="padding: 12px 16px; width: 16%; min-width: 135px; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">배포처</th>
                 </tr>
               </thead>
               <tbody>
@@ -2806,31 +2806,31 @@ const DashboardApp = {
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">제목용 (헤드카피)</td>
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">에스코어 드림</td>
                   <td style="padding: 11px 16px; color: #374151; white-space: nowrap;">1~9단계 굵기 지원. 모바일 화면에서 한눈에 꽂히는 단단하고 신뢰감 있는 제목 서체</td>
-                  <td style="padding: 11px 16px; color: #64748b; white-space: nowrap;">눈누 / 에스코어</td>
+                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">눈누 / 에스코어</span></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#fafaf9'" onmouseout="this.style.background='transparent'">
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">제목용 (헤드카피)</td>
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">Gmarket Sans</td>
                   <td style="padding: 11px 16px; color: #374151; white-space: nowrap;">세련되고 트렌디한 인상. 비교과 워크숍, 페스티벌, 창업 특강 표지에 최적</td>
-                  <td style="padding: 11px 16px; color: #64748b; white-space: nowrap;">눈누 / G마켓</td>
+                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">눈누 / G마켓</span></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#fafaf9'" onmouseout="this.style.background='transparent'">
                   <td style="padding: 11px 16px; font-weight: 700; color: #0284c7; white-space: nowrap;">본문용 (상세내용)</td>
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">Pretendard (프리텐다드)</td>
                   <td style="padding: 11px 16px; color: #374151; white-space: nowrap;">현대적 UI 표준 고딕. 작은 글씨로 축소되어도 뭉개지지 않고 가독성 최상</td>
-                  <td style="padding: 11px 16px; color: #64748b; white-space: nowrap;">눈누 / Canva 기본탑재</td>
+                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">눈누 / Canva 기본</span></td>
                 </tr>
                 <tr style="border-bottom: 1px solid #f1f5f9; transition: background 0.15s;" onmouseover="this.style.background='#fafaf9'" onmouseout="this.style.background='transparent'">
                   <td style="padding: 11px 16px; font-weight: 700; color: #0284c7; white-space: nowrap;">본문용 (상세내용)</td>
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">Noto Sans KR (본고딕)</td>
                   <td style="padding: 11px 16px; color: #374151; white-space: nowrap;">구글-어도비 표준 폰트. 공식 학사일정, 장학 공지 등 정중한 공문에 적합</td>
-                  <td style="padding: 11px 16px; color: #64748b; white-space: nowrap;">Google Fonts</td>
+                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">Google Fonts</span></td>
                 </tr>
                 <tr style="transition: background 0.15s;" onmouseover="this.style.background='#fafaf9'" onmouseout="this.style.background='transparent'">
                   <td style="padding: 11px 16px; font-weight: 700; color: #059669; white-space: nowrap;">브랜드 아이덴티티</td>
                   <td style="padding: 11px 16px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">대학 자체 전용 서체</td>
                   <td style="padding: 11px 16px; color: #374151; white-space: nowrap;">대학별 자체 개발 공식 무료 서체(서울대체 등). 소속감 및 브랜드 통일</td>
-                  <td style="padding: 11px 16px; color: #64748b; white-space: nowrap;">각 대학 홍보팀</td>
+                  <td style="padding: 11px 16px; white-space: nowrap;"><span style="display: inline-block; padding: 2px 8px; background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; font-size: 12px; color: #64748b;">각 대학 홍보팀</span></td>
                 </tr>
               </tbody>
             </table>
