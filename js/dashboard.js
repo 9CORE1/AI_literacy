@@ -689,7 +689,23 @@ const DashboardApp = {
       <!-- 교직원 120분 강의 모듈 헤더 -->
       <div style="margin-bottom: var(--spacing-20);">
         <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">ADMINISTRATIVE PRODUCTIVITY WORKFLOW</span>
-        <h2 style="font-size: 32px; color: var(--color-obsidian);">📋 교직원 120분 스마트 행정 커리큘럼</h2>
+        <h2 style="font-size: 32px; color: var(--color-obsidian); margin-bottom: 0.75rem;">📋 교직원 120분 스마트 행정 커리큘럼</h2>
+        
+        <!-- 모듈 바로가기 퀵 네비게이션 탭 -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-top: 10px;">
+          <button type="button" class="btn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--color-pumice); color: var(--color-obsidian);" onclick="DashboardApp.scrollToSection('lecture-sec-2')">
+            01 프롬프트 공식 4+2 ➔
+          </button>
+          <button type="button" class="btn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--color-pumice); color: var(--color-obsidian);" onclick="DashboardApp.scrollToSection('lecture-sec-3')">
+            02 NotebookLM 규정 Q&A ➔
+          </button>
+          <button type="button" class="btn" style="padding: 8px 16px; font-size: 13px; font-weight: 700; border-radius: 999px; background: #fff; border: 1px solid var(--color-pumice); color: var(--color-obsidian);" onclick="DashboardApp.scrollToSection('lecture-staff-sec-3')">
+            03 카드뉴스 제작 ➔
+          </button>
+          <button type="button" class="btn" style="padding: 8px 18px; font-size: 13px; font-weight: 800; border-radius: 999px; background: var(--color-ember); border: 1px solid var(--color-ember); color: #fff; box-shadow: 0 4px 12px rgba(224, 76, 25, 0.25);" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
+            🔥 04 구글 폼 & 집계시스템 (구글폼.MD) ➔
+          </button>
+        </div>
       </div>
 
       <!-- 교직원 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
@@ -719,11 +735,25 @@ const DashboardApp = {
         </div>
 
         <!-- 모듈 4 -->
-        <div class="card module-card" style="cursor: pointer;" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
-          <h3><span>04</span> 구글 폼 제작 및 집계시스템 설정</h3>
-          <p style="color: #444; font-size: 14px; margin-bottom: 0; line-height: 1.6;">
-            AI로 행사 및 특강 설문 문항을 기획하고, 구글 폼 생성 후 스프레드시트 실시간 집계 대시보드를 구축합니다.
+        <div class="card module-card" style="cursor: pointer; border: 2px solid var(--color-ember); background: #fffcfb; box-shadow: 0 6px 20px rgba(224, 76, 25, 0.08);" onclick="DashboardApp.scrollToSection('lecture-staff-sec-4')">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+            <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 04</span>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글폼.MD 완벽 탑재</span>
+          </div>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 폼 제작 및 집계시스템 설정</h3>
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+            설정 체크리스트 4선, 10대 표준 만족도 설문 문항 세트, 스프레드시트 실시간 수식(=GEMINI), 비전문가용 원클릭 자동생성 스크립트.
           </p>
+          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
+            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚙️ 설정 4선</span>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📝 10대 문항</span>
+            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📊 실시간 집계</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🚀 원클릭 생성</span>
+          </div>
+          <div style="font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
+            <span>👉 04 섹션으로 바로 이동하기</span>
+            <span>↓</span>
+          </div>
         </div>
       </div>
 
@@ -2926,8 +2956,25 @@ const DashboardApp = {
       <div id="lecture-staff-sec-4" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <!-- 섹션 헤더 -->
         <div style="margin-bottom: var(--spacing-20);">
-          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">FORM DESIGN & AUTOMATED REPORTING</span>
-          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 제작 및 집계시스템 설정 (업무 자동화 & 만족도 조사)</h2>
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap; margin-bottom: 6px;">
+            <span style="font-family: var(--font-display); font-size: 15px; color: var(--color-ember); letter-spacing: 0.05em; font-weight: 700;">FORM DESIGN & AUTOMATED REPORTING</span>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11.5px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글폼.MD 원문 100% 탑재</span>
+          </div>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin: 0 0 10px 0;">📋 04. 구글 폼 제작 및 집계시스템 설정 (구글폼.MD 실무 마스터)</h2>
+          <p style="color: #555; font-size: 14.5px; line-height: 1.6; margin: 0; word-break: keep-all;">
+            설문 설정 체크리스트, 표준 10대 문항 세트, 구글 스프레드시트 =GEMINI() 실시간 집계, 비전문가용 원클릭 자동 생성(GAS) 코드까지 모든 실무 자료를 제공합니다.
+          </p>
+        </div>
+
+        <!-- 구글폼.MD 6대 핵심 빠른 점프 가이드 바 -->
+        <div style="display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: var(--spacing-24); background: #fdfaf7; padding: 12px 16px; border-radius: 16px; border: 1px solid #fed7aa;">
+          <span style="font-size: 12.5px; font-weight: 800; color: var(--color-ember); align-self: center; margin-right: 4px;">📑 6대 마스터 목차:</span>
+          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">⚙️ 1. 필수 설정 4선</span>
+          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">📝 2. 표준 10대 문항</span>
+          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">📊 3. 시트 실시간 수식</span>
+          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">🤖 4. AI 프롬프트 3선</span>
+          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">🚀 5. GAS 원클릭 생성</span>
+          <span style="font-size: 12px; background: #fff; padding: 4px 10px; border-radius: 999px; border: 1px solid #e2e8f0; color: #334155; font-weight: 700;">🛡️ 6. 보안 3대 수칙</span>
         </div>
 
         <!-- 카드 4-1: 필수 설정 체크리스트 4선 -->
@@ -2981,11 +3028,53 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 4-2: 구글 스프레드시트 실시간 집계 시스템 구축 3단계 -->
+        <!-- 카드 4-2: 실무 표준 완성본 - 구글 폼 즉시 탑재용 10대 설문 문항 세트 -->
+        <div class="card prompt-template-card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📝 2. [완성본 예시] 교육·연수 만족도 조사 표준 10대 문항 세트</span>
+            </h3>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <span style="background: #e0f2fe; color: #0369a1; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                리커트 5점 척도 + 주관식
+              </span>
+              <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700;" title="10개 문항 전체 복사하기">
+                <span>📋 10개 문항 전체 복사</span>
+              </button>
+            </div>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1rem; word-break: keep-all;">
+            대학 및 교육기관에서 가장 널리 쓰이는 교육 성과평가 표준 4대 영역(강사, 내용, 환경, 종합)과 주관식 피드백을 총 10문항으로 규격화한 세트입니다. 구글 폼에 그대로 복사하거나 설문 설계 기준으로 즉시 활용하세요.
+          </p>
+
+          <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; color: #334155; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.6; font-family: inherit;">[설문 안내문]
+본 설문은 교육 만족도 및 성과를 정밀 분석하여 향후 교직원 연수 및 학생 역량강화 프로그램을 개선하기 위한 목적으로 진행됩니다. 귀하의 소중한 답변은 익명으로 안전하게 처리되오니 성실한 응답 부탁드립니다. (소요시간: 약 2분)
+
+[정량 평가 문항 (리커트 5점 척도: 1점 전혀 그렇지 않다 ~ 5점 매우 그렇다)]
+문항 1. (강사 전문성) 강사는 교육 주제에 대한 깊은 전문성을 바탕으로 알기 쉽게 강의를 진행하였습니까? [필수]
+문항 2. (강의 전달력) 강사의 설명 및 실습 질의응답 피드백은 명확하고 이해하기 쉬웠습니까? [필수]
+문항 3. (실무 유용성) 본 교육에서 다룬 내용(프롬프트, RAG, 비주얼 AI, 집계 자동화)은 실제 행정 업무에 유용합니까? [필수]
+문항 4. (현업 적용성) 교육을 통해 습득한 AI 활용 기법을 향후 본인의 업무 또는 프로젝트에 적극 적용할 의향이 있습니까? [필수]
+문항 5. (교재 및 자료) 제공된 실습 강의노트, 프롬프트 템플릿, 참고 자료의 품질은 만족스러웠습니까? [필수]
+문항 6. (운영 및 환경) 교육 장소(또는 온라인 플랫폼), 사전 안내 및 행정 지원은 적절하였습니까? [필수]
+문항 7. (종합 만족도) 본 교육 프로그램에 전반적으로 만족하십니까? [필수]
+문항 8. (타인 추천) 본 교육 과정을 동료 교직원 또는 타 학과 학생들에게 추천할 의향이 있습니까? [필수]
+
+[정성 평가 문항]
+문항 9. (세션 만족도 - 객관식 다중선택) 오늘 다룬 4대 교육 모듈 중 가장 실질적인 도움이 되었던 세션을 선택해 주세요. [필수]
+  [ ] 1. 프롬프트 공식 4+2 & 기안문/품의서 작성
+  [ ] 2. Google NotebookLM 소스 접지 행정 Q&A
+  [ ] 3. 나노바나나 & 캔바 연계 카드뉴스 제작
+  [ ] 4. 구글 폼 제작 & 스프레드시트 =GEMINI() 집계
+문항 10. (개선 및 건의 - 장문형 주관식) 향후 개설을 희망하는 심화 AI 교육 주제나 행정 운영상 개선 희망 사항을 자유롭게 작성해 주세요. [선택]</pre>
+        </div>
+
+        <!-- 카드 4-3: 구글 스프레드시트 실시간 집계 시스템 구축 3단계 & 자동 요약 수식 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>📊 2. 구글 스프레드시트 실시간 집계 시스템 구축 3단계</span>
+              <span>📊 3. 구글 스프레드시트 실시간 집계 시스템 구축 3단계 & 대시보드</span>
             </h3>
             <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
               원시 데이터 보존 & 실시간 통계
@@ -3040,14 +3129,15 @@ const DashboardApp = {
               <div><strong style="font-family: inherit; color: #0284c7;">• 5점 만점 평균:</strong> <code>=AVERAGE('설문지 응답 1'!E2:E)</code></div>
               <div><strong style="font-family: inherit; color: #059669;">• 4점 이상 만족 비율:</strong> <code>=COUNTIF('설문지 응답 1'!E2:E, ">=4") / COUNTA('설문지 응답 1'!E2:E)</code></div>
               <div><strong style="font-family: inherit; color: #7c3aed;">• 주관식 감정 분류:</strong> <code>=GEMINI("다음 피드백을 [매우긍정/긍정/건의사항/불만족] 중 하나로 분류해줘:", '설문지 응답 1'!F2)</code></div>
+              <div><strong style="font-family: inherit; color: #d97706;">• 핵심 키워드 추출:</strong> <code>=GEMINI("다음 건의사항에서 행정 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘:", '설문지 응답 1'!F2)</code></div>
             </div>
           </div>
         </div>
 
-        <!-- 카드 4-3: 만족도 조사 문항 설계 실무 프롬프트 3선 -->
+        <!-- 카드 4-4: 만족도 조사 문항 설계 실무 프롬프트 3선 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>🤖 3. 만족도 조사 문항 설계 실무 프롬프트 3선</span>
+            <span>🤖 4. AI 만족도 조사 문항 설계 & 보고서 요약 프롬프트 3선</span>
           </h3>
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
             아래 프롬프트를 <strong>ChatGPT, Gemini, Claude</strong> 등에 복사하여 대괄호 <code>[ ]</code> 안의 내용만 수정해 입력하면, 통계 분석에 최적화된 리커트 5점 척도와 심층 서술형 문항 세트가 3초 만에 설계됩니다.
@@ -3152,11 +3242,11 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 4-4: 채팅으로 조절 후 구글 폼 자동 생성(Google Apps Script) & 테스트 매뉴얼 -->
+        <!-- 카드 4-5: 채팅으로 조절 후 구글 폼 자동 생성(Google Apps Script) & 테스트 매뉴얼 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>🚀 4. 비전문가를 위한 구글 폼 자동 생성(GAS) & 테스트 가이드</span>
+              <span>🚀 5. 비전문가를 위한 구글 폼 자동 생성(GAS) & 테스트 가이드</span>
             </h3>
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
               타이핑 0번 ➔ 1클릭 자동 완성
@@ -3247,10 +3337,10 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 4-5: 행정 실무자를 위한 꿀팁 & 보안 원칙 3대 수칙 -->
+        <!-- 카드 4-6: 행정 실무자를 위한 꿀팁 & 보안 원칙 3대 수칙 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>🛡️ 5. 교직원 행정 실무자를 위한 꿀팁 & 보안 원칙 3대 수칙</span>
+            <span>🛡️ 6. 교직원 행정 실무자를 위한 꿀팁 & 보안 원칙 3대 수칙</span>
           </h3>
 
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1rem;">
