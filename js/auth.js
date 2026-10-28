@@ -54,6 +54,7 @@ const Auth = {
    */
   async init() {
     this.initFirebase();
+    this.seedAdminUser(); // admin / 1111 계정을 회원 데이터베이스에 자동 등록 및 영구 동기화
 
     // 1. 창을 닫으면 로그아웃되도록 sessionStorage를 기본 세션 저장소로 사용
     const cached = sessionStorage.getItem('ai_lit_user');
@@ -97,7 +98,82 @@ const Auth = {
   // 관리자(Admin) 및 회원 승인(Approval) 시스템
   // =========================================================================
   ADMIN_DEFAULT_ID: 'admin',
-  ADMIN_DEFAULT_PW: 'admin1234',
+  ADMIN_DEFAULT_PW: '1111',
+
+  /**
+   * 관리자 계정(admin / 1111)을 회원 로그인 데이터베이스(로컬스토리지 및 Firestore)에 영구 저장
+   */
+  async seedAdminUser() {
+    const adminId = this.ADMIN_DEFAULT_ID;
+    const adminPw = localStorage.getItem('ai_lit_admin_pw') || this.ADMIN_DEFAULT_PW;
+    const adminEmail = 'admin@ailiteracy.kr';
+
+    // 1. ai_lit_registered_users 확인 및 등록/갱신
+    try {
+      const users = this.getRegisteredUsers();
+      const idx = users.findIndex(u => (u.username && u.username.toLowerCase() === adminId) || (u.email && u.email.toLowerCase() === adminEmail));
+      const adminRecord = {
+        username: adminId,
+        password: adminPw,
+        name: '최고 관리자',
+        email: adminEmail,
+        role: 'admin',
+        allowedRole: 'all',
+        status: 'approved',
+        isAdmin: true,
+        university: 'AI Literacy Lab',
+        department: '시스템 관리실',
+        registeredAt: '2026-01-01T00:00:00.000Z',
+        lastLoginAt: new Date().toISOString(),
+        loginMethod: 'credentials'
+      };
+
+      if (idx !== -1) {
+        users[idx] = { ...users[idx], ...adminRecord };
+      } else {
+        users.unshift(adminRecord);
+      }
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+
+      // 승인 데이터베이스에도 영구 등록
+      const approvals = this.getApprovals();
+      approvals[adminId] = {
+        name: '최고 관리자',
+        username: adminId,
+        email: adminEmail,
+        role: 'admin',
+        allowedRole: 'all',
+        status: 'approved',
+        isAdmin: true
+      };
+      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+    } catch (e) {
+      console.warn('[Auth] 관리자 계정 로컬 스토리지 시딩 오류:', e);
+    }
+
+    // 2. Cloud Firestore에도 admin 사용자 문서 동기화
+    if (this.isFirebaseReady()) {
+      try {
+        const adminData = {
+          username: adminId,
+          password: adminPw,
+          name: '최고 관리자',
+          email: adminEmail,
+          role: 'admin',
+          allowedRole: 'all',
+          status: 'approved',
+          isAdmin: true,
+          university: 'AI Literacy Lab',
+          department: '시스템 관리실',
+          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+        };
+        this.firebaseDb.collection('users').doc('user_admin').set(adminData, { merge: true }).catch(() => {});
+        this.firebaseDb.collection('users').doc('admin@ailiteracy_kr').set(adminData, { merge: true }).catch(() => {});
+      } catch (err) {
+        console.warn('[Auth] Firestore 관리자 계정 동기화 오류:', err);
+      }
+    }
+  },
 
   isAdmin() {
     return Boolean(sessionStorage.getItem('ai_lit_admin_session') === 'true' || (this.user && this.user.isAdmin));
@@ -109,14 +185,14 @@ const Auth = {
    * @param {string} password 
    */
   loginAdmin(username, password) {
-    const adminId = localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID;
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
     const adminPw = localStorage.getItem('ai_lit_admin_pw') || this.ADMIN_DEFAULT_PW;
 
-    if (username && username.trim() === adminId && password === adminPw) {
+    if (username && username.trim().toLowerCase() === adminId && password === adminPw) {
       sessionStorage.setItem('ai_lit_admin_session', 'true');
       const adminUser = {
         name: '최고 관리자',
-        username: adminId,
+        username: 'admin',
         email: 'admin@ailiteracy.kr',
         role: 'admin',
         allowedRole: 'all',
