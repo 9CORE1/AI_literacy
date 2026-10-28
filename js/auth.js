@@ -205,6 +205,14 @@ const Auth = {
       (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
     );
 
+    // 1-1. Google 사용자 및 일반 사용자 공통 영구 프로필 캐시(ai_lit_user_profiles)에서 조회 및 병합
+    try {
+      const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
+      if (profiles[cleanKey]) {
+        found = found ? { ...found, ...profiles[cleanKey] } : { ...profiles[cleanKey] };
+      }
+    } catch (e) {}
+
     // 2. Cloud Firestore에서 사용자 문서 조회
     if (this.isFirebaseReady()) {
       try {
@@ -340,12 +348,13 @@ const Auth = {
     }
 
     const user = {
-      name: payload.name || (existing ? existing.name : payload.email.split('@')[0]),
+      name: (existing && existing.name) ? existing.name : (payload.name || payload.email.split('@')[0]),
       email: payload.email,
       picture: payload.picture || '',
       role: userRole,
-      university: existing ? existing.university : '',
-      department: existing ? existing.department : '',
+      university: existing ? (existing.university || '') : '',
+      department: existing ? (existing.department || '') : '',
+      gradeOrPosition: existing ? (existing.gradeOrPosition || '') : '',
       googleId: payload.sub,
       loginAt: new Date().toISOString(),
       loginMethod: 'google'
@@ -654,6 +663,7 @@ const Auth = {
       role: finalRole,
       university: matched.university || '',
       department: matched.department || '',
+      gradeOrPosition: matched.gradeOrPosition || '',
       loginAt: new Date().toISOString(),
       loginMethod: 'credentials'
     };
@@ -682,12 +692,13 @@ const Auth = {
         }
 
         const user = {
-          name: fbUser.displayName || (existing ? existing.name : fbUser.email.split('@')[0]),
+          name: (existing && existing.name) ? existing.name : (fbUser.displayName || fbUser.email.split('@')[0]),
           email: fbUser.email,
           picture: fbUser.photoURL || '',
           role: userRole,
-          university: existing ? existing.university : '',
-          department: existing ? existing.department : '',
+          university: existing ? (existing.university || '') : '',
+          department: existing ? (existing.department || '') : '',
+          gradeOrPosition: existing ? (existing.gradeOrPosition || '') : '',
           googleId: fbUser.uid,
           loginAt: new Date().toISOString(),
           loginMethod: 'google'
@@ -760,31 +771,74 @@ const Auth = {
     };
     this.setUser(this.user);
 
-    // 등록 회원 목록에서도 일치하는 사용자 정보 갱신
+    const userEmail = (this.user.email || '').trim().toLowerCase();
+    const userUsername = (this.user.username || '').trim().toLowerCase();
+
+    // 1. Google 사용자 및 일반 사용자 공통 영구 프로필 캐시(ai_lit_user_profiles)에 영구 저장
+    try {
+      const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
+      const profileData = {
+        name: this.user.name || '',
+        email: this.user.email || '',
+        username: this.user.username || '',
+        role: this.user.role || 'student',
+        university: this.user.university || '',
+        department: this.user.department || '',
+        gradeOrPosition: this.user.gradeOrPosition || '',
+        updatedAt: new Date().toISOString()
+      };
+      if (userEmail) profiles[userEmail] = { ...(profiles[userEmail] || {}), ...profileData };
+      if (userUsername) profiles[userUsername] = { ...(profiles[userUsername] || {}), ...profileData };
+      localStorage.setItem('ai_lit_user_profiles', JSON.stringify(profiles));
+    } catch (e) {
+      console.warn('[Auth] 영구 프로필 캐시 저장 실패:', e);
+    }
+
+    // 2. 등록 회원 목록(ai_lit_registered_users)에서도 갱신 (Google 사용자라도 새 레코드로 자동 Upsert)
     try {
       const registered = this.getRegisteredUsers();
-      const idx = registered.findIndex(u => (this.user.username && u.username === this.user.username) || (this.user.email && u.email === this.user.email));
+      const idx = registered.findIndex(u => (userUsername && u.username && u.username.toLowerCase() === userUsername) || (userEmail && u.email && u.email.toLowerCase() === userEmail));
       if (idx !== -1) {
         registered[idx] = {
           ...registered[idx],
           ...data,
           updatedAt: new Date().toISOString()
         };
-        localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
+      } else if (userEmail) {
+        // Google 로그인 사용자 등을 위해 영구 레코드 자동 생성
+        registered.push({
+          name: this.user.name || userEmail.split('@')[0],
+          email: userEmail,
+          username: userUsername || userEmail.split('@')[0],
+          role: this.user.role || 'student',
+          university: this.user.university || '',
+          department: this.user.department || '',
+          gradeOrPosition: this.user.gradeOrPosition || '',
+          registeredAt: new Date().toISOString(),
+          updatedAt: new Date().toISOString()
+        });
       }
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
     } catch (e) {
-      console.warn('[Auth] 프로필 갱신 동기화 실패:', e);
+      console.warn('[Auth] 등록 회원 정보 갱신 동기화 실패:', e);
     }
 
-    // Firebase Cloud Firestore 동기화
+    // 3. Firebase Cloud Firestore 동기화
     if (this.isFirebaseReady()) {
       try {
-        const docKey = (this.user.email || this.user.username || '').replace(/[\/\.]/g, '_');
+        const docKey = (userEmail || userUsername).replace(/[\/\.]/g, '_');
         if (docKey) {
-          this.firebaseDb.collection('users').doc(docKey).set({
+          const updatePayload = {
             ...data,
-            updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
-          }, { merge: true }).catch(() => {});
+            name: this.user.name || '',
+            email: this.user.email || '',
+            role: this.user.role || 'student',
+            university: this.user.university || '',
+            department: this.user.department || '',
+            gradeOrPosition: this.user.gradeOrPosition || '',
+            updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+          };
+          this.firebaseDb.collection('users').doc(docKey).set(updatePayload, { merge: true }).catch(() => {});
         }
       } catch (err) {
         console.warn('[Auth] Firestore 프로필 갱신 오류:', err);
