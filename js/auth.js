@@ -1018,7 +1018,7 @@ const Auth = {
           const docSnap = await this.firebaseDb.collection('users').doc(k).get();
           if (docSnap.exists) {
             const remoteData = docSnap.data();
-            found = found ? { ...found, ...remoteData } : remoteData;
+            found = found ? { ...found, ...remoteData, firestoreDocId: docSnap.id } : { ...remoteData, firestoreDocId: docSnap.id };
             break;
           }
         }
@@ -1185,6 +1185,7 @@ const Auth = {
       department: existing ? (existing.department || '') : '',
       gradeOrPosition: existing ? (existing.gradeOrPosition || '') : '',
       googleId: payload.sub,
+      firestoreDocId: existing ? (existing.firestoreDocId || null) : null,
       loginAt: new Date().toISOString(),
       loginMethod: 'google'
     };
@@ -1249,10 +1250,9 @@ const Auth = {
             })
           );
 
-          // 2. users 컬렉션 사용자 정보 및 최종 로그인 시각 업데이트
-          const docKey = user.email || user.username;
-          if (docKey) {
-            const safeDocKey = docKey.replace(/[\/\.]/g, '_');
+          // 2. users 컬렉션 사용자 정보 및 최종 로그인 시각 업데이트 (기존 문서 ID 우선 사용)
+          const safeDocKey = (user.firestoreDocId) || (user.email || user.username || '').replace(/[\/\.]/g, '_');
+          if (safeDocKey) {
             promises.push(
               this.firebaseDb.collection('users').doc(safeDocKey).set({
                 name: user.name || '',
@@ -1727,7 +1727,7 @@ const Auth = {
       console.warn('[Auth] 승인 목록 프로필 동기화 실패:', e);
     }
 
-    // 3. Firebase Cloud Firestore 실시간 동기화 (페이지 이동 전 저장 완료를 위해 반드시 await)
+    // 3. Firebase Cloud Firestore 실시간 동기화 (기존 회원 레코드에만 필드 업데이트)
     if (this.isFirebaseReady()) {
       try {
         const updatePayload = {
@@ -1742,42 +1742,37 @@ const Auth = {
           updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
         };
 
-        const targetDocIds = new Set();
-        if (userEmail) {
-          targetDocIds.add(userEmail);
-          targetDocIds.add(userEmail.replace(/[\/\.]/g, '_'));
-          targetDocIds.add(userEmail.replace(/[@.]/g, '_'));
-        }
-        if (userUsername) {
-          targetDocIds.add(userUsername);
-          targetDocIds.add(`user_${userUsername}`);
-          targetDocIds.add(userUsername.replace(/[\/\.]/g, '_'));
-        }
+        // 1. 기존 문서 ID 결정 (중복 레코드 생성을 방지하고 기존 회원 레코드 딱 1개만 타겟팅)
+        let targetDocId = this.user.firestoreDocId || null;
 
-        // 혹시 기존 Firestore에 다른 문서 ID로 저장되어 있는지 스캔하여 대상 추가
-        try {
-          const snap = await this.firebaseDb.collection('users').get();
-          snap.forEach(doc => {
-            const d = doc.data() || {};
-            const dEmail = (d.email || '').trim().toLowerCase();
-            const dUser = (d.username || '').trim().toLowerCase();
-            if ((userEmail && dEmail === userEmail) || (userUsername && dUser === userUsername)) {
-              targetDocIds.add(doc.id);
+        // 세션에 docId가 없으면 Firestore에서 기존 문서 1개 검색
+        if (!targetDocId) {
+          try {
+            const snap = await this.firebaseDb.collection('users').get();
+            for (const doc of snap.docs) {
+              const d = doc.data() || {};
+              const dEmail = (d.email || '').trim().toLowerCase();
+              const dUser = (d.username || '').trim().toLowerCase();
+              if ((userEmail && dEmail === userEmail) || (userUsername && dUser === userUsername)) {
+                targetDocId = doc.id;
+                break;
+              }
             }
-          });
-        } catch (scanErr) {
-          console.warn('[Auth] Firestore 사용자 문서 스캔 경고:', scanErr);
+          } catch (scanErr) {
+            console.warn('[Auth] Firestore 기존 사용자 문서 검색 경고:', scanErr);
+          }
         }
 
-        // 수집된 모든 관련 문서에 실시간 병합 저장 (반드시 완료 대기)
-        const updatePromises = Array.from(targetDocIds).map(docId => {
-          return this.firebaseDb.collection('users').doc(docId).set(updatePayload, { merge: true });
-        });
-
-        if (updatePromises.length > 0) {
-          await Promise.allSettled(updatePromises);
-          console.log('[Auth] Firestore 프로필 업데이트 완료:', Array.from(targetDocIds));
+        // 기존 문서가 전혀 없는 경우에만 단일 표준 키(이메일 기반)로 1개 결정
+        if (!targetDocId) {
+          targetDocId = userEmail ? userEmail.replace(/[\/\.]/g, '_') : (userUsername ? 'user_' + userUsername : 'user');
         }
+
+        // 2. 오직 기존 회원 문서 딱 1개에만 필드 병합 업데이트
+        await this.firebaseDb.collection('users').doc(targetDocId).set(updatePayload, { merge: true });
+        this.user.firestoreDocId = targetDocId;
+        this.setUser(this.user);
+        console.log('[Auth] Firestore 기존 회원 레코드 필드 업데이트 완료:', targetDocId);
       } catch (err) {
         console.warn('[Auth] Firestore 프로필 갱신 오류:', err);
       }
