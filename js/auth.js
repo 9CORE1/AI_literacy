@@ -164,9 +164,19 @@ const Auth = {
       console.warn('[Auth] 관리자 계정 로컬 스토리지 시딩 오류:', e);
     }
 
-    // 3. 파이어베이스 Cloud Firestore users 컬렉션에 관리자 계정(admin / 1111) 영구 저장 보장
+    // 3. 파이어베이스 Cloud Firestore users 컬렉션에 관리자 계정 문서 보장 (문서가 없을 때만 1회 초기화)
     if (this.isFirebaseReady()) {
       try {
+        const userAdminSnap = await this.firebaseDb.collection('users').doc('user_admin').get();
+        const adminSnap = await this.firebaseDb.collection('users').doc('admin').get();
+
+        // 이미 파이어베이스 데이터베이스에 관리자 문서가 존재하면 사용자가 설정한 비밀번호를 절대 덮어쓰지 않고 영구 보존
+        if (userAdminSnap.exists || adminSnap.exists) {
+          console.log('[Auth] Firestore 관리자 계정 문서가 이미 존재합니다. 데이터베이스의 비밀번호를 안전하게 보존합니다.');
+          return;
+        }
+
+        // 문서가 전혀 없는 경우에만 초기 기본값(1111)으로 1회 등록
         const adminPayload = {
           username: adminId,
           password: '1111',
@@ -183,20 +193,12 @@ const Auth = {
           updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
         };
 
-        const p1 = this.firebaseDb.collection('users').doc('user_admin').set(adminPayload, { merge: true });
-        const p2 = this.firebaseDb.collection('users').doc('admin').set(adminPayload, { merge: true });
-        const p3 = this.firebaseDb.collection('users').doc('admin@ailiteracy_kr').set(adminPayload, { merge: true });
-        const results = await Promise.allSettled([p1, p2, p3]);
-        results.forEach((r, idx) => {
-          const names = ['user_admin', 'admin', 'admin@ailiteracy_kr'];
-          if (r.status === 'fulfilled') {
-            console.log(`[Auth] Cloud Firestore users 컬렉션 [${names[idx]}] 등록 성공!`);
-          } else {
-            console.error(`[Auth] Cloud Firestore users 컬렉션 [${names[idx]}] 등록 실패:`, r.reason?.code, r.reason?.message);
-          }
-        });
+        const p1 = this.firebaseDb.collection('users').doc('user_admin').set(adminPayload);
+        const p2 = this.firebaseDb.collection('users').doc('admin').set(adminPayload);
+        await Promise.allSettled([p1, p2]);
+        console.log('[Auth] Cloud Firestore users 컬렉션 관리자 계정 초기 생성 완료');
       } catch (err) {
-        console.warn('[Auth] Firestore 관리자 계정 동기화 오류:', err);
+        console.warn('[Auth] Firestore 관리자 계정 확인/초기화 오류:', err);
       }
     }
   },
@@ -228,7 +230,7 @@ const Auth = {
           const data = directDoc.data();
           const dUser = (data.username || '').trim().toLowerCase();
           const dEmail = (data.email || '').trim().toLowerCase();
-          const isDocAdmin = Boolean(data.isAdmin || data.role === 'admin');
+          const isDocAdmin = Boolean(data.isAdmin || data.role === 'admin' || directDoc.id === 'user_admin' || directDoc.id === 'admin');
 
           if (isDocAdmin && (dUser === cleanId || dEmail === cleanId || cleanId === 'admin')) {
             if (String(data.password) === String(password)) {
