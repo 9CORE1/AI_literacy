@@ -886,9 +886,28 @@ const Auth = {
         ...app,
         key: key,
         status: app.status || existing.status || 'pending',
-        role: app.role || existing.role || app.allowedRole || existing.allowedRole || 'student'
+        role: app.role || existing.role || app.allowedRole || existing.allowedRole || 'student',
+        university: existing.university || app.university || '',
+        department: existing.department || app.department || '',
+        gradeOrPosition: existing.gradeOrPosition || app.gradeOrPosition || ''
       });
     });
+
+    // 3-1. 영구 프로필 캐시(ai_lit_user_profiles) 추가 보강
+    try {
+      const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
+      Object.keys(profiles).forEach(k => {
+        const cleanK = k.toLowerCase().trim();
+        const p = profiles[k];
+        if (cleanK && map.has(cleanK)) {
+          const item = map.get(cleanK);
+          if (p.university && !item.university) item.university = p.university;
+          if (p.department && !item.department) item.department = p.department;
+          if (p.gradeOrPosition && !item.gradeOrPosition) item.gradeOrPosition = p.gradeOrPosition;
+          if (p.name && (!item.name || item.name === cleanK)) item.name = p.name;
+        }
+      });
+    } catch (e) {}
 
     // 4. 로그인 이력 목록에서 추가 정보 보강
     const history = this.getLoginHistory();
@@ -1082,11 +1101,19 @@ const Auth = {
     // 2. Cloud Firestore에서 사용자 문서 조회
     if (this.isFirebaseReady()) {
       try {
-        const safeDocKey = cleanKey.replace(/[\/\.]/g, '_');
-        const docSnap = await this.firebaseDb.collection('users').doc(safeDocKey).get();
-        if (docSnap.exists) {
-          const remoteData = docSnap.data();
-          found = found ? { ...found, ...remoteData } : remoteData;
+        const candidateKeys = [
+          cleanKey.replace(/[\/\.]/g, '_'),
+          cleanKey.replace(/[@.]/g, '_'),
+          `user_${cleanKey}`,
+          cleanKey
+        ];
+        for (const k of candidateKeys) {
+          const docSnap = await this.firebaseDb.collection('users').doc(k).get();
+          if (docSnap.exists) {
+            const remoteData = docSnap.data();
+            found = found ? { ...found, ...remoteData } : remoteData;
+            break;
+          }
         }
       } catch (e) {
         console.warn('[Auth] Firestore 사용자 조회 실패:', e);
@@ -1772,22 +1799,77 @@ const Auth = {
       console.warn('[Auth] 등록 회원 정보 갱신 동기화 실패:', e);
     }
 
-    // 3. Firebase Cloud Firestore 동기화
+    // 2-1. 승인 목록(ai_lit_user_approvals)에서도 프로필 정보 즉시 동기화
+    try {
+      const approvals = this.getApprovals();
+      const matchKeys = [userEmail, userUsername].filter(Boolean);
+      matchKeys.forEach(k => {
+        if (approvals[k]) {
+          approvals[k] = {
+            ...approvals[k],
+            name: this.user.name || approvals[k].name || '',
+            university: this.user.university || approvals[k].university || '',
+            department: this.user.department || approvals[k].department || '',
+            gradeOrPosition: this.user.gradeOrPosition || approvals[k].gradeOrPosition || '',
+            updatedAt: new Date().toISOString()
+          };
+        }
+      });
+      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+    } catch (e) {
+      console.warn('[Auth] 승인 목록 프로필 동기화 실패:', e);
+    }
+
+    // 3. Firebase Cloud Firestore 실시간 동기화 (페이지 이동 전 저장 완료를 위해 반드시 await)
     if (this.isFirebaseReady()) {
       try {
-        const docKey = (userEmail || userUsername).replace(/[\/\.]/g, '_');
-        if (docKey) {
-          const updatePayload = {
-            ...data,
-            name: this.user.name || '',
-            email: this.user.email || '',
-            role: this.user.role || 'student',
-            university: this.user.university || '',
-            department: this.user.department || '',
-            gradeOrPosition: this.user.gradeOrPosition || '',
-            updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
-          };
-          this.firebaseDb.collection('users').doc(docKey).set(updatePayload, { merge: true }).catch(() => {});
+        const updatePayload = {
+          ...data,
+          name: this.user.name || '',
+          email: this.user.email || '',
+          username: this.user.username || '',
+          role: this.user.role || 'student',
+          university: this.user.university || '',
+          department: this.user.department || '',
+          gradeOrPosition: this.user.gradeOrPosition || '',
+          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+        };
+
+        const targetDocIds = new Set();
+        if (userEmail) {
+          targetDocIds.add(userEmail);
+          targetDocIds.add(userEmail.replace(/[\/\.]/g, '_'));
+          targetDocIds.add(userEmail.replace(/[@.]/g, '_'));
+        }
+        if (userUsername) {
+          targetDocIds.add(userUsername);
+          targetDocIds.add(`user_${userUsername}`);
+          targetDocIds.add(userUsername.replace(/[\/\.]/g, '_'));
+        }
+
+        // 혹시 기존 Firestore에 다른 문서 ID로 저장되어 있는지 스캔하여 대상 추가
+        try {
+          const snap = await this.firebaseDb.collection('users').get();
+          snap.forEach(doc => {
+            const d = doc.data() || {};
+            const dEmail = (d.email || '').trim().toLowerCase();
+            const dUser = (d.username || '').trim().toLowerCase();
+            if ((userEmail && dEmail === userEmail) || (userUsername && dUser === userUsername)) {
+              targetDocIds.add(doc.id);
+            }
+          });
+        } catch (scanErr) {
+          console.warn('[Auth] Firestore 사용자 문서 스캔 경고:', scanErr);
+        }
+
+        // 수집된 모든 관련 문서에 실시간 병합 저장 (반드시 완료 대기)
+        const updatePromises = Array.from(targetDocIds).map(docId => {
+          return this.firebaseDb.collection('users').doc(docId).set(updatePayload, { merge: true });
+        });
+
+        if (updatePromises.length > 0) {
+          await Promise.allSettled(updatePromises);
+          console.log('[Auth] Firestore 프로필 업데이트 완료:', Array.from(targetDocIds));
         }
       } catch (err) {
         console.warn('[Auth] Firestore 프로필 갱신 오류:', err);
