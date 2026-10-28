@@ -1642,6 +1642,7 @@ button {
   }
 }
 
+@media (max-width: 480px) {
   .nav-brand span:not(.nav-brand-dot):not(#nav-role-badge):not(#nav-mode-tag) {
     font-size: 14.5px;
   }
