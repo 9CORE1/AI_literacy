@@ -54,7 +54,7 @@ const Auth = {
    */
   async init() {
     this.initFirebase();
-    await this.seedAdminUser(); // admin / 1111 계정을 회원 데이터베이스에 자동 등록 및 영구 동기화
+    // 웹페이지 내 하드코딩된 관리자 계정 시딩 제거 (오로지 파이어베이스 데이터베이스 레코드만 사용)
 
     // 임의/테스트용 회원 자동 정리 (v1 일회성 정리 + 지속적 데모 계정 자동 정리)
     if (!localStorage.getItem('ai_lit_arbitrary_users_cleaned_v1')) {
@@ -108,108 +108,17 @@ const Auth = {
   ADMIN_DEFAULT_ID: 'admin',
 
   /**
-   * 관리자 계정 초기화:
-   * 웹페이지 및 로컬스토리지에 비밀번호를 저장하지 않고,
-   * 파이어베이스(Firestore) users 컬렉션에 user_admin 문서가 없는 경우에만 초기 1회 생성합니다.
+   * 관리자 세션 또는 관리자 권한 확인
+   * @returns {boolean}
    */
-  async seedAdminUser() {
-    const adminId = this.ADMIN_DEFAULT_ID;
-    const adminEmail = 'admin@ailiteracy.kr';
-
-    // 1. 브라우저 localStorage에 저장되었던 관리자 비밀번호 영구 파기
-    try {
-      localStorage.removeItem('ai_lit_admin_pw');
-    } catch (e) {}
-
-    // 2. ai_lit_registered_users 최상단에 관리자 계정 레코드 보장 (비밀번호는 클라이언트에 저장하지 않음)
-    try {
-      const users = this.getRegisteredUsers();
-      const idx = users.findIndex(u => (u.username && u.username.toLowerCase() === adminId) || (u.email && u.email.toLowerCase() === adminEmail));
-      const adminRecord = {
-        username: adminId,
-        password: '', // 웹페이지/로컬스토리지에 비밀번호 미저장
-        name: '최고 관리자',
-        email: adminEmail,
-        role: 'admin',
-        allowedRole: 'staff',
-        status: 'approved',
-        isAdmin: true,
-        university: 'AI Literacy Lab',
-        department: '시스템 관리실',
-        registeredAt: '2026-01-01T00:00:00.000Z',
-        lastLoginAt: new Date().toISOString(),
-        loginMethod: 'credentials'
-      };
-
-      if (idx !== -1) {
-        users[idx] = { ...users[idx], ...adminRecord };
-      } else {
-        users.unshift(adminRecord);
-      }
-      localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
-
-      // 승인 데이터베이스에도 영구 등록
-      const approvals = this.getApprovals();
-      approvals[adminId] = {
-        name: '최고 관리자',
-        username: adminId,
-        email: adminEmail,
-        role: 'admin',
-        allowedRole: 'staff',
-        status: 'approved',
-        isAdmin: true
-      };
-      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
-    } catch (e) {
-      console.warn('[Auth] 관리자 계정 로컬 스토리지 시딩 오류:', e);
-    }
-
-    // 3. 파이어베이스 Cloud Firestore users 컬렉션에 관리자 계정 문서 보장 (문서가 없을 때만 1회 초기화)
-    if (this.isFirebaseReady()) {
-      try {
-        const userAdminSnap = await this.firebaseDb.collection('users').doc('user_admin').get();
-        const adminSnap = await this.firebaseDb.collection('users').doc('admin').get();
-
-        // 이미 파이어베이스 데이터베이스에 관리자 문서가 존재하면 사용자가 설정한 비밀번호를 절대 덮어쓰지 않고 영구 보존
-        if (userAdminSnap.exists || adminSnap.exists) {
-          console.log('[Auth] Firestore 관리자 계정 문서가 이미 존재합니다. 데이터베이스의 비밀번호를 안전하게 보존합니다.');
-          return;
-        }
-
-        // 문서가 전혀 없는 경우에만 초기 기본값(1111)으로 1회 등록
-        const adminPayload = {
-          username: adminId,
-          password: '1111',
-          name: '최고 관리자',
-          email: adminEmail,
-          role: 'staff',
-          allowedRole: 'staff',
-          status: 'approved',
-          isAdmin: true,
-          university: 'AI Literacy Lab',
-          department: '시스템 관리실',
-          gradeOrPosition: '총괄 책임자',
-          registeredAt: '2026-01-01T00:00:00.000Z',
-          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
-        };
-
-        const p1 = this.firebaseDb.collection('users').doc('user_admin').set(adminPayload);
-        const p2 = this.firebaseDb.collection('users').doc('admin').set(adminPayload);
-        await Promise.allSettled([p1, p2]);
-        console.log('[Auth] Cloud Firestore users 컬렉션 관리자 계정 초기 생성 완료');
-      } catch (err) {
-        console.warn('[Auth] Firestore 관리자 계정 확인/초기화 오류:', err);
-      }
-    }
-  },
-
   isAdmin() {
-    return Boolean(sessionStorage.getItem('ai_lit_admin_session') === 'true' || (this.user && this.user.isAdmin));
+    return Boolean(sessionStorage.getItem('ai_lit_admin_session') === 'true' || (this.user && (this.user.isAdmin || this.user.role === 'admin')));
   },
 
   /**
-   * 관리자 로그인 (파이어베이스 Cloud Firestore users 컬렉션 실시간 인증)
-   * 클라이언트 웹페이지가 아닌 파이어베이스 데이터베이스의 비밀번호와 직접 대조합니다.
+   * 관리자 로그인 (파이어베이스 Cloud Firestore users 컬렉션 실시간 전용 인증)
+   * 웹페이지 소스코드에는 어떠한 관리자 아이디나 비밀번호도 저장하지 않으며,
+   * 오로지 파이어베이스 데이터베이스(users 컬렉션)에 저장된 레코드와 실시간으로 직접 대조하여 검증합니다.
    * @param {string} username 
    * @param {string} password 
    * @returns {Promise<{success: boolean, message?: string, user?: Object}>}
@@ -221,19 +130,29 @@ const Auth = {
 
     const cleanId = username.trim().toLowerCase();
 
-    // Firebase Firestore users 컬렉션 실시간 조회
-    if (this.isFirebaseReady()) {
-      try {
-        // 1. user_admin 문서 직접 조회
-        const directDoc = await this.firebaseDb.collection('users').doc('user_admin').get();
+    // Firebase Firestore 연결 필수
+    if (!this.isFirebaseReady()) {
+      return {
+        success: false,
+        message: '파이어베이스(Firebase) 데이터베이스에 연결되어 있지 않습니다. 네트워크 또는 설정을 확인해 주세요.'
+      };
+    }
+
+    try {
+      // 1. user_admin 또는 admin 또는 입력된 ID 기반 대표 문서 직접 조회
+      const candidateDocIds = [cleanId, `user_${cleanId}`, 'user_admin', 'admin'];
+      for (const docId of candidateDocIds) {
+        const directDoc = await this.firebaseDb.collection('users').doc(docId).get();
         if (directDoc.exists) {
           const data = directDoc.data();
+          if (!data) continue;
           const dUser = (data.username || '').trim().toLowerCase();
           const dEmail = (data.email || '').trim().toLowerCase();
           const isDocAdmin = Boolean(data.isAdmin || data.role === 'admin' || directDoc.id === 'user_admin' || directDoc.id === 'admin');
 
-          if (isDocAdmin && (dUser === cleanId || dEmail === cleanId || cleanId === 'admin')) {
-            if (String(data.password) === String(password)) {
+          if (isDocAdmin && (dUser === cleanId || dEmail === cleanId || directDoc.id.toLowerCase() === cleanId || cleanId === 'admin')) {
+            // 데이터베이스의 비밀번호와 직접 대조
+            if (data.password && String(data.password) === String(password)) {
               sessionStorage.setItem('ai_lit_admin_session', 'true');
               const adminUser = {
                 name: data.name || '최고 관리자',
@@ -243,8 +162,9 @@ const Auth = {
                 allowedRole: 'staff',
                 status: 'approved',
                 isAdmin: true,
-                university: data.university || 'AI Literacy Lab',
-                department: data.department || '시스템 관리실',
+                university: data.university || '',
+                department: data.department || '',
+                gradeOrPosition: data.gradeOrPosition || '',
                 loginAt: new Date().toISOString(),
                 loginMethod: 'admin'
               };
@@ -255,71 +175,48 @@ const Auth = {
             }
           }
         }
-
-        // Firestore users 컬렉션 전체에서 매칭 관리자 조회
-        const snap = await this.firebaseDb.collection('users').get();
-        for (const doc of snap.docs) {
-          const data = doc.data();
-          if (!data) continue;
-          const dUser = (data.username || '').trim().toLowerCase();
-          const dEmail = (data.email || '').trim().toLowerCase();
-          const isDocAdmin = Boolean(data.isAdmin || data.role === 'admin' || doc.id === 'user_admin' || doc.id === 'admin@ailiteracy_kr');
-
-          if (isDocAdmin && (dUser === cleanId || dEmail === cleanId || doc.id.toLowerCase() === cleanId)) {
-            if (String(data.password) === String(password)) {
-              sessionStorage.setItem('ai_lit_admin_session', 'true');
-              const adminUser = {
-                name: data.name || '최고 관리자',
-                username: data.username || cleanId,
-                email: data.email || 'admin@ailiteracy.kr',
-                role: 'admin',
-                allowedRole: 'staff',
-                status: 'approved',
-                isAdmin: true,
-                university: data.university || 'AI Literacy Lab',
-                department: data.department || '시스템 관리실',
-                gradeOrPosition: data.gradeOrPosition || '총괄 책임자',
-                loginAt: new Date().toISOString(),
-                loginMethod: 'admin'
-              };
-              this.setUser(adminUser);
-              return { success: true, user: adminUser };
-            } else {
-              return { success: false, message: '관리자 비밀번호가 일치하지 않습니다.' };
-            }
-          }
-        }
-      } catch (err) {
-        console.warn('[Auth] Firestore 관리자 인증 조회 경고:', err);
       }
-    }
 
-    // 2. 파이어베이스 users 컬렉션에 관리자 문서가 아직 미등록 상태이더라도 기본 지정 계정(admin / 1111)으로 로그인 보장
-    if ((cleanId === 'admin' || cleanId === 'admin@ailiteracy.kr') && String(password) === '1111') {
-      sessionStorage.setItem('ai_lit_admin_session', 'true');
-      const adminUser = {
-        name: '최고 관리자',
-        username: 'admin',
-        email: 'admin@ailiteracy.kr',
-        role: 'admin',
-        allowedRole: 'staff',
-        status: 'approved',
-        isAdmin: true,
-        university: 'AI Literacy Lab',
-        department: '시스템 관리실',
-        gradeOrPosition: '총괄 책임자',
-        registeredAt: '2026-01-01T00:00:00.000Z',
-        loginAt: new Date().toISOString(),
-        loginMethod: 'admin'
-      };
-      this.setUser(adminUser);
-      return { success: true, user: adminUser };
-    }
+      // 2. users 컬렉션 전체에서 isAdmin=true 또는 role='admin'인 계정 매칭 조회
+      const snap = await this.firebaseDb.collection('users').get();
+      for (const doc of snap.docs) {
+        const data = doc.data();
+        if (!data) continue;
+        const dUser = (data.username || '').trim().toLowerCase();
+        const dEmail = (data.email || '').trim().toLowerCase();
+        const isDocAdmin = Boolean(data.isAdmin || data.role === 'admin' || doc.id === 'user_admin' || doc.id === 'admin');
 
-    return {
-      success: false,
-      message: '관리자 아이디 또는 비밀번호가 일치하지 않습니다.'
-    };
+        if (isDocAdmin && (dUser === cleanId || dEmail === cleanId || doc.id.toLowerCase() === cleanId)) {
+          // 데이터베이스의 비밀번호와 직접 대조
+          if (data.password && String(data.password) === String(password)) {
+            sessionStorage.setItem('ai_lit_admin_session', 'true');
+            const adminUser = {
+              name: data.name || '최고 관리자',
+              username: data.username || cleanId,
+              email: data.email || 'admin@ailiteracy.kr',
+              role: 'admin',
+              allowedRole: 'staff',
+              status: 'approved',
+              isAdmin: true,
+              university: data.university || '',
+              department: data.department || '',
+              gradeOrPosition: data.gradeOrPosition || '',
+              loginAt: new Date().toISOString(),
+              loginMethod: 'admin'
+            };
+            this.setUser(adminUser);
+            return { success: true, user: adminUser };
+          } else {
+            return { success: false, message: '관리자 비밀번호가 일치하지 않습니다.' };
+          }
+        }
+      }
+
+      return { success: false, message: '데이터베이스에 등록된 관리자 정보를 찾을 수 없습니다.' };
+    } catch (err) {
+      console.error('[Auth] Firestore 관리자 인증 오류:', err);
+      return { success: false, message: '파이어베이스 데이터베이스 연결 중 오류가 발생했습니다: ' + err.message };
+    }
   },
 
   /**
@@ -807,8 +704,6 @@ const Auth = {
       }
     }
 
-    // 5. admin 계정 영구 유지 확인
-    await this.seedAdminUser();
     return { success: true, count: nonAdminUsers.length };
   },
 
@@ -951,27 +846,7 @@ const Auth = {
       }
     });
 
-    // 5. 최고 관리자 계정 상시 포함 보장
-    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
-    if (!map.has(adminId) && !map.has('admin@ailiteracy.kr')) {
-      map.set(adminId, {
-        username: adminId,
-        password: '',
-        name: '최고 관리자',
-        email: 'admin@ailiteracy.kr',
-        role: 'admin',
-        allowedRole: 'staff',
-        status: 'approved',
-        isAdmin: true,
-        university: 'AI Literacy Lab',
-        department: '시스템 관리실',
-        gradeOrPosition: '총괄 책임자',
-        registeredAt: '2026-01-01T00:00:00.000Z',
-        lastLoginAt: new Date().toISOString(),
-        loginMethod: 'credentials',
-        key: adminId
-      });
-    }
+
 
     const allUsers = Array.from(map.values()).sort((a, b) => {
       // 최고 관리자 계정은 항상 최상단에 고정
