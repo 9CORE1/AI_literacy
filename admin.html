@@ -368,10 +368,10 @@
           MEMBERSHIP ACCESS & ROLE PERMISSION CONTROL
         </div>
         <h1 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin: 0; font-weight: 800;">
-          🛡️ 회원 로그인 승인 &amp; 대상자 페이지 접근 권한 관리
+          🛡️ 회원 로그인 승인 &amp; 대상자 역할 관리
         </h1>
         <p style="color: #64748b; font-size: 14px; margin: 6px 0 0; line-height: 1.5;">
-          관리자가 승인한 회원만 로그인을 허용하고, 관리자가 지정한 대상자(대학생/교직원) 페이지에만 접속하도록 제어합니다.
+          관리자가 승인한 회원만 로그인을 허용하며, 회원이 처음 잘못 선택한 신청 역할(대학생/교직원)을 관리자가 즉시 정정할 수 있습니다.
         </p>
       </div>
       <div style="display: flex; gap: 8px; flex-wrap: wrap;">
@@ -458,9 +458,8 @@
               <th>회원 정보</th>
               <th>소속 정보 (학교/학과)</th>
               <th>가입 방식</th>
-              <th>신청 역할</th>
+              <th>신청 역할 / 소속 과정 (관리자 수정)</th>
               <th style="text-align: center;">로그인 승인 상태 (토글)</th>
-              <th>접근 허용 대상자 페이지</th>
               <th style="text-align: right;">관리 작업</th>
             </tr>
           </thead>
@@ -556,27 +555,19 @@
         </div>
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
           <div>
-            <label style="font-size: 12px; font-weight: 700; color: #475569;">신청 역할</label>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">신청 역할 / 소속 과정</label>
             <select id="new-user-role" class="role-select" style="width: 100%; padding: 10px;">
-              <option value="student">🎓 대학생</option>
-              <option value="staff">🏛️ 교직원</option>
+              <option value="student">🎓 대학생 맞춤 과정</option>
+              <option value="staff">🏛️ 교직원 맞춤 과정</option>
             </select>
           </div>
           <div>
-            <label style="font-size: 12px; font-weight: 700; color: #475569;">허용 대상자 페이지</label>
-            <select id="new-user-allowed-role" class="role-select" style="width: 100%; padding: 10px;">
-              <option value="student">🎓 대학생 페이지 전용</option>
-              <option value="staff">🏛️ 교직원 페이지 전용</option>
-              <option value="all">🌐 전체 허용</option>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">로그인 승인 상태</label>
+            <select id="new-user-status" class="role-select" style="width: 100%; padding: 10px;">
+              <option value="approved">🟢 즉시 승인 완료 (로그인 허용)</option>
+              <option value="pending">🟡 승인 대기</option>
             </select>
           </div>
-        </div>
-        <div>
-          <label style="font-size: 12px; font-weight: 700; color: #475569;">로그인 승인 상태</label>
-          <select id="new-user-status" class="role-select" style="width: 100%; padding: 10px;">
-            <option value="approved">🟢 즉시 승인 완료 (로그인 허용)</option>
-            <option value="pending">🟡 승인 대기</option>
-          </select>
         </div>
         <button type="submit" class="btn btn-primary" style="padding: 12px; font-weight: 800; justify-content: center; margin-top: 8px;">
           회원 등록 완료
@@ -746,6 +737,7 @@
           : '<span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">일반 ID</span>';
 
         const regDateText = u.registeredAt ? new Date(u.registeredAt).toLocaleDateString('ko-KR') : '-';
+        const currentRole = (approval.allowedRole || u.role || 'student') === 'staff' ? 'staff' : 'student';
 
         tr.innerHTML = `
           <td style="text-align: center;">
@@ -764,17 +756,13 @@
             <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">${regDateText}</div>
           </td>
           <td>
-            <span style="font-size: 12.5px; font-weight: 700;">${roleText}</span>
+            <select class="role-select" onchange="handleUserRoleChange('${key}', this.value)" style="padding: 7px 10px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #fff; cursor: pointer; color: var(--color-obsidian);">
+              <option value="student" ${currentRole === 'student' ? 'selected' : ''}>🎓 대학생 맞춤 과정</option>
+              <option value="staff" ${currentRole === 'staff' ? 'selected' : ''}>🏛️ 교직원 맞춤 과정</option>
+            </select>
           </td>
           <td style="text-align: center;">
             ${statusBadgeHtml}
-          </td>
-          <td>
-            <select class="role-select" onchange="handleAllowedRoleChange('${key}', this.value)">
-              <option value="student" ${allowedRole === 'student' ? 'selected' : ''}>🎓 대학생 전용 페이지</option>
-              <option value="staff" ${allowedRole === 'staff' ? 'selected' : ''}>🏛️ 교직원 전용 페이지</option>
-              <option value="all" ${allowedRole === 'all' ? 'selected' : ''}>🌐 전체 허용 (대학생+교직원)</option>
-            </select>
           </td>
           <td style="text-align: right; white-space: nowrap;">
             ${status !== 'approved' ? `<button type="button" class="btn-action-sm btn-approve" onclick="toggleUserStatus('${key}', 'approved')">승인</button>` : ''}
@@ -790,23 +778,24 @@
     // 5. 승인 상태 토글 처리
     async function toggleUserStatus(key, newStatus) {
       const approval = Auth.getUserApproval(key);
-      const allowedRole = approval.allowedRole || 'student';
-      await Auth.setUserApproval(key, newStatus, allowedRole);
+      const role = approval.allowedRole || 'student';
+      await Auth.setUserApproval(key, newStatus, role);
 
       const statusKo = newStatus === 'approved' ? '승인' : (newStatus === 'blocked' ? '차단' : '대기');
       showToast(`'${key}' 회원이 [${statusKo}] 처리되었습니다.`);
       loadUsersData();
     }
 
-    // 6. 허용 대상자 페이지 변경
-    async function handleAllowedRoleChange(key, newAllowedRole) {
-      const approval = Auth.getUserApproval(key);
-      const status = approval.status || 'approved';
-      await Auth.setUserApproval(key, status, newAllowedRole);
-
-      const roleText = newAllowedRole === 'student' ? '대학생 전용' : (newAllowedRole === 'staff' ? '교직원 전용' : '전체 허용');
-      showToast(`'${key}' 회원의 접속 허용 페이지가 [${roleText}]으로 변경되었습니다.`);
-      loadUsersData();
+    // 6. 신청 역할/소속 과정 수정 처리 (첫 로그인 때 잘못 선택한 역할을 관리자가 정정)
+    async function handleUserRoleChange(key, newRole) {
+      const res = await Auth.updateUserRole(key, newRole);
+      if (res.success) {
+        const roleKo = newRole === 'staff' ? '🏛️ 교직원 맞춤 과정' : '🎓 대학생 맞춤 과정';
+        showToast(`'${key}' 회원의 소속 역할이 [${roleKo}]으로 수정되었습니다.`);
+        loadUsersData();
+      } else {
+        alert(res.message || '역할 수정 중 오류가 발생했습니다.');
+      }
     }
 
     // 7. 대기 회원 일괄 승인
@@ -899,7 +888,6 @@
       const univ = document.getElementById('new-user-univ').value.trim();
       const dept = document.getElementById('new-user-dept').value.trim();
       const role = document.getElementById('new-user-role').value;
-      const allowedRole = document.getElementById('new-user-allowed-role').value;
       const status = document.getElementById('new-user-status').value;
 
       const registered = Auth.getRegisteredUsers();
@@ -914,7 +902,7 @@
         email,
         password,
         role,
-        allowedRole,
+        allowedRole: role,
         status,
         university: univ,
         department: dept,
@@ -925,7 +913,7 @@
 
       registered.push(newUser);
       localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
-      await Auth.setUserApproval(email || username, status, allowedRole);
+      await Auth.setUserApproval(email || username, status, role);
 
       showToast(`'${name}' 회원이 성공적으로 등록되었습니다.`);
       closeAddUserModal();

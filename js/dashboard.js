@@ -27,16 +27,16 @@ const DashboardApp = {
         return;
       }
 
-      // 2. 관리자가 허용한 대상자(allowedRole) 강제 적용 (Requirement 2)
-      const allowedRole = approval.allowedRole || user.allowedRole || user.role || 'all';
-      if (allowedRole !== 'all' && user.role !== allowedRole) {
-        if (allowedRole === 'student') {
-          alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [대학생 과정]만 허용되었습니다.\n대학생 전용 맞춤 강의실로 자동 전환합니다.');
-        } else if (allowedRole === 'staff') {
-          alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [교직원 과정]만 허용되었습니다.\n교직원 전용 맞춤 강의실로 자동 전환합니다.');
+      // 2. 관리자가 지정한 신청 역할/소속 과정 강제 적용 (첫 로그인 시 잘못 선택했을 경우 관리자 지정 역할로 정정)
+      const targetRole = approval.allowedRole || user.role || 'student';
+      if (user.role !== targetRole) {
+        if (targetRole === 'student') {
+          alert('💡 [소속 과정 안내]\n해당 계정의 소속 과정이 [대학생 맞춤 과정]으로 설정되어 있습니다.\n대학생 전용 맞춤 강의실로 전환합니다.');
+        } else if (targetRole === 'staff') {
+          alert('💡 [소속 과정 안내]\n해당 계정의 소속 과정이 [교직원 맞춤 과정]으로 설정되어 있습니다.\n교직원 전용 맞춤 강의실로 전환합니다.');
         }
-        user.role = allowedRole;
-        user.allowedRole = allowedRole;
+        user.role = targetRole;
+        user.allowedRole = targetRole;
         Auth.setUser(user);
       }
     }
@@ -46,9 +46,9 @@ const DashboardApp = {
     const requestedRole = urlParams.get('role');
     if (requestedRole && !user.isAdmin && !Auth.isAdmin()) {
       const approval = Auth.getUserApproval(user.email || user.username);
-      const allowedRole = approval.allowedRole || user.allowedRole || user.role || 'all';
-      if (allowedRole !== 'all' && requestedRole !== allowedRole) {
-        alert(`⛔ [접근 제한 안내]\n\n해당 계정은 관리자로부터 [${allowedRole === 'student' ? '대학생' : '교직원'}] 과정만 허용되었습니다.\n타 대상자 코스는 열람하실 수 없습니다.`);
+      const userRole = approval.allowedRole || user.role || 'student';
+      if (requestedRole !== userRole) {
+        alert(`⛔ [접근 제한 안내]\n\n해당 계정은 [${userRole === 'student' ? '대학생' : '교직원'}] 맞춤 과정 회원입니다.\n타 과정 페이지는 열람하실 수 없습니다.`);
         window.location.replace('dashboard.html');
         return;
       }

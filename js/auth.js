@@ -240,7 +240,7 @@ const Auth = {
   /**
    * 특정 회원의 승인 상태 및 관리자 지정 허용 대상자 조회
    * @param {string} emailOrUsername 
-   * @returns {{ status: 'approved'|'pending'|'blocked', allowedRole: 'student'|'staff'|'all' }}
+   * @returns {{ status: 'approved'|'pending'|'blocked', allowedRole: 'student'|'staff' }}
    */
   getUserApproval(emailOrUsername) {
     if (!emailOrUsername) return { status: 'pending', allowedRole: 'student' };
@@ -248,14 +248,15 @@ const Auth = {
 
     // 최고 관리자 계정은 항상 전권 승인
     if (cleanKey === 'admin' || this.isAdmin() || (this.user && this.user.isAdmin)) {
-      return { status: 'approved', allowedRole: 'all' };
+      return { status: 'approved', allowedRole: 'student' };
     }
 
     const approvals = this.getApprovals();
     if (approvals[cleanKey]) {
+      const role = approvals[cleanKey].allowedRole || approvals[cleanKey].role || 'student';
       return {
         status: approvals[cleanKey].status || 'pending',
-        allowedRole: approvals[cleanKey].allowedRole || approvals[cleanKey].role || 'student'
+        allowedRole: role === 'staff' ? 'staff' : 'student'
       };
     }
 
@@ -266,9 +267,10 @@ const Auth = {
     );
 
     if (found) {
+      const role = found.allowedRole || found.role || 'student';
       return {
         status: found.status || 'pending',
-        allowedRole: found.allowedRole || found.role || 'student'
+        allowedRole: role === 'staff' ? 'staff' : 'student'
       };
     }
 
@@ -276,14 +278,87 @@ const Auth = {
   },
 
   /**
-   * 회원의 로그인 승인 상태 및 허용 대상자 업데이트 (관리자용)
+   * 관리자가 사용자의 신청 역할/소속 과정(대학생 ↔ 교직원)을 직접 수정
+   * 회원이 첫 로그인/가입 시 잘못 선택한 역할을 관리자가 정정
+   * @param {string} emailOrUsername 
+   * @param {'student'|'staff'} newRole 
+   */
+  async updateUserRole(emailOrUsername, newRole) {
+    if (!emailOrUsername || !newRole) return { success: false, message: '유효한 인자가 아닙니다.' };
+    const cleanRole = newRole === 'staff' ? 'staff' : 'student';
+    const cleanKey = emailOrUsername.trim().toLowerCase();
+
+    // 1. ai_lit_registered_users 갱신
+    try {
+      const users = this.getRegisteredUsers();
+      const idx = users.findIndex(
+        (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
+      );
+      if (idx !== -1) {
+        users[idx].role = cleanRole;
+        users[idx].allowedRole = cleanRole;
+        users[idx].updatedAt = new Date().toISOString();
+        localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+      }
+    } catch (e) {
+      console.warn('[Auth] 역할 수정 registered_users 동기화 오류:', e);
+    }
+
+    // 2. ai_lit_user_approvals 갱신
+    try {
+      const approvals = this.getApprovals();
+      const existing = approvals[cleanKey] || {};
+      approvals[cleanKey] = {
+        ...existing,
+        role: cleanRole,
+        allowedRole: cleanRole,
+        updatedAt: new Date().toISOString(),
+        updatedBy: 'admin'
+      };
+      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+    } catch (e) {
+      console.warn('[Auth] 역할 수정 approvals 동기화 오류:', e);
+    }
+
+    // 3. 현재 접속 중인 세션이 본인인 경우 실시간 반영
+    if (this.user && ((this.user.email && this.user.email.toLowerCase() === cleanKey) || (this.user.username && this.user.username.toLowerCase() === cleanKey))) {
+      this.user.role = cleanRole;
+      this.user.allowedRole = cleanRole;
+      this.setUser(this.user);
+    }
+
+    // 4. Cloud Firestore 동기화
+    if (this.isFirebaseReady()) {
+      try {
+        const safeDocKey = cleanKey.replace(/[@.]/g, '_');
+        await this.firebaseDb.collection('users').doc(safeDocKey).set({
+          role: cleanRole,
+          allowedRole: cleanRole,
+          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+        }, { merge: true });
+        await this.firebaseDb.collection('users').doc(`user_${cleanKey}`).set({
+          role: cleanRole,
+          allowedRole: cleanRole,
+          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+        }, { merge: true });
+      } catch (err) {
+        console.warn('[Auth] Firestore 역할 수정 오류:', err);
+      }
+    }
+
+    return { success: true, role: cleanRole };
+  },
+
+  /**
+   * 회원의 로그인 승인 상태 및 역할 업데이트 (관리자용)
    * @param {string} emailOrUsername 
    * @param {'approved'|'pending'|'blocked'} status 
-   * @param {'student'|'staff'|'all'} allowedRole 
+   * @param {'student'|'staff'} allowedRole 
    */
   async setUserApproval(emailOrUsername, status, allowedRole) {
     if (!emailOrUsername) return;
     const cleanKey = emailOrUsername.trim().toLowerCase();
+    const cleanRole = allowedRole === 'staff' ? 'staff' : 'student';
 
     // 1. ai_lit_user_approvals 저장
     const approvals = this.getApprovals();
@@ -291,7 +366,8 @@ const Auth = {
     approvals[cleanKey] = {
       ...existing,
       status: status,
-      allowedRole: allowedRole,
+      role: cleanRole,
+      allowedRole: cleanRole,
       updatedAt: new Date().toISOString(),
       updatedBy: 'admin'
     };
@@ -305,7 +381,8 @@ const Auth = {
       );
       if (idx !== -1) {
         users[idx].status = status;
-        users[idx].allowedRole = allowedRole;
+        users[idx].role = cleanRole;
+        users[idx].allowedRole = cleanRole;
         users[idx].updatedAt = new Date().toISOString();
         localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
       }
@@ -314,17 +391,19 @@ const Auth = {
     // 3. 현재 로그인된 세션이 본인인 경우 세션도 실시간 갱신
     if (this.user && ((this.user.email && this.user.email.toLowerCase() === cleanKey) || (this.user.username && this.user.username.toLowerCase() === cleanKey))) {
       this.user.status = status;
-      this.user.allowedRole = allowedRole;
+      this.user.role = cleanRole;
+      this.user.allowedRole = cleanRole;
       this.setUser(this.user);
     }
 
     // 4. Cloud Firestore users 컬렉션 동기화
     if (this.isFirebaseReady()) {
       try {
-        const safeDocKey = cleanKey.replace(/[\/\.]/g, '_');
+        const safeDocKey = cleanKey.replace(/[@.]/g, '_');
         await this.firebaseDb.collection('users').doc(safeDocKey).set({
           status: status,
-          allowedRole: allowedRole,
+          role: cleanRole,
+          allowedRole: cleanRole,
           updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
         }, { merge: true });
       } catch (err) {
@@ -655,16 +734,16 @@ const Auth = {
       return false;
     }
 
-    // 4. 관리자가 허용한 대상자(allowedRole) 페이지만 접속 허용 (Requirement 2)
-    const allowedRole = approval.allowedRole || user.allowedRole || user.role || 'all';
-    if (options.role && allowedRole !== 'all' && allowedRole !== options.role) {
+    // 4. 회원의 소속 과정(role) 페이지만 접속 허용
+    const userRole = approval.allowedRole || user.role || 'student';
+    if (options.role && userRole !== options.role) {
       if (typeof document !== 'undefined' && document.body) {
         document.body.style.display = 'none';
       }
-      if (allowedRole === 'student') {
-        alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [대학생 전용]으로 승인되었습니다.\n교직원 과정에는 접속할 수 없습니다.\n\n대학생 맞춤 강의실로 이동합니다.');
-      } else if (allowedRole === 'staff') {
-        alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [교직원 전용]으로 승인되었습니다.\n대학생 과정에는 접속할 수 없습니다.\n\n교직원 맞춤 강의실로 이동합니다.');
+      if (userRole === 'student') {
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 [대학생 과정] 회원입니다.\n교직원 과정에는 접속할 수 없습니다.\n\n대학생 맞춤 강의실로 이동합니다.');
+      } else if (userRole === 'staff') {
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 [교직원 과정] 회원입니다.\n대학생 과정에는 접속할 수 없습니다.\n\n교직원 맞춤 강의실로 이동합니다.');
       }
       window.location.replace('dashboard.html');
       return false;
