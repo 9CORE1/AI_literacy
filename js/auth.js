@@ -490,28 +490,53 @@ const Auth = {
   },
 
   /**
-   * 특정 회원 영구 삭제 (로컬스토리지 및 Cloud Firestore)
-   * @param {string} emailOrUsername 
-   * @param {string} [docId] Firestore 문서 ID (옵션)
+   * 특정 회원 영구 삭제 (로컬스토리지 및 Cloud Firestore 완전 동기 삭제)
+   * @param {string|Object} userParam 이메일/아이디 문자열 또는 { key, email, username, docId } 객체
+   * @param {string} [docIdParam] Firestore 문서 ID (옵션)
    * @returns {Promise<{success: boolean, message?: string}>}
    */
-  async deleteUser(emailOrUsername, docId = null) {
-    if (!emailOrUsername) return { success: false, message: '삭제할 회원 식별자가 없습니다.' };
-    const cleanKey = emailOrUsername.trim().toLowerCase();
-    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+  async deleteUser(userParam, docIdParam = null) {
+    if (!userParam) return { success: false, message: '삭제할 회원 식별자가 없습니다.' };
+
+    let key = '';
+    let email = '';
+    let username = '';
+    let docId = docIdParam;
+
+    if (typeof userParam === 'object' && userParam !== null) {
+      key = (userParam.key || '').trim().toLowerCase();
+      email = (userParam.email || '').trim().toLowerCase();
+      username = (userParam.username || '').trim().toLowerCase();
+      docId = userParam.docId || docIdParam || '';
+    } else if (typeof userParam === 'string') {
+      key = userParam.trim().toLowerCase();
+      if (key.includes('@')) {
+        email = key;
+      } else {
+        username = key;
+      }
+    }
+
+    const candidateKeys = new Set([key, email, username].filter(Boolean));
+    if (candidateKeys.size === 0) {
+      return { success: false, message: '유효한 회원 식별자가 없습니다.' };
+    }
 
     // 최고 관리자 계정 보호
-    if (cleanKey === adminId || cleanKey === 'admin@ailiteracy.kr') {
-      return { success: false, message: '최고 관리자(admin) 계정은 삭제할 수 없습니다.' };
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+    for (const k of candidateKeys) {
+      if (k === adminId || k === 'admin' || k === 'admin@ailiteracy.kr') {
+        return { success: false, message: '최고 관리자(admin) 계정은 삭제할 수 없습니다.' };
+      }
     }
 
     // 1. ai_lit_registered_users 에서 제거
     try {
       const users = this.getRegisteredUsers();
       const filtered = users.filter(u => {
-        const uName = (u.username || '').toLowerCase();
-        const uEmail = (u.email || '').toLowerCase();
-        return uName !== cleanKey && uEmail !== cleanKey;
+        const uName = (u.username || '').toLowerCase().trim();
+        const uEmail = (u.email || '').toLowerCase().trim();
+        return !candidateKeys.has(uName) && !candidateKeys.has(uEmail);
       });
       localStorage.setItem('ai_lit_registered_users', JSON.stringify(filtered));
     } catch (e) {
@@ -521,9 +546,12 @@ const Auth = {
     // 2. ai_lit_user_approvals 에서 제거
     try {
       const approvals = this.getApprovals();
-      delete approvals[cleanKey];
+      candidateKeys.forEach(k => delete approvals[k]);
       Object.keys(approvals).forEach(k => {
-        if (k.toLowerCase() === cleanKey) delete approvals[k];
+        const cleanK = k.toLowerCase().trim();
+        if (candidateKeys.has(cleanK)) {
+          delete approvals[k];
+        }
       });
       localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
     } catch (e) {
@@ -533,48 +561,87 @@ const Auth = {
     // 3. ai_lit_login_history, 프로필 캐시 및 진단 데이터 제거
     try {
       const history = this.getLoginHistory().filter(h => {
-        const hEmail = (h.email || '').toLowerCase();
-        const hUser = (h.username || '').toLowerCase();
-        return hEmail !== cleanKey && hUser !== cleanKey;
+        const hEmail = (h.email || '').toLowerCase().trim();
+        const hUser = (h.username || '').toLowerCase().trim();
+        return !candidateKeys.has(hEmail) && !candidateKeys.has(hUser);
       });
       localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
 
       const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
-      delete profiles[cleanKey];
+      candidateKeys.forEach(k => delete profiles[k]);
+      Object.keys(profiles).forEach(k => {
+        if (candidateKeys.has(k.toLowerCase().trim())) delete profiles[k];
+      });
       localStorage.setItem('ai_lit_user_profiles', JSON.stringify(profiles));
 
-      localStorage.removeItem('ai_lit_diagnosis_' + cleanKey);
+      candidateKeys.forEach(k => {
+        localStorage.removeItem('ai_lit_diagnosis_' + k);
+      });
     } catch (e) {}
 
-    // 4. Cloud Firestore 문서 완전 삭제 (지정 docId 및 쿼리 매칭 문서 일괄 동기 삭제)
+    // 4. Cloud Firestore 문서 완전 삭제
     if (this.isFirebaseReady()) {
       try {
-        const safeDocKey = cleanKey.replace(/[@.]/g, '_');
-        const deletePromises = [
-          this.firebaseDb.collection('users').doc(safeDocKey).delete().catch(() => {}),
-          this.firebaseDb.collection('users').doc(`user_${cleanKey}`).delete().catch(() => {}),
-          this.firebaseDb.collection('users').doc(cleanKey).delete().catch(() => {})
-        ];
-        if (docId) {
-          deletePromises.push(this.firebaseDb.collection('users').doc(docId).delete().catch(() => {}));
-        }
+        const docIdsToDelete = new Set();
+        if (docId) docIdsToDelete.add(docId);
 
-        // Firestore 컬렉션 내 일치하는 문서 검색하여 삭제
+        // 후보 키들로부터 생성 가능한 모든 Firestore 문서 ID 패턴 추가
+        candidateKeys.forEach(k => {
+          docIdsToDelete.add(k);
+          docIdsToDelete.add(k.replace(/[@.]/g, '_'));
+          docIdsToDelete.add(`user_${k}`);
+          docIdsToDelete.add(`user_${k.replace(/[@.]/g, '_')}`);
+        });
+
+        // users 컬렉션 전체 문서를 실시간 스캔하여 대상 회원 관련 문서 모두 수집
         const snap = await this.firebaseDb.collection('users').get();
         snap.forEach(doc => {
+          const dId = doc.id.toLowerCase();
+          const isDocAdmin = dId === 'user_admin' || dId === 'admin@ailiteracy_kr' || dId === 'admin';
+          if (isDocAdmin) return;
+
           const data = doc.data() || {};
           const dEmail = (data.email || '').toLowerCase().trim();
           const dUser = (data.username || '').toLowerCase().trim();
-          const dId = doc.id.toLowerCase();
-          const isDocAdmin = dId === 'user_admin' || dId === 'admin@ailiteracy_kr' || dId === 'admin' ||
-                             dUser === 'admin' || dEmail === 'admin@ailiteracy.kr';
-          if (!isDocAdmin && (dEmail === cleanKey || dUser === cleanKey || dId === cleanKey || dId === safeDocKey || dId === `user_${cleanKey}`)) {
-            deletePromises.push(doc.ref.delete().catch(() => {}));
+
+          // doc.id가 직접 일치하거나
+          if (docIdsToDelete.has(doc.id) || docIdsToDelete.has(dId)) {
+            docIdsToDelete.add(doc.id);
+            return;
+          }
+
+          // 문서 내부의 email 또는 username이 일치하거나
+          if ((dEmail && candidateKeys.has(dEmail)) || (dUser && candidateKeys.has(dUser))) {
+            docIdsToDelete.add(doc.id);
+            return;
+          }
+
+          // doc.id에 candidateKey가 포함된 경우
+          for (const k of candidateKeys) {
+            const safeK = k.replace(/[@.]/g, '_');
+            if (dId === `user_${k}` || dId === `user_${safeK}` || dId === safeK) {
+              docIdsToDelete.add(doc.id);
+              return;
+            }
           }
         });
+
+        // 수집된 모든 문서 ID를 Firestore에서 실제 삭제 (await 완료 대기)
+        const deletePromises = [];
+        for (const targetId of docIdsToDelete) {
+          const targetLower = targetId.toLowerCase();
+          if (targetLower !== 'user_admin' && targetLower !== 'admin@ailiteracy_kr' && targetLower !== 'admin') {
+            deletePromises.push(
+              this.firebaseDb.collection('users').doc(targetId).delete().catch(err => {
+                console.warn(`[Auth] Firestore 문서 삭제 실패 (${targetId}):`, err);
+              })
+            );
+          }
+        }
+
         await Promise.all(deletePromises);
       } catch (err) {
-        console.warn('[Auth] Firestore 회원 문서 삭제 오류:', err);
+        console.error('[Auth] Firestore 회원 문서 삭제 오류:', err);
       }
     }
 

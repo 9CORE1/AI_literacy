@@ -763,12 +763,17 @@
             </select>
           `;
 
+        const safeKey = Auth.escapeHtml(key);
+        const safeEmail = Auth.escapeHtml(u.email || '');
+        const safeUsername = Auth.escapeHtml(u.username || '');
+        const safeDocId = Auth.escapeHtml(u.firestoreDocId || '');
+
         const actionColHtml = isAdmin
           ? `<span style="font-size: 11.5px; color: #94a3b8; font-weight: 700;">시스템 보호</span>`
           : `
             ${status !== 'approved' ? `<button type="button" class="btn-action-sm btn-approve" onclick="toggleUserStatus('${key}', 'approved')">승인</button>` : ''}
             ${status !== 'blocked' ? `<button type="button" class="btn-action-sm btn-block" onclick="toggleUserStatus('${key}', 'blocked')">차단</button>` : ''}
-            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${key}', '${u.firestoreDocId || ''}')" title="데이터베이스에서 회원 영구 삭제">🗑️</button>
+            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${safeKey}', '${safeEmail}', '${safeUsername}', '${safeDocId}')" title="데이터베이스에서 회원 영구 삭제">🗑️</button>
           `;
 
         const loginMethodBadge = isAdmin
@@ -781,7 +786,7 @@
 
         tr.innerHTML = `
           <td style="text-align: center;">
-            ${isAdmin ? '' : `<input type="checkbox" class="user-check" data-key="${key}">`}
+            ${isAdmin ? '' : `<input type="checkbox" class="user-check" data-key="${safeKey}" data-email="${safeEmail}" data-username="${safeUsername}" data-docid="${safeDocId}">`}
           </td>
           <td>
             <div style="font-weight: 700; color: var(--color-obsidian); font-size: 14px;">${Auth.escapeHtml(u.name || (isAdmin ? '최고 관리자' : '미등록'))}</div>
@@ -864,10 +869,10 @@
       document.querySelectorAll('.user-check').forEach(cb => cb.checked = master.checked);
     }
 
-    // 9. 회원 삭제 (로컬 및 Cloud Firestore 데이터베이스 영구 삭제)
-    async function handleDeleteUser(key, docId = null) {
+    // 9. 회원 삭제 (로컬 및 Cloud Firestore 데이터베이스 완전 동기 삭제)
+    async function handleDeleteUser(key, email = '', username = '', docId = '') {
       if (confirm(`정말로 '${key}' 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 계정은 데이터베이스에서 영구 제거되며 다시 로그인할 수 없습니다.`)) {
-        const res = await Auth.deleteUser(key, docId);
+        const res = await Auth.deleteUser({ key, email, username, docId });
         if (res.success) {
           showToast(`'${key}' 회원이 데이터베이스에서 영구 삭제되었습니다.`);
           await loadUsersData();
@@ -885,12 +890,14 @@
         return;
       }
 
-      const keys = checkedBoxes.map(cb => cb.dataset.key).filter(Boolean);
-      if (confirm(`선택한 ${keys.length}명의 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 회원은 데이터베이스에서 영구 제거됩니다.`)) {
+      if (confirm(`선택한 ${checkedBoxes.length}명의 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 회원은 데이터베이스에서 영구 제거됩니다.`)) {
         let deletedCount = 0;
-        for (const key of keys) {
-          const uObj = currentUsers.find(cu => (cu.email || cu.username) === key);
-          const res = await Auth.deleteUser(key, uObj ? uObj.firestoreDocId : null);
+        for (const cb of checkedBoxes) {
+          const key = cb.dataset.key;
+          const email = cb.dataset.email || '';
+          const username = cb.dataset.username || '';
+          const docId = cb.dataset.docid || '';
+          const res = await Auth.deleteUser({ key, email, username, docId });
           if (res.success) deletedCount++;
         }
         showToast(`${deletedCount}명의 회원이 데이터베이스에서 삭제되었습니다.`);
