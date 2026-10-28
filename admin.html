@@ -1,0 +1,913 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 콘솔 — AI Literacy Lab</title>
+  <link rel="icon" type="image/png" href="literacy_logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Admin Console Custom Theme */
+    .admin-body {
+      background-color: var(--surface-limestone-surface);
+      color: var(--color-obsidian);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      word-break: keep-all;
+    }
+
+    .admin-container {
+      max-width: 1240px;
+      margin: 0 auto;
+      padding: 24px 20px 80px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    /* KPI Summary Cards */
+    .admin-stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 16px;
+      margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: #ffffff;
+      border: 1px solid var(--color-pumice);
+      border-radius: 20px;
+      padding: 20px 22px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.03);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .stat-card-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: #64748b;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .stat-card-value {
+      font-size: 32px;
+      font-weight: 800;
+      font-family: var(--font-display);
+      color: var(--color-obsidian);
+      line-height: 1.1;
+    }
+
+    .stat-card-desc {
+      font-size: 11.5px;
+      color: #94a3b8;
+      margin-top: 6px;
+    }
+
+    /* Controls & Filter Bar */
+    .admin-controls-card {
+      background: #ffffff;
+      border: 1px solid var(--color-pumice);
+      border-radius: 24px;
+      padding: 20px 24px;
+      margin-bottom: 20px;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.02);
+    }
+
+    .admin-controls-row {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+    }
+
+    .search-input-box {
+      position: relative;
+      flex: 1;
+      min-width: 260px;
+      max-width: 420px;
+    }
+
+    .search-input-box input {
+      width: 100%;
+      padding: 10px 16px 10px 38px;
+      border-radius: 999px;
+      border: 1px solid var(--color-pumice);
+      font-size: 13.5px;
+      background: #f8fafc;
+      box-sizing: border-box;
+      outline: none;
+      transition: all 0.2s ease;
+    }
+
+    .search-input-box input:focus {
+      background: #ffffff;
+      border-color: var(--color-ember);
+      box-shadow: 0 0 0 3px rgba(85, 56, 150, 0.12);
+    }
+
+    .search-input-icon {
+      position: absolute;
+      left: 14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #94a3b8;
+      font-size: 14px;
+      pointer-events: none;
+    }
+
+    .filter-btn-group {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--color-pumice);
+      background: #f8fafc;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #475569;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .filter-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .filter-btn.active {
+      background: var(--color-ember);
+      border-color: var(--color-ember);
+      color: #ffffff;
+    }
+
+    /* Table */
+    .admin-table-wrapper {
+      background: #ffffff;
+      border: 1px solid var(--color-pumice);
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+    }
+
+    .table-responsive {
+      width: 100%;
+      overflow-x: auto;
+    }
+
+    .admin-table {
+      width: 100%;
+      border-collapse: collapse;
+      text-align: left;
+      font-size: 13.5px;
+    }
+
+    .admin-table th {
+      background: #f8fafc;
+      color: #475569;
+      font-weight: 700;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--color-pumice);
+      white-space: nowrap;
+    }
+
+    .admin-table td {
+      padding: 14px 16px;
+      border-bottom: 1px solid #f1f5f9;
+      vertical-align: middle;
+      color: #1e293b;
+    }
+
+    .admin-table tr:hover td {
+      background-color: #fafbfc;
+    }
+
+    /* Status Badges */
+    .status-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      font-size: 11.5px;
+      font-weight: 700;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.15s ease;
+      white-space: nowrap;
+    }
+
+    .status-badge.approved {
+      background: #dcfce7;
+      color: #15803d;
+      border: 1px solid #86efac;
+    }
+
+    .status-badge.pending {
+      background: #fef3c7;
+      color: #b45309;
+      border: 1px solid #fcd34d;
+    }
+
+    .status-badge.blocked {
+      background: #fee2e2;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+
+    .status-badge:hover {
+      transform: scale(1.04);
+    }
+
+    /* Allowed Role Select */
+    .role-select {
+      padding: 6px 10px;
+      border-radius: 10px;
+      border: 1px solid var(--color-pumice);
+      background: #ffffff;
+      font-size: 12.5px;
+      font-weight: 700;
+      color: #334155;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .role-select:focus {
+      border-color: var(--color-ember);
+      box-shadow: 0 0 0 2px rgba(85, 56, 150, 0.15);
+    }
+
+    /* Action Buttons in Row */
+    .btn-action-sm {
+      padding: 5px 10px;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+
+    .btn-approve {
+      background: #15803d;
+      color: #ffffff;
+    }
+    .btn-approve:hover {
+      background: #166534;
+    }
+
+    .btn-block {
+      background: #f1f5f9;
+      color: #b91c1c;
+      border: 1px solid #fca5a5;
+    }
+    .btn-block:hover {
+      background: #fee2e2;
+    }
+
+    .btn-delete {
+      background: transparent;
+      color: #94a3b8;
+      padding: 4px 8px;
+    }
+    .btn-delete:hover {
+      color: #dc2626;
+      background: #fef2f2;
+    }
+
+    /* Admin Login Barrier Modal */
+    .admin-barrier-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(7, 6, 7, 0.7);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .admin-barrier-card {
+      background: #ffffff;
+      border: 1px solid var(--color-pumice);
+      border-radius: 32px;
+      padding: 40px 36px;
+      max-width: 440px;
+      width: 100%;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    /* Toast Notification */
+    .admin-toast {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: var(--color-obsidian);
+      color: var(--color-chalk);
+      padding: 12px 20px;
+      border-radius: 999px;
+      font-size: 13.5px;
+      font-weight: 700;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.25);
+      z-index: 10000;
+      opacity: 0;
+      transform: translateY(12px);
+      transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      pointer-events: none;
+    }
+
+    .admin-toast.show {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  </style>
+</head>
+<body class="admin-body">
+
+  <!-- =========================================================================
+       1. Top Navbar
+       ========================================================================= -->
+  <div class="navbar-wrapper">
+    <div class="container">
+      <header class="navbar">
+        <a href="index.html" class="nav-brand">
+          <span class="nav-brand-dot"></span>
+          <span>AI Literacy Lab</span>
+          <span class="nav-tag" style="background: var(--color-ember); color: #fff;">ADMIN CONSOLE</span>
+        </a>
+        <div class="nav-actions" style="display: flex; align-items: center; gap: 8px;">
+          <a href="index.html" class="btn btn-secondary btn-sm">메인 홈</a>
+          <a href="dashboard.html" class="btn btn-secondary btn-sm">맞춤 강의실</a>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="handleAdminLogout()">로그아웃</button>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       2. Main Content Container
+       ========================================================================= -->
+  <main class="admin-container">
+    
+    <!-- Header Title Banner -->
+    <div style="margin-bottom: 24px; display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 14px;">
+      <div>
+        <div style="font-size: 13px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em; margin-bottom: 4px;">
+          MEMBERSHIP ACCESS & ROLE PERMISSION CONTROL
+        </div>
+        <h1 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin: 0; font-weight: 800;">
+          🛡️ 회원 로그인 승인 &amp; 대상자 페이지 접근 권한 관리
+        </h1>
+        <p style="color: #64748b; font-size: 14px; margin: 6px 0 0; line-height: 1.5;">
+          관리자가 승인한 회원만 로그인을 허용하고, 관리자가 지정한 대상자(대학생/교직원) 페이지에만 접속하도록 제어합니다.
+        </p>
+      </div>
+      <div style="display: flex; gap: 8px;">
+        <button type="button" class="btn btn-primary btn-sm" onclick="openAddUserModal()" style="font-weight: 800; font-size: 13px;">
+          ➕ 새 회원 직접 추가
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="batchApprovePending()" style="font-weight: 700; font-size: 13px;">
+          ⚡ 대기자 일괄 승인
+        </button>
+      </div>
+    </div>
+
+    <!-- 3. KPI Statistics Grid -->
+    <section class="admin-stats-grid">
+      <div class="stat-card">
+        <div class="stat-card-title">👥 전체 등록 회원</div>
+        <div class="stat-card-value" id="kpi-total-users">0</div>
+        <div class="stat-card-desc">일반 가입 및 구글 누적 회원</div>
+      </div>
+      <div class="stat-card" style="border-left: 4px solid #16a34a;">
+        <div class="stat-card-title" style="color: #16a34a;">✅ 승인 완료 (로그인 허용)</div>
+        <div class="stat-card-value" style="color: #16a34a;" id="kpi-approved-users">0</div>
+        <div class="stat-card-desc">현재 강의실 접속 가능 회원</div>
+      </div>
+      <div class="stat-card" style="border-left: 4px solid #d97706;">
+        <div class="stat-card-title" style="color: #d97706;">⏳ 승인 대기 (로그인 대기)</div>
+        <div class="stat-card-value" style="color: #d97706;" id="kpi-pending-users">0</div>
+        <div class="stat-card-desc">관리자 승인이 필요한 신규 회원</div>
+      </div>
+      <div class="stat-card" style="border-left: 4px solid #dc2626;">
+        <div class="stat-card-title" style="color: #dc2626;">⛔ 접속 차단</div>
+        <div class="stat-card-value" style="color: #dc2626;" id="kpi-blocked-users">0</div>
+        <div class="stat-card-desc">로그인 접근이 차단된 계정</div>
+      </div>
+    </section>
+
+    <!-- 4. Controls & Filter Bar -->
+    <section class="admin-controls-card">
+      <div class="admin-controls-row">
+        <!-- Search Input -->
+        <div class="search-input-box">
+          <span class="search-input-icon">🔍</span>
+          <input type="text" id="admin-search-input" placeholder="이름, 아이디, 이메일, 학교명 검색..." oninput="filterAndRenderUsers()">
+        </div>
+
+        <!-- Status Filter Buttons -->
+        <div class="filter-btn-group">
+          <button type="button" class="filter-btn active" data-status="all" onclick="setStatusFilter('all')">전체보기</button>
+          <button type="button" class="filter-btn" data-status="pending" onclick="setStatusFilter('pending')">⏳ 승인 대기</button>
+          <button type="button" class="filter-btn" data-status="approved" onclick="setStatusFilter('approved')">✅ 승인 완료</button>
+          <button type="button" class="filter-btn" data-status="blocked" onclick="setStatusFilter('blocked')">⛔ 차단</button>
+        </div>
+
+        <!-- Role Filter Dropdown -->
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <span style="font-size: 12.5px; font-weight: 700; color: #64748b;">대상자:</span>
+          <select id="admin-role-filter" class="role-select" onchange="filterAndRenderUsers()">
+            <option value="all">모든 대상자</option>
+            <option value="student">🎓 대학생</option>
+            <option value="staff">🏛️ 교직원</option>
+          </select>
+          <button type="button" class="btn btn-secondary btn-sm" onclick="loadUsersData()" title="새로고침">
+            🔄
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. Members Table -->
+    <section class="admin-table-wrapper">
+      <div class="table-responsive">
+        <table class="admin-table">
+          <thead>
+            <tr>
+              <th style="width: 40px; text-align: center;">
+                <input type="checkbox" id="check-all" onchange="toggleSelectAll(this)">
+              </th>
+              <th>회원 정보</th>
+              <th>소속 정보 (학교/학과)</th>
+              <th>가입 방식</th>
+              <th>신청 역할</th>
+              <th style="text-align: center;">로그인 승인 상태 (토글)</th>
+              <th>접근 허용 대상자 페이지</th>
+              <th style="text-align: right;">관리 작업</th>
+            </tr>
+          </thead>
+          <tbody id="user-table-body">
+            <!-- JavaScript 렌더링 -->
+          </tbody>
+        </table>
+      </div>
+      <div id="empty-state" style="display: none; padding: 48px 20px; text-align: center; color: #94a3b8;">
+        <div style="font-size: 32px; margin-bottom: 8px;">👥</div>
+        <div style="font-size: 15px; font-weight: 700; color: #64748b;">조건에 부합하는 회원이 없습니다.</div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================================
+       6. Admin Login Barrier Modal (비인가자 차단)
+       ========================================================================= -->
+  <div id="admin-barrier-modal" class="admin-barrier-overlay" style="display: none;">
+    <div class="admin-barrier-card">
+      <div style="display: inline-flex; align-items: center; justify-content: center; width: 64px; height: 64px; border-radius: 999px; background: #eee8fc; font-size: 30px; margin-bottom: 16px;">
+        🛡️
+      </div>
+      <h2 style="font-size: 24px; font-weight: 800; color: var(--color-obsidian); margin: 0 0 6px;">
+        관리자 콘솔 인증
+      </h2>
+      <p style="font-size: 13.5px; color: #64748b; line-height: 1.5; margin: 0 0 24px;">
+        회원 승인 및 접근 제어는 시스템 최고 관리자 권한이 필요합니다. 관리자 아이디와 비밀번호를 입력해 주세요.
+      </p>
+
+      <form onsubmit="handleAdminLoginSubmit(event)" style="display: flex; flex-direction: column; gap: 12px; text-align: left;">
+        <div>
+          <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">관리자 아이디</label>
+          <input type="text" id="admin-input-id" class="modal-input" placeholder="admin" value="admin" required style="width: 100%; box-sizing: border-box;">
+        </div>
+        <div>
+          <label style="font-size: 12px; font-weight: 700; color: #475569; display: block; margin-bottom: 4px;">관리자 비밀번호</label>
+          <input type="password" id="admin-input-pw" class="modal-input" placeholder="비밀번호 입력 (기본: admin1234)" required autocomplete="current-password" style="width: 100%; box-sizing: border-box;">
+        </div>
+        <div style="background: #f8fafc; border: 1px dashed #cbd5e1; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #64748b;">
+          💡 기본 설정 계정: <strong>admin</strong> / <strong>admin1234</strong>
+        </div>
+        <button type="submit" class="btn btn-primary" style="padding: 12px; font-weight: 800; font-size: 15px; justify-content: center; margin-top: 6px;">
+          관리자 모드 입장하기 →
+        </button>
+        <a href="index.html" style="text-align: center; font-size: 13px; color: #94a3b8; text-decoration: none; margin-top: 6px;">
+          메인 화면으로 돌아가기
+        </a>
+      </form>
+    </div>
+  </div>
+
+  <!-- =========================================================================
+       7. 새 회원 직접 추가 모달
+       ========================================================================= -->
+  <div id="add-user-modal" class="admin-barrier-overlay" style="display: none;">
+    <div class="admin-barrier-card" style="max-width: 520px; text-align: left;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 16px;">
+        <h3 style="font-size: 20px; font-weight: 800; margin: 0; color: var(--color-obsidian);">➕ 신규 회원 직접 등록</h3>
+        <button type="button" onclick="closeAddUserModal()" style="background: none; border: none; font-size: 18px; cursor: pointer; color: #94a3b8;">✕</button>
+      </div>
+      <form onsubmit="handleCreateUserSubmit(event)" style="display: flex; flex-direction: column; gap: 12px;">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">성함 *</label>
+            <input type="text" id="new-user-name" class="modal-input" placeholder="홍길동" required style="width: 100%; box-sizing: border-box;">
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">아이디 *</label>
+            <input type="text" id="new-user-username" class="modal-input" placeholder="아이디" required style="width: 100%; box-sizing: border-box;">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">이메일 *</label>
+            <input type="email" id="new-user-email" class="modal-input" placeholder="user@univ.ac.kr" required style="width: 100%; box-sizing: border-box;">
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">비밀번호 *</label>
+            <input type="password" id="new-user-password" class="modal-input" placeholder="비밀번호" required style="width: 100%; box-sizing: border-box;">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">학교명</label>
+            <input type="text" id="new-user-univ" class="modal-input" placeholder="한국대학교" style="width: 100%; box-sizing: border-box;">
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">학과 / 소속 부서</label>
+            <input type="text" id="new-user-dept" class="modal-input" placeholder="소프트웨어학과 / 교무처" style="width: 100%; box-sizing: border-box;">
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">신청 역할</label>
+            <select id="new-user-role" class="role-select" style="width: 100%; padding: 10px;">
+              <option value="student">🎓 대학생</option>
+              <option value="staff">🏛️ 교직원</option>
+            </select>
+          </div>
+          <div>
+            <label style="font-size: 12px; font-weight: 700; color: #475569;">허용 대상자 페이지</label>
+            <select id="new-user-allowed-role" class="role-select" style="width: 100%; padding: 10px;">
+              <option value="student">🎓 대학생 페이지 전용</option>
+              <option value="staff">🏛️ 교직원 페이지 전용</option>
+              <option value="all">🌐 전체 허용</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label style="font-size: 12px; font-weight: 700; color: #475569;">로그인 승인 상태</label>
+          <select id="new-user-status" class="role-select" style="width: 100%; padding: 10px;">
+            <option value="approved">🟢 즉시 승인 완료 (로그인 허용)</option>
+            <option value="pending">🟡 승인 대기</option>
+          </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="padding: 12px; font-weight: 800; justify-content: center; margin-top: 8px;">
+          회원 등록 완료
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification -->
+  <div id="admin-toast" class="admin-toast">승인 상태가 변경되었습니다.</div>
+
+  <!-- Firebase SDK & Auth Script -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js?v=20261028_admin"></script>
+
+  <script>
+    let currentUsers = [];
+    let currentStatusFilter = 'all';
+
+    function showToast(msg) {
+      const toast = document.getElementById('admin-toast');
+      if (!toast) return;
+      toast.textContent = msg;
+      toast.classList.add('show');
+      setTimeout(() => toast.classList.remove('show'), 2200);
+    }
+
+    // 1. 관리자 인증 검사
+    function checkAdminAuth() {
+      if (!Auth.isAdmin()) {
+        document.getElementById('admin-barrier-modal').style.display = 'flex';
+        return false;
+      }
+      document.getElementById('admin-barrier-modal').style.display = 'none';
+      return true;
+    }
+
+    function handleAdminLoginSubmit(e) {
+      e.preventDefault();
+      const id = document.getElementById('admin-input-id').value;
+      const pw = document.getElementById('admin-input-pw').value;
+
+      const res = Auth.loginAdmin(id, pw);
+      if (res.success) {
+        showToast('🛡️ 관리자 모드로 로그인되었습니다.');
+        document.getElementById('admin-barrier-modal').style.display = 'none';
+        loadUsersData();
+      } else {
+        alert(res.message);
+      }
+    }
+
+    function handleAdminLogout() {
+      if (confirm('관리자 모드에서 로그아웃하시겠습니까?')) {
+        Auth.logoutAdmin();
+        window.location.href = 'index.html';
+      }
+    }
+
+    // 2. 회원 데이터 로드 및 통계 산출
+    function loadUsersData() {
+      currentUsers = Auth.getAllUsersForAdmin();
+
+      // 통계 계산
+      let approvedCount = 0;
+      let pendingCount = 0;
+      let blockedCount = 0;
+
+      currentUsers.forEach(u => {
+        const approval = Auth.getUserApproval(u.email || u.username);
+        const st = approval.status || u.status || 'pending';
+        if (st === 'approved') approvedCount++;
+        else if (st === 'blocked') blockedCount++;
+        else pendingCount++;
+      });
+
+      document.getElementById('kpi-total-users').textContent = currentUsers.length;
+      document.getElementById('kpi-approved-users').textContent = approvedCount;
+      document.getElementById('kpi-pending-users').textContent = pendingCount;
+      document.getElementById('kpi-blocked-users').textContent = blockedCount;
+
+      filterAndRenderUsers();
+    }
+
+    // 3. 필터 및 검색 적용
+    function setStatusFilter(status) {
+      currentStatusFilter = status;
+      document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.status === status);
+      });
+      filterAndRenderUsers();
+    }
+
+    function filterAndRenderUsers() {
+      const searchKeyword = (document.getElementById('admin-search-input').value || '').trim().toLowerCase();
+      const roleFilter = document.getElementById('admin-role-filter').value;
+
+      const filtered = currentUsers.filter(u => {
+        const approval = Auth.getUserApproval(u.email || u.username);
+        const status = approval.status || u.status || 'pending';
+        const role = approval.allowedRole || u.allowedRole || u.role || 'student';
+
+        // 상태 필터
+        if (currentStatusFilter !== 'all' && status !== currentStatusFilter) {
+          return false;
+        }
+
+        // 역할 필터
+        if (roleFilter !== 'all') {
+          if (role !== 'all' && role !== roleFilter && u.role !== roleFilter) {
+            return false;
+          }
+        }
+
+        // 검색어 필터
+        if (searchKeyword) {
+          const matchName = (u.name || '').toLowerCase().includes(searchKeyword);
+          const matchUser = (u.username || '').toLowerCase().includes(searchKeyword);
+          const matchEmail = (u.email || '').toLowerCase().includes(searchKeyword);
+          const matchUniv = (u.university || '').toLowerCase().includes(searchKeyword);
+          const matchDept = (u.department || '').toLowerCase().includes(searchKeyword);
+          return matchName || matchUser || matchEmail || matchUniv || matchDept;
+        }
+
+        return true;
+      });
+
+      renderUserTable(filtered);
+    }
+
+    // 4. 테이블 렌더링
+    function renderUserTable(users) {
+      const tbody = document.getElementById('user-table-body');
+      const emptyState = document.getElementById('empty-state');
+      tbody.innerHTML = '';
+
+      if (users.length === 0) {
+        emptyState.style.display = 'block';
+        return;
+      }
+      emptyState.style.display = 'none';
+
+      users.forEach(u => {
+        const key = u.email || u.username;
+        const approval = Auth.getUserApproval(key);
+        const status = approval.status || u.status || 'pending';
+        const allowedRole = approval.allowedRole || u.allowedRole || u.role || 'student';
+
+        const tr = document.createElement('tr');
+
+        // 상태 배지 클래스 및 레이블
+        let statusBadgeHtml = '';
+        if (status === 'approved') {
+          statusBadgeHtml = `<span class="status-badge approved" onclick="toggleUserStatus('${key}', 'pending')" title="클릭 시 '대기'로 전환">🟢 승인 완료</span>`;
+        } else if (status === 'blocked') {
+          statusBadgeHtml = `<span class="status-badge blocked" onclick="toggleUserStatus('${key}', 'approved')" title="클릭 시 '승인'으로 전환">🔴 접속 차단</span>`;
+        } else {
+          statusBadgeHtml = `<span class="status-badge pending" onclick="toggleUserStatus('${key}', 'approved')" title="클릭 시 즉시 '승인' 처리">🟡 승인 대기 (클릭 승인)</span>`;
+        }
+
+        const roleText = u.role === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+        const loginMethodBadge = u.loginMethod === 'google' 
+          ? '<span style="background: #eef2ff; color: #4338ca; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Google</span>'
+          : '<span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">일반 ID</span>';
+
+        const regDateText = u.registeredAt ? new Date(u.registeredAt).toLocaleDateString('ko-KR') : '-';
+
+        tr.innerHTML = `
+          <td style="text-align: center;">
+            <input type="checkbox" class="user-check" data-key="${key}">
+          </td>
+          <td>
+            <div style="font-weight: 700; color: var(--color-obsidian); font-size: 14px;">${Auth.escapeHtml(u.name || '미등록')}</div>
+            <div style="font-size: 12px; color: #64748b;">${Auth.escapeHtml(u.email || u.username)}</div>
+          </td>
+          <td>
+            <div style="font-weight: 600;">${Auth.escapeHtml(u.university || '미입력')}</div>
+            <div style="font-size: 12px; color: #64748b;">${Auth.escapeHtml(u.department || '-')}</div>
+          </td>
+          <td>
+            <div>${loginMethodBadge}</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">${regDateText}</div>
+          </td>
+          <td>
+            <span style="font-size: 12.5px; font-weight: 700;">${roleText}</span>
+          </td>
+          <td style="text-align: center;">
+            ${statusBadgeHtml}
+          </td>
+          <td>
+            <select class="role-select" onchange="handleAllowedRoleChange('${key}', this.value)">
+              <option value="student" ${allowedRole === 'student' ? 'selected' : ''}>🎓 대학생 전용 페이지</option>
+              <option value="staff" ${allowedRole === 'staff' ? 'selected' : ''}>🏛️ 교직원 전용 페이지</option>
+              <option value="all" ${allowedRole === 'all' ? 'selected' : ''}>🌐 전체 허용 (대학생+교직원)</option>
+            </select>
+          </td>
+          <td style="text-align: right; white-space: nowrap;">
+            ${status !== 'approved' ? `<button type="button" class="btn-action-sm btn-approve" onclick="toggleUserStatus('${key}', 'approved')">승인</button>` : ''}
+            ${status !== 'blocked' ? `<button type="button" class="btn-action-sm btn-block" onclick="toggleUserStatus('${key}', 'blocked')">차단</button>` : ''}
+            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${key}')" title="회원 삭제">🗑️</button>
+          </td>
+        `;
+
+        tbody.appendChild(tr);
+      });
+    }
+
+    // 5. 승인 상태 토글 처리
+    async function toggleUserStatus(key, newStatus) {
+      const approval = Auth.getUserApproval(key);
+      const allowedRole = approval.allowedRole || 'student';
+      await Auth.setUserApproval(key, newStatus, allowedRole);
+
+      const statusKo = newStatus === 'approved' ? '승인' : (newStatus === 'blocked' ? '차단' : '대기');
+      showToast(`'${key}' 회원이 [${statusKo}] 처리되었습니다.`);
+      loadUsersData();
+    }
+
+    // 6. 허용 대상자 페이지 변경
+    async function handleAllowedRoleChange(key, newAllowedRole) {
+      const approval = Auth.getUserApproval(key);
+      const status = approval.status || 'approved';
+      await Auth.setUserApproval(key, status, newAllowedRole);
+
+      const roleText = newAllowedRole === 'student' ? '대학생 전용' : (newAllowedRole === 'staff' ? '교직원 전용' : '전체 허용');
+      showToast(`'${key}' 회원의 접속 허용 페이지가 [${roleText}]으로 변경되었습니다.`);
+      loadUsersData();
+    }
+
+    // 7. 대기 회원 일괄 승인
+    async function batchApprovePending() {
+      const pendingUsers = currentUsers.filter(u => {
+        const app = Auth.getUserApproval(u.email || u.username);
+        return (app.status || u.status || 'pending') === 'pending';
+      });
+
+      if (pendingUsers.length === 0) {
+        alert('현재 승인 대기 중인 회원이 없습니다.');
+        return;
+      }
+
+      if (confirm(`현재 승인 대기 중인 ${pendingUsers.length}명의 회원을 모두 즉시 [로그인 승인] 처리하시겠습니까?`)) {
+        for (const u of pendingUsers) {
+          const key = u.email || u.username;
+          const app = Auth.getUserApproval(key);
+          await Auth.setUserApproval(key, 'approved', app.allowedRole || u.role || 'student');
+        }
+        showToast(`${pendingUsers.length}명의 회원이 일괄 승인되었습니다.`);
+        loadUsersData();
+      }
+    }
+
+    // 8. 체크박스 전체 선택
+    function toggleSelectAll(master) {
+      document.querySelectorAll('.user-check').forEach(cb => cb.checked = master.checked);
+    }
+
+    // 9. 회원 삭제
+    function handleDeleteUser(key) {
+      if (confirm(`정말로 '${key}' 회원을 삭제하시겠습니까?\n삭제된 계정은 로그인할 수 없습니다.`)) {
+        try {
+          const registered = Auth.getRegisteredUsers().filter(u => (u.email || u.username) !== key);
+          localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
+
+          const approvals = Auth.getApprovals();
+          delete approvals[key.toLowerCase()];
+          localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+
+          showToast(`'${key}' 회원이 삭제되었습니다.`);
+          loadUsersData();
+        } catch (e) {
+          alert('삭제 처리 중 오류가 발생했습니다: ' + e.message);
+        }
+      }
+    }
+
+    // 10. 신규 회원 직접 등록 모달
+    function openAddUserModal() {
+      document.getElementById('add-user-modal').style.display = 'flex';
+    }
+
+    function closeAddUserModal() {
+      document.getElementById('add-user-modal').style.display = 'none';
+    }
+
+    async function handleCreateUserSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('new-user-name').value.trim();
+      const username = document.getElementById('new-user-username').value.trim();
+      const email = document.getElementById('new-user-email').value.trim();
+      const password = document.getElementById('new-user-password').value;
+      const univ = document.getElementById('new-user-univ').value.trim();
+      const dept = document.getElementById('new-user-dept').value.trim();
+      const role = document.getElementById('new-user-role').value;
+      const allowedRole = document.getElementById('new-user-allowed-role').value;
+      const status = document.getElementById('new-user-status').value;
+
+      const registered = Auth.getRegisteredUsers();
+      if (registered.some(u => (u.username && u.username.toLowerCase() === username.toLowerCase()) || (u.email && u.email.toLowerCase() === email.toLowerCase()))) {
+        alert('이미 등록된 아이디 또는 이메일입니다.');
+        return;
+      }
+
+      const newUser = {
+        name,
+        username,
+        email,
+        password,
+        role,
+        allowedRole,
+        status,
+        university: univ,
+        department: dept,
+        registeredAt: new Date().toISOString(),
+        lastLoginAt: null,
+        loginMethod: 'credentials'
+      };
+
+      registered.push(newUser);
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
+      await Auth.setUserApproval(email || username, status, allowedRole);
+
+      showToast(`'${name}' 회원이 성공적으로 등록되었습니다.`);
+      closeAddUserModal();
+      loadUsersData();
+    }
+
+    // Init
+    document.addEventListener('DOMContentLoaded', async () => {
+      await Auth.init();
+      if (checkAdminAuth()) {
+        loadUsersData();
+      }
+    });
+  </script>
+</body>
+</html>

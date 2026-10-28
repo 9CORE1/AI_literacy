@@ -93,8 +93,257 @@ const Auth = {
     return this.user && this.user.role === 'staff';
   },
 
+  // =========================================================================
+  // 관리자(Admin) 및 회원 승인(Approval) 시스템
+  // =========================================================================
+  ADMIN_DEFAULT_ID: 'admin',
+  ADMIN_DEFAULT_PW: 'admin1234',
+
+  isAdmin() {
+    return Boolean(sessionStorage.getItem('ai_lit_admin_session') === 'true' || (this.user && this.user.isAdmin));
+  },
+
   /**
-   * 보호된 페이지 접근 제어 (비로그인 상태 시 즉시 차단 및 리다이렉트)
+   * 관리자 로그인
+   * @param {string} username 
+   * @param {string} password 
+   */
+  loginAdmin(username, password) {
+    const adminId = localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID;
+    const adminPw = localStorage.getItem('ai_lit_admin_pw') || this.ADMIN_DEFAULT_PW;
+
+    if (username && username.trim() === adminId && password === adminPw) {
+      sessionStorage.setItem('ai_lit_admin_session', 'true');
+      const adminUser = {
+        name: '최고 관리자',
+        username: adminId,
+        email: 'admin@ailiteracy.kr',
+        role: 'admin',
+        allowedRole: 'all',
+        status: 'approved',
+        isAdmin: true,
+        loginAt: new Date().toISOString(),
+        loginMethod: 'admin'
+      };
+      this.setUser(adminUser);
+      return { success: true, user: adminUser };
+    }
+    return { success: false, message: '관리자 아이디 또는 비밀번호가 일치하지 않습니다.' };
+  },
+
+  /**
+   * 관리자 로그아웃
+   */
+  logoutAdmin() {
+    sessionStorage.removeItem('ai_lit_admin_session');
+    if (this.user && this.user.isAdmin) {
+      this.logout();
+    }
+  },
+
+  /**
+   * 회원 승인 레코드 맵 조회
+   * @returns {Object}
+   */
+  getApprovals() {
+    try {
+      return JSON.parse(localStorage.getItem('ai_lit_user_approvals') || '{}');
+    } catch (e) {
+      return {};
+    }
+  },
+
+  /**
+   * 특정 회원의 승인 상태 및 관리자 지정 허용 대상자 조회
+   * @param {string} emailOrUsername 
+   * @returns {{ status: 'approved'|'pending'|'blocked', allowedRole: 'student'|'staff'|'all' }}
+   */
+  getUserApproval(emailOrUsername) {
+    if (!emailOrUsername) return { status: 'pending', allowedRole: 'student' };
+    const cleanKey = emailOrUsername.trim().toLowerCase();
+
+    // 최고 관리자 계정은 항상 전권 승인
+    if (cleanKey === 'admin' || this.isAdmin() || (this.user && this.user.isAdmin)) {
+      return { status: 'approved', allowedRole: 'all' };
+    }
+
+    const approvals = this.getApprovals();
+    if (approvals[cleanKey]) {
+      return {
+        status: approvals[cleanKey].status || 'pending',
+        allowedRole: approvals[cleanKey].allowedRole || approvals[cleanKey].role || 'student'
+      };
+    }
+
+    // 등록 회원 목록에서 기본 상태 확인
+    const registered = this.getRegisteredUsers();
+    const found = registered.find(
+      (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
+    );
+
+    if (found) {
+      return {
+        status: found.status || 'pending',
+        allowedRole: found.allowedRole || found.role || 'student'
+      };
+    }
+
+    return { status: 'pending', allowedRole: 'student' };
+  },
+
+  /**
+   * 회원의 로그인 승인 상태 및 허용 대상자 업데이트 (관리자용)
+   * @param {string} emailOrUsername 
+   * @param {'approved'|'pending'|'blocked'} status 
+   * @param {'student'|'staff'|'all'} allowedRole 
+   */
+  async setUserApproval(emailOrUsername, status, allowedRole) {
+    if (!emailOrUsername) return;
+    const cleanKey = emailOrUsername.trim().toLowerCase();
+
+    // 1. ai_lit_user_approvals 저장
+    const approvals = this.getApprovals();
+    const existing = approvals[cleanKey] || {};
+    approvals[cleanKey] = {
+      ...existing,
+      status: status,
+      allowedRole: allowedRole,
+      updatedAt: new Date().toISOString(),
+      updatedBy: 'admin'
+    };
+    localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+
+    // 2. ai_lit_registered_users 목록 내 동기화
+    try {
+      const users = this.getRegisteredUsers();
+      const idx = users.findIndex(
+        (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
+      );
+      if (idx !== -1) {
+        users[idx].status = status;
+        users[idx].allowedRole = allowedRole;
+        users[idx].updatedAt = new Date().toISOString();
+        localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+      }
+    } catch (e) {}
+
+    // 3. 현재 로그인된 세션이 본인인 경우 세션도 실시간 갱신
+    if (this.user && ((this.user.email && this.user.email.toLowerCase() === cleanKey) || (this.user.username && this.user.username.toLowerCase() === cleanKey))) {
+      this.user.status = status;
+      this.user.allowedRole = allowedRole;
+      this.setUser(this.user);
+    }
+
+    // 4. Cloud Firestore users 컬렉션 동기화
+    if (this.isFirebaseReady()) {
+      try {
+        const safeDocKey = cleanKey.replace(/[\/\.]/g, '_');
+        await this.firebaseDb.collection('users').doc(safeDocKey).set({
+          status: status,
+          allowedRole: allowedRole,
+          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date().toISOString()
+        }, { merge: true });
+      } catch (err) {
+        console.warn('[Auth] Firestore 회원 승인 상태 동기화 오류:', err);
+      }
+    }
+  },
+
+  /**
+   * 신규 사용자(구글/일반)를 승인 대기자 목록에 안전하게 기록
+   */
+  recordPendingUser(userData) {
+    const cleanKey = (userData.email || userData.username || '').trim().toLowerCase();
+    if (!cleanKey) return;
+
+    const approvals = this.getApprovals();
+    if (!approvals[cleanKey]) {
+      approvals[cleanKey] = {
+        name: userData.name || '',
+        email: userData.email || '',
+        username: userData.username || cleanKey,
+        role: userData.role || 'student',
+        allowedRole: userData.allowedRole || userData.role || 'student',
+        status: userData.status || 'pending',
+        university: userData.university || '',
+        department: userData.department || '',
+        registeredAt: new Date().toISOString()
+      };
+      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+    }
+
+    // ai_lit_registered_users 에도 없으면 동기화
+    const users = this.getRegisteredUsers();
+    const idx = users.findIndex(
+      (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
+    );
+    if (idx === -1) {
+      users.push({
+        name: userData.name || '',
+        email: userData.email || '',
+        username: userData.username || cleanKey,
+        role: userData.role || 'student',
+        allowedRole: userData.allowedRole || userData.role || 'student',
+        status: userData.status || 'pending',
+        university: userData.university || '',
+        department: userData.department || '',
+        registeredAt: new Date().toISOString(),
+        loginMethod: userData.loginMethod || 'google'
+      });
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+    }
+  },
+
+  /**
+   * 관리자 화면용 전체 통합 회원 목록 조회 (등록회원 + 승인대기자 + 구글접속자 통합)
+   * @returns {Array<Object>}
+   */
+  getAllUsersForAdmin() {
+    const map = new Map();
+
+    // 1. 등록 회원 목록
+    const registered = this.getRegisteredUsers();
+    registered.forEach(u => {
+      const key = (u.email || u.username || '').trim().toLowerCase();
+      if (key) {
+        map.set(key, { ...u, key: key });
+      }
+    });
+
+    // 2. 승인 목록 병합
+    const approvals = this.getApprovals();
+    Object.keys(approvals).forEach(key => {
+      const app = approvals[key];
+      const existing = map.get(key) || {};
+      map.set(key, {
+        ...existing,
+        ...app,
+        key: key,
+        status: app.status || existing.status || 'pending',
+        allowedRole: app.allowedRole || existing.allowedRole || existing.role || 'student'
+      });
+    });
+
+    // 3. 로그인 이력 목록에서 추가 정보 보강
+    const history = this.getLoginHistory();
+    history.forEach(h => {
+      const key = (h.email || h.username || '').trim().toLowerCase();
+      if (key && map.has(key)) {
+        const item = map.get(key);
+        if (!item.lastLoginAt) item.lastLoginAt = h.timestamp;
+        if (!item.loginMethod) item.loginMethod = h.method;
+      }
+    });
+
+    return Array.from(map.values()).sort((a, b) => {
+      const dateA = new Date(a.registeredAt || a.lastLoginAt || 0);
+      const dateB = new Date(b.registeredAt || b.lastLoginAt || 0);
+      return dateB - dateA;
+    });
+  },
+
+  /**
+   * 보호된 페이지 접근 제어 (비로그인, 미승인 및 대상자 불일치 시 엄격 차단 및 리다이렉트)
    * @param {Object} options { role: 'student'|'staff'|null, redirectTo: string }
    * @returns {boolean}
    */
@@ -112,15 +361,35 @@ const Auth = {
       return false;
     }
 
-    // 2. 특정 역할(대학생 전용 등) 제한 검증
-    if (options.role && user.role !== options.role) {
+    // 2. 최고 관리자 계정은 모든 페이지 통과
+    if (user.isAdmin || this.isAdmin()) {
+      return true;
+    }
+
+    // 3. 관리자 승인 상태 재검증 (로그인 중 관리자가 차단/대기로 변경했을 경우 즉시 차단)
+    const approval = this.getUserApproval(user.email || user.username);
+    if (approval.status !== 'approved') {
       if (typeof document !== 'undefined' && document.body) {
         document.body.style.display = 'none';
       }
-      if (options.role === 'student') {
-        alert('해당 메뉴는 대학생 전용 서비스입니다.\n교직원 맞춤형 강의실로 이동합니다.');
-      } else if (options.role === 'staff') {
-        alert('해당 메뉴는 교직원 전용 서비스입니다.\n대학생 맞춤형 강의실로 이동합니다.');
+      const msg = approval.status === 'blocked'
+        ? '⛔ [접속 차단]\n해당 계정은 관리자에 의해 접속이 차단되었습니다.'
+        : '🔒 [접근 제한 안내]\n해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.';
+      alert(msg);
+      this.logout();
+      return false;
+    }
+
+    // 4. 관리자가 허용한 대상자(allowedRole) 페이지만 접속 허용 (Requirement 2)
+    const allowedRole = approval.allowedRole || user.allowedRole || user.role || 'all';
+    if (options.role && allowedRole !== 'all' && allowedRole !== options.role) {
+      if (typeof document !== 'undefined' && document.body) {
+        document.body.style.display = 'none';
+      }
+      if (allowedRole === 'student') {
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [대학생 전용]으로 승인되었습니다.\n교직원 과정에는 접속할 수 없습니다.\n\n대학생 맞춤 강의실로 이동합니다.');
+      } else if (allowedRole === 'staff') {
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [교직원 전용]으로 승인되었습니다.\n대학생 과정에는 접속할 수 없습니다.\n\n교직원 맞춤 강의실로 이동합니다.');
       }
       window.location.replace('dashboard.html');
       return false;
@@ -339,8 +608,35 @@ const Auth = {
     // 기존 등록 회원 및 Firestore에서 동일 이메일 사용자 조회
     const existing = await this.fetchExistingUser(payload.email);
 
-    // 사용자가 모달에서 선택한 대상자 역할을 최우선 적용
-    const userRole = role || (existing && existing.role ? existing.role : 'student');
+    // 사용자가 모달에서 선택한 대상자 역할
+    const attemptedRole = role || (existing && existing.role ? existing.role : 'student');
+
+    // 관리자 승인 상태 검증 (Requirement 1)
+    const approval = this.getUserApproval(payload.email);
+    if (approval.status !== 'approved') {
+      this.recordPendingUser({
+        name: (existing && existing.name) ? existing.name : (payload.name || payload.email.split('@')[0]),
+        email: payload.email,
+        username: payload.email.split('@')[0],
+        role: attemptedRole,
+        allowedRole: attemptedRole,
+        university: existing ? (existing.university || '') : '',
+        department: existing ? (existing.department || '') : '',
+        loginMethod: 'google'
+      });
+
+      const msg = approval.status === 'blocked'
+        ? '⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
+        : '🔒 [로그인 승인 대기 안내]\n해당 Google 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.';
+      alert(msg);
+      return;
+    }
+
+    // 관리자가 허용한 대상자(allowedRole) 강제 적용 (Requirement 2)
+    let userRole = attemptedRole;
+    if (approval.allowedRole && approval.allowedRole !== 'all') {
+      userRole = approval.allowedRole;
+    }
 
     // 기존 등록 정보가 있고 역할이 변경된 경우 비동기 동기화
     if (existing && existing.role !== userRole) {
@@ -352,6 +648,8 @@ const Auth = {
       email: payload.email,
       picture: payload.picture || '',
       role: userRole,
+      allowedRole: approval.allowedRole || userRole,
+      status: 'approved',
       university: existing ? (existing.university || '') : '',
       department: existing ? (existing.department || '') : '',
       gradeOrPosition: existing ? (existing.gradeOrPosition || '') : '',
@@ -526,15 +824,20 @@ const Auth = {
       email: email.trim(),
       password: password,
       role: role,
+      allowedRole: role,
+      status: 'pending', // 관리자 승인 대기 기본값 (Requirement 1)
       university: university.trim(),
       department: department.trim(),
       registeredAt: new Date().toISOString(),
       lastLoginAt: new Date().toISOString(),
-      loginCount: 1
+      loginCount: 0
     };
 
     users.push(newUser);
     localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+
+    // 승인 대기자 목록에 안전하게 등록
+    this.recordPendingUser(newUser);
 
     // Firebase Cloud Firestore 및 Auth 동기화
     let firestoreSaved = false;
@@ -546,6 +849,8 @@ const Auth = {
           username: newUser.username,
           email: newUser.email,
           role: newUser.role,
+          allowedRole: newUser.allowedRole,
+          status: 'pending',
           university: newUser.university,
           department: newUser.department,
           registeredAt: new Date().toISOString(),
@@ -587,25 +892,12 @@ const Auth = {
       console.warn('[Auth] Firebase가 아직 준비되지 않아 로컬 저장소에 우선 등록되었습니다.');
     }
 
-    // 회원가입 완료 즉시 자동 세션 생성 및 입장 이력 기록
-    const sessionUser = {
-      name: newUser.name,
-      username: newUser.username,
-      email: newUser.email,
-      role: newUser.role,
-      university: newUser.university,
-      department: newUser.department,
-      loginAt: new Date().toISOString(),
-      loginMethod: 'register'
-    };
-    this.setUser(sessionUser);
-
-    // 입장 이력(login_history) 저장 완료 대기
-    await this.recordLoginHistory(sessionUser, 'register');
-
+    // 신규 가입자는 관리자가 승인한 후 로그인할 수 있도록 안내 (Requirement 1)
     return { 
       success: true, 
-      user: sessionUser,
+      requiresApproval: true,
+      message: '회원가입이 완료되었습니다. 관리자가 승인한 후 로그인하여 맞춤 강의실을 이용하실 수 있습니다.',
+      user: newUser,
       firestoreSaved: firestoreSaved
     };
   },
@@ -622,6 +914,16 @@ const Auth = {
     }
 
     const key = usernameOrEmail.trim().toLowerCase();
+
+    // 1. 최고 관리자(Admin) 직통 로그인 체크
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+    if (key === adminId) {
+      const adminRes = this.loginAdmin(usernameOrEmail, password);
+      if (adminRes.success) {
+        return adminRes;
+      }
+    }
+
     const users = this.getRegisteredUsers();
     let matched = users.find(
       (u) => (u.username.toLowerCase() === key || u.email.toLowerCase() === key) && u.password === password
@@ -644,8 +946,29 @@ const Auth = {
       };
     }
 
-    // 사용자가 선택한 대상자가 있다면 해당 역할을 최우선 적용하여 다른 대상자로도 자유롭게 입장 지원
-    const finalRole = selectedRole || matched.role || 'student';
+    // 2. 관리자 승인 상태 검증 (Requirement 1)
+    const userIdentifier = matched.email || matched.username;
+    const approval = this.getUserApproval(userIdentifier);
+    if (approval.status !== 'approved') {
+      const statusText = approval.status === 'blocked'
+        ? '해당 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
+        : '해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 계정 승인을 요청해 주세요.';
+      return {
+        success: false,
+        status: approval.status,
+        isPending: approval.status !== 'blocked',
+        message: `🔒 [로그인 제한 안내]\n${statusText}`
+      };
+    }
+
+    // 3. 관리자 허용 대상자(allowedRole) 강제 적용 (Requirement 2)
+    let finalRole = matched.role || 'student';
+    if (approval.allowedRole && approval.allowedRole !== 'all') {
+      finalRole = approval.allowedRole;
+    } else if (selectedRole) {
+      finalRole = selectedRole;
+    }
+
     if (matched.role !== finalRole) {
       matched.role = finalRole;
       this.syncUserRoleUpdate(matched.email || matched.username, finalRole).catch(() => {});
@@ -661,6 +984,8 @@ const Auth = {
       username: matched.username,
       email: matched.email,
       role: finalRole,
+      allowedRole: approval.allowedRole || finalRole,
+      status: 'approved',
       university: matched.university || '',
       department: matched.department || '',
       gradeOrPosition: matched.gradeOrPosition || '',
@@ -684,8 +1009,34 @@ const Auth = {
         const fbUser = result.user;
         const existing = await this.fetchExistingUser(fbUser.email);
 
-        // 사용자가 선택한 대상자 역할을 최우선 반영
-        const userRole = role || (existing && existing.role ? existing.role : 'student');
+        const attemptedRole = role || (existing && existing.role ? existing.role : 'student');
+
+        // 관리자 승인 상태 검증 (Requirement 1)
+        const approval = this.getUserApproval(fbUser.email);
+        if (approval.status !== 'approved') {
+          this.recordPendingUser({
+            name: (existing && existing.name) ? existing.name : (fbUser.displayName || fbUser.email.split('@')[0]),
+            email: fbUser.email,
+            username: fbUser.email.split('@')[0],
+            role: attemptedRole,
+            allowedRole: attemptedRole,
+            university: existing ? (existing.university || '') : '',
+            department: existing ? (existing.department || '') : '',
+            loginMethod: 'google'
+          });
+
+          const msg = approval.status === 'blocked'
+            ? '⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
+            : '🔒 [로그인 승인 대기 안내]\n해당 Google 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.';
+          alert(msg);
+          return;
+        }
+
+        // 관리자가 허용한 대상자(allowedRole) 강제 적용 (Requirement 2)
+        let userRole = attemptedRole;
+        if (approval.allowedRole && approval.allowedRole !== 'all') {
+          userRole = approval.allowedRole;
+        }
 
         if (existing && existing.role !== userRole) {
           this.syncUserRoleUpdate(fbUser.email, userRole).catch(() => {});
@@ -696,6 +1047,8 @@ const Auth = {
           email: fbUser.email,
           picture: fbUser.photoURL || '',
           role: userRole,
+          allowedRole: approval.allowedRole || userRole,
+          status: 'approved',
           university: existing ? (existing.university || '') : '',
           department: existing ? (existing.department || '') : '',
           gradeOrPosition: existing ? (existing.gradeOrPosition || '') : '',
@@ -724,13 +1077,43 @@ const Auth = {
     const isConfigured = this.GOOGLE_CLIENT_ID && !this.GOOGLE_CLIENT_ID.includes('YOUR_GOOGLE_CLIENT_ID');
 
     if (!isConfigured) {
-      // Client ID가 아직 기본값인 경우: 선택한 역할에 맞춘 빠른 원클릭 시뮬레이션 입장
+      // Client ID가 아직 기본값인 경우: 선택한 역할에 맞춘 시뮬레이션 입장
       const roleLabel = role === 'staff' ? '교직원' : '대학생';
+      const mockEmail = role === 'staff' ? 'staff.demo@univ.ac.kr' : 'student.demo@campus.edu';
+
+      // 관리자 승인 상태 검증
+      const approval = this.getUserApproval(mockEmail);
+      if (approval.status !== 'approved') {
+        this.recordPendingUser({
+          name: `${roleLabel} 구글 사용자`,
+          email: mockEmail,
+          username: mockEmail.split('@')[0],
+          role: role,
+          allowedRole: role,
+          university: '데모 대학교',
+          department: role === 'staff' ? '교무행정팀' : '소프트웨어학부',
+          loginMethod: 'google'
+        });
+
+        const msg = approval.status === 'blocked'
+          ? '⛔ [접속 차단]\n해당 계정은 관리자에 의해 접속이 차단되었습니다.'
+          : '🔒 [로그인 승인 대기 안내]\n해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.';
+        alert(msg);
+        return;
+      }
+
+      let userRole = role;
+      if (approval.allowedRole && approval.allowedRole !== 'all') {
+        userRole = approval.allowedRole;
+      }
+
       const mockUser = {
         name: `${roleLabel} 구글 사용자`,
-        email: role === 'staff' ? 'staff.demo@univ.ac.kr' : 'student.demo@campus.edu',
+        email: mockEmail,
         picture: '',
-        role: role,
+        role: userRole,
+        allowedRole: approval.allowedRole || userRole,
+        status: 'approved',
         googleId: 'demo-google-id',
         isDemo: true,
         loginAt: new Date().toISOString(),
@@ -871,6 +1254,26 @@ const Auth = {
     if (!navMenu) return;
 
     if (this.isLoggedIn()) {
+      if (this.user.isAdmin || this.isAdmin()) {
+        navMenu.innerHTML = `
+          <div class="user-badge" style="display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;">
+            <span style="background: var(--color-ember); color: #fff; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px;">
+              🛡️ 최고 관리자
+            </span>
+            <a href="admin.html" class="btn btn-primary btn-sm" style="font-weight: 800; white-space: nowrap;">
+              관리자 콘솔 ↗
+            </a>
+            <a href="dashboard.html" class="btn btn-secondary btn-sm" style="white-space: nowrap;">강의실</a>
+            <button id="logout-btn" type="button" class="btn btn-secondary btn-sm" style="white-space: nowrap;">로그아웃</button>
+          </div>
+        `;
+        document.getElementById('logout-btn')?.addEventListener('click', () => {
+          this.logoutAdmin();
+          this.logout();
+        });
+        return;
+      }
+
       const roleText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '구분 미선택');
       const safeName = this.escapeHtml(this.user.name || '사용자');
       const notionUrl = this.user.role === 'staff'
@@ -907,7 +1310,12 @@ const Auth = {
       document.getElementById('logout-btn')?.addEventListener('click', () => this.logout());
     } else {
       navMenu.innerHTML = `
-        <span class="nav-tag">GUEST</span>
+        <div style="display: flex; align-items: center; gap: 8px;">
+          <a href="admin.html" class="btn btn-secondary btn-sm" style="font-size: 12px; padding: 5px 12px; font-weight: 700; color: var(--color-obsidian);" title="관리자 모드 접속">
+            🛡️ 관리자
+          </a>
+          <span class="nav-tag">GUEST</span>
+        </div>
       `;
     }
   }

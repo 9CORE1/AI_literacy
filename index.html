@@ -25,7 +25,10 @@
         <span class="nav-tag" id="nav-role-badge">PORTAL</span>
       </a>
 
-      <div class="nav-actions">
+      <div class="nav-actions" style="display: flex; align-items: center; gap: 8px;">
+        <a href="admin.html" class="btn btn-secondary btn-sm" style="font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--color-obsidian);" title="관리자 전용 회원 승인 콘솔">
+          🛡️ 관리자 모드
+        </a>
         <button type="button" class="btn btn-primary btn-sm" id="nav-btn-login" onclick="openLoginModal()">
           <svg style="width: 16px; height: 16px;" viewBox="0 0 24 24">
             <path fill="#4285F4"
@@ -307,6 +310,9 @@
         <div class="modal-footer-switch">
           아직 계정이 없으신가요? <a href="register.html" style="color: var(--color-ember); font-weight: 700; text-decoration: underline;">회원가입하기 →</a>
         </div>
+        <div style="margin-top: 10px; text-align: center; font-size: 12px; opacity: 0.85;">
+          <a href="admin.html" style="color: #64748b; font-weight: 600; text-decoration: none;">🛡️ 관리자 로그인 및 승인 관리 콘솔 이동 →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -576,15 +582,23 @@
       const username = usernameInput.value.trim();
       const password = passwordInput.value;
 
-      // 선택한 대상자(currentModalRole)를 전달하여 원하는 대상자로 즉시 로그인
+      // 선택한 대상자(currentModalRole)를 전달하여 로그인 시도
       const res = await Auth.loginWithCredentials(username, password, currentModalRole);
       if (res.success) {
         closeLoginModal();
-        window.location.href = 'dashboard.html';
+        if (res.user && res.user.isAdmin) {
+          window.location.href = 'admin.html';
+        } else {
+          window.location.href = 'dashboard.html';
+        }
       } else {
-        const moveToRegister = confirm(`${res.message}\n\n회원가입 페이지(register.html)로 이동하여 새로운 계정을 생성하시겠습니까?`);
-        if (moveToRegister) {
-          window.location.href = 'register.html';
+        if (res.isPending || res.status) {
+          alert(res.message);
+        } else {
+          const moveToRegister = confirm(`${res.message}\n\n회원가입 페이지(register.html)로 이동하여 새로운 계정을 생성하시겠습니까?`);
+          if (moveToRegister) {
+            window.location.href = 'register.html';
+          }
         }
       }
     }

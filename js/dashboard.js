@@ -18,18 +18,40 @@ const DashboardApp = {
       return;
     }
 
+    // 1. 최고 관리자가 아닌 일반 회원의 경우 관리자 승인 상태 검증 (Requirement 1)
+    if (!user.isAdmin && !Auth.isAdmin()) {
+      const approval = Auth.getUserApproval(user.email || user.username);
+      if (approval.status !== 'approved') {
+        alert('🔒 [접근 제한 안내]\n해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 맞춤 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.');
+        Auth.logout();
+        return;
+      }
+
+      // 2. 관리자가 허용한 대상자(allowedRole) 강제 적용 (Requirement 2)
+      const allowedRole = approval.allowedRole || user.allowedRole || user.role || 'all';
+      if (allowedRole !== 'all' && user.role !== allowedRole) {
+        if (allowedRole === 'student') {
+          alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [대학생 과정]만 허용되었습니다.\n대학생 전용 맞춤 강의실로 자동 전환합니다.');
+        } else if (allowedRole === 'staff') {
+          alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [교직원 과정]만 허용되었습니다.\n교직원 전용 맞춤 강의실로 자동 전환합니다.');
+        }
+        user.role = allowedRole;
+        user.allowedRole = allowedRole;
+        Auth.setUser(user);
+      }
+    }
+
     // [RBAC 보안] URL 쿼리스트링(?role=...)을 통한 타 대상자 코스 부정 접근 엄격 차단
     const urlParams = new URLSearchParams(window.location.search);
     const requestedRole = urlParams.get('role');
-    if (requestedRole && requestedRole !== user.role) {
-      if (requestedRole === 'staff' && user.role === 'student') {
-        alert('⛔ [접근 제한 안내]\n\n해당 코스는 🏛️ [교직원 전용] 코스입니다.\n대학생 계정으로는 교직원 코스를 열람하실 수 없습니다.\n\n대학생 전용 강의실로 이동합니다.');
-      } else if (requestedRole === 'student' && user.role === 'staff') {
-        alert('⛔ [접근 제한 안내]\n\n해당 코스는 🎓 [대학생 전용] 코스입니다.\n교직원 계정으로는 대학생 코스를 열람하실 수 없습니다.\n\n교직원 전용 강의실로 이동합니다.');
+    if (requestedRole && !user.isAdmin && !Auth.isAdmin()) {
+      const approval = Auth.getUserApproval(user.email || user.username);
+      const allowedRole = approval.allowedRole || user.allowedRole || user.role || 'all';
+      if (allowedRole !== 'all' && requestedRole !== allowedRole) {
+        alert(`⛔ [접근 제한 안내]\n\n해당 계정은 관리자로부터 [${allowedRole === 'student' ? '대학생' : '교직원'}] 과정만 허용되었습니다.\n타 대상자 코스는 열람하실 수 없습니다.`);
+        window.location.replace('dashboard.html');
+        return;
       }
-      // 불법 요청 파라미터를 정리하고 본인의 전용 대시보드로 이동
-      window.location.replace('dashboard.html');
-      return;
     }
 
     // 네비게이션 태그 업데이트

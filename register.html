@@ -454,7 +454,13 @@
           return;
         }
 
-        const syncStatusText = res.firestoreSaved ? '☁️ Firebase users 데이터베이스에 실시간 등록되었습니다.' : '';
+        const syncStatusText = res.firestoreSaved ? '☁️ Firebase users 데이터베이스에 실시간 등록되었습니다.\n' : '';
+        if (res.requiresApproval) {
+          alert(`🎉 회원가입이 성공적으로 완료되었습니다, ${name}님!\n\n현재 계정 상태: ⏳ [관리자 승인 대기]\n${syncStatusText}\n관리자가 승인한 후 로그인하여 맞춤 강의실을 이용하실 수 있습니다.\n로그인 화면으로 이동합니다.`);
+          window.location.href = 'index.html?login=true';
+          return;
+        }
+
         alert(`환영합니다, ${name}님!\n[${selectedRole === 'staff' ? '교직원' : '대학생'}] 역할로 가입이 완료되었습니다.\n${syncStatusText}\n맞춤형 강의실로 이동합니다.`);
         window.location.href = 'dashboard.html';
       } catch (err) {
