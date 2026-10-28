@@ -989,17 +989,16 @@ button {
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
 }
 
-/* Modal Role Switcher Pill - 상단 modal-tabs와 정확히 동일한 너비 및 버튼 규격 */
+/* Modal Role Switcher Pill - 상단 modal-tabs와 정확히 동일한 너비 및 기존 보라색 블록 스타일 */
 .caldera-modal .role-switcher-pill {
   width: 100%;
   display: flex;
-  background: rgba(7, 6, 7, 0.05);
+  background-color: var(--color-limestone);
   border-radius: var(--radius-pills);
   padding: 4px;
   gap: 4px;
   box-sizing: border-box;
-  border: none;
-  box-shadow: none;
+  border: 1px solid rgba(7, 6, 7, 0.08);
 }
 
 .caldera-modal .role-switcher-pill .role-btn {
@@ -1016,15 +1015,15 @@ button {
   box-sizing: border-box;
   border: none;
   background: transparent;
-  color: rgba(7, 6, 7, 0.65);
+  color: var(--color-obsidian);
   cursor: pointer;
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.2s ease;
 }
 
 .caldera-modal .role-switcher-pill .role-btn.active {
-  background: var(--color-plasma);
-  color: #fff;
-  box-shadow: 0 4px 12px rgba(112, 0, 255, 0.25);
+  background-color: var(--color-ember) !important;
+  color: var(--color-chalk) !important;
+  box-shadow: 0 4px 14px rgba(85, 56, 150, 0.35) !important;
 }
 
 .modal-form-group {
