@@ -757,7 +757,28 @@ const Auth = {
    * @returns {Promise<Array<Object>>}
    */
   async getAllUsersForAdmin() {
+    this.initFirebase();
     const map = new Map();
+
+    const isSuperAdminRecord = (u) => {
+      if (!u) return false;
+      const uname = String(u.username || '').trim().toLowerCase();
+      const mail = String(u.email || '').trim().toLowerCase();
+      const docId = String(u.firestoreDocId || u.id || '').trim().toLowerCase();
+      const key = String(u.key || '').trim().toLowerCase();
+      return Boolean(
+        u.isAdmin ||
+        u.role === 'admin' ||
+        uname === 'admin' ||
+        mail === 'admin@ailiteracy.kr' ||
+        docId === 'user_admin' ||
+        docId === 'admin' ||
+        docId === 'admin@ailiteracy_kr' ||
+        key === 'admin' ||
+        key === 'admin@ailiteracy.kr' ||
+        key === 'user_admin'
+      );
+    };
 
     // 1. Cloud Firestore users 컬렉션에서 실시간 통합 조회
     if (this.isFirebaseReady()) {
@@ -768,8 +789,18 @@ const Auth = {
           if (!data) return;
           const userEmail = (data.email || '').trim().toLowerCase();
           const userName = (data.username || '').trim().toLowerCase();
-          let primaryKey = userEmail || userName || doc.id.toLowerCase();
-          if (primaryKey.startsWith('user_')) {
+          const isDocAdmin = Boolean(
+            data.isAdmin ||
+            data.role === 'admin' ||
+            userName === 'admin' ||
+            userEmail === 'admin@ailiteracy.kr' ||
+            doc.id.toLowerCase() === 'user_admin' ||
+            doc.id.toLowerCase() === 'admin' ||
+            doc.id.toLowerCase() === 'admin@ailiteracy_kr'
+          );
+
+          let primaryKey = isDocAdmin ? 'admin' : (userEmail || userName || doc.id.toLowerCase());
+          if (!isDocAdmin && primaryKey.startsWith('user_')) {
             primaryKey = primaryKey.replace(/^user_/, '');
           }
           if (primaryKey) {
@@ -778,11 +809,12 @@ const Auth = {
               ...existing,
               ...data,
               key: primaryKey,
-              email: data.email || existing.email || '',
-              username: data.username || existing.username || primaryKey,
-              name: data.name || existing.name || '',
-              role: data.role || existing.role || 'student',
-              status: data.status || existing.status || 'pending',
+              email: data.email || existing.email || (isDocAdmin ? 'admin@ailiteracy.kr' : ''),
+              username: isDocAdmin ? 'admin' : (data.username || existing.username || primaryKey),
+              name: isDocAdmin ? (data.name || '최고 관리자') : (data.name || existing.name || ''),
+              role: isDocAdmin ? 'admin' : (data.role || existing.role || 'student'),
+              status: isDocAdmin ? 'approved' : (data.status || existing.status || 'pending'),
+              isAdmin: isDocAdmin ? true : Boolean(data.isAdmin || existing.isAdmin),
               firestoreDocId: doc.id
             });
           }
@@ -795,24 +827,50 @@ const Auth = {
     // 2. 로컬 ai_lit_registered_users 병합
     const registered = this.getRegisteredUsers();
     registered.forEach(u => {
-      const key = (u.email || u.username || '').trim().toLowerCase();
+      const isUserAdmin = isSuperAdminRecord(u);
+      const key = isUserAdmin ? 'admin' : ((u.email || u.username || '').trim().toLowerCase());
       if (key) {
         const existing = map.get(key) || {};
-        map.set(key, { ...existing, ...u, key: key });
+        map.set(key, {
+          ...existing,
+          ...u,
+          key: key,
+          ...(isUserAdmin ? {
+            key: 'admin',
+            username: 'admin',
+            email: u.email || existing.email || 'admin@ailiteracy.kr',
+            name: u.name || existing.name || '최고 관리자',
+            role: 'admin',
+            status: 'approved',
+            isAdmin: true
+          } : {})
+        });
       }
     });
 
     // 3. 승인 목록(ai_lit_user_approvals) 병합
     const approvals = this.getApprovals();
     Object.keys(approvals).forEach(key => {
+      const isKeyAdmin = key === 'admin' || key === 'admin@ailiteracy.kr' || key === 'user_admin';
+      const targetKey = isKeyAdmin ? 'admin' : key;
       const app = approvals[key];
-      const existing = map.get(key) || {};
-      map.set(key, {
+      const existing = map.get(targetKey) || {};
+      map.set(targetKey, {
         ...existing,
         ...app,
-        key: key,
-        status: app.status || existing.status || 'pending',
-        role: app.role || existing.role || app.allowedRole || existing.allowedRole || 'student',
+        key: targetKey,
+        ...(isKeyAdmin ? {
+          key: 'admin',
+          username: 'admin',
+          email: existing.email || 'admin@ailiteracy.kr',
+          name: existing.name || '최고 관리자',
+          role: 'admin',
+          status: 'approved',
+          isAdmin: true
+        } : {
+          status: app.status || existing.status || 'pending',
+          role: app.role || existing.role || app.allowedRole || existing.allowedRole || 'student'
+        }),
         university: existing.university || app.university || '',
         department: existing.department || app.department || '',
         gradeOrPosition: existing.gradeOrPosition || app.gradeOrPosition || ''
@@ -823,14 +881,15 @@ const Auth = {
     try {
       const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
       Object.keys(profiles).forEach(k => {
-        const cleanK = k.toLowerCase().trim();
+        const isProfileAdmin = k === 'admin' || k === 'admin@ailiteracy.kr' || k === 'user_admin';
+        const targetKey = isProfileAdmin ? 'admin' : k.toLowerCase().trim();
         const p = profiles[k];
-        if (cleanK && map.has(cleanK)) {
-          const item = map.get(cleanK);
+        if (targetKey && map.has(targetKey)) {
+          const item = map.get(targetKey);
           if (p.university && !item.university) item.university = p.university;
           if (p.department && !item.department) item.department = p.department;
           if (p.gradeOrPosition && !item.gradeOrPosition) item.gradeOrPosition = p.gradeOrPosition;
-          if (p.name && (!item.name || item.name === cleanK)) item.name = p.name;
+          if (p.name && (!item.name || item.name === targetKey)) item.name = p.name;
         }
       });
     } catch (e) {}
@@ -838,20 +897,59 @@ const Auth = {
     // 4. 로그인 이력 목록에서 추가 정보 보강
     const history = this.getLoginHistory();
     history.forEach(h => {
-      const key = (h.email || h.username || '').trim().toLowerCase();
-      if (key && map.has(key)) {
-        const item = map.get(key);
+      const hKey = (h.email || h.username || '').trim().toLowerCase();
+      const isHistoryAdmin = hKey === 'admin' || hKey === 'admin@ailiteracy.kr' || hKey === 'user_admin';
+      const targetKey = isHistoryAdmin ? 'admin' : hKey;
+      if (targetKey && map.has(targetKey)) {
+        const item = map.get(targetKey);
         if (!item.lastLoginAt) item.lastLoginAt = h.timestamp;
         if (!item.loginMethod) item.loginMethod = h.method;
       }
     });
 
+    // 5. 모든 관리자 키('admin@ailiteracy.kr', 'user_admin' 등)를 'admin' 단일 키로 완전 병합 및 중복 키 제거
+    const adminRecord = map.get('admin') || {};
+    for (const [k, v] of Array.from(map.entries())) {
+      if (k !== 'admin' && isSuperAdminRecord(v)) {
+        Object.assign(adminRecord, v);
+        map.delete(k);
+      }
+    }
+    if (Object.keys(adminRecord).length > 0 || map.has('admin')) {
+      adminRecord.key = 'admin';
+      adminRecord.username = 'admin';
+      adminRecord.name = adminRecord.name || '최고 관리자';
+      adminRecord.email = adminRecord.email || 'admin@ailiteracy.kr';
+      adminRecord.role = 'admin';
+      adminRecord.status = 'approved';
+      adminRecord.isAdmin = true;
+      map.set('admin', adminRecord);
+    }
 
+    // 6. 단일화 및 최고 관리자 중복 엄격 필터링
+    let adminSeen = false;
+    const finalUsers = [];
+    for (const u of map.values()) {
+      if (isSuperAdminRecord(u)) {
+        if (adminSeen) continue;
+        adminSeen = true;
+        u.key = 'admin';
+        u.username = 'admin';
+        u.name = u.name || '최고 관리자';
+        u.email = u.email || 'admin@ailiteracy.kr';
+        u.role = 'admin';
+        u.status = 'approved';
+        u.isAdmin = true;
+      }
+      finalUsers.push(u);
+    }
 
-    const allUsers = Array.from(map.values()).sort((a, b) => {
+    finalUsers.sort((a, b) => {
       // 최고 관리자 계정은 항상 최상단에 고정
-      if (a.isAdmin || a.username === 'admin') return -1;
-      if (b.isAdmin || b.username === 'admin') return 1;
+      const aAdmin = isSuperAdminRecord(a);
+      const bAdmin = isSuperAdminRecord(b);
+      if (aAdmin && !bAdmin) return -1;
+      if (!aAdmin && bAdmin) return 1;
       const dateA = new Date(a.registeredAt || a.lastLoginAt || 0);
       const dateB = new Date(b.registeredAt || b.lastLoginAt || 0);
       return dateB - dateA;
@@ -859,10 +957,16 @@ const Auth = {
 
     // 로컬 스토리지 캐시 동기화
     try {
-      localStorage.setItem('ai_lit_registered_users', JSON.stringify(allUsers));
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(finalUsers));
+      // 승인 목록에서도 중복 키 정리
+      const cleanApprovals = this.getApprovals();
+      if (cleanApprovals['admin@ailiteracy.kr']) {
+        delete cleanApprovals['admin@ailiteracy.kr'];
+        localStorage.setItem('ai_lit_user_approvals', JSON.stringify(cleanApprovals));
+      }
     } catch (e) {}
 
-    return allUsers;
+    return finalUsers;
   },
 
   /**
@@ -1302,7 +1406,37 @@ const Auth = {
   getRegisteredUsers() {
     try {
       const data = localStorage.getItem('ai_lit_registered_users');
-      return data ? JSON.parse(data) : [];
+      const list = data ? JSON.parse(data) : [];
+      if (!Array.isArray(list)) return [];
+      let adminSeen = false;
+      const cleanList = [];
+      for (const u of list) {
+        if (!u) continue;
+        const isAdmin = Boolean(
+          u.isAdmin ||
+          u.role === 'admin' ||
+          (u.username && u.username.toLowerCase() === 'admin') ||
+          (u.email && u.email.toLowerCase() === 'admin@ailiteracy.kr') ||
+          u.key === 'admin'
+        );
+        if (isAdmin) {
+          if (adminSeen) continue;
+          adminSeen = true;
+          cleanList.push({
+            ...u,
+            key: 'admin',
+            username: 'admin',
+            name: u.name || '최고 관리자',
+            email: u.email || 'admin@ailiteracy.kr',
+            role: 'admin',
+            isAdmin: true,
+            status: 'approved'
+          });
+        } else {
+          cleanList.push(u);
+        }
+      }
+      return cleanList;
     } catch (e) {
       return [];
     }

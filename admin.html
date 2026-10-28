@@ -628,18 +628,60 @@
       }
     }
 
+    // 회원 목록 중복 제거 및 최고 관리자 단일화 헬퍼 함수
+    function deduplicateUsers(users) {
+      if (!Array.isArray(users)) return [];
+      let adminSeen = false;
+      const seenKeys = new Set();
+      const result = [];
+
+      for (const u of users) {
+        if (!u) continue;
+        const key = (u.key || u.email || u.username || '').trim().toLowerCase();
+        const isAdmin = Boolean(
+          u.isAdmin ||
+          u.role === 'admin' ||
+          u.username === 'admin' ||
+          key === 'admin' ||
+          key === 'admin@ailiteracy.kr' ||
+          (u.email && u.email.toLowerCase() === 'admin@ailiteracy.kr')
+        );
+
+        if (isAdmin) {
+          if (adminSeen) continue; // 중복 최고 관리자 레코드 완벽 차단
+          adminSeen = true;
+          result.push({
+            ...u,
+            key: 'admin',
+            username: 'admin',
+            name: u.name || '최고 관리자',
+            email: u.email || 'admin@ailiteracy.kr',
+            role: 'admin',
+            isAdmin: true,
+            status: 'approved'
+          });
+          continue;
+        }
+
+        if (key && seenKeys.has(key)) continue;
+        if (key) seenKeys.add(key);
+        result.push(u);
+      }
+      return result;
+    }
+
     // 2. 회원 데이터 로드 및 통계 산출 (로컬 캐시 즉시 렌더링 + Firestore 실시간 2차 갱신)
     async function loadUsersData() {
-      // 1. 로컬 캐시 즉시 표시
+      // 1. 로컬 캐시 즉시 표시 (중복 관리자 방지 필터링 적용)
       const localUsers = Auth.getRegisteredUsers();
-      currentUsers = Array.isArray(localUsers) && localUsers.length > 0 ? localUsers : [];
+      currentUsers = deduplicateUsers(localUsers);
       updateKpisAndRender(currentUsers);
 
       // 2. Cloud Firestore 및 통합 회원 목록 실시간 조회
       try {
         const liveUsers = await Auth.getAllUsersForAdmin();
         if (Array.isArray(liveUsers) && liveUsers.length > 0) {
-          currentUsers = liveUsers;
+          currentUsers = deduplicateUsers(liveUsers);
           updateKpisAndRender(currentUsers);
         }
       } catch (err) {
@@ -683,8 +725,15 @@
       const roleFilter = document.getElementById('admin-role-filter').value;
 
       const filtered = currentUsers.filter(u => {
-        const key = u.email || u.username;
-        const isAdmin = Boolean(u.isAdmin || u.username === 'admin' || key === 'admin');
+        const key = (u.key || u.email || u.username || '').trim().toLowerCase();
+        const isAdmin = Boolean(
+          u.isAdmin ||
+          u.role === 'admin' ||
+          u.username === 'admin' ||
+          key === 'admin' ||
+          key === 'admin@ailiteracy.kr' ||
+          (u.email && u.email.toLowerCase() === 'admin@ailiteracy.kr')
+        );
         const approval = Auth.getUserApproval(key);
         const status = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
         const role = isAdmin ? 'admin' : (approval.allowedRole || u.allowedRole || u.role || 'student');
@@ -724,15 +773,24 @@
       const emptyState = document.getElementById('empty-state');
       tbody.innerHTML = '';
 
-      if (users.length === 0) {
+      const cleanUsers = deduplicateUsers(users);
+
+      if (cleanUsers.length === 0) {
         emptyState.style.display = 'block';
         return;
       }
       emptyState.style.display = 'none';
 
-      users.forEach(u => {
-        const key = u.email || u.username;
-        const isAdmin = Boolean(u.isAdmin || u.username === 'admin' || key === 'admin');
+      cleanUsers.forEach(u => {
+        const key = (u.key || u.email || u.username || '').trim().toLowerCase();
+        const isAdmin = Boolean(
+          u.isAdmin ||
+          u.role === 'admin' ||
+          u.username === 'admin' ||
+          key === 'admin' ||
+          key === 'admin@ailiteracy.kr' ||
+          (u.email && u.email.toLowerCase() === 'admin@ailiteracy.kr')
+        );
         const approval = Auth.getUserApproval(key);
         const status = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
         const currentRole = (approval.allowedRole || u.role || 'student') === 'staff' ? 'staff' : 'student';
