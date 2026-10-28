@@ -573,29 +573,29 @@ button {
 .role-switcher-pill {
   background-color: var(--color-limestone);
   border-radius: var(--radius-pills);
-  padding: 6px;
+  padding: 7px;
   display: inline-flex;
-  gap: 6px;
-  border: none;
-  box-shadow: none;
+  gap: 8px;
+  border: 1px solid rgba(7, 6, 7, 0.08);
 }
 
 .role-btn {
-  padding: 12px 32px;
+  padding: 14px 38px;
   border-radius: var(--radius-pills);
   border: none;
-  font-size: 16px;
-  font-weight: 600;
+  font-size: 17.5px;
+  font-weight: 700;
   color: var(--color-obsidian);
   background: transparent;
   transition: all 0.2s ease;
   cursor: pointer;
+  letter-spacing: -0.01em;
 }
 
 .role-btn.active {
   background-color: var(--color-ember);
   color: var(--color-chalk);
-  box-shadow: 0 4px 14px rgba(85, 56, 150, 0.35);
+  box-shadow: 0 4px 16px rgba(85, 56, 150, 0.35);
 }
 
 /* ==========================================================================
@@ -1516,8 +1516,9 @@ button {
 
   .role-btn {
     flex: 1;
-    padding: 10px 6px;
-    font-size: 14px;
+    padding: 12px 10px;
+    font-size: 15.5px;
+    font-weight: 700;
     text-align: center;
     white-space: nowrap;
   }
@@ -1663,8 +1664,9 @@ button {
   }
 
   .role-btn {
-    font-size: 13px;
-    padding: 8px 4px;
+    font-size: 14.5px;
+    font-weight: 700;
+    padding: 11px 8px;
   }
 
   .hero-display {
