@@ -141,15 +141,9 @@ const DashboardApp = {
             <span style="background: #f1f5f9; color: #334155; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">30문항 표준 척도</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>01</span> 대학생의 AI 리터러시 진단 & 레포트</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             대학생 전용 30문항(7점 리커트) 표준 척도를 통해 나의 5대 리터러시 역량을 정밀 진단하고 개별 성과 레포트를 발급받습니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📊 5대 역량 진단</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📝 30문항 표준척도</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 A4 공인 레포트</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎯 맞춤 로드맵</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 01 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -163,15 +157,9 @@ const DashboardApp = {
             <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">학술 과제 & 리서치</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>02</span> 프롬프트 공식 4+2 & 리서치 기법</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             [역할·배경·지시·형식]의 4대 뼈대와 [조건·샘플]의 2대 보강재를 결합하여 전공 리포트 및 과제 리서치 답변의 정확도를 극대화합니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📋 4+2 공식</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🔍 과제 리서치</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">💡 CoT 추론설계</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🛡️ 표절·환각 차단</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 02 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -185,15 +173,9 @@ const DashboardApp = {
             <span style="background: #fdf4ff; color: #9333ea; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">논문·전공서 스터디</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>03</span> NotebookLM 논문 분석 & 팩트체크</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             전공 교재 PDF나 학술 논문을 소스로 지정하여 할루시네이션 없는 각주 기반의 팩트체크 스터디 및 시험 대비 Q&A 비서를 구축합니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📚 논문·PDF 원문</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📌 각주 출처인용</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 시험대비 가이드</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎧 Audio 요약</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 03 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -207,19 +189,9 @@ const DashboardApp = {
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">데이터 분석 & 번역</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 시트 =GEMINI() 함수 자동화</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역 및 데이터 정제를 수백 행 단위로 자동화합니다.
           </p>
-          <div style="display: flex; flex-direction: column; gap: 4px; margin-bottom: 10px;">
-            <div style="display: flex; gap: 4px; align-items: center;">
-              <span style="background: #f1f5f9; color: #475569; font-size: 10.5px; font-weight: 600; padding: 2px 6px; border-radius: 6px; white-space: nowrap;">⚡ =GEMINI() 수식</span>
-              <span style="background: #eef2ff; color: #4338ca; font-size: 10.5px; font-weight: 600; padding: 2px 6px; border-radius: 6px; white-space: nowrap;">📈 감정분석·라벨링</span>
-            </div>
-            <div style="display: flex; gap: 4px; align-items: center;">
-              <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; white-space: nowrap;">🌐 다국어 번역</span>
-              <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px; white-space: nowrap;">🧹 비정형 정제</span>
-            </div>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 04 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -781,15 +753,9 @@ const DashboardApp = {
             <span style="background: #f1f5f9; color: #334155; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">공문서 & 품의서 혁신</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>01</span> 프롬프트 공식 4+2 & 기안문 작성</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             행정 격식에 맞춘 톤앤매너 설정, 공문서·안내문 초안 생성 및 품의서 작성 시간을 80% 단축합니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📋 4+2 공식</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">✍️ 품의서 초안</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚡ 톤앤매너</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🛡️ 보안·환각예방</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 01 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -803,15 +769,9 @@ const DashboardApp = {
             <span style="background: #e0f2fe; color: #0369a1; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">규정 Q&A & 근거 접지</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>02</span> NotebookLM 활용 행정 실무</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             학내 보도자료나 규정집 PDF를 연동하여 근거 조항 기반의 행정 질의응답 및 홍보 카드뉴스 기획안을 도출합니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📚 학칙·규정 연동</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📌 100% 출처인용</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🔍 보도자료 요약</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📑 행정 FAQ 추출</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 02 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -825,15 +785,9 @@ const DashboardApp = {
             <span style="background: #fdf4ff; color: #9333ea; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">고화질 비주얼 & 홍보</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>03</span> 카드뉴스 제작 (나노바나나 활용)</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             기획된 홍보 문구를 AI 시각 템플릿과 결합하여 모바일 친화형 고화질 카드뉴스를 신속하게 제작합니다.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🎨 나노바나나 AI</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📐 한글 타이포마감</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📱 모바일 최적화</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚖️ 공공 저작권</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 03 섹션으로 바로 이동하기</span>
             <span>↓</span>
@@ -847,15 +801,9 @@ const DashboardApp = {
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">설문 자동화 & 실시간 집계</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 폼 제작 및 집계시스템 설정</h3>
-          <p style="color: #444; font-size: 13.5px; margin-bottom: 10px; line-height: 1.55;">
+          <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
             15분 라이브 시연 로드맵, AI 문항 기획, 1클릭 자동생성 스크립트(GAS), 스프레드시트 실시간 수식 및 =GEMINI() 감정분석.
           </p>
-          <div style="display: flex; flex-wrap: wrap; gap: 4px; margin-bottom: 10px;">
-            <span style="background: #f1f5f9; color: #475569; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⏱️ 15분 로드맵</span>
-            <span style="background: #eef2ff; color: #4338ca; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">⚡ 1클릭 생성</span>
-            <span style="background: #ecfdf5; color: #047857; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">📊 실시간 집계</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 6px;">🤖 =GEMINI() 분석</span>
-          </div>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 04 섹션으로 바로 이동하기</span>
             <span>↓</span>
