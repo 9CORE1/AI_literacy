@@ -752,8 +752,8 @@ const DashboardApp = {
             </p>
           </div>
           <div style="display: flex; align-items: center;">
-            <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 800; font-size: 15px; padding: 14px 26px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); cursor: default;">
-              🏛️ 120분 실습 코스
+            <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 800; font-size: 16px; padding: 14px 28px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); cursor: default;">
+              🏛️ 공식 워크숍 코스
             </span>
           </div>
         </div>
