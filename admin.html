@@ -614,7 +614,7 @@
       const id = document.getElementById('admin-input-id').value;
       const pw = document.getElementById('admin-input-pw').value;
 
-      const res = Auth.loginAdmin(id, pw);
+      const res = await Auth.loginAdmin(id, pw);
       if (res.success) {
         showToast('🛡️ 관리자 모드로 로그인되었습니다.');
         document.getElementById('admin-barrier-modal').style.display = 'none';
