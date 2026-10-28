@@ -172,7 +172,7 @@ const Auth = {
           password: '1111',
           name: '최고 관리자',
           email: adminEmail,
-          role: 'admin',
+          role: 'staff',
           allowedRole: 'staff',
           status: 'approved',
           isAdmin: true,
