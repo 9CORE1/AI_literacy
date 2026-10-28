@@ -50,19 +50,29 @@ const Auth = {
   },
 
   /**
-   * 로컬 스토리지 및 세션에서 현재 사용자 정보 불러오기
+   * 세션 스토리지에서 현재 사용자 정보 불러오기 (창을 닫으면 자동 로그아웃)
    */
   async init() {
     this.initFirebase();
 
-    const cached = localStorage.getItem('ai_lit_user');
+    // 1. 창을 닫으면 로그아웃되도록 sessionStorage를 기본 세션 저장소로 사용
+    const cached = sessionStorage.getItem('ai_lit_user');
     if (cached) {
       try {
         this.user = JSON.parse(cached);
       } catch (e) {
-        localStorage.removeItem('ai_lit_user');
+        sessionStorage.removeItem('ai_lit_user');
+        this.user = null;
       }
+    } else {
+      this.user = null;
     }
+
+    // 2. 혹시 기존 localStorage에 남아있던 영구 로그인 캐시는 창 닫힘 시 로그아웃 보장을 위해 안전하게 정리
+    try {
+      localStorage.removeItem('ai_lit_user');
+    } catch (e) {}
+
     this.renderNavUser();
     return this.user;
   },
@@ -120,11 +130,15 @@ const Auth = {
   },
 
   /**
-   * 사용자 정보 저장
+   * 사용자 정보 저장 (sessionStorage 저장으로 창 닫으면 자동 로그아웃)
    */
   setUser(userData) {
     this.user = userData;
-    localStorage.setItem('ai_lit_user', JSON.stringify(userData));
+    sessionStorage.setItem('ai_lit_user', JSON.stringify(userData));
+    // localStorage의 기존 영구 캐시는 삭제
+    try {
+      localStorage.removeItem('ai_lit_user');
+    } catch (e) {}
     this.renderNavUser();
   },
 
@@ -209,28 +223,52 @@ const Auth = {
   },
 
   /**
-   * 최초 등록된 대상자 역할과 로그인 시도 역할의 일치 여부 검증
-   * 불일치 시 로그인을 차단합니다.
+   * 사용자 역할(대상자) 변경 시 등록 정보 및 Cloud Firestore 동기화
+   * @param {string} emailOrUsername 
+   * @param {string} newRole 
+   */
+  async syncUserRoleUpdate(emailOrUsername, newRole) {
+    if (!emailOrUsername || !newRole) return;
+    const cleanKey = emailOrUsername.trim().toLowerCase();
+
+    // 1. 로컬 등록 회원 정보 갱신
+    try {
+      const registered = this.getRegisteredUsers();
+      const idx = registered.findIndex(
+        (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
+      );
+      if (idx !== -1) {
+        registered[idx].role = newRole;
+        registered[idx].updatedAt = new Date().toISOString();
+        localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
+      }
+    } catch (e) {
+      console.warn('[Auth] 로컬 대상자 역할 갱신 오류:', e);
+    }
+
+    // 2. Cloud Firestore users 문서 갱신
+    if (this.isFirebaseReady()) {
+      try {
+        const safeDocKey = cleanKey.replace(/[\/\.]/g, '_');
+        await this.firebaseDb.collection('users').doc(safeDocKey).set({
+          role: newRole,
+          updatedAt: typeof firebase !== 'undefined' && firebase.firestore ? firebase.firestore.FieldValue.serverTimestamp() : new Date()
+        }, { merge: true });
+      } catch (err) {
+        console.warn('[Auth] Firestore 대상자 역할 갱신 오류:', err);
+      }
+    }
+  },
+
+  /**
+   * 대상자 역할 유효성 검사 (사용자가 선택한 대상자로 자유로운 전환 및 로그인 허용)
    * @param {Object|null} existingUser 
    * @param {string} attemptedRole 
    * @param {string} emailOrId 
-   * @returns {boolean} true: 허용, false: 차단
+   * @returns {boolean} true
    */
   validateRoleConsistency(existingUser, attemptedRole, emailOrId) {
-    if (!existingUser || !existingUser.role) {
-      return true; // 최초 로그인이면 통과
-    }
-
-    if (existingUser.role !== attemptedRole) {
-      const existingLabel = existingUser.role === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
-      const attemptedLabel = attemptedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
-
-      alert(
-        `[로그인 불가 안내]\n\n해당 Google 계정(${emailOrId || ''})은 최초 로그인 시 [${existingLabel}] 대상자로 이미 등록되었습니다.\n\n다른 대상자([${attemptedLabel}])로는 로그인하실 수 없습니다.\n[${existingLabel}] 역할을 선택하신 후 다시 로그인해 주세요.`
-      );
-      return false;
-    }
-
+    // 사용자가 로그인 시 선택한 대상자(대학생/교직원)로 언제든 자유롭게 입장할 수 있도록 허용
     return true;
   },
 
@@ -293,23 +331,27 @@ const Auth = {
     // 기존 등록 회원 및 Firestore에서 동일 이메일 사용자 조회
     const existing = await this.fetchExistingUser(payload.email);
 
-    // 최초 등록된 대상자 역할과 다른 대상자로 로그인 시도 시 즉각 차단!
-    if (!this.validateRoleConsistency(existing, role, payload.email)) {
-      return;
+    // 사용자가 모달에서 선택한 대상자 역할을 최우선 적용
+    const userRole = role || (existing && existing.role ? existing.role : 'student');
+
+    // 기존 등록 정보가 있고 역할이 변경된 경우 비동기 동기화
+    if (existing && existing.role !== userRole) {
+      this.syncUserRoleUpdate(payload.email, userRole).catch(() => {});
     }
 
     const user = {
       name: payload.name || (existing ? existing.name : payload.email.split('@')[0]),
       email: payload.email,
       picture: payload.picture || '',
-      role: existing ? existing.role : (role || 'student'),
+      role: userRole,
       university: existing ? existing.university : '',
       department: existing ? existing.department : '',
       googleId: payload.sub,
-      loginAt: new Date().toISOString()
+      loginAt: new Date().toISOString(),
+      loginMethod: 'google'
     };
 
-    // 로컬 스토리지에 유저 저장
+    // 세션 스토리지에 유저 저장 (창 닫으면 자동 로그아웃)
     this.setUser(user);
 
     // Firebase Auth 구글 자격 증명 동기화 및 입장 이력 저장 대기
@@ -561,8 +603,11 @@ const Auth = {
 
   /**
    * 일반 로그인 (아이디 또는 이메일 + 비밀번호)
+   * @param {string} usernameOrEmail 
+   * @param {string} password 
+   * @param {string} [selectedRole] 사용자가 모달에서 선택한 대상자 역할 ('student'|'staff')
    */
-  async loginWithCredentials(usernameOrEmail, password) {
+  async loginWithCredentials(usernameOrEmail, password, selectedRole = null) {
     if (!usernameOrEmail || !password) {
       return { success: false, message: '아이디(또는 이메일)와 비밀번호를 모두 입력해 주세요.' };
     }
@@ -590,6 +635,13 @@ const Auth = {
       };
     }
 
+    // 사용자가 선택한 대상자가 있다면 해당 역할을 최우선 적용하여 다른 대상자로도 자유롭게 입장 지원
+    const finalRole = selectedRole || matched.role || 'student';
+    if (matched.role !== finalRole) {
+      matched.role = finalRole;
+      this.syncUserRoleUpdate(matched.email || matched.username, finalRole).catch(() => {});
+    }
+
     // 최종 로그인 시간 및 횟수 갱신
     matched.lastLoginAt = new Date().toISOString();
     matched.loginCount = (matched.loginCount || 0) + 1;
@@ -599,7 +651,7 @@ const Auth = {
       name: matched.name,
       username: matched.username,
       email: matched.email,
-      role: matched.role, // 회원가입 시 설정한 학습자 역할
+      role: finalRole,
       university: matched.university || '',
       department: matched.department || '',
       loginAt: new Date().toISOString(),
@@ -622,17 +674,18 @@ const Auth = {
         const fbUser = result.user;
         const existing = await this.fetchExistingUser(fbUser.email);
 
-        // 최초 등록된 대상자 역할과 다른 대상자로 로그인 시도 시 즉각 차단!
-        if (!this.validateRoleConsistency(existing, role, fbUser.email)) {
-          if (this.firebaseAuth) this.firebaseAuth.signOut().catch(() => {});
-          return;
+        // 사용자가 선택한 대상자 역할을 최우선 반영
+        const userRole = role || (existing && existing.role ? existing.role : 'student');
+
+        if (existing && existing.role !== userRole) {
+          this.syncUserRoleUpdate(fbUser.email, userRole).catch(() => {});
         }
 
         const user = {
           name: fbUser.displayName || (existing ? existing.name : fbUser.email.split('@')[0]),
           email: fbUser.email,
           picture: fbUser.photoURL || '',
-          role: existing ? existing.role : (role || 'student'),
+          role: userRole,
           university: existing ? existing.university : '',
           department: existing ? existing.department : '',
           googleId: fbUser.uid,
@@ -660,16 +713,17 @@ const Auth = {
     const isConfigured = this.GOOGLE_CLIENT_ID && !this.GOOGLE_CLIENT_ID.includes('YOUR_GOOGLE_CLIENT_ID');
 
     if (!isConfigured) {
-      // Client ID가 아직 기본값인 경우: 역할에 맞춘 빠른 원클릭 시뮬레이션 입장
+      // Client ID가 아직 기본값인 경우: 선택한 역할에 맞춘 빠른 원클릭 시뮬레이션 입장
       const roleLabel = role === 'staff' ? '교직원' : '대학생';
       const mockUser = {
         name: `${roleLabel} 구글 사용자`,
-        email: `google.user@${role === 'staff' ? 'univ.ac.kr' : 'campus.edu'}`,
+        email: role === 'staff' ? 'staff.demo@univ.ac.kr' : 'student.demo@campus.edu',
         picture: '',
         role: role,
         googleId: 'demo-google-id',
         isDemo: true,
-        loginAt: new Date().toISOString()
+        loginAt: new Date().toISOString(),
+        loginMethod: 'google'
       };
       this.setUser(mockUser);
       if (typeof onSuccess === 'function') {
@@ -741,11 +795,17 @@ const Auth = {
   },
 
   /**
-   * 로그아웃
+   * 로그아웃 (세션 스토리지 삭제 및 상태 초기화)
    */
   logout() {
     this.user = null;
-    localStorage.removeItem('ai_lit_user');
+    sessionStorage.removeItem('ai_lit_user');
+    try {
+      localStorage.removeItem('ai_lit_user');
+    } catch (e) {}
+    if (this.firebaseAuth) {
+      this.firebaseAuth.signOut().catch(() => {});
+    }
     window.location.href = 'index.html';
   },
 
@@ -764,24 +824,29 @@ const Auth = {
         : (this.user.role === 'student'
           ? 'https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link'
           : '');
+      const roleShortText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '회원');
       const notionNoteBtn = notionUrl
-        ? `<a href="${notionUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; background: #ffffff; color: var(--color-obsidian); border-color: #d1d5db;" title="새 창에서 노션 강의노트 열기">
-             <span>📝 노션 강의노트 보기 ↗</span>
+        ? `<a href="${notionUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; background: #ffffff; color: var(--color-obsidian); border-color: #d1d5db; white-space: nowrap;" title="새 창에서 노션 강의노트 열기">
+             <span class="desktop-only">📝 노션 강의노트 보기 ↗</span>
+             <span class="mobile-only">📝 강의노트 ↗</span>
            </a>`
         : '';
       
       const roleBadgeColor = this.user.role === 'staff' ? 'background: #fff3ee; color: var(--color-ember); border: 1px solid #fed7aa;' : 'background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;';
       
       navMenu.innerHTML = `
-        <div class="user-badge" style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
-          <span class="role-badge" style="${roleBadgeColor} padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 800;">${roleText} 전용</span>
+        <div class="user-badge" style="display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;">
+          <span class="role-badge" style="${roleBadgeColor} padding: 4px 10px; border-radius: 999px; font-size: 11.5px; font-weight: 800; white-space: nowrap;">
+            <span class="desktop-only">${roleText} 전용</span>
+            <span class="mobile-only">${roleShortText}</span>
+          </span>
           ${notionNoteBtn}
-          <a href="profile.html" style="font-weight: 600; font-size: 14px; color: var(--color-obsidian); text-decoration: none;" title="프로필 및 입장 이력 관리">
-            ${safeName} 님 ⚙️
+          <a href="profile.html" style="font-weight: 600; font-size: 13.5px; color: var(--color-obsidian); text-decoration: none; white-space: nowrap;" title="프로필 및 입장 이력 관리">
+            ${safeName} 님
           </a>
         </div>
-        ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm">강의실</a>' : ''}
-        <button id="logout-btn" type="button" class="btn btn-secondary btn-sm">로그아웃</button>
+        ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm" style="white-space: nowrap;">강의실</a>' : ''}
+        <button id="logout-btn" type="button" class="btn btn-secondary btn-sm" style="white-space: nowrap;">로그아웃</button>
       `;
 
       document.getElementById('logout-btn')?.addEventListener('click', () => this.logout());

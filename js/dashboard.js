@@ -88,31 +88,38 @@ const DashboardApp = {
       : '';
 
     return `
-      <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Ember / Caldera Style) -->
-      <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
+      <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Matching index.html CORE COMPETENCE Card) -->
+      <div class="card dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
+        <!-- Halftone Top Badge Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="tag-sulfur">CORE COMPETENCE</span>
+            <span style="background: rgba(0, 0, 0, 0.28); color: var(--color-sulfur); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.04em;">
+              STUDENT LAB · 5-FACTOR
+            </span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+            <span style="background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 11.5px; font-weight: 600; white-space: nowrap;">
+              🎓 ${displayName} 님 (${affiliation})
+            </span>
+            <span style="background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.9); padding: 4px 10px; border-radius: var(--radius-pills); font-size: 11.5px; white-space: nowrap;" class="desktop-only">
+              🕒 최근 입장: ${loginTime} (${loginMethodTag})
+            </span>
+          </div>
+        </div>
+
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
-          <div style="flex: 1; max-width: 880px;">
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
-              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase; white-space: nowrap;">
-                🎓 대학생 강의실 · ${displayName} 님
-              </span>
-              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
-                🏫 ${affiliation}
-              </span>
-              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
-                🕒 최근 입장: ${loginTime} (${loginMethodTag})
-              </span>
-            </div>
-            <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
+          <div style="flex: 1; max-width: 820px;">
+            <h2 style="font-size: clamp(26px, 3.8vw, 38px); margin: 0 0 0.6rem 0; color: var(--color-chalk); font-weight: 800; letter-spacing: -0.01em;">
               나의 AI 리터러시 역량 진단 평가
             </h2>
-            <p style="opacity: 0.95; font-size: 1rem; color: #fff3ee; line-height: 1.6; margin: 0;">
-              30문항(약 7분 소요) 진단을 통해 나의 5대 AI 리터러시 강점과 취약점 분석 방사형 차트, 맞춤 피드백 및 PDF 공식 레포트를 발급받으세요.
+            <p style="opacity: 0.95; font-size: 14.5px; color: #fff3ee; line-height: 1.6; margin: 0; word-break: keep-all;">
+              30문항(약 7분 소요) 표준 척도를 통해 5대 핵심 역량 강점·취약점 방사형 차트 분석과 맞춤 학습 가이드, 그리고 공식 A4 레포트를 발급받으세요.
             </p>
             ${completedBadge}
           </div>
-          <div>
-            <a href="diagnosis.html" class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 17px; padding: 16px 32px;">
+          <div style="display: flex; align-items: center;">
+            <a href="diagnosis.html" class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 800; font-size: 16px; padding: 14px 28px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);">
               ${ctaBtnText}
             </a>
           </div>
@@ -715,31 +722,38 @@ const DashboardApp = {
     const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
 
     return `
-      <!-- 교직원 안내 배너 (학생 전용과 동일한 Ember / Caldera Style) -->
-      <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
+      <!-- 교직원 안내 배너 (Matching index.html CORE COMPETENCE Card) -->
+      <div class="card dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
+        <!-- Halftone Top Badge Header -->
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
+          <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+            <span class="tag-sulfur">CORE COMPETENCE</span>
+            <span style="background: rgba(0, 0, 0, 0.28); color: var(--color-sulfur); font-size: 11px; font-weight: 700; padding: 3px 10px; border-radius: 999px; letter-spacing: 0.04em;">
+              STAFF LAB · SMART ADMIN
+            </span>
+          </div>
+          <div style="display: flex; flex-wrap: wrap; gap: 6px; align-items: center;">
+            <span style="background: rgba(255, 255, 255, 0.18); backdrop-filter: blur(8px); border: 1px solid rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 11.5px; font-weight: 600; white-space: nowrap;">
+              🏛️ ${displayName} 님 (${affiliation})
+            </span>
+            <span style="background: rgba(255, 255, 255, 0.12); color: rgba(255, 255, 255, 0.9); padding: 4px 10px; border-radius: var(--radius-pills); font-size: 11.5px; white-space: nowrap;" class="desktop-only">
+              🕒 최근 입장: ${loginTime} (${loginMethodTag})
+            </span>
+          </div>
+        </div>
+
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: var(--spacing-20);">
-          <div style="flex: 1; max-width: 880px;">
-            <div style="display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 8px;">
-              <span style="background: var(--color-sulfur); color: var(--color-obsidian); padding: 4px 14px; border-radius: var(--radius-pills); font-size: 12px; font-weight: 700; text-transform: uppercase; white-space: nowrap;">
-                🏛️ 교직원 전용 코스 · ${displayName} 님
-              </span>
-              <span style="background: rgba(255, 255, 255, 0.2); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
-                🏫 ${affiliation}
-              </span>
-              <span style="background: rgba(255, 255, 255, 0.15); color: #fff; padding: 4px 12px; border-radius: var(--radius-pills); font-size: 12px; white-space: nowrap;">
-                🕒 최근 입장: ${loginTime} (${loginMethodTag})
-              </span>
-            </div>
-            <h2 style="font-size: clamp(28px, 4vw, 42px); margin: 0.75rem 0 0.5rem 0; color: var(--color-chalk);">
-              스마트 행정 업무 혁신 & 홍보 콘텐츠 AI 실무
+          <div style="flex: 1; max-width: 820px;">
+            <h2 style="font-size: clamp(26px, 3.8vw, 38px); margin: 0 0 0.6rem 0; color: var(--color-chalk); font-weight: 800; letter-spacing: -0.01em;">
+              스마트 행정 업무 혁신 &amp; 홍보 콘텐츠 AI 실무
             </h2>
-            <p style="opacity: 0.95; font-size: 1rem; color: #fff3ee; line-height: 1.6;">
+            <p style="opacity: 0.95; font-size: 14.5px; color: #fff3ee; line-height: 1.6; margin: 0; word-break: keep-all;">
               공문 기안, 학칙 규정집 질의응답 챗봇, 원클릭 카드뉴스 제작 및 설문 집계 자동화까지 교직원의 반복 업무를 줄이고 행정 생산성을 극대화합니다.
             </p>
           </div>
-          <div>
-            <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 700; font-size: 16px; padding: 14px 28px; cursor: default;">
-              🏛️ 공식 워크숍 코스
+          <div style="display: flex; align-items: center;">
+            <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 800; font-size: 15px; padding: 14px 26px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); cursor: default;">
+              🏛️ 120분 실습 코스
             </span>
           </div>
         </div>

@@ -225,7 +225,11 @@ const DiagnosisApp = {
       localStorage.setItem('ai_lit_diagnosis_' + user.email, JSON.stringify(this.calculatedReport));
       user.hasCompletedDiagnosis = true;
       user.lastDiagnosisAt = new Date().toISOString();
-      localStorage.setItem('ai_lit_user', JSON.stringify(user));
+      if (typeof Auth !== 'undefined' && Auth.setUser) {
+        Auth.setUser(user);
+      } else {
+        sessionStorage.setItem('ai_lit_user', JSON.stringify(user));
+      }
     }
 
     // PDF 캐시 초기화 (스타일 변경사항 즉시 반영)
