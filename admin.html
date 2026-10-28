@@ -349,7 +349,8 @@
         </a>
         <div class="nav-actions" style="display: flex; align-items: center; gap: 8px;">
           <a href="index.html" class="btn btn-secondary btn-sm">메인 홈</a>
-          <a href="dashboard.html" class="btn btn-secondary btn-sm">맞춤 강의실</a>
+          <a href="dashboard.html?role=student" class="btn btn-secondary btn-sm" style="font-weight: 700;">🎓 대학생 강의실</a>
+          <a href="dashboard.html?role=staff" class="btn btn-secondary btn-sm" style="font-weight: 700;">🏛️ 교직원 강의실</a>
           <button type="button" class="btn btn-secondary btn-sm" onclick="handleAdminLogout()">로그아웃</button>
         </div>
       </header>
@@ -767,7 +768,7 @@
           : `
             ${status !== 'approved' ? `<button type="button" class="btn-action-sm btn-approve" onclick="toggleUserStatus('${key}', 'approved')">승인</button>` : ''}
             ${status !== 'blocked' ? `<button type="button" class="btn-action-sm btn-block" onclick="toggleUserStatus('${key}', 'blocked')">차단</button>` : ''}
-            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${key}')" title="회원 삭제">🗑️</button>
+            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${key}', '${u.firestoreDocId || ''}')" title="데이터베이스에서 회원 영구 삭제">🗑️</button>
           `;
 
         const loginMethodBadge = isAdmin
@@ -863,12 +864,12 @@
       document.querySelectorAll('.user-check').forEach(cb => cb.checked = master.checked);
     }
 
-    // 9. 회원 삭제
-    async function handleDeleteUser(key) {
-      if (confirm(`정말로 '${key}' 회원을 삭제하시겠습니까?\n삭제된 계정은 로그인할 수 없습니다.`)) {
-        const res = await Auth.deleteUser(key);
+    // 9. 회원 삭제 (로컬 및 Cloud Firestore 데이터베이스 영구 삭제)
+    async function handleDeleteUser(key, docId = null) {
+      if (confirm(`정말로 '${key}' 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 계정은 데이터베이스에서 영구 제거되며 다시 로그인할 수 없습니다.`)) {
+        const res = await Auth.deleteUser(key, docId);
         if (res.success) {
-          showToast(`'${key}' 회원이 삭제되었습니다.`);
+          showToast(`'${key}' 회원이 데이터베이스에서 영구 삭제되었습니다.`);
           await loadUsersData();
         } else {
           alert(res.message || '삭제 처리 중 오류가 발생했습니다.');
@@ -885,13 +886,14 @@
       }
 
       const keys = checkedBoxes.map(cb => cb.dataset.key).filter(Boolean);
-      if (confirm(`선택한 ${keys.length}명의 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 회원은 로그인할 수 없습니다.`)) {
+      if (confirm(`선택한 ${keys.length}명의 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 회원은 데이터베이스에서 영구 제거됩니다.`)) {
         let deletedCount = 0;
         for (const key of keys) {
-          const res = await Auth.deleteUser(key);
+          const uObj = currentUsers.find(cu => (cu.email || cu.username) === key);
+          const res = await Auth.deleteUser(key, uObj ? uObj.firestoreDocId : null);
           if (res.success) deletedCount++;
         }
-        showToast(`${deletedCount}명의 회원이 삭제되었습니다.`);
+        showToast(`${deletedCount}명의 회원이 데이터베이스에서 삭제되었습니다.`);
         const masterCheck = document.getElementById('check-all');
         if (masterCheck) masterCheck.checked = false;
         await loadUsersData();

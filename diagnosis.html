@@ -24,7 +24,7 @@
         document.documentElement.style.display = 'none';
         alert('AI 리터러시 진단 평가는 대학생 로그인 후 이용 가능한 서비스입니다.\n메인 화면에서 로그인 후 이용해 주세요.');
         window.location.replace('index.html?login=true');
-      } else if (u.allowedRole && u.allowedRole === 'staff') {
+      } else if (!u.isAdmin && u.allowedRole && u.allowedRole === 'staff') {
         document.documentElement.style.display = 'none';
         alert('⛔ [대상자 접근 제한]\n해당 계정은 관리자로부터 [교직원 과정]만 허용되었습니다.\n대학생 역량 진단 평가에는 접근할 수 없습니다.\n교직원 맞춤 강의실로 이동합니다.');
         window.location.replace('dashboard.html');

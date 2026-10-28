@@ -416,9 +416,10 @@ const Auth = {
   /**
    * 특정 회원 영구 삭제 (로컬스토리지 및 Cloud Firestore)
    * @param {string} emailOrUsername 
+   * @param {string} [docId] Firestore 문서 ID (옵션)
    * @returns {Promise<{success: boolean, message?: string}>}
    */
-  async deleteUser(emailOrUsername) {
+  async deleteUser(emailOrUsername, docId = null) {
     if (!emailOrUsername) return { success: false, message: '삭제할 회원 식별자가 없습니다.' };
     const cleanKey = emailOrUsername.trim().toLowerCase();
     const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
@@ -453,7 +454,7 @@ const Auth = {
       console.warn('[Auth] approvals 삭제 오류:', e);
     }
 
-    // 3. ai_lit_login_history 에서 제거
+    // 3. ai_lit_login_history, 프로필 캐시 및 진단 데이터 제거
     try {
       const history = this.getLoginHistory().filter(h => {
         const hEmail = (h.email || '').toLowerCase();
@@ -461,14 +462,41 @@ const Auth = {
         return hEmail !== cleanKey && hUser !== cleanKey;
       });
       localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
+
+      const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
+      delete profiles[cleanKey];
+      localStorage.setItem('ai_lit_user_profiles', JSON.stringify(profiles));
+
+      localStorage.removeItem('ai_lit_diagnosis_' + cleanKey);
     } catch (e) {}
 
-    // 4. Cloud Firestore 문서 삭제
+    // 4. Cloud Firestore 문서 완전 삭제 (지정 docId 및 쿼리 매칭 문서 일괄 동기 삭제)
     if (this.isFirebaseReady()) {
       try {
         const safeDocKey = cleanKey.replace(/[@.]/g, '_');
-        this.firebaseDb.collection('users').doc(safeDocKey).delete().catch(() => {});
-        this.firebaseDb.collection('users').doc(`user_${cleanKey}`).delete().catch(() => {});
+        const deletePromises = [
+          this.firebaseDb.collection('users').doc(safeDocKey).delete().catch(() => {}),
+          this.firebaseDb.collection('users').doc(`user_${cleanKey}`).delete().catch(() => {}),
+          this.firebaseDb.collection('users').doc(cleanKey).delete().catch(() => {})
+        ];
+        if (docId) {
+          deletePromises.push(this.firebaseDb.collection('users').doc(docId).delete().catch(() => {}));
+        }
+
+        // Firestore 컬렉션 내 일치하는 문서 검색하여 삭제
+        const snap = await this.firebaseDb.collection('users').get();
+        snap.forEach(doc => {
+          const data = doc.data() || {};
+          const dEmail = (data.email || '').toLowerCase().trim();
+          const dUser = (data.username || '').toLowerCase().trim();
+          const dId = doc.id.toLowerCase();
+          const isDocAdmin = dId === 'user_admin' || dId === 'admin@ailiteracy_kr' || dId === 'admin' ||
+                             dUser === 'admin' || dEmail === 'admin@ailiteracy.kr';
+          if (!isDocAdmin && (dEmail === cleanKey || dUser === cleanKey || dId === cleanKey || dId === safeDocKey || dId === `user_${cleanKey}`)) {
+            deletePromises.push(doc.ref.delete().catch(() => {}));
+          }
+        });
+        await Promise.all(deletePromises);
       } catch (err) {
         console.warn('[Auth] Firestore 회원 문서 삭제 오류:', err);
       }
@@ -585,18 +613,24 @@ const Auth = {
     });
     localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
 
-    // 4. Firestore 에서 비관리자 문서 삭제
+    // 4. Firestore 에서 비관리자 문서 일괄 완전 삭제
     if (this.isFirebaseReady()) {
       try {
-        for (const u of nonAdminUsers) {
-          const keys = [u.username, u.email].filter(Boolean);
-          for (const k of keys) {
-            const safe = k.replace(/[@.]/g, '_');
-            this.firebaseDb.collection('users').doc(safe).delete().catch(() => {});
-            this.firebaseDb.collection('users').doc(`user_${k.toLowerCase()}`).delete().catch(() => {});
+        const snap = await this.firebaseDb.collection('users').get();
+        const deletePromises = [];
+        snap.forEach(doc => {
+          const data = doc.data() || {};
+          const docId = doc.id.toLowerCase();
+          const isDocAdmin = docId === 'user_admin' || docId === 'admin@ailiteracy_kr' || docId === 'admin' ||
+                             data.username === 'admin' || data.email === 'admin@ailiteracy.kr' || data.isAdmin === true;
+          if (!isDocAdmin) {
+            deletePromises.push(doc.ref.delete().catch(() => {}));
           }
-        }
-      } catch (e) {}
+        });
+        await Promise.all(deletePromises);
+      } catch (e) {
+        console.warn('[Auth] Firestore 비관리자 일괄 삭제 오류:', e);
+      }
     }
 
     // 5. admin 계정 영구 유지 확인
@@ -1367,6 +1401,21 @@ const Auth = {
       };
     }
 
+    // 최신 프로필 정보(학교, 학과, 학년 등) 병합
+    try {
+      const existingProfile = await this.fetchExistingUser(key);
+      if (existingProfile) {
+        matched = {
+          ...existingProfile,
+          ...matched,
+          name: existingProfile.name || matched.name,
+          university: existingProfile.university || matched.university || '',
+          department: existingProfile.department || matched.department || '',
+          gradeOrPosition: existingProfile.gradeOrPosition || matched.gradeOrPosition || ''
+        };
+      }
+    } catch (e) {}
+
     // 2. 관리자 승인 상태 검증 (Requirement 1)
     const userIdentifier = matched.email || matched.username;
     const approval = this.getUserApproval(userIdentifier);
@@ -1630,15 +1679,20 @@ const Auth = {
     if (this.isLoggedIn()) {
       if (this.user.isAdmin || this.isAdmin()) {
         navMenu.innerHTML = `
-          <div class="user-badge" style="display: flex; align-items: center; gap: 8px; flex-wrap: nowrap;">
-            <span style="background: var(--color-ember); color: #fff; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px;">
+          <div class="user-badge" style="display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;">
+            <span style="background: var(--color-ember); color: #fff; font-size: 11px; font-weight: 800; padding: 4px 10px; border-radius: 999px; white-space: nowrap;">
               🛡️ 최고 관리자
             </span>
-            <a href="admin.html" class="btn btn-primary btn-sm" style="font-weight: 800; white-space: nowrap;">
+            <a href="admin.html" class="btn btn-primary btn-sm" style="font-weight: 800; font-size: 12px; white-space: nowrap;">
               관리자 콘솔 ↗
             </a>
-            <a href="dashboard.html" class="btn btn-secondary btn-sm" style="white-space: nowrap;">강의실</a>
-            <button id="logout-btn" type="button" class="btn btn-secondary btn-sm" style="white-space: nowrap;">로그아웃</button>
+            <a href="dashboard.html?role=student" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-weight: 700; font-size: 12px;" title="대학생 강의실 바로가기">
+              🎓 대학생 강의실
+            </a>
+            <a href="dashboard.html?role=staff" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-weight: 700; font-size: 12px;" title="교직원 강의실 바로가기">
+              🏛️ 교직원 강의실
+            </a>
+            <button id="logout-btn" type="button" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-size: 12px;">로그아웃</button>
           </div>
         `;
         document.getElementById('logout-btn')?.addEventListener('click', () => {

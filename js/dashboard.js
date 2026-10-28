@@ -41,10 +41,20 @@ const DashboardApp = {
       }
     }
 
-    // [RBAC 보안] URL 쿼리스트링(?role=...)을 통한 타 대상자 코스 부정 접근 엄격 차단
+    // [RBAC 보안] URL 쿼리스트링(?role=...)을 통한 대상자 코스 제어
     const urlParams = new URLSearchParams(window.location.search);
     const requestedRole = urlParams.get('role');
-    if (requestedRole && !user.isAdmin && !Auth.isAdmin()) {
+    if (user.isAdmin || Auth.isAdmin()) {
+      // 최고 관리자는 대학생/교직원 강의실 모두 자유롭게 접근 및 전환 가능
+      if (requestedRole === 'student' || requestedRole === 'staff') {
+        user.role = requestedRole;
+        user.allowedRole = requestedRole;
+      } else if (!user.role || (user.role !== 'student' && user.role !== 'staff')) {
+        user.role = 'student';
+        user.allowedRole = 'student';
+      }
+      Auth.setUser(user);
+    } else if (requestedRole) {
       const approval = Auth.getUserApproval(user.email || user.username);
       const userRole = approval.allowedRole || user.role || 'student';
       if (requestedRole !== userRole) {
@@ -70,10 +80,33 @@ const DashboardApp = {
     const container = document.getElementById('dashboard-content');
     if (!container) return;
 
+    let adminBannerHtml = '';
+    if (user.isAdmin || Auth.isAdmin()) {
+      adminBannerHtml = `
+        <div class="admin-classroom-switcher" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #fff; padding: 12px 20px; border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
+          <div style="display: flex; align-items: center; gap: 10px;">
+            <span style="background: var(--color-ember); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 999px;">🛡️ 최고 관리자 열람 모드</span>
+            <span style="font-weight: 700; font-size: 14px;">현재 열람 중: <strong style="color: var(--color-sulfur);">${user.role === 'staff' ? '🏛️ 교직원 맞춤 강의실' : '🎓 대학생 맞춤 강의실'}</strong></span>
+          </div>
+          <div style="display: flex; align-items: center; gap: 8px;">
+            <a href="dashboard.html?role=student" class="btn btn-sm" style="font-size: 12.5px; font-weight: 800; padding: 6px 14px; border-radius: 8px; text-decoration: none; ${user.role === 'student' ? 'background: var(--color-sulfur); color: var(--color-obsidian); border: none;' : 'background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);'}">
+              🎓 대학생 강의실
+            </a>
+            <a href="dashboard.html?role=staff" class="btn btn-sm" style="font-size: 12.5px; font-weight: 800; padding: 6px 14px; border-radius: 8px; text-decoration: none; ${user.role === 'staff' ? 'background: var(--color-sulfur); color: var(--color-obsidian); border: none;' : 'background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);'}">
+              🏛️ 교직원 강의실
+            </a>
+            <a href="admin.html" class="btn btn-sm" style="font-size: 12.5px; font-weight: 700; padding: 6px 14px; border-radius: 8px; text-decoration: none; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35);">
+              관리자 콘솔 ↗
+            </a>
+          </div>
+        </div>
+      `;
+    }
+
     if (user.role === 'student') {
-      container.innerHTML = this.getStudentDashboardHtml(user);
+      container.innerHTML = adminBannerHtml + this.getStudentDashboardHtml(user);
     } else {
-      container.innerHTML = this.getStaffDashboardHtml(user);
+      container.innerHTML = adminBannerHtml + this.getStaffDashboardHtml(user);
     }
   },
 
