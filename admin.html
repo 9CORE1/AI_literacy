@@ -374,12 +374,18 @@
           관리자가 승인한 회원만 로그인을 허용하고, 관리자가 지정한 대상자(대학생/교직원) 페이지에만 접속하도록 제어합니다.
         </p>
       </div>
-      <div style="display: flex; gap: 8px;">
+      <div style="display: flex; gap: 8px; flex-wrap: wrap;">
         <button type="button" class="btn btn-primary btn-sm" onclick="openAddUserModal()" style="font-weight: 800; font-size: 13px;">
           ➕ 새 회원 직접 추가
         </button>
         <button type="button" class="btn btn-secondary btn-sm" onclick="batchApprovePending()" style="font-weight: 700; font-size: 13px;">
           ⚡ 대기자 일괄 승인
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="batchDeleteSelected()" style="font-weight: 700; font-size: 13px; color: #dc2626;">
+          🗑️ 선택 회원 삭제
+        </button>
+        <button type="button" class="btn btn-secondary btn-sm" onclick="handlePurgeAllArbitraryUsers()" style="font-weight: 800; font-size: 13px; background: #fef2f2; border-color: #fecaca; color: #b91c1c;">
+          🧹 임의 회원 전체 삭제
         </button>
       </div>
     </div>
@@ -832,21 +838,46 @@
     }
 
     // 9. 회원 삭제
-    function handleDeleteUser(key) {
+    async function handleDeleteUser(key) {
       if (confirm(`정말로 '${key}' 회원을 삭제하시겠습니까?\n삭제된 계정은 로그인할 수 없습니다.`)) {
-        try {
-          const registered = Auth.getRegisteredUsers().filter(u => (u.email || u.username) !== key);
-          localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
-
-          const approvals = Auth.getApprovals();
-          delete approvals[key.toLowerCase()];
-          localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
-
+        const res = await Auth.deleteUser(key);
+        if (res.success) {
           showToast(`'${key}' 회원이 삭제되었습니다.`);
           loadUsersData();
-        } catch (e) {
-          alert('삭제 처리 중 오류가 발생했습니다: ' + e.message);
+        } else {
+          alert(res.message || '삭제 처리 중 오류가 발생했습니다.');
         }
+      }
+    }
+
+    // 선택 회원 일괄 삭제
+    async function batchDeleteSelected() {
+      const checkedBoxes = Array.from(document.querySelectorAll('.user-check:checked'));
+      if (checkedBoxes.length === 0) {
+        alert('삭제할 회원을 먼저 체크박스로 선택해 주세요.');
+        return;
+      }
+
+      const keys = checkedBoxes.map(cb => cb.dataset.key).filter(Boolean);
+      if (confirm(`선택한 ${keys.length}명의 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n삭제된 회원은 로그인할 수 없습니다.`)) {
+        let deletedCount = 0;
+        for (const key of keys) {
+          const res = await Auth.deleteUser(key);
+          if (res.success) deletedCount++;
+        }
+        showToast(`${deletedCount}명의 회원이 삭제되었습니다.`);
+        const masterCheck = document.getElementById('check-all');
+        if (masterCheck) masterCheck.checked = false;
+        loadUsersData();
+      }
+    }
+
+    // 임의/테스트 회원 전체 삭제 (admin 계정 제외 전원 삭제)
+    async function handlePurgeAllArbitraryUsers() {
+      if (confirm('⚠️ [주의] 최고 관리자(admin)를 제외한 모든 임의/테스트 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.')) {
+        const res = await Auth.deleteAllNonAdminUsers();
+        showToast('모든 임의 회원이 삭제되었습니다.');
+        loadUsersData();
       }
     }
 

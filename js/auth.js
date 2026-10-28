@@ -56,6 +56,14 @@ const Auth = {
     this.initFirebase();
     this.seedAdminUser(); // admin / 1111 계정을 회원 데이터베이스에 자동 등록 및 영구 동기화
 
+    // 임의/테스트용 회원 자동 정리 (v1 일회성 정리 + 지속적 데모 계정 자동 정리)
+    if (!localStorage.getItem('ai_lit_arbitrary_users_cleaned_v1')) {
+      await this.deleteAllNonAdminUsers();
+      localStorage.setItem('ai_lit_arbitrary_users_cleaned_v1', 'true');
+    } else {
+      await this.cleanDummyUsers();
+    }
+
     // 1. 창을 닫으면 로그아웃되도록 sessionStorage를 기본 세션 저장소로 사용
     const cached = sessionStorage.getItem('ai_lit_user');
     if (cached) {
@@ -323,6 +331,197 @@ const Auth = {
         console.warn('[Auth] Firestore 회원 승인 상태 동기화 오류:', err);
       }
     }
+  },
+
+  /**
+   * 특정 회원 영구 삭제 (로컬스토리지 및 Cloud Firestore)
+   * @param {string} emailOrUsername 
+   * @returns {Promise<{success: boolean, message?: string}>}
+   */
+  async deleteUser(emailOrUsername) {
+    if (!emailOrUsername) return { success: false, message: '삭제할 회원 식별자가 없습니다.' };
+    const cleanKey = emailOrUsername.trim().toLowerCase();
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+
+    // 최고 관리자 계정 보호
+    if (cleanKey === adminId || cleanKey === 'admin@ailiteracy.kr') {
+      return { success: false, message: '최고 관리자(admin) 계정은 삭제할 수 없습니다.' };
+    }
+
+    // 1. ai_lit_registered_users 에서 제거
+    try {
+      const users = this.getRegisteredUsers();
+      const filtered = users.filter(u => {
+        const uName = (u.username || '').toLowerCase();
+        const uEmail = (u.email || '').toLowerCase();
+        return uName !== cleanKey && uEmail !== cleanKey;
+      });
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(filtered));
+    } catch (e) {
+      console.warn('[Auth] registered_users 삭제 오류:', e);
+    }
+
+    // 2. ai_lit_user_approvals 에서 제거
+    try {
+      const approvals = this.getApprovals();
+      delete approvals[cleanKey];
+      Object.keys(approvals).forEach(k => {
+        if (k.toLowerCase() === cleanKey) delete approvals[k];
+      });
+      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+    } catch (e) {
+      console.warn('[Auth] approvals 삭제 오류:', e);
+    }
+
+    // 3. ai_lit_login_history 에서 제거
+    try {
+      const history = this.getLoginHistory().filter(h => {
+        const hEmail = (h.email || '').toLowerCase();
+        const hUser = (h.username || '').toLowerCase();
+        return hEmail !== cleanKey && hUser !== cleanKey;
+      });
+      localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
+    } catch (e) {}
+
+    // 4. Cloud Firestore 문서 삭제
+    if (this.isFirebaseReady()) {
+      try {
+        const safeDocKey = cleanKey.replace(/[@.]/g, '_');
+        this.firebaseDb.collection('users').doc(safeDocKey).delete().catch(() => {});
+        this.firebaseDb.collection('users').doc(`user_${cleanKey}`).delete().catch(() => {});
+      } catch (err) {
+        console.warn('[Auth] Firestore 회원 문서 삭제 오류:', err);
+      }
+    }
+
+    return { success: true };
+  },
+
+  /**
+   * 시스템 내 데모/임의 추가 회원 패턴을 자동 감지하여 영구 정리
+   */
+  async cleanDummyUsers() {
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+    const adminEmail = 'admin@ailiteracy.kr';
+
+    const isDummy = (u) => {
+      if (!u) return false;
+      const uName = (u.username || '').toLowerCase();
+      const uEmail = (u.email || '').toLowerCase();
+      const realName = (u.name || '').toLowerCase();
+      const univ = (u.university || '').toLowerCase();
+
+      if (uName === adminId || uEmail === adminEmail) return false;
+
+      if (u.isDemo === true) return true;
+      if (uEmail === 'staff.demo@univ.ac.kr' || uEmail === 'student.demo@campus.edu') return true;
+      if (uName === 'staff.demo' || uName === 'student.demo') return true;
+      if (realName.includes('구글 사용자') || realName.includes('데모')) return true;
+      if (univ.includes('데모 대학교')) return true;
+      if (uEmail.includes('demo@') || uEmail.includes('@campus.edu')) return true;
+      return false;
+    };
+
+    // 1. registered_users 정리
+    try {
+      const users = this.getRegisteredUsers();
+      const cleaned = users.filter(u => !isDummy(u));
+      if (cleaned.length !== users.length) {
+        localStorage.setItem('ai_lit_registered_users', JSON.stringify(cleaned));
+      }
+    } catch (e) {}
+
+    // 2. approvals 정리
+    try {
+      const approvals = this.getApprovals();
+      let changed = false;
+      const dummyKeys = ['staff.demo@univ.ac.kr', 'student.demo@campus.edu', 'staff.demo', 'student.demo'];
+      Object.keys(approvals).forEach(k => {
+        if (dummyKeys.includes(k.toLowerCase()) || isDummy(approvals[k])) {
+          delete approvals[k];
+          changed = true;
+        }
+      });
+      if (changed) {
+        localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
+      }
+    } catch (e) {}
+
+    // 3. login_history 정리
+    try {
+      const history = this.getLoginHistory().filter(h => !isDummy(h));
+      localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
+    } catch (e) {}
+
+    // 4. Firestore 데모 문서 정리
+    if (this.isFirebaseReady()) {
+      try {
+        const dummyDocs = [
+          'staff_demo@univ_ac_kr',
+          'student_demo@campus_edu',
+          'user_staff_demo',
+          'user_student_demo'
+        ];
+        dummyDocs.forEach(docId => {
+          this.firebaseDb.collection('users').doc(docId).delete().catch(() => {});
+        });
+      } catch (e) {}
+    }
+  },
+
+  /**
+   * 최고 관리자(admin)를 제외한 모든 임의/테스트 회원 일괄 영구 삭제
+   */
+  async deleteAllNonAdminUsers() {
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+    const adminEmail = 'admin@ailiteracy.kr';
+
+    // 1. registered_users 에서 admin만 보존
+    const registered = this.getRegisteredUsers();
+    const nonAdminUsers = registered.filter(u => {
+      const uName = (u.username || '').toLowerCase();
+      const uEmail = (u.email || '').toLowerCase();
+      return uName !== adminId && uEmail !== adminEmail;
+    });
+
+    const keptUsers = registered.filter(u => {
+      const uName = (u.username || '').toLowerCase();
+      const uEmail = (u.email || '').toLowerCase();
+      return uName === adminId || uEmail === adminEmail;
+    });
+    localStorage.setItem('ai_lit_registered_users', JSON.stringify(keptUsers));
+
+    // 2. approvals 에서 admin만 보존
+    const approvals = this.getApprovals();
+    const keptApprovals = {};
+    if (approvals[adminId]) keptApprovals[adminId] = approvals[adminId];
+    if (approvals[adminEmail]) keptApprovals[adminEmail] = approvals[adminEmail];
+    localStorage.setItem('ai_lit_user_approvals', JSON.stringify(keptApprovals));
+
+    // 3. login_history 에서 admin만 보존
+    const history = this.getLoginHistory().filter(h => {
+      const k = (h.email || h.username || '').toLowerCase();
+      return k === adminId || k === adminEmail;
+    });
+    localStorage.setItem('ai_lit_login_history', JSON.stringify(history));
+
+    // 4. Firestore 에서 비관리자 문서 삭제
+    if (this.isFirebaseReady()) {
+      try {
+        for (const u of nonAdminUsers) {
+          const keys = [u.username, u.email].filter(Boolean);
+          for (const k of keys) {
+            const safe = k.replace(/[@.]/g, '_');
+            this.firebaseDb.collection('users').doc(safe).delete().catch(() => {});
+            this.firebaseDb.collection('users').doc(`user_${k.toLowerCase()}`).delete().catch(() => {});
+          }
+        }
+      } catch (e) {}
+    }
+
+    // 5. admin 계정 영구 유지 확인
+    await this.seedAdminUser();
+    return { success: true, count: nonAdminUsers.length };
   },
 
   /**
@@ -1153,54 +1352,7 @@ const Auth = {
     const isConfigured = this.GOOGLE_CLIENT_ID && !this.GOOGLE_CLIENT_ID.includes('YOUR_GOOGLE_CLIENT_ID');
 
     if (!isConfigured) {
-      // Client ID가 아직 기본값인 경우: 선택한 역할에 맞춘 시뮬레이션 입장
-      const roleLabel = role === 'staff' ? '교직원' : '대학생';
-      const mockEmail = role === 'staff' ? 'staff.demo@univ.ac.kr' : 'student.demo@campus.edu';
-
-      // 관리자 승인 상태 검증
-      const approval = this.getUserApproval(mockEmail);
-      if (approval.status !== 'approved') {
-        this.recordPendingUser({
-          name: `${roleLabel} 구글 사용자`,
-          email: mockEmail,
-          username: mockEmail.split('@')[0],
-          role: role,
-          allowedRole: role,
-          university: '데모 대학교',
-          department: role === 'staff' ? '교무행정팀' : '소프트웨어학부',
-          loginMethod: 'google'
-        });
-
-        const msg = approval.status === 'blocked'
-          ? '⛔ [접속 차단]\n해당 계정은 관리자에 의해 접속이 차단되었습니다.'
-          : '🔒 [로그인 승인 대기 안내]\n해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.';
-        alert(msg);
-        return;
-      }
-
-      let userRole = role;
-      if (approval.allowedRole && approval.allowedRole !== 'all') {
-        userRole = approval.allowedRole;
-      }
-
-      const mockUser = {
-        name: `${roleLabel} 구글 사용자`,
-        email: mockEmail,
-        picture: '',
-        role: userRole,
-        allowedRole: approval.allowedRole || userRole,
-        status: 'approved',
-        googleId: 'demo-google-id',
-        isDemo: true,
-        loginAt: new Date().toISOString(),
-        loginMethod: 'google'
-      };
-      this.setUser(mockUser);
-      if (typeof onSuccess === 'function') {
-        onSuccess(mockUser);
-      } else {
-        window.location.href = 'dashboard.html';
-      }
+      alert('🔒 [Google 로그인 안내]\n\nGoogle 로그인을 이용하시려면 관리자 콘솔 또는 환경 설정에서 Google Client ID 설정이 필요합니다.\n현재는 [아이디 / 비밀번호] 로그인 및 [회원가입]을 통해 정식으로 이용하실 수 있습니다.');
       return;
     }
 
