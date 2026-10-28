@@ -314,6 +314,16 @@ button {
   color: var(--color-chalk);
 }
 
+/* Dashboard Hero Banner (원래의 깔끔한 단색 로열 바이올렛 보라색 블록) */
+.dashboard-header-card {
+  background-color: var(--color-ember) !important;
+  color: var(--color-chalk) !important;
+  border-radius: var(--radius-cards) !important;
+  padding: 32px 36px;
+  box-shadow: 0 12px 32px rgba(85, 56, 150, 0.2);
+  border: none;
+}
+
 /* Sulfur Tag Badge */
 .tag-sulfur, .badge-sulfur {
   background-color: var(--color-sulfur);

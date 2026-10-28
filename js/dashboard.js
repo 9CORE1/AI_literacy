@@ -88,8 +88,8 @@ const DashboardApp = {
       : '';
 
     return `
-      <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Matching index.html CORE COMPETENCE Card) -->
-      <div class="card dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
+      <!-- 학생 전용 AI 리터러시 진단 CTA 배너 (Ember Solid Purple) -->
+      <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <!-- Halftone Top Badge Header -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
@@ -722,8 +722,8 @@ const DashboardApp = {
     const loginMethodTag = user.loginMethod === 'google' ? 'Google 간편입장' : (user.loginMethod === 'register' ? '신규가입 입장' : '아이디 로그인');
 
     return `
-      <!-- 교직원 안내 배너 (Matching index.html CORE COMPETENCE Card) -->
-      <div class="card dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
+      <!-- 교직원 안내 배너 (Ember Solid Purple) -->
+      <div class="card card-ember dashboard-header-card" style="margin-bottom: var(--spacing-32); margin-top: var(--spacing-16);">
         <!-- Halftone Top Badge Header -->
         <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 14px;">
           <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
