@@ -750,6 +750,13 @@ const DashboardApp = {
             <p style="opacity: 0.95; font-size: 14.5px; color: #fff3ee; line-height: 1.6; margin: 0; word-break: keep-all;">
               공문 기안, 학칙 규정집 질의응답 챗봇, 원클릭 카드뉴스 제작 및 설문 집계 자동화까지 교직원의 반복 업무를 줄이고 행정 생산성을 극대화합니다.
             </p>
+            <div style="margin-top: 10px;">
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-weight: 800; font-size: 12.5px; padding: 4px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
+                <span>⚡ 스마트 행정 4대 실무 코스</span>
+                <span style="opacity: 0.75;">|</span>
+                <span>공문서 기안 · 규정 챗봇 · 카드뉴스 · 시트 집계 자동화</span>
+              </span>
+            </div>
           </div>
           <div style="display: flex; align-items: center;">
             <span class="btn btn-secondary" style="background: var(--color-chalk); border-color: var(--color-chalk); color: var(--color-obsidian); font-weight: 800; font-size: 16px; padding: 14px 28px; box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18); cursor: default;">
