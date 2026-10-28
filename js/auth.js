@@ -841,8 +841,9 @@ const Auth = {
             <span class="mobile-only">${roleShortText}</span>
           </span>
           ${notionNoteBtn}
-          <a href="profile.html" style="font-weight: 600; font-size: 13.5px; color: var(--color-obsidian); text-decoration: none; white-space: nowrap;" title="프로필 및 입장 이력 관리">
-            ${safeName} 님
+          <a href="profile.html" style="font-weight: 600; font-size: 13.5px; color: var(--color-obsidian); text-decoration: none; display: inline-flex; align-items: center; gap: 4px; white-space: nowrap;" title="내 정보 및 프로필 관리">
+            <span>${safeName} 님</span>
+            <span style="font-size: 14px; opacity: 0.9;" aria-label="프로필 관리">⚙️</span>
           </a>
         </div>
         ${this.user.role ? '<a href="dashboard.html" class="btn btn-secondary btn-sm" style="white-space: nowrap;">강의실</a>' : ''}
