@@ -246,9 +246,10 @@ const Auth = {
     if (!emailOrUsername) return { status: 'pending', allowedRole: 'student' };
     const cleanKey = emailOrUsername.trim().toLowerCase();
 
-    // 최고 관리자 계정은 항상 전권 승인
-    if (cleanKey === 'admin' || this.isAdmin() || (this.user && this.user.isAdmin)) {
-      return { status: 'approved', allowedRole: 'student' };
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+    // 최고 관리자 계정은 항상 승인
+    if (cleanKey === adminId || cleanKey === 'admin' || cleanKey === 'admin@ailiteracy.kr') {
+      return { status: 'approved', allowedRole: 'staff' };
     }
 
     const approvals = this.getApprovals();
@@ -649,22 +650,56 @@ const Auth = {
   },
 
   /**
-   * 관리자 화면용 전체 통합 회원 목록 조회 (등록회원 + 승인대기자 + 구글접속자 통합)
-   * @returns {Array<Object>}
+   * 관리자 화면용 전체 통합 회원 목록 조회 (Firestore + 로컬 등록회원 + 승인대기자 + 구글접속자 통합 실시간 로드)
+   * @returns {Promise<Array<Object>>}
    */
-  getAllUsersForAdmin() {
+  async getAllUsersForAdmin() {
     const map = new Map();
 
-    // 1. 등록 회원 목록
+    // 1. Cloud Firestore users 컬렉션에서 실시간 통합 조회
+    if (this.isFirebaseReady()) {
+      try {
+        const snap = await this.firebaseDb.collection('users').get();
+        snap.forEach(doc => {
+          const data = doc.data();
+          if (!data) return;
+          const userEmail = (data.email || '').trim().toLowerCase();
+          const userName = (data.username || '').trim().toLowerCase();
+          let primaryKey = userEmail || userName || doc.id.toLowerCase();
+          if (primaryKey.startsWith('user_')) {
+            primaryKey = primaryKey.replace(/^user_/, '');
+          }
+          if (primaryKey) {
+            const existing = map.get(primaryKey) || {};
+            map.set(primaryKey, {
+              ...existing,
+              ...data,
+              key: primaryKey,
+              email: data.email || existing.email || '',
+              username: data.username || existing.username || primaryKey,
+              name: data.name || existing.name || '',
+              role: data.role || existing.role || 'student',
+              status: data.status || existing.status || 'pending',
+              firestoreDocId: doc.id
+            });
+          }
+        });
+      } catch (err) {
+        console.warn('[Auth] Firestore 회원 목록 조회 실패 (로컬 데이터로 대체):', err);
+      }
+    }
+
+    // 2. 로컬 ai_lit_registered_users 병합
     const registered = this.getRegisteredUsers();
     registered.forEach(u => {
       const key = (u.email || u.username || '').trim().toLowerCase();
       if (key) {
-        map.set(key, { ...u, key: key });
+        const existing = map.get(key) || {};
+        map.set(key, { ...existing, ...u, key: key });
       }
     });
 
-    // 2. 승인 목록 병합
+    // 3. 승인 목록(ai_lit_user_approvals) 병합
     const approvals = this.getApprovals();
     Object.keys(approvals).forEach(key => {
       const app = approvals[key];
@@ -674,11 +709,11 @@ const Auth = {
         ...app,
         key: key,
         status: app.status || existing.status || 'pending',
-        allowedRole: app.allowedRole || existing.allowedRole || existing.role || 'student'
+        role: app.role || existing.role || app.allowedRole || existing.allowedRole || 'student'
       });
     });
 
-    // 3. 로그인 이력 목록에서 추가 정보 보강
+    // 4. 로그인 이력 목록에서 추가 정보 보강
     const history = this.getLoginHistory();
     history.forEach(h => {
       const key = (h.email || h.username || '').trim().toLowerCase();
@@ -689,11 +724,43 @@ const Auth = {
       }
     });
 
-    return Array.from(map.values()).sort((a, b) => {
+    // 5. 최고 관리자 계정 상시 포함 보장
+    const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
+    const adminPw = localStorage.getItem('ai_lit_admin_pw') || this.ADMIN_DEFAULT_PW;
+    if (!map.has(adminId) && !map.has('admin@ailiteracy.kr')) {
+      map.set(adminId, {
+        username: adminId,
+        password: adminPw,
+        name: '최고 관리자',
+        email: 'admin@ailiteracy.kr',
+        role: 'admin',
+        allowedRole: 'staff',
+        status: 'approved',
+        isAdmin: true,
+        university: 'AI Literacy Lab',
+        department: '시스템 관리실',
+        registeredAt: '2026-01-01T00:00:00.000Z',
+        lastLoginAt: new Date().toISOString(),
+        loginMethod: 'credentials',
+        key: adminId
+      });
+    }
+
+    const allUsers = Array.from(map.values()).sort((a, b) => {
+      // 최고 관리자 계정은 항상 최상단에 고정
+      if (a.isAdmin || a.username === 'admin') return -1;
+      if (b.isAdmin || b.username === 'admin') return 1;
       const dateA = new Date(a.registeredAt || a.lastLoginAt || 0);
       const dateB = new Date(b.registeredAt || b.lastLoginAt || 0);
       return dateB - dateA;
     });
+
+    // 로컬 스토리지 캐시 동기화
+    try {
+      localStorage.setItem('ai_lit_registered_users', JSON.stringify(allUsers));
+    } catch (e) {}
+
+    return allUsers;
   },
 
   /**

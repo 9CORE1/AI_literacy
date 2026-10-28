@@ -608,7 +608,7 @@
       return true;
     }
 
-    function handleAdminLoginSubmit(e) {
+    async function handleAdminLoginSubmit(e) {
       e.preventDefault();
       const id = document.getElementById('admin-input-id').value;
       const pw = document.getElementById('admin-input-pw').value;
@@ -617,7 +617,7 @@
       if (res.success) {
         showToast('🛡️ 관리자 모드로 로그인되었습니다.');
         document.getElementById('admin-barrier-modal').style.display = 'none';
-        loadUsersData();
+        await loadUsersData();
       } else {
         alert(res.message);
       }
@@ -630,24 +630,40 @@
       }
     }
 
-    // 2. 회원 데이터 로드 및 통계 산출
-    function loadUsersData() {
-      currentUsers = Auth.getAllUsersForAdmin();
+    // 2. 회원 데이터 로드 및 통계 산출 (로컬 캐시 즉시 렌더링 + Firestore 실시간 2차 갱신)
+    async function loadUsersData() {
+      // 1. 로컬 캐시 즉시 표시
+      const localUsers = Auth.getRegisteredUsers();
+      currentUsers = Array.isArray(localUsers) && localUsers.length > 0 ? localUsers : [];
+      updateKpisAndRender(currentUsers);
 
-      // 통계 계산
+      // 2. Cloud Firestore 및 통합 회원 목록 실시간 조회
+      try {
+        const liveUsers = await Auth.getAllUsersForAdmin();
+        if (Array.isArray(liveUsers) && liveUsers.length > 0) {
+          currentUsers = liveUsers;
+          updateKpisAndRender(currentUsers);
+        }
+      } catch (err) {
+        console.warn('[Admin] 회원 목록 실시간 로드 예외:', err);
+      }
+    }
+
+    function updateKpisAndRender(users) {
       let approvedCount = 0;
       let pendingCount = 0;
       let blockedCount = 0;
 
-      currentUsers.forEach(u => {
+      users.forEach(u => {
+        const isAdmin = Boolean(u.isAdmin || u.username === 'admin');
         const approval = Auth.getUserApproval(u.email || u.username);
-        const st = approval.status || u.status || 'pending';
+        const st = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
         if (st === 'approved') approvedCount++;
         else if (st === 'blocked') blockedCount++;
         else pendingCount++;
       });
 
-      document.getElementById('kpi-total-users').textContent = currentUsers.length;
+      document.getElementById('kpi-total-users').textContent = users.length;
       document.getElementById('kpi-approved-users').textContent = approvedCount;
       document.getElementById('kpi-pending-users').textContent = pendingCount;
       document.getElementById('kpi-blocked-users').textContent = blockedCount;
@@ -669,9 +685,11 @@
       const roleFilter = document.getElementById('admin-role-filter').value;
 
       const filtered = currentUsers.filter(u => {
-        const approval = Auth.getUserApproval(u.email || u.username);
-        const status = approval.status || u.status || 'pending';
-        const role = approval.allowedRole || u.allowedRole || u.role || 'student';
+        const key = u.email || u.username;
+        const isAdmin = Boolean(u.isAdmin || u.username === 'admin' || key === 'admin');
+        const approval = Auth.getUserApproval(key);
+        const status = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
+        const role = isAdmin ? 'admin' : (approval.allowedRole || u.allowedRole || u.role || 'student');
 
         // 상태 필터
         if (currentStatusFilter !== 'all' && status !== currentStatusFilter) {
@@ -680,7 +698,8 @@
 
         // 역할 필터
         if (roleFilter !== 'all') {
-          if (role !== 'all' && role !== roleFilter && u.role !== roleFilter) {
+          if (isAdmin) return true; // 관리자는 항상 조회에 포함
+          if (role !== roleFilter && u.role !== roleFilter) {
             return false;
           }
         }
@@ -715,15 +734,18 @@
 
       users.forEach(u => {
         const key = u.email || u.username;
+        const isAdmin = Boolean(u.isAdmin || u.username === 'admin' || key === 'admin');
         const approval = Auth.getUserApproval(key);
-        const status = approval.status || u.status || 'pending';
-        const allowedRole = approval.allowedRole || u.allowedRole || u.role || 'student';
+        const status = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
+        const currentRole = (approval.allowedRole || u.role || 'student') === 'staff' ? 'staff' : 'student';
 
         const tr = document.createElement('tr');
 
         // 상태 배지 클래스 및 레이블
         let statusBadgeHtml = '';
-        if (status === 'approved') {
+        if (isAdmin) {
+          statusBadgeHtml = `<span class="status-badge approved" style="cursor: default;">🟢 승인 완료 (전권)</span>`;
+        } else if (status === 'approved') {
           statusBadgeHtml = `<span class="status-badge approved" onclick="toggleUserStatus('${key}', 'pending')" title="클릭 시 '대기'로 전환">🟢 승인 완료</span>`;
         } else if (status === 'blocked') {
           statusBadgeHtml = `<span class="status-badge blocked" onclick="toggleUserStatus('${key}', 'approved')" title="클릭 시 '승인'으로 전환">🔴 접속 차단</span>`;
@@ -731,20 +753,37 @@
           statusBadgeHtml = `<span class="status-badge pending" onclick="toggleUserStatus('${key}', 'approved')" title="클릭 시 즉시 '승인' 처리">🟡 승인 대기 (클릭 승인)</span>`;
         }
 
-        const roleText = u.role === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
-        const loginMethodBadge = u.loginMethod === 'google' 
-          ? '<span style="background: #eef2ff; color: #4338ca; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Google</span>'
-          : '<span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">일반 ID</span>';
+        const roleColHtml = isAdmin
+          ? `<span style="background: var(--color-ember); color: #fff; font-size: 11.5px; font-weight: 800; padding: 4px 10px; border-radius: 999px;">🛡️ 최고 관리자</span>`
+          : `
+            <select class="role-select" onchange="handleUserRoleChange('${key}', this.value)" style="padding: 7px 10px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #fff; cursor: pointer; color: var(--color-obsidian);">
+              <option value="student" ${currentRole === 'student' ? 'selected' : ''}>🎓 대학생 맞춤 과정</option>
+              <option value="staff" ${currentRole === 'staff' ? 'selected' : ''}>🏛️ 교직원 맞춤 과정</option>
+            </select>
+          `;
+
+        const actionColHtml = isAdmin
+          ? `<span style="font-size: 11.5px; color: #94a3b8; font-weight: 700;">시스템 보호</span>`
+          : `
+            ${status !== 'approved' ? `<button type="button" class="btn-action-sm btn-approve" onclick="toggleUserStatus('${key}', 'approved')">승인</button>` : ''}
+            ${status !== 'blocked' ? `<button type="button" class="btn-action-sm btn-block" onclick="toggleUserStatus('${key}', 'blocked')">차단</button>` : ''}
+            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${key}')" title="회원 삭제">🗑️</button>
+          `;
+
+        const loginMethodBadge = isAdmin
+          ? '<span style="background: #fef3c7; color: #92400e; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 800;">ADMIN</span>'
+          : (u.loginMethod === 'google' 
+            ? '<span style="background: #eef2ff; color: #4338ca; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">Google</span>'
+            : '<span style="background: #f1f5f9; color: #475569; font-size: 11px; padding: 2px 6px; border-radius: 4px; font-weight: 700;">일반 ID</span>');
 
         const regDateText = u.registeredAt ? new Date(u.registeredAt).toLocaleDateString('ko-KR') : '-';
-        const currentRole = (approval.allowedRole || u.role || 'student') === 'staff' ? 'staff' : 'student';
 
         tr.innerHTML = `
           <td style="text-align: center;">
-            <input type="checkbox" class="user-check" data-key="${key}">
+            ${isAdmin ? '' : `<input type="checkbox" class="user-check" data-key="${key}">`}
           </td>
           <td>
-            <div style="font-weight: 700; color: var(--color-obsidian); font-size: 14px;">${Auth.escapeHtml(u.name || '미등록')}</div>
+            <div style="font-weight: 700; color: var(--color-obsidian); font-size: 14px;">${Auth.escapeHtml(u.name || (isAdmin ? '최고 관리자' : '미등록'))}</div>
             <div style="font-size: 12px; color: #64748b;">${Auth.escapeHtml(u.email || u.username)}</div>
           </td>
           <td>
@@ -756,18 +795,13 @@
             <div style="font-size: 11px; color: #94a3b8; margin-top: 3px;">${regDateText}</div>
           </td>
           <td>
-            <select class="role-select" onchange="handleUserRoleChange('${key}', this.value)" style="padding: 7px 10px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #fff; cursor: pointer; color: var(--color-obsidian);">
-              <option value="student" ${currentRole === 'student' ? 'selected' : ''}>🎓 대학생 맞춤 과정</option>
-              <option value="staff" ${currentRole === 'staff' ? 'selected' : ''}>🏛️ 교직원 맞춤 과정</option>
-            </select>
+            ${roleColHtml}
           </td>
           <td style="text-align: center;">
             ${statusBadgeHtml}
           </td>
           <td style="text-align: right; white-space: nowrap;">
-            ${status !== 'approved' ? `<button type="button" class="btn-action-sm btn-approve" onclick="toggleUserStatus('${key}', 'approved')">승인</button>` : ''}
-            ${status !== 'blocked' ? `<button type="button" class="btn-action-sm btn-block" onclick="toggleUserStatus('${key}', 'blocked')">차단</button>` : ''}
-            <button type="button" class="btn-action-sm btn-delete" onclick="handleDeleteUser('${key}')" title="회원 삭제">🗑️</button>
+            ${actionColHtml}
           </td>
         `;
 
@@ -783,7 +817,7 @@
 
       const statusKo = newStatus === 'approved' ? '승인' : (newStatus === 'blocked' ? '차단' : '대기');
       showToast(`'${key}' 회원이 [${statusKo}] 처리되었습니다.`);
-      loadUsersData();
+      await loadUsersData();
     }
 
     // 6. 신청 역할/소속 과정 수정 처리 (첫 로그인 때 잘못 선택한 역할을 관리자가 정정)
@@ -792,7 +826,7 @@
       if (res.success) {
         const roleKo = newRole === 'staff' ? '🏛️ 교직원 맞춤 과정' : '🎓 대학생 맞춤 과정';
         showToast(`'${key}' 회원의 소속 역할이 [${roleKo}]으로 수정되었습니다.`);
-        loadUsersData();
+        await loadUsersData();
       } else {
         alert(res.message || '역할 수정 중 오류가 발생했습니다.');
       }
@@ -801,7 +835,10 @@
     // 7. 대기 회원 일괄 승인
     async function batchApprovePending() {
       const pendingUsers = currentUsers.filter(u => {
-        const app = Auth.getUserApproval(u.email || u.username);
+        const key = u.email || u.username;
+        const isAdmin = Boolean(u.isAdmin || u.username === 'admin' || key === 'admin');
+        if (isAdmin) return false;
+        const app = Auth.getUserApproval(key);
         return (app.status || u.status || 'pending') === 'pending';
       });
 
@@ -817,7 +854,7 @@
           await Auth.setUserApproval(key, 'approved', app.allowedRole || u.role || 'student');
         }
         showToast(`${pendingUsers.length}명의 회원이 일괄 승인되었습니다.`);
-        loadUsersData();
+        await loadUsersData();
       }
     }
 
@@ -832,7 +869,7 @@
         const res = await Auth.deleteUser(key);
         if (res.success) {
           showToast(`'${key}' 회원이 삭제되었습니다.`);
-          loadUsersData();
+          await loadUsersData();
         } else {
           alert(res.message || '삭제 처리 중 오류가 발생했습니다.');
         }
@@ -857,7 +894,7 @@
         showToast(`${deletedCount}명의 회원이 삭제되었습니다.`);
         const masterCheck = document.getElementById('check-all');
         if (masterCheck) masterCheck.checked = false;
-        loadUsersData();
+        await loadUsersData();
       }
     }
 
@@ -866,7 +903,7 @@
       if (confirm('⚠️ [주의] 최고 관리자(admin)를 제외한 모든 임의/테스트 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.')) {
         const res = await Auth.deleteAllNonAdminUsers();
         showToast('모든 임의 회원이 삭제되었습니다.');
-        loadUsersData();
+        await loadUsersData();
       }
     }
 
@@ -917,14 +954,14 @@
 
       showToast(`'${name}' 회원이 성공적으로 등록되었습니다.`);
       closeAddUserModal();
-      loadUsersData();
+      await loadUsersData();
     }
 
     // Init
     document.addEventListener('DOMContentLoaded', async () => {
       await Auth.init();
       if (checkAdminAuth()) {
-        loadUsersData();
+        await loadUsersData();
       }
     });
   </script>
