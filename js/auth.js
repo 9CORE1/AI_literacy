@@ -1059,9 +1059,10 @@ const Auth = {
   /**
    * 관리자 화면용 전체 회원 목록 조회 (Cloud Firestore users 컬렉션 100% 기준 실시간 로드)
    * 로컬 브라우저 캐시에 남아있는 DB 외 유령 레코드는 표시하지 않고 DB 상태와 완전히 일치시킵니다.
+   * @param {Object} [options] { forceServer: boolean }
    * @returns {Promise<Array<Object>>}
    */
-  async getAllUsersForAdmin() {
+  async getAllUsersForAdmin(options = {}) {
     this.initFirebase();
     const map = new Map();
 
@@ -1085,11 +1086,19 @@ const Auth = {
       );
     };
 
-    // 1. Cloud Firestore users 컬렉션에서 실시간 조회 (단일 진실 공급원: Single Source of Truth)
+    // 1. Cloud Firestore users 컬렉션에서 서버 직접 조회 (캐시 우회 우선 적용)
     let firestoreLoaded = false;
     if (this.isFirebaseReady()) {
       try {
-        const snap = await this.firebaseDb.collection('users').get();
+        let snap;
+        try {
+          snap = await this.firebaseDb.collection('users').get({ source: 'server' });
+        } catch (serverErr) {
+          if (options && options.forceServer) {
+            throw serverErr;
+          }
+          snap = await this.firebaseDb.collection('users').get();
+        }
         firestoreLoaded = true;
         snap.forEach(doc => {
           const data = doc.data();
@@ -1128,6 +1137,9 @@ const Auth = {
           }
         });
       } catch (err) {
+        if (options && options.forceServer) {
+          throw err;
+        }
         console.warn('[Auth] Firestore 회원 목록 조회 실패 (오프라인 폴백 적용):', err);
       }
     }

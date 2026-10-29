@@ -385,8 +385,8 @@
         <button type="button" class="btn btn-secondary btn-sm" onclick="batchDeleteSelected()" style="font-weight: 700; font-size: 13px; color: #dc2626;">
           🗑️ 선택 회원 삭제
         </button>
-        <button type="button" class="btn btn-secondary btn-sm" onclick="handlePurgeAllArbitraryUsers()" style="font-weight: 800; font-size: 13px; background: #fef2f2; border-color: #fecaca; color: #b91c1c;">
-          🧹 임의 회원 전체 삭제
+        <button type="button" class="btn btn-secondary btn-sm" disabled aria-disabled="true" title="회원 데이터 보호를 위해 현재 비활성화되어 있습니다." style="font-weight: 800; font-size: 13px; background: #f1f5f9; border-color: #cbd5e1; color: #94a3b8; opacity: 0.55; cursor: not-allowed;">
+          🧹 임의 회원 전체 삭제 (비활성화)
         </button>
       </div>
     </div>
@@ -440,7 +440,7 @@
             <option value="student">🎓 대학생</option>
             <option value="staff">🏛️ 교직원</option>
           </select>
-          <button type="button" class="btn btn-secondary btn-sm" onclick="loadUsersData()" title="새로고침">
+          <button type="button" id="btn-refresh-users" class="btn btn-secondary btn-sm" onclick="refreshUsersFromDb()" title="users 데이터베이스에서 최신 회원정보 다시 불러오기">
             🔄
           </button>
         </div>
@@ -582,7 +582,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261029_dbonly"></script>
+  <script src="js/auth.js?v=20261029_refresh"></script>
 
   <script>
     let currentUsers = [];
@@ -671,15 +671,41 @@
     }
 
     // 2. 회원 데이터 로드 및 통계 산출 (오직 Cloud Firestore users 데이터베이스 실제 등록 회원만 표시)
-    async function loadUsersData() {
+    async function loadUsersData(options = {}) {
       try {
-        const liveUsers = await Auth.getAllUsersForAdmin();
+        const liveUsers = await Auth.getAllUsersForAdmin(options);
         currentUsers = Array.isArray(liveUsers) ? deduplicateUsers(liveUsers) : [];
         updateKpisAndRender(currentUsers);
+        return true;
       } catch (err) {
         console.warn('[Admin] 회원 목록 실시간 로드 예외:', err);
+        if (options && options.forceServer) {
+          throw err;
+        }
         currentUsers = [];
         updateKpisAndRender(currentUsers);
+        return false;
+      }
+    }
+
+    // 새로고침 아이콘 클릭 시 Cloud Firestore users 데이터베이스에서 서버 직접 재조회
+    async function refreshUsersFromDb() {
+      const btn = document.getElementById('btn-refresh-users');
+      if (btn) {
+        btn.disabled = true;
+        btn.textContent = '⏳';
+      }
+      try {
+        await loadUsersData({ forceServer: true });
+        showToast(`🔄 users 데이터베이스에서 최신 회원정보(총 ${currentUsers.length}명)를 다시 불러왔습니다.`);
+      } catch (err) {
+        console.error('[Admin] users DB 새로고침 실패:', err);
+        alert('users 데이터베이스를 다시 읽어오는 중 오류가 발생했습니다. 네트워크 연결 상태를 확인해 주세요.');
+      } finally {
+        if (btn) {
+          btn.disabled = false;
+          btn.textContent = '🔄';
+        }
       }
     }
 
@@ -959,13 +985,10 @@
       }
     }
 
-    // 임의/테스트 회원 전체 삭제 (admin 계정 제외 전원 삭제)
+    // 임의/테스트 회원 전체 삭제 (실수 방지를 위해 기능 비활성화됨)
     async function handlePurgeAllArbitraryUsers() {
-      if (confirm('⚠️ [주의] 최고 관리자(admin)를 제외한 모든 임의/테스트 회원을 데이터베이스에서 완전히 삭제하시겠습니까?\n\n이 작업은 되돌릴 수 없습니다.')) {
-        const res = await Auth.deleteAllNonAdminUsers();
-        showToast('모든 임의 회원이 삭제되었습니다.');
-        await loadUsersData();
-      }
+      alert('회원 데이터 보호를 위해 [임의 회원 전체 삭제] 기능은 현재 비활성화되어 있습니다.');
+      return;
     }
 
     // 10. 신규 회원 직접 등록 모달
