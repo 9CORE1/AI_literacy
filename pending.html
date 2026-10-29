@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>관리자 승인 대기 중 — AI Literacy Lab</title>
+  <meta name="description" content="AI Literacy Lab 맞춤 강의실 입장을 위한 관리자 승인 대기 페이지">
+  <link rel="icon" type="image/png" href="literacy_logo.png">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* Pending Approval Page — Caldera Design System & Mobile-First Optimization */
+    .pending-viewport {
+      min-height: 100vh;
+      background-color: var(--surface-limestone-surface);
+      display: flex;
+      flex-direction: column;
+      word-break: keep-all;
+      overflow-x: hidden;
+    }
+
+    .pending-main {
+      flex: 1;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 32px 20px 64px;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .pending-card {
+      width: 100%;
+      max-width: 600px;
+      background: var(--color-chalk);
+      border: 1.5px solid var(--color-pumice);
+      border-radius: 40px;
+      padding: 44px 38px;
+      box-shadow: 0 20px 48px rgba(7, 6, 7, 0.06);
+      text-align: center;
+      box-sizing: border-box;
+    }
+
+    /* Live Pulsing Status Pill */
+    .pending-status-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 16px;
+      border-radius: 800px;
+      font-size: 13px;
+      font-weight: 800;
+      background: #fef9c3;
+      color: #854d0e;
+      border: 1px solid #fde047;
+      margin-bottom: 18px;
+    }
+
+    .pending-status-pill.approved {
+      background: #dcfce7;
+      color: #166534;
+      border-color: #86efac;
+    }
+
+    .pending-status-pill.blocked {
+      background: #fee2e2;
+      color: #991b1b;
+      border-color: #fca5a5;
+    }
+
+    .pulse-dot {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #ca8a04;
+      display: inline-block;
+      animation: pendingPulse 1.6s infinite ease-in-out;
+    }
+
+    .pending-status-pill.approved .pulse-dot {
+      background: #16a34a;
+      animation: none;
+    }
+
+    .pending-status-pill.blocked .pulse-dot {
+      background: #dc2626;
+      animation: none;
+    }
+
+    @keyframes pendingPulse {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 1;
+        box-shadow: 0 0 0 0 rgba(202, 138, 4, 0.45);
+      }
+      50% {
+        transform: scale(1.18);
+        opacity: 0.75;
+        box-shadow: 0 0 0 7px rgba(202, 138, 4, 0);
+      }
+    }
+
+    .pending-icon-circle {
+      width: 76px;
+      height: 76px;
+      margin: 0 auto 20px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #f3edff 0%, #ede4ff 100%);
+      border: 2px solid #dfd3fc;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 34px;
+    }
+
+    .pending-title {
+      font-family: var(--font-display);
+      font-size: clamp(23px, 4vw, 31px);
+      font-weight: 800;
+      color: var(--color-obsidian);
+      line-height: 1.3;
+      margin: 0 0 12px 0;
+    }
+
+    .pending-desc {
+      font-size: 15px;
+      color: #555;
+      line-height: 1.65;
+      margin: 0 0 26px 0;
+    }
+
+    /* Applicant Info Summary Box */
+    .applicant-box {
+      background: #faf9f6;
+      border: 1.5px solid var(--color-pumice);
+      border-radius: 24px;
+      padding: 20px 22px;
+      text-align: left;
+      margin-bottom: 22px;
+    }
+
+    .applicant-box-header {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--color-ember);
+      letter-spacing: 0.05em;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .applicant-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 9px 0;
+      border-bottom: 1px dashed #e5e4df;
+      font-size: 14px;
+    }
+
+    .applicant-row:last-child {
+      border-bottom: none;
+      padding-bottom: 0;
+    }
+
+    .applicant-label {
+      color: #64748b;
+      font-weight: 600;
+      flex-shrink: 0;
+    }
+
+    .applicant-value {
+      color: var(--color-obsidian);
+      font-weight: 700;
+      text-align: right;
+      word-break: break-all;
+    }
+
+    .role-course-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: var(--color-sulfur);
+      color: var(--color-obsidian);
+      font-size: 12.5px;
+      font-weight: 800;
+      padding: 4px 12px;
+      border-radius: 800px;
+      word-break: keep-all;
+    }
+
+    /* Auto-detection Info Banner */
+    .realtime-notice {
+      background: #f5f2ff;
+      border: 1px solid #dfd3fc;
+      border-radius: 16px;
+      padding: 13px 16px;
+      font-size: 13px;
+      color: #493375;
+      line-height: 1.55;
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    /* Action Buttons (800px Pill System, >= 48px Touch Area) */
+    .pending-actions {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-pending-check {
+      flex: 1;
+      min-width: 210px;
+      min-height: 52px;
+      border-radius: 800px;
+      background: var(--color-ember);
+      color: #ffffff;
+      border: none;
+      padding: 14px 24px;
+      font-size: 15.5px;
+      font-weight: 800;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.15s;
+      font-family: inherit;
+    }
+
+    .btn-pending-check:hover {
+      background: var(--color-violet-hover);
+      transform: translateY(-1px);
+    }
+
+    .btn-pending-check:disabled {
+      opacity: 0.65;
+      cursor: wait;
+      transform: none;
+    }
+
+    .btn-pending-home {
+      min-height: 52px;
+      border-radius: 800px;
+      background: transparent;
+      color: var(--color-obsidian);
+      border: 1.5px solid var(--color-pumice);
+      padding: 14px 22px;
+      font-size: 14.5px;
+      font-weight: 700;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, border-color 0.2s;
+      box-sizing: border-box;
+    }
+
+    .btn-pending-home:hover {
+      background: #f3f2ee;
+      border-color: #cbd5e1;
+    }
+
+    /* Responsive Breakpoints (<= 768px & <= 480px) */
+    @media (max-width: 768px) {
+      .pending-main {
+        padding: 20px 16px 48px;
+      }
+
+      .pending-card {
+        padding: 32px 20px;
+        border-radius: 30px;
+      }
+
+      .pending-actions {
+        flex-direction: column;
+      }
+
+      .btn-pending-check,
+      .btn-pending-home {
+        width: 100%;
+        min-width: 0;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .pending-card {
+        padding: 26px 16px;
+        border-radius: 26px;
+      }
+
+      .applicant-box {
+        padding: 16px;
+      }
+
+      .applicant-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .applicant-value {
+        text-align: left;
+      }
+    }
+  </style>
+</head>
+
+<body class="pending-viewport">
+  <!-- 상단 네비게이션 -->
+  <div class="navbar-wrapper">
+    <div class="container">
+      <header class="navbar">
+        <a href="index.html" class="nav-brand">
+          <span class="nav-brand-dot"></span>
+          <span>AI Literacy Lab</span>
+          <span class="nav-tag">APPROVAL WAIT</span>
+        </a>
+        <div class="nav-actions">
+          <a href="index.html" class="btn btn-secondary btn-sm" style="font-size: 13px; font-weight: 700;">
+            메인 홈
+          </a>
+        </div>
+      </header>
+    </div>
+  </div>
+
+  <!-- 메인 승인 대기 카드 -->
+  <main class="pending-main">
+    <div class="pending-card">
+      <div class="pending-status-pill" id="pending-status-pill">
+        <span class="pulse-dot"></span>
+        <span id="pending-status-text">관리자 실시간 승인 대기 중</span>
+      </div>
+
+      <div class="pending-icon-circle" id="pending-icon-box">⏳</div>
+
+      <h1 class="pending-title" id="pending-title">관리자 승인을 기다리고 있습니다</h1>
+      <p class="pending-desc" id="pending-desc">
+        회원님의 가입 및 입장 신청이 정상적으로 접수되었습니다.<br>
+        관리자 콘솔에서 <strong>[승인]</strong> 처리되는 즉시 선택하신 맞춤 강의실로 <strong>자동 이동</strong>합니다.
+      </p>
+
+      <!-- 신청자 요약 정보 -->
+      <div class="applicant-box">
+        <div class="applicant-box-header">
+          <span>📋 신청 회원 정보</span>
+          <span id="last-checked-time" style="font-size: 11.5px; color: #64748b; font-weight: 600;">실시간 연결됨</span>
+        </div>
+        <div class="applicant-row">
+          <span class="applicant-label">성명</span>
+          <span class="applicant-value" id="info-name">-</span>
+        </div>
+        <div class="applicant-row">
+          <span class="applicant-label">계정 (이메일/ID)</span>
+          <span class="applicant-value" id="info-account">-</span>
+        </div>
+        <div class="applicant-row" id="row-affiliation">
+          <span class="applicant-label" id="label-affiliation">소속 정보</span>
+          <span class="applicant-value" id="info-affiliation">-</span>
+        </div>
+        <div class="applicant-row">
+          <span class="applicant-label">배정 예정 강의실</span>
+          <span class="applicant-value">
+            <span class="role-course-badge" id="info-role-badge">🎓 대학생 맞춤 강의실</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="realtime-notice" id="realtime-notice">
+        <span>📡</span>
+        <span>이 페이지를 켜두시면 관리자 승인 즉시 별도 로그인 없이 강의실로 자동 입장됩니다.</span>
+      </div>
+
+      <div class="pending-actions">
+        <button type="button" class="btn-pending-check" id="btn-manual-check" onclick="handleManualCheck()">
+          <span>🔄 지금 승인 상태 확인하기</span>
+        </button>
+        <a href="index.html" class="btn-pending-home">
+          메인 화면으로 이동
+        </a>
+      </div>
+    </div>
+  </main>
+
+  <!-- Caldera Footer -->
+  <footer class="caldera-footer" style="margin-top: auto;">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">AI LITERACY LAB</div>
+        <div>
+          <a href="index.html" style="font-weight: 600;">메인 홈으로</a>
+        </div>
+      </div>
+      <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 12px; line-height: 1.6;">
+        <div>© 2026 AI Literacy Lab. Caldera Light Theme Architecture. All rights reserved.</div>
+        <div>본 플랫폼의 진단 척도 및 결과 알고리즘은 학술 연구 윤리 지침을 준수합니다.</div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Firebase SDK (v10 compat) & Config -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+  <script src="js/firebase-config.js"></script>
+  <script src="js/auth.js?v=20261029_pendingflow"></script>
+  <script>
+    let pendingUser = null;
+    let pollTimer = null;
+    let unsubscribeSnapshot = null;
+    let isTransitioning = false;
+
+    function updateRoleDisplay(role) {
+      const badge = document.getElementById('info-role-badge');
+      const affLabel = document.getElementById('label-affiliation');
+      const isStaff = role === 'staff';
+      if (badge) {
+        badge.textContent = isStaff ? '🏛️ 교직원 맞춤 강의실' : '🎓 대학생 맞춤 강의실';
+      }
+      if (affLabel) {
+        affLabel.textContent = isStaff ? '소속기관 / 부서' : '학교 / 학과';
+      }
+    }
+
+    function renderPendingInfo(user) {
+      document.getElementById('info-name').textContent = user.name || '신청자';
+      document.getElementById('info-account').textContent = user.email || user.username || '-';
+
+      const affText = [user.university, user.department].filter(Boolean).join(' · ');
+      const rowAff = document.getElementById('row-affiliation');
+      if (affText) {
+        rowAff.style.display = 'flex';
+        document.getElementById('info-affiliation').textContent = affText;
+      } else {
+        rowAff.style.display = 'none';
+      }
+
+      updateRoleDisplay(user.role || user.allowedRole || 'student');
+    }
+
+    /**
+     * 승인 완료 감지 시 세션 활성화 후 해당 역할(대학생/교직원) 맞춤 강의실로 즉시 이동
+     */
+    async function completeApprovalAndRedirect(liveResult) {
+      if (isTransitioning) return;
+      isTransitioning = true;
+
+      if (pollTimer) clearInterval(pollTimer);
+      if (typeof unsubscribeSnapshot === 'function') {
+        try { unsubscribeSnapshot(); } catch (e) {}
+      }
+
+      const docData = (liveResult && liveResult.userDoc) || {};
+      const finalRole = ((liveResult && liveResult.role) || docData.allowedRole || docData.role || pendingUser.role || 'student') === 'staff'
+        ? 'staff'
+        : 'student';
+
+      updateRoleDisplay(finalRole);
+
+      // UI 상태 즉시 전환
+      const pill = document.getElementById('pending-status-pill');
+      const statusText = document.getElementById('pending-status-text');
+      const iconBox = document.getElementById('pending-icon-box');
+      const titleEl = document.getElementById('pending-title');
+      const descEl = document.getElementById('pending-desc');
+      const checkBtn = document.getElementById('btn-manual-check');
+
+      if (pill) pill.className = 'pending-status-pill approved';
+      if (statusText) statusText.textContent = '관리자 승인 완료 · 강의실 자동 입장 중';
+      if (iconBox) iconBox.textContent = '✅';
+      if (titleEl) titleEl.textContent = '승인이 완료되었습니다!';
+      const roleKo = finalRole === 'staff' ? '교직원 맞춤 강의실' : '대학생 맞춤 강의실';
+      if (descEl) {
+        descEl.innerHTML = `관리자 승인이 확인되어 <strong>[${roleKo}]</strong> 페이지로 지금 이동합니다.`;
+      }
+      if (checkBtn) {
+        checkBtn.disabled = true;
+        checkBtn.innerHTML = `<span>🚀 ${roleKo} 입장 중...</span>`;
+      }
+
+      const nowIso = new Date().toISOString();
+      const approvedSessionUser = {
+        name: docData.name || pendingUser.name || '학습자',
+        username: docData.username || pendingUser.username || (pendingUser.email ? pendingUser.email.split('@')[0] : 'user'),
+        email: docData.email || pendingUser.email || pendingUser.username,
+        picture: docData.picture || pendingUser.picture || '',
+        role: finalRole,
+        allowedRole: finalRole,
+        status: 'approved',
+        university: docData.university || pendingUser.university || '',
+        department: docData.department || pendingUser.department || '',
+        gradeOrPosition: docData.gradeOrPosition || pendingUser.gradeOrPosition || '',
+        googleId: docData.googleId || pendingUser.googleId || '',
+        firestoreDocId: (liveResult && liveResult.docId) || pendingUser.firestoreDocId || null,
+        loginAt: nowIso,
+        lastLoginAt: nowIso,
+        loginMethod: pendingUser.loginMethod || docData.loginMethod || 'credentials',
+        provider: pendingUser.provider || docData.provider || 'password'
+      };
+
+      // 로컬 승인 캐시 및 정식 로그인 세션 저장
+      Auth.syncLocalApprovalCache(approvedSessionUser);
+      Auth.setUser(approvedSessionUser);
+      Auth.clearPendingUser();
+
+      try {
+        await Auth.recordLoginHistory(approvedSessionUser, approvedSessionUser.loginMethod);
+      } catch (e) {}
+
+      // 대상자별 맞춤 강의실 페이지로 즉시 이동
+      setTimeout(() => {
+        window.location.replace(`dashboard.html?role=${finalRole}`);
+      }, 450);
+    }
+
+    /**
+     * 차단 상태 감지 시 UI 안내
+     */
+    function handleBlockedState() {
+      if (pollTimer) clearInterval(pollTimer);
+      if (typeof unsubscribeSnapshot === 'function') {
+        try { unsubscribeSnapshot(); } catch (e) {}
+      }
+
+      const pill = document.getElementById('pending-status-pill');
+      const statusText = document.getElementById('pending-status-text');
+      const iconBox = document.getElementById('pending-icon-box');
+      const titleEl = document.getElementById('pending-title');
+      const descEl = document.getElementById('pending-desc');
+      const noticeEl = document.getElementById('realtime-notice');
+      const checkBtn = document.getElementById('btn-manual-check');
+
+      if (pill) pill.className = 'pending-status-pill blocked';
+      if (statusText) statusText.textContent = '접속 차단됨';
+      if (iconBox) iconBox.textContent = '⛔';
+      if (titleEl) titleEl.textContent = '계정 접속이 제한되었습니다';
+      if (descEl) descEl.textContent = '관리자에 의해 해당 계정의 접속이 차단되었습니다. 자세한 사항은 관리자에게 문의해 주세요.';
+      if (noticeEl) noticeEl.style.display = 'none';
+      if (checkBtn) checkBtn.style.display = 'none';
+      Auth.clearPendingUser();
+    }
+
+    /**
+     * 서버 및 로컬 상태 확인
+     */
+    async function checkApprovalNow() {
+      if (!pendingUser || isTransitioning) return;
+      try {
+        const res = await Auth.checkLiveUserApproval(pendingUser);
+        const timeEl = document.getElementById('last-checked-time');
+        if (timeEl) {
+          const nowStr = new Date().toLocaleTimeString('ko-KR', { hour: '2-digit', minute: '2-digit', second: '2-digit' });
+          timeEl.textContent = `최근 확인: ${nowStr}`;
+        }
+
+        if (res.docId && !pendingUser.firestoreDocId) {
+          pendingUser.firestoreDocId = res.docId;
+          Auth.setPendingUser(pendingUser);
+          attachFirestoreRealtimeListener(res.docId);
+        }
+
+        if (res.role) {
+          pendingUser.role = res.role;
+          pendingUser.allowedRole = res.role;
+          updateRoleDisplay(res.role);
+        }
+
+        if (res.status === 'approved') {
+          await completeApprovalAndRedirect(res);
+        } else if (res.status === 'blocked') {
+          handleBlockedState();
+        }
+      } catch (err) {
+        console.warn('[Pending] 승인 상태 확인 예외:', err);
+      }
+    }
+
+    async function handleManualCheck() {
+      const btn = document.getElementById('btn-manual-check');
+      if (btn && !isTransitioning) {
+        btn.disabled = true;
+        btn.innerHTML = '<span>⏳ 데이터베이스 확인 중...</span>';
+      }
+      await checkApprovalNow();
+      if (btn && !isTransitioning) {
+        btn.disabled = false;
+        btn.innerHTML = '<span>🔄 지금 승인 상태 확인하기</span>';
+      }
+    }
+
+    /**
+     * Cloud Firestore 문서 실시간 리스너(onSnapshot) 연결 — 관리자 승인 즉시 0.5초 내 반응
+     */
+    function attachFirestoreRealtimeListener(docId) {
+      if (!docId || unsubscribeSnapshot || !Auth.isFirebaseReady()) return;
+      try {
+        unsubscribeSnapshot = Auth.firebaseDb
+          .collection('users')
+          .doc(docId)
+          .onSnapshot((docSnap) => {
+            if (!docSnap.exists || isTransitioning) return;
+            const data = docSnap.data() || {};
+            const liveRole = (data.allowedRole || data.role || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+            updateRoleDisplay(liveRole);
+
+            if (data.status === 'approved') {
+              completeApprovalAndRedirect({
+                status: 'approved',
+                role: liveRole,
+                userDoc: data,
+                docId: docSnap.id
+              });
+            } else if (data.status === 'blocked') {
+              handleBlockedState();
+            }
+          }, (err) => {
+            console.warn('[Pending] 실시간 리스너 경고 (폴링으로 자동 유지):', err);
+          });
+      } catch (e) {
+        console.warn('[Pending] onSnapshot 연결 예외:', e);
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', async () => {
+      await Auth.init();
+
+      // 이미 정식 승인된 로그인 세션이 있는 경우 즉시 해당 강의실로 이동
+      const activeUser = Auth.getCurrentUser();
+      if (activeUser && activeUser.email && (activeUser.status === 'approved' || activeUser.isAdmin)) {
+        const targetRole = activeUser.role === 'staff' ? 'staff' : 'student';
+        window.location.replace(`dashboard.html?role=${targetRole}`);
+        return;
+      }
+
+      pendingUser = Auth.getPendingUser();
+      if (!pendingUser || (!pendingUser.email && !pendingUser.username)) {
+        window.location.replace('index.html?login=true');
+        return;
+      }
+
+      renderPendingInfo(pendingUser);
+
+      // 1. 즉시 1회 서버 확인 및 실시간 Firestore onSnapshot 구독 연결
+      await checkApprovalNow();
+      const initialDocId = pendingUser.firestoreDocId || Auth.getStandardUserDocId(pendingUser.email, pendingUser.username);
+      if (initialDocId) {
+        attachFirestoreRealtimeListener(initialDocId);
+      }
+
+      // 2. 동일 브라우저 타 탭 승인 즉시 감지
+      window.addEventListener('storage', (e) => {
+        if (e.key === 'ai_lit_user_approvals' || e.key === 'ai_lit_registered_users') {
+          checkApprovalNow();
+        }
+      });
+
+      // 3. 네트워크 재연결 및 문서 ID 변동 대비 3.5초 주기 서버 확인
+      pollTimer = setInterval(() => {
+        checkApprovalNow();
+      }, 3500);
+    });
+  </script>
+</body>
+
+</html>
+

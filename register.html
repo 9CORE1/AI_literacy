@@ -372,7 +372,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261029_dbonly"></script>
+  <script src="js/auth.js?v=20261029_pendingflow"></script>
   <script>
     // Selected Role State (default: student)
     let selectedRole = 'student';
@@ -468,8 +468,7 @@
 
         const syncStatusText = res.firestoreSaved ? '☁️ Firebase users 데이터베이스에 실시간 등록되었습니다.\n' : '';
         if (res.requiresApproval) {
-          alert(`🎉 회원가입이 성공적으로 완료되었습니다, ${name}님!\n\n현재 계정 상태: ⏳ [관리자 승인 대기]\n${syncStatusText}\n관리자가 승인한 후 로그인하여 맞춤 강의실을 이용하실 수 있습니다.\n로그인 화면으로 이동합니다.`);
-          window.location.href = 'index.html?login=true';
+          window.location.href = res.redirectUrl || 'pending.html';
           return;
         }
 

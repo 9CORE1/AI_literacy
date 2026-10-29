@@ -94,6 +94,121 @@ const Auth = {
     return this.user && this.user.role === 'staff';
   },
 
+  /**
+   * 승인 대기 중인 사용자 임시 세션 저장 (비밀번호 제외)
+   * @param {Object} userData
+   */
+  setPendingUser(userData) {
+    if (!userData) return;
+    const safePending = { ...userData };
+    delete safePending.password;
+    try {
+      sessionStorage.setItem('ai_lit_pending_user', JSON.stringify(safePending));
+    } catch (e) {}
+  },
+
+  /**
+   * 승인 대기 중인 사용자 임시 세션 조회
+   * @returns {Object|null}
+   */
+  getPendingUser() {
+    try {
+      const raw = sessionStorage.getItem('ai_lit_pending_user');
+      return raw ? JSON.parse(raw) : null;
+    } catch (e) {
+      return null;
+    }
+  },
+
+  /**
+   * 승인 대기 임시 세션 초기화
+   */
+  clearPendingUser() {
+    try {
+      sessionStorage.removeItem('ai_lit_pending_user');
+    } catch (e) {}
+  },
+
+  /**
+   * 승인 대기 페이지용 실시간 서버 승인 상태 확인 (Cloud Firestore users 서버 직접 조회)
+   * @param {Object} pendingUser
+   * @returns {Promise<{status: string, role: string, userDoc: Object|null, docId: string|null}>}
+   */
+  async checkLiveUserApproval(pendingUser) {
+    if (!pendingUser) {
+      return { status: 'pending', role: 'student', userDoc: null, docId: null };
+    }
+    this.initFirebase();
+    const cleanEmail = String(pendingUser.email || '').trim().toLowerCase();
+    const cleanUser = String(pendingUser.username || '').trim().toLowerCase();
+
+    if (this.isFirebaseReady()) {
+      try {
+        // 1. docId가 알려져 있는 경우 서버에서 직접 조회
+        const candidateIds = new Set();
+        if (pendingUser.firestoreDocId) candidateIds.add(pendingUser.firestoreDocId);
+        const stdId = this.getStandardUserDocId(cleanEmail, cleanUser);
+        if (stdId) candidateIds.add(stdId);
+        if (cleanEmail) candidateIds.add(cleanEmail.replace(/[@.]/g, '_'));
+        if (cleanUser) candidateIds.add(`user_${cleanUser}`);
+
+        for (const docId of candidateIds) {
+          if (!docId) continue;
+          let snap;
+          try {
+            snap = await this.firebaseDb.collection('users').doc(docId).get({ source: 'server' });
+          } catch (e) {
+            snap = await this.firebaseDb.collection('users').doc(docId).get();
+          }
+          if (snap && snap.exists) {
+            const d = snap.data() || {};
+            const resolvedRole = (d.allowedRole || d.role || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+            return {
+              status: d.status || 'pending',
+              role: resolvedRole,
+              userDoc: d,
+              docId: snap.id
+            };
+          }
+        }
+
+        // 2. 전체 users 컬렉션에서 이메일/아이디 매칭 스캔 (서버 우선)
+        let colSnap;
+        try {
+          colSnap = await this.firebaseDb.collection('users').get({ source: 'server' });
+        } catch (e) {
+          colSnap = await this.firebaseDb.collection('users').get();
+        }
+        for (const doc of colSnap.docs) {
+          const d = doc.data() || {};
+          const dEmail = String(d.email || '').trim().toLowerCase();
+          const dUser = String(d.username || '').trim().toLowerCase();
+          if ((cleanEmail && dEmail === cleanEmail) || (cleanUser && dUser === cleanUser)) {
+            const resolvedRole = (d.allowedRole || d.role || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+            return {
+              status: d.status || 'pending',
+              role: resolvedRole,
+              userDoc: d,
+              docId: doc.id
+            };
+          }
+        }
+      } catch (err) {
+        console.warn('[Auth] 실시간 승인 상태 확인 중 오류:', err);
+      }
+    }
+
+    // 오프라인 폴백: 로컬 승인 캐시 조회
+    const localApp = this.getUserApproval(cleanEmail || cleanUser);
+    const fallbackRole = (localApp.allowedRole || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+    return {
+      status: localApp.status || 'pending',
+      role: fallbackRole,
+      userDoc: null,
+      docId: pendingUser.firestoreDocId || null
+    };
+  },
+
   // =========================================================================
   // 관리자(Admin) 및 회원 승인(Approval) 시스템
   // =========================================================================
@@ -1053,7 +1168,14 @@ const Auth = {
     localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
 
     // Cloud Firestore users 데이터베이스에 모달 선택 역할(role, allowedRole) 즉시 기록
-    await this.upsertUserToFirestore(recordObj, { preserveExistingStatus: true, updateRole: true });
+    const upsertRes = await this.upsertUserToFirestore(recordObj, { preserveExistingStatus: true, updateRole: true });
+    if (upsertRes && upsertRes.docId) {
+      recordObj.firestoreDocId = upsertRes.docId;
+    }
+    if (recordObj.status !== 'blocked') {
+      this.setPendingUser(recordObj);
+    }
+    return recordObj;
   },
 
   /**
@@ -1548,11 +1670,11 @@ const Auth = {
         firestoreDocId: existing ? (existing.firestoreDocId || null) : null
       });
 
-      const roleKo = attemptedRole === 'staff' ? '교직원' : '대학생';
-      const msg = effectiveStatus === 'blocked'
-        ? '⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
-        : `🔒 [로그인 승인 대기 안내]\n회원 정보(${roleKo} 과정)가 데이터베이스에 등록되었으며 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 후 다시 입장하시면 맞춤 강의실을 이용하실 수 있습니다.`;
-      alert(msg);
+      if (effectiveStatus === 'blocked') {
+        alert('⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.');
+        return;
+      }
+      window.location.href = 'pending.html';
       return;
     }
 
@@ -1836,11 +1958,13 @@ const Auth = {
       console.warn('[Auth] Firebase가 아직 준비되지 않아 로컬 저장소에 우선 등록되었습니다.');
     }
 
-    // 신규 가입자는 관리자가 승인한 후 로그인할 수 있도록 안내 (Requirement 1)
+    // 신규 가입자는 승인 대기 페이지(pending.html)로 이동하여 관리자 승인 시 자동 입장
+    this.setPendingUser(newUser);
     return { 
       success: true, 
       requiresApproval: true,
-      message: '회원가입이 완료되었습니다. 관리자가 승인한 후 로그인하여 맞춤 강의실을 이용하실 수 있습니다.',
+      redirectUrl: 'pending.html',
+      message: '회원가입이 완료되었습니다. 관리자 승인 대기 페이지로 이동합니다.',
       user: newUser,
       firestoreSaved: firestoreSaved
     };
@@ -1929,7 +2053,13 @@ const Auth = {
         lastLoginAttemptAt: new Date().toISOString()
       };
       this.syncLocalApprovalCache(pendingUpdated);
-      await this.upsertUserToFirestore(pendingUpdated, { preserveExistingStatus: true, updateRole: true });
+      const upsertRes = await this.upsertUserToFirestore(pendingUpdated, { preserveExistingStatus: true, updateRole: true });
+      if (upsertRes && upsertRes.docId) {
+        pendingUpdated.firestoreDocId = upsertRes.docId;
+      }
+      if (effectiveStatus !== 'blocked') {
+        this.setPendingUser(pendingUpdated);
+      }
 
       const roleKo = chosenRole === 'staff' ? '교직원' : '대학생';
       const statusText = effectiveStatus === 'blocked'
@@ -1939,6 +2069,7 @@ const Auth = {
         success: false,
         status: effectiveStatus,
         isPending: effectiveStatus !== 'blocked',
+        redirectUrl: effectiveStatus !== 'blocked' ? 'pending.html' : null,
         message: `🔒 [로그인 제한 안내]\n${statusText}`
       };
     }
@@ -2020,11 +2151,11 @@ const Auth = {
             firestoreDocId: existing ? (existing.firestoreDocId || null) : null
           });
 
-          const roleKo = attemptedRole === 'staff' ? '교직원' : '대학생';
-          const msg = effectiveStatus === 'blocked'
-            ? '⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
-            : `🔒 [로그인 승인 대기 안내]\n회원 정보(${roleKo} 과정)가 데이터베이스에 등록되었으며 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 후 다시 입장하시면 맞춤 강의실을 이용하실 수 있습니다.`;
-          alert(msg);
+          if (effectiveStatus === 'blocked') {
+            alert('⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.');
+            return;
+          }
+          window.location.href = 'pending.html';
           return;
         }
 
@@ -2235,6 +2366,7 @@ const Auth = {
   logout() {
     this.user = null;
     sessionStorage.removeItem('ai_lit_user');
+    this.clearPendingUser();
     try {
       localStorage.removeItem('ai_lit_user');
     } catch (e) {}

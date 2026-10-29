@@ -21,8 +21,14 @@ const DashboardApp = {
     // 1. 최고 관리자가 아닌 일반 회원의 경우 관리자 승인 상태 검증 (Requirement 1)
     if (!user.isAdmin && !Auth.isAdmin()) {
       const approval = Auth.getUserApproval(user.email || user.username);
-      if (approval.status !== 'approved') {
-        alert('🔒 [접근 제한 안내]\n해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 맞춤 강의실 이용이 가능합니다.\n관리자에게 승인을 요청해 주세요.');
+      if (approval.status !== 'approved' && user.status !== 'approved') {
+        if (approval.status !== 'blocked' && user.status !== 'blocked') {
+          Auth.setPendingUser(user);
+          sessionStorage.removeItem('ai_lit_user');
+          window.location.replace('pending.html');
+          return;
+        }
+        alert('\u26D4 [\uC811\uC18D \uCC28\uB2E8]\n\uD574\uB2F9 \uACC4\uC815\uC740 \uAD00\uB9AC\uC790\uC5D0 \uC758\uD574 \uC811\uC18D\uC774 \uCC28\uB2E8\uB418\uC5C8\uC2B5\uB2C8\uB2E4.');
         Auth.logout();
         return;
       }
