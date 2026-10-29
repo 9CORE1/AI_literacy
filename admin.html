@@ -582,7 +582,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261029_rolefix"></script>
+  <script src="js/auth.js?v=20261029_dbonly"></script>
 
   <script>
     let currentUsers = [];
@@ -670,22 +670,16 @@
       return result;
     }
 
-    // 2. 회원 데이터 로드 및 통계 산출 (로컬 캐시 즉시 렌더링 + Firestore 실시간 2차 갱신)
+    // 2. 회원 데이터 로드 및 통계 산출 (오직 Cloud Firestore users 데이터베이스 실제 등록 회원만 표시)
     async function loadUsersData() {
-      // 1. 로컬 캐시 즉시 표시 (중복 관리자 방지 필터링 적용)
-      const localUsers = Auth.getRegisteredUsers();
-      currentUsers = deduplicateUsers(localUsers);
-      updateKpisAndRender(currentUsers);
-
-      // 2. Cloud Firestore 및 통합 회원 목록 실시간 조회
       try {
         const liveUsers = await Auth.getAllUsersForAdmin();
-        if (Array.isArray(liveUsers) && liveUsers.length > 0) {
-          currentUsers = deduplicateUsers(liveUsers);
-          updateKpisAndRender(currentUsers);
-        }
+        currentUsers = Array.isArray(liveUsers) ? deduplicateUsers(liveUsers) : [];
+        updateKpisAndRender(currentUsers);
       } catch (err) {
         console.warn('[Admin] 회원 목록 실시간 로드 예외:', err);
+        currentUsers = [];
+        updateKpisAndRender(currentUsers);
       }
     }
 
@@ -697,7 +691,7 @@
       users.forEach(u => {
         const isAdmin = Boolean(u.isAdmin || u.username === 'admin');
         const approval = Auth.getUserApproval(u.email || u.username);
-        const st = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
+        const st = isAdmin ? 'approved' : (u.status || approval.status || 'pending');
         if (st === 'approved') approvedCount++;
         else if (st === 'blocked') blockedCount++;
         else pendingCount++;
@@ -735,8 +729,8 @@
           (u.email && u.email.toLowerCase() === 'admin@ailiteracy.kr')
         );
         const approval = Auth.getUserApproval(key);
-        const status = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
-        const role = isAdmin ? 'admin' : (approval.allowedRole || u.allowedRole || u.role || 'student');
+        const status = isAdmin ? 'approved' : (u.status || approval.status || 'pending');
+        const role = isAdmin ? 'admin' : (u.role || u.allowedRole || approval.allowedRole || 'student');
 
         // 상태 필터
         if (currentStatusFilter !== 'all' && status !== currentStatusFilter) {
@@ -792,8 +786,8 @@
           (u.email && u.email.toLowerCase() === 'admin@ailiteracy.kr')
         );
         const approval = Auth.getUserApproval(key);
-        const status = isAdmin ? 'approved' : (approval.status || u.status || 'pending');
-        const currentRole = (approval.allowedRole || u.role || 'student') === 'staff' ? 'staff' : 'student';
+        const status = isAdmin ? 'approved' : (u.status || approval.status || 'pending');
+        const currentRole = (u.role || u.allowedRole || approval.allowedRole || 'student') === 'staff' ? 'staff' : 'student';
 
         const tr = document.createElement('tr');
 
@@ -903,7 +897,7 @@
         const isAdmin = Boolean(u.isAdmin || u.username === 'admin' || key === 'admin');
         if (isAdmin) return false;
         const app = Auth.getUserApproval(key);
-        return (app.status || u.status || 'pending') === 'pending';
+        return (u.status || app.status || 'pending') === 'pending';
       });
 
       if (pendingUsers.length === 0) {
@@ -994,8 +988,7 @@
       const role = document.getElementById('new-user-role').value;
       const status = document.getElementById('new-user-status').value;
 
-      const registered = Auth.getRegisteredUsers();
-      if (registered.some(u => (u.username && u.username.toLowerCase() === username.toLowerCase()) || (u.email && u.email.toLowerCase() === email.toLowerCase()))) {
+      if (currentUsers.some(u => (u.username && u.username.toLowerCase() === username.toLowerCase()) || (u.email && u.email.toLowerCase() === email.toLowerCase()))) {
         alert('이미 등록된 아이디 또는 이메일입니다.');
         return;
       }
@@ -1015,10 +1008,9 @@
         loginMethod: 'credentials'
       };
 
-      registered.push(newUser);
-      localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
-      await Auth.upsertUserToFirestore(newUser, { preserveExistingStatus: false });
+      await Auth.upsertUserToFirestore(newUser, { preserveExistingStatus: false, updateRole: true });
       await Auth.setUserApproval(email || username, status, role);
+      Auth.syncLocalApprovalCache(newUser);
 
       showToast(`'${name}' 회원이 성공적으로 등록되었습니다.`);
       closeAddUserModal();

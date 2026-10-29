@@ -1057,7 +1057,8 @@ const Auth = {
   },
 
   /**
-   * 관리자 화면용 전체 통합 회원 목록 조회 (Firestore + 로컬 등록회원 + 승인대기자 + 구글접속자 통합 실시간 로드)
+   * 관리자 화면용 전체 회원 목록 조회 (Cloud Firestore users 컬렉션 100% 기준 실시간 로드)
+   * 로컬 브라우저 캐시에 남아있는 DB 외 유령 레코드는 표시하지 않고 DB 상태와 완전히 일치시킵니다.
    * @returns {Promise<Array<Object>>}
    */
   async getAllUsersForAdmin() {
@@ -1084,10 +1085,12 @@ const Auth = {
       );
     };
 
-    // 1. Cloud Firestore users 컬렉션에서 실시간 통합 조회 (권위 있는 원본 데이터)
+    // 1. Cloud Firestore users 컬렉션에서 실시간 조회 (단일 진실 공급원: Single Source of Truth)
+    let firestoreLoaded = false;
     if (this.isFirebaseReady()) {
       try {
         const snap = await this.firebaseDb.collection('users').get();
+        firestoreLoaded = true;
         snap.forEach(doc => {
           const data = doc.data();
           if (!data) return;
@@ -1125,111 +1128,27 @@ const Auth = {
           }
         });
       } catch (err) {
-        console.warn('[Auth] Firestore 회원 목록 조회 실패 (로컬 데이터로 대체):', err);
+        console.warn('[Auth] Firestore 회원 목록 조회 실패 (오프라인 폴백 적용):', err);
       }
     }
 
-    // 2. 로컬 ai_lit_registered_users 병합 (Firestore 데이터가 이미 있는 경우 Firestore 값 우선 보존)
-    const registered = this.getRegisteredUsers();
-    registered.forEach(u => {
-      const isUserAdmin = isSuperAdminRecord(u);
-      const key = isUserAdmin ? 'admin' : ((u.email || u.username || '').trim().toLowerCase());
-      if (key) {
-        const existing = map.get(key);
-        if (existing && existing.firestoreDocId) {
+    // 2. Firebase 미연결/오프라인 환경일 때만 로컬 스토리지 데이터를 폴백으로 사용
+    if (!firestoreLoaded) {
+      const registered = this.getRegisteredUsers();
+      registered.forEach(u => {
+        const isUserAdmin = isSuperAdminRecord(u);
+        const key = isUserAdmin ? 'admin' : ((u.email || u.username || '').trim().toLowerCase());
+        if (key) {
           map.set(key, {
+            ...(map.get(key) || {}),
             ...u,
-            ...existing,
-            key: key,
-            university: existing.university || u.university || '',
-            department: existing.department || u.department || '',
-            gradeOrPosition: existing.gradeOrPosition || u.gradeOrPosition || ''
-          });
-        } else {
-          map.set(key, {
-            ...(existing || {}),
-            ...u,
-            key: key,
-            ...(isUserAdmin ? {
-              key: 'admin',
-              username: 'admin',
-              email: u.email || (existing && existing.email) || 'admin@ailiteracy.kr',
-              name: u.name || (existing && existing.name) || '최고 관리자',
-              role: 'admin',
-              status: 'approved',
-              isAdmin: true
-            } : {})
+            key: key
           });
         }
-      }
-    });
-
-    // 3. 승인 목록(ai_lit_user_approvals) 병합 (Firestore 데이터가 있는 경우 Firestore 최신 승인 상태 우선)
-    const approvals = this.getApprovals();
-    Object.keys(approvals).forEach(key => {
-      const isKeyAdmin = key === 'admin' || key === 'admin@ailiteracy.kr' || key === 'user_admin';
-      const targetKey = isKeyAdmin ? 'admin' : key;
-      const app = approvals[key];
-      const existing = map.get(targetKey) || {};
-      const hasRemote = Boolean(existing.firestoreDocId);
-      map.set(targetKey, {
-        ...app,
-        ...existing,
-        key: targetKey,
-        ...(isKeyAdmin ? {
-          key: 'admin',
-          username: 'admin',
-          email: existing.email || 'admin@ailiteracy.kr',
-          name: existing.name || '최고 관리자',
-          role: 'admin',
-          status: 'approved',
-          isAdmin: true
-        } : {
-          status: hasRemote ? (existing.status || app.status || 'pending') : (app.status || existing.status || 'pending'),
-          role: hasRemote
-            ? (existing.role || existing.allowedRole || app.role || 'student')
-            : (app.role || existing.role || app.allowedRole || existing.allowedRole || 'student'),
-          allowedRole: hasRemote
-            ? (existing.allowedRole || existing.role || app.allowedRole || 'student')
-            : (app.allowedRole || app.role || existing.allowedRole || 'student')
-        }),
-        university: existing.university || app.university || '',
-        department: existing.department || app.department || '',
-        gradeOrPosition: existing.gradeOrPosition || app.gradeOrPosition || ''
       });
-    });
+    }
 
-    // 3-1. 영구 프로필 캐시(ai_lit_user_profiles) 추가 보강
-    try {
-      const profiles = JSON.parse(localStorage.getItem('ai_lit_user_profiles') || '{}');
-      Object.keys(profiles).forEach(k => {
-        const isProfileAdmin = k === 'admin' || k === 'admin@ailiteracy.kr' || k === 'user_admin';
-        const targetKey = isProfileAdmin ? 'admin' : k.toLowerCase().trim();
-        const p = profiles[k];
-        if (targetKey && map.has(targetKey)) {
-          const item = map.get(targetKey);
-          if (p.university && !item.university) item.university = p.university;
-          if (p.department && !item.department) item.department = p.department;
-          if (p.gradeOrPosition && !item.gradeOrPosition) item.gradeOrPosition = p.gradeOrPosition;
-          if (p.name && (!item.name || item.name === targetKey)) item.name = p.name;
-        }
-      });
-    } catch (e) {}
-
-    // 4. 로그인 이력 목록에서 추가 정보 보강
-    const history = this.getLoginHistory();
-    history.forEach(h => {
-      const hKey = (h.email || h.username || '').trim().toLowerCase();
-      const isHistoryAdmin = hKey === 'admin' || hKey === 'admin@ailiteracy.kr' || hKey === 'user_admin';
-      const targetKey = isHistoryAdmin ? 'admin' : hKey;
-      if (targetKey && map.has(targetKey)) {
-        const item = map.get(targetKey);
-        if (!item.lastLoginAt) item.lastLoginAt = h.timestamp;
-        if (!item.loginMethod) item.loginMethod = h.method;
-      }
-    });
-
-    // 5. 모든 관리자 키('admin@ailiteracy.kr', 'user_admin' 등)를 'admin' 단일 키로 완전 병합 및 중복 키 제거
+    // 3. 모든 관리자 키('admin@ailiteracy.kr', 'user_admin' 등)를 'admin' 단일 키로 완전 병합 및 중복 제거
     const adminRecord = map.get('admin') || {};
     for (const [k, v] of Array.from(map.entries())) {
       if (k !== 'admin' && isSuperAdminRecord(v)) {
@@ -1248,7 +1167,7 @@ const Auth = {
       map.set('admin', adminRecord);
     }
 
-    // 6. 단일화 및 최고 관리자 중복 엄격 필터링
+    // 4. 단일화 및 최고 관리자 중복 엄격 필터링
     let adminSeen = false;
     const finalUsers = [];
     for (const u of map.values()) {
@@ -1277,32 +1196,31 @@ const Auth = {
       return dateB - dateA;
     });
 
-    // 로컬 스토리지 캐시 및 승인 목록을 최신 통합 상태로 동기화
-    try {
-      localStorage.setItem('ai_lit_registered_users', JSON.stringify(finalUsers));
-      const cleanApprovals = this.getApprovals();
-      finalUsers.forEach((u) => {
-        if (isSuperAdminRecord(u)) return;
-        const uKey = (u.email || u.username || u.key || '').trim().toLowerCase();
-        if (uKey) {
-          cleanApprovals[uKey] = {
-            ...(cleanApprovals[uKey] || {}),
+    // 5. Firestore 로드 성공 시 로컬 캐시(registered_users, user_approvals)도 DB 실제 목록으로만 덮어써 유령 회원 완전 제거
+    if (firestoreLoaded) {
+      try {
+        localStorage.setItem('ai_lit_registered_users', JSON.stringify(finalUsers));
+        const syncedApprovals = {};
+        finalUsers.forEach((u) => {
+          if (isSuperAdminRecord(u)) return;
+          const emailKey = (u.email || '').trim().toLowerCase();
+          const userKey = (u.username || '').trim().toLowerCase();
+          const entry = {
             name: u.name || '',
             email: u.email || '',
-            username: u.username || uKey,
+            username: u.username || emailKey || userKey,
             role: u.role || 'student',
             allowedRole: u.allowedRole || u.role || 'student',
             status: u.status || 'pending',
             university: u.university || '',
             department: u.department || ''
           };
-        }
-      });
-      if (cleanApprovals['admin@ailiteracy.kr']) {
-        delete cleanApprovals['admin@ailiteracy.kr'];
-      }
-      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(cleanApprovals));
-    } catch (e) {}
+          if (emailKey) syncedApprovals[emailKey] = entry;
+          if (userKey) syncedApprovals[userKey] = entry;
+        });
+        localStorage.setItem('ai_lit_user_approvals', JSON.stringify(syncedApprovals));
+      } catch (e) {}
+    }
 
     return finalUsers;
   },
