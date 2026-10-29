@@ -582,7 +582,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261029_sync"></script>
+  <script src="js/auth.js?v=20261029_rolefix"></script>
 
   <script>
     let currentUsers = [];
@@ -870,10 +870,13 @@
       });
     }
 
-    // 5. 승인 상태 토글 처리
+    // 5. 승인 상태 토글 처리 (회원이 선택한 역할 우선 보존)
     async function toggleUserStatus(key, newStatus) {
+      const targetUser = currentUsers.find(
+        u => ((u.email || u.username || u.key || '').trim().toLowerCase() === key.trim().toLowerCase())
+      );
       const approval = Auth.getUserApproval(key);
-      const role = approval.allowedRole || 'student';
+      const role = (targetUser && (targetUser.role || targetUser.allowedRole)) || approval.allowedRole || 'student';
       await Auth.setUserApproval(key, newStatus, role);
 
       const statusKo = newStatus === 'approved' ? '승인' : (newStatus === 'blocked' ? '차단' : '대기');

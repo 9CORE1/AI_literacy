@@ -239,6 +239,22 @@
         Google 계정 또는 아이디/비밀번호로 로그인해 맞춤 강의실로 입장하세요.
       </p>
 
+      <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px; letter-spacing: 0.05em;">
+        STEP 1. 학습자 역할 선택 (필수)
+      </div>
+      <div class="role-switcher-pill" style="margin-bottom: 12px;">
+        <button type="button" class="role-btn active" id="modal-role-student" onclick="setModalRole('student')">
+          🎓 대학생
+        </button>
+        <button type="button" class="role-btn" id="modal-role-staff" onclick="setModalRole('staff')">
+          🏛️ 교직원
+        </button>
+      </div>
+
+      <div id="modal-role-summary" style="background: rgba(247, 246, 242, 0.95); border: 1px solid rgba(7, 6, 7, 0.08); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; text-align: left; font-size: 13px; line-height: 1.5; color: var(--color-obsidian);">
+        <strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.
+      </div>
+
       <!-- 2-Way Authentication Tabs -->
       <div class="modal-tabs">
         <button type="button" class="modal-tab-btn active" id="tab-btn-google" onclick="switchAuthTab('google')">
@@ -251,22 +267,6 @@
 
       <!-- Tab 1: Google One-Click Login -->
       <div id="auth-panel-google" class="auth-panel">
-        <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px; letter-spacing: 0.05em;">
-          STEP 1. 학습자 역할 선택 (필수)
-        </div>
-        <div class="role-switcher-pill" style="margin-bottom: 12px;">
-          <button type="button" class="role-btn active" id="modal-role-student" onclick="setModalRole('student')">
-            🎓 대학생
-          </button>
-          <button type="button" class="role-btn" id="modal-role-staff" onclick="setModalRole('staff')">
-            🏛️ 교직원
-          </button>
-        </div>
-
-        <div id="modal-role-summary" style="background: rgba(247, 246, 242, 0.95); border: 1px solid rgba(7, 6, 7, 0.08); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; text-align: left; font-size: 13px; line-height: 1.5; color: var(--color-obsidian);">
-          <strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.
-        </div>
-
         <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 8px; letter-spacing: 0.05em;">
           STEP 2. GOOGLE 계정으로 원클릭 입장
         </div>
@@ -344,7 +344,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261029_sync"></script>
+  <script src="js/auth.js?v=20261029_rolefix"></script>
   <script>
     // State
     let currentRole = 'student';
@@ -522,6 +522,9 @@
 
     // Modal Control
     function openLoginModal() {
+      if (currentRole === 'staff' || currentRole === 'student') {
+        setModalRole(currentRole);
+      }
       document.getElementById('login-modal').classList.add('active');
     }
 

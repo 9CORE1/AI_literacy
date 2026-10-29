@@ -313,7 +313,7 @@ const Auth = {
     if (!primaryKey) return;
 
     const status = userObj.status || 'pending';
-    const role = (userObj.allowedRole || userObj.role || 'student') === 'staff' ? 'staff' : 'student';
+    const role = (userObj.role || userObj.allowedRole || 'student') === 'staff' ? 'staff' : 'student';
 
     try {
       const approvals = this.getApprovals();
@@ -382,10 +382,10 @@ const Auth = {
    * 회원 정보를 Cloud Firestore users 컬렉션에 단일 문서로 저장/병합 (Upsert)
    * 간편입장(승인 전 포함), 회원가입, 아이디 로그인 시 언제나 누락 없이 기록 보장
    * @param {Object} userData
-   * @param {Object} [options] { preserveExistingStatus: boolean }
+   * @param {Object} [options] { preserveExistingStatus: boolean, updateRole: boolean }
    * @returns {Promise<{saved: boolean, docId: string|null, data: Object|null}>}
    */
-  async upsertUserToFirestore(userData, options = { preserveExistingStatus: true }) {
+  async upsertUserToFirestore(userData, options = { preserveExistingStatus: true, updateRole: false }) {
     if (!userData) return { saved: false, docId: null, data: null };
     this.initFirebase();
     if (!this.isFirebaseReady()) {
@@ -423,15 +423,19 @@ const Auth = {
       }
 
       const preserveStatus = options && options.preserveExistingStatus !== false;
+      const forceUpdateRole = Boolean(options && options.updateRole);
+
       const resolvedStatus = (preserveStatus && existingData.status)
         ? existingData.status
         : (userData.status || existingData.status || 'pending');
-      const resolvedAllowedRole = (preserveStatus && existingData.allowedRole)
-        ? existingData.allowedRole
-        : (userData.allowedRole || userData.role || existingData.allowedRole || existingData.role || 'student');
-      const resolvedRole = (preserveStatus && existingData.status === 'approved' && existingData.allowedRole)
-        ? existingData.allowedRole
-        : (userData.role || existingData.role || resolvedAllowedRole || 'student');
+
+      const explicitRole = (userData.role === 'staff' || userData.role === 'student') ? userData.role : null;
+      const resolvedRole = (forceUpdateRole && explicitRole)
+        ? explicitRole
+        : (explicitRole || existingData.role || existingData.allowedRole || 'student');
+      const resolvedAllowedRole = (forceUpdateRole && explicitRole)
+        ? explicitRole
+        : (userData.allowedRole || explicitRole || existingData.allowedRole || existingData.role || 'student');
 
       const nowIso = new Date().toISOString();
       const payload = {
@@ -491,24 +495,25 @@ const Auth = {
   /**
    * 특정 회원의 승인 상태 및 관리자 지정 허용 대상자 조회
    * @param {string} emailOrUsername 
-   * @returns {{ status: 'approved'|'pending'|'blocked', allowedRole: 'student'|'staff' }}
+   * @returns {{ status: 'approved'|'pending'|'blocked', allowedRole: 'student'|'staff'|null, exists?: boolean }}
    */
   getUserApproval(emailOrUsername) {
-    if (!emailOrUsername) return { status: 'pending', allowedRole: 'student' };
+    if (!emailOrUsername) return { status: 'pending', allowedRole: null, exists: false };
     const cleanKey = emailOrUsername.trim().toLowerCase();
 
     const adminId = (localStorage.getItem('ai_lit_admin_id') || this.ADMIN_DEFAULT_ID).toLowerCase();
     // 최고 관리자 계정은 항상 승인
     if (cleanKey === adminId || cleanKey === 'admin' || cleanKey === 'admin@ailiteracy.kr') {
-      return { status: 'approved', allowedRole: 'staff' };
+      return { status: 'approved', allowedRole: 'staff', exists: true };
     }
 
     const approvals = this.getApprovals();
     if (approvals[cleanKey]) {
-      const role = approvals[cleanKey].allowedRole || approvals[cleanKey].role || 'student';
+      const role = approvals[cleanKey].allowedRole || approvals[cleanKey].role || null;
       return {
         status: approvals[cleanKey].status || 'pending',
-        allowedRole: role === 'staff' ? 'staff' : 'student'
+        allowedRole: role ? (role === 'staff' ? 'staff' : 'student') : null,
+        exists: true
       };
     }
 
@@ -519,14 +524,15 @@ const Auth = {
     );
 
     if (found) {
-      const role = found.allowedRole || found.role || 'student';
+      const role = found.allowedRole || found.role || null;
       return {
         status: found.status || 'pending',
-        allowedRole: role === 'staff' ? 'staff' : 'student'
+        allowedRole: role ? (role === 'staff' ? 'staff' : 'student') : null,
+        exists: true
       };
     }
 
-    return { status: 'pending', allowedRole: 'student' };
+    return { status: 'pending', allowedRole: null, exists: false };
   },
 
   /**
@@ -986,12 +992,14 @@ const Auth = {
 
   /**
    * 신규 사용자(구글 간편입장/일반)를 승인 대기자 목록 및 Cloud Firestore users DB에 즉시 기록
+   * 로그인 모달에서 선택한 역할(대학생/교직원)을 최신 상태로 정확히 저장
    * @param {Object} userData
    */
   async recordPendingUser(userData) {
     const cleanKey = (userData.email || userData.username || '').trim().toLowerCase();
     if (!cleanKey) return;
 
+    const selectedRole = userData.role === 'staff' ? 'staff' : 'student';
     const nowIso = new Date().toISOString();
     const recordObj = {
       name: userData.name || '',
@@ -999,8 +1007,8 @@ const Auth = {
       username: userData.username || (cleanKey.includes('@') ? cleanKey.split('@')[0] : cleanKey),
       picture: userData.picture || '',
       googleId: userData.googleId || '',
-      role: userData.role || 'student',
-      allowedRole: userData.allowedRole || userData.role || 'student',
+      role: selectedRole,
+      allowedRole: selectedRole,
       status: userData.status || 'pending',
       university: userData.university || '',
       department: userData.department || '',
@@ -1011,33 +1019,41 @@ const Auth = {
     };
 
     const approvals = this.getApprovals();
-    if (!approvals[cleanKey]) {
-      approvals[cleanKey] = {
-        name: recordObj.name,
-        email: recordObj.email,
-        username: recordObj.username,
-        role: recordObj.role,
-        allowedRole: recordObj.allowedRole,
-        status: recordObj.status,
-        university: recordObj.university,
-        department: recordObj.department,
-        registeredAt: recordObj.registeredAt
-      };
-      localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
-    }
+    approvals[cleanKey] = {
+      ...(approvals[cleanKey] || {}),
+      name: recordObj.name || (approvals[cleanKey] && approvals[cleanKey].name) || '',
+      email: recordObj.email || (approvals[cleanKey] && approvals[cleanKey].email) || '',
+      username: recordObj.username,
+      role: selectedRole,
+      allowedRole: selectedRole,
+      status: (approvals[cleanKey] && approvals[cleanKey].status === 'blocked') ? 'blocked' : recordObj.status,
+      university: recordObj.university || (approvals[cleanKey] && approvals[cleanKey].university) || '',
+      department: recordObj.department || (approvals[cleanKey] && approvals[cleanKey].department) || '',
+      registeredAt: (approvals[cleanKey] && approvals[cleanKey].registeredAt) || recordObj.registeredAt,
+      updatedAt: nowIso
+    };
+    localStorage.setItem('ai_lit_user_approvals', JSON.stringify(approvals));
 
-    // ai_lit_registered_users 에도 없으면 동기화
+    // ai_lit_registered_users 에도 최신 선택 역할 반영 동기화
     const users = this.getRegisteredUsers();
     const idx = users.findIndex(
       (u) => (u.email && u.email.toLowerCase() === cleanKey) || (u.username && u.username.toLowerCase() === cleanKey)
     );
     if (idx === -1) {
       users.push(recordObj);
-      localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
+    } else {
+      users[idx] = {
+        ...users[idx],
+        name: recordObj.name || users[idx].name || '',
+        role: selectedRole,
+        allowedRole: selectedRole,
+        lastLoginAttemptAt: nowIso
+      };
     }
+    localStorage.setItem('ai_lit_registered_users', JSON.stringify(users));
 
-    // Cloud Firestore users 데이터베이스에 즉시 기록 (1번이라도 간편입장 시도 시 DB 누락 방지)
-    await this.upsertUserToFirestore(recordObj, { preserveExistingStatus: true });
+    // Cloud Firestore users 데이터베이스에 모달 선택 역할(role, allowedRole) 즉시 기록
+    await this.upsertUserToFirestore(recordObj, { preserveExistingStatus: true, updateRole: true });
   },
 
   /**
@@ -1576,13 +1592,14 @@ const Auth = {
     // 기존 등록 회원 및 Firestore에서 동일 이메일 사용자 조회 (Firestore 최신 상태 자동 동기화)
     const existing = await this.fetchExistingUser(payload.email);
 
-    // 사용자가 모달에서 선택한 대상자 역할
-    const attemptedRole = role || (existing && existing.role ? existing.role : 'student');
+    // 사용자가 로그인 모달 창에서 선택한 대상자 역할 ('student' | 'staff') 최우선 적용
+    const attemptedRole = (role === 'staff' || role === 'student')
+      ? role
+      : ((existing && existing.role) ? existing.role : 'student');
 
     // 관리자 승인 상태 검증 (Firestore 최신 상태 최우선 반영)
     const localApproval = this.getUserApproval(payload.email);
     const effectiveStatus = (existing && existing.status) ? existing.status : localApproval.status;
-    const effectiveAllowedRole = (existing && existing.allowedRole) ? existing.allowedRole : localApproval.allowedRole;
 
     if (effectiveStatus !== 'approved') {
       await this.recordPendingUser({
@@ -1592,7 +1609,7 @@ const Auth = {
         picture: payload.picture || '',
         googleId: payload.sub || '',
         role: attemptedRole,
-        allowedRole: effectiveAllowedRole || attemptedRole,
+        allowedRole: attemptedRole,
         status: effectiveStatus === 'blocked' ? 'blocked' : 'pending',
         university: existing ? (existing.university || '') : '',
         department: existing ? (existing.department || '') : '',
@@ -1601,23 +1618,16 @@ const Auth = {
         firestoreDocId: existing ? (existing.firestoreDocId || null) : null
       });
 
+      const roleKo = attemptedRole === 'staff' ? '교직원' : '대학생';
       const msg = effectiveStatus === 'blocked'
         ? '⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
-        : '🔒 [로그인 승인 대기 안내]\n회원 정보가 시스템에 등록되었으며 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 후 다시 입장하시면 맞춤 강의실을 이용하실 수 있습니다.';
+        : `🔒 [로그인 승인 대기 안내]\n회원 정보(${roleKo} 과정)가 데이터베이스에 등록되었으며 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 후 다시 입장하시면 맞춤 강의실을 이용하실 수 있습니다.`;
       alert(msg);
       return;
     }
 
-    // 관리자가 허용한 대상자(allowedRole) 강제 적용 (Requirement 2)
-    let userRole = attemptedRole;
-    if (effectiveAllowedRole && effectiveAllowedRole !== 'all') {
-      userRole = effectiveAllowedRole;
-    }
-
-    // 기존 등록 정보가 있고 역할이 변경된 경우 비동기 동기화
-    if (existing && existing.role !== userRole) {
-      this.syncUserRoleUpdate(payload.email, userRole).catch(() => {});
-    }
+    // 로그인 모달 창에서 선택한 대상자(attemptedRole)를 role 및 allowedRole로 반영 및 DB 저장
+    const userRole = attemptedRole;
 
     const user = {
       name: (existing && existing.name) ? existing.name : (payload.name || payload.email.split('@')[0]),
@@ -1625,7 +1635,7 @@ const Auth = {
       email: payload.email,
       picture: payload.picture || '',
       role: userRole,
-      allowedRole: effectiveAllowedRole || userRole,
+      allowedRole: userRole,
       status: 'approved',
       university: existing ? (existing.university || '') : '',
       department: existing ? (existing.department || '') : '',
@@ -1651,7 +1661,7 @@ const Auth = {
       } catch (e) {}
     }
 
-    // Cloud Firestore users 문서 및 입장 이력 기록 완료 대기 후 페이지 이동
+    // Cloud Firestore users 문서(선택한 역할 포함) 및 입장 이력 기록 완료 대기 후 페이지 이동
     await this.recordLoginHistory(user, 'google');
 
     if (typeof onSuccess === 'function') {
@@ -1698,9 +1708,11 @@ const Auth = {
 
           const userUpsertPromise = this.upsertUserToFirestore({
             ...user,
+            role: user.role || 'student',
+            allowedRole: user.allowedRole || user.role || 'student',
             loginMethod: method || user.loginMethod || 'credentials',
             lastLoginAt: nowIso
-          }, { preserveExistingStatus: true }).then((res) => {
+          }, { preserveExistingStatus: true, updateRole: true }).then((res) => {
             if (res && res.saved && res.docId) {
               user.firestoreDocId = res.docId;
               if (this.user && ((user.email && this.user.email === user.email) || (user.username && this.user.username === user.username))) {
@@ -1963,30 +1975,36 @@ const Auth = {
       };
     }
 
-    // 2. 관리자 승인 상태 검증 (Firestore 최신 상태 최우선 반영)
+    // 2. 관리자 승인 상태 검증 및 로그인 모달 선택 역할(selectedRole) 반영
     const userIdentifier = matched.email || matched.username;
     const localApproval = this.getUserApproval(userIdentifier);
     const effectiveStatus = (existingProfile && existingProfile.status)
       ? existingProfile.status
       : (matched.status || localApproval.status || 'pending');
-    const effectiveAllowedRole = (existingProfile && existingProfile.allowedRole)
-      ? existingProfile.allowedRole
-      : (matched.allowedRole || localApproval.allowedRole || matched.role || 'student');
 
-    // 승인 대기 또는 차단 상태에서 로그인 시도하더라도 users DB에 회원 정보가 누락 없이 기록되도록 보장
+    // 로그인 모달 창에서 선택한 대상자('student' | 'staff') 최우선 적용
+    const chosenRole = (selectedRole === 'staff' || selectedRole === 'student')
+      ? selectedRole
+      : (matched.role || (existingProfile && existingProfile.role) || localApproval.allowedRole || 'student');
+
+    // 승인 대기 또는 차단 상태에서 로그인 시도하더라도 모달에서 선택한 역할과 회원 정보가 users DB에 저장되도록 보장
     if (effectiveStatus !== 'approved') {
-      await this.upsertUserToFirestore({
+      const pendingUpdated = {
         ...matched,
+        role: chosenRole,
+        allowedRole: chosenRole,
         status: effectiveStatus === 'blocked' ? 'blocked' : 'pending',
-        allowedRole: effectiveAllowedRole,
         loginMethod: 'credentials',
         provider: 'password',
         lastLoginAttemptAt: new Date().toISOString()
-      }, { preserveExistingStatus: true });
+      };
+      this.syncLocalApprovalCache(pendingUpdated);
+      await this.upsertUserToFirestore(pendingUpdated, { preserveExistingStatus: true, updateRole: true });
 
+      const roleKo = chosenRole === 'staff' ? '교직원' : '대학생';
       const statusText = effectiveStatus === 'blocked'
         ? '해당 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
-        : '해당 계정은 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.\n관리자에게 계정 승인을 요청해 주세요.';
+        : `선택하신 [${roleKo} 과정]으로 회원 정보가 반영되었으며, 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.`;
       return {
         success: false,
         status: effectiveStatus,
@@ -1995,18 +2013,8 @@ const Auth = {
       };
     }
 
-    // 3. 관리자 허용 대상자(allowedRole) 강제 적용 (Requirement 2)
-    let finalRole = matched.role || 'student';
-    if (effectiveAllowedRole && effectiveAllowedRole !== 'all') {
-      finalRole = effectiveAllowedRole;
-    } else if (selectedRole) {
-      finalRole = selectedRole;
-    }
-
-    if (matched.role !== finalRole) {
-      matched.role = finalRole;
-      this.syncUserRoleUpdate(matched.email || matched.username, finalRole).catch(() => {});
-    }
+    // 3. 로그인 모달에서 선택한 역할(chosenRole) 확정 적용
+    const finalRole = chosenRole;
 
     // 최종 로그인 시간 및 횟수 갱신
     const nowIso = new Date().toISOString();
@@ -2018,7 +2026,7 @@ const Auth = {
       email: matched.email,
       password: matched.password,
       role: finalRole,
-      allowedRole: effectiveAllowedRole || finalRole,
+      allowedRole: finalRole,
       status: 'approved',
       university: matched.university || '',
       department: matched.department || '',
@@ -2031,7 +2039,7 @@ const Auth = {
       provider: 'password'
     };
 
-    // 로컬 승인 캐시 동기화 (requireAuth 통과 보장)
+    // 로컬 승인 캐시 동기화 (requireAuth 통과 및 역할 일치 보장)
     this.syncLocalApprovalCache(sessionUser);
 
     // 세션에는 비밀번호 제외한 안전한 사용자 정보 저장
@@ -2039,7 +2047,7 @@ const Auth = {
     delete safeSessionUser.password;
     this.setUser(safeSessionUser);
 
-    // Cloud Firestore users DB 회원 정보 및 입장 이력 영구 기록
+    // Cloud Firestore users DB 회원 정보(선택한 역할 포함) 및 입장 이력 영구 기록
     await this.recordLoginHistory(sessionUser, 'credentials');
 
     return { success: true, user: safeSessionUser };
@@ -2056,12 +2064,14 @@ const Auth = {
         const fbUser = result.user;
         const existing = await this.fetchExistingUser(fbUser.email);
 
-        const attemptedRole = role || (existing && existing.role ? existing.role : 'student');
+        // 로그인 모달 창에서 선택한 대상자 역할('student' | 'staff') 최우선 적용
+        const attemptedRole = (role === 'staff' || role === 'student')
+          ? role
+          : ((existing && existing.role) ? existing.role : 'student');
 
         // 관리자 승인 상태 검증 (Firestore 최신 상태 최우선 반영)
         const localApproval = this.getUserApproval(fbUser.email);
         const effectiveStatus = (existing && existing.status) ? existing.status : localApproval.status;
-        const effectiveAllowedRole = (existing && existing.allowedRole) ? existing.allowedRole : localApproval.allowedRole;
 
         if (effectiveStatus !== 'approved') {
           await this.recordPendingUser({
@@ -2071,7 +2081,7 @@ const Auth = {
             picture: fbUser.photoURL || '',
             googleId: fbUser.uid || '',
             role: attemptedRole,
-            allowedRole: effectiveAllowedRole || attemptedRole,
+            allowedRole: attemptedRole,
             status: effectiveStatus === 'blocked' ? 'blocked' : 'pending',
             university: existing ? (existing.university || '') : '',
             department: existing ? (existing.department || '') : '',
@@ -2080,23 +2090,15 @@ const Auth = {
             firestoreDocId: existing ? (existing.firestoreDocId || null) : null
           });
 
+          const roleKo = attemptedRole === 'staff' ? '교직원' : '대학생';
           const msg = effectiveStatus === 'blocked'
             ? '⛔ [접속 차단]\n해당 Google 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
-            : '🔒 [로그인 승인 대기 안내]\n회원 정보가 시스템에 등록되었으며 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 후 다시 입장하시면 맞춤 강의실을 이용하실 수 있습니다.';
+            : `🔒 [로그인 승인 대기 안내]\n회원 정보(${roleKo} 과정)가 데이터베이스에 등록되었으며 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 후 다시 입장하시면 맞춤 강의실을 이용하실 수 있습니다.`;
           alert(msg);
           return;
         }
 
-        // 관리자가 허용한 대상자(allowedRole) 강제 적용 (Requirement 2)
-        let userRole = attemptedRole;
-        if (effectiveAllowedRole && effectiveAllowedRole !== 'all') {
-          userRole = effectiveAllowedRole;
-        }
-
-        if (existing && existing.role !== userRole) {
-          this.syncUserRoleUpdate(fbUser.email, userRole).catch(() => {});
-        }
-
+        const userRole = attemptedRole;
         const nowIso = new Date().toISOString();
         const user = {
           name: (existing && existing.name) ? existing.name : (fbUser.displayName || fbUser.email.split('@')[0]),
@@ -2104,7 +2106,7 @@ const Auth = {
           email: fbUser.email,
           picture: fbUser.photoURL || '',
           role: userRole,
-          allowedRole: effectiveAllowedRole || userRole,
+          allowedRole: userRole,
           status: 'approved',
           university: existing ? (existing.university || '') : '',
           department: existing ? (existing.department || '') : '',
