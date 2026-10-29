@@ -336,10 +336,10 @@
             <input type="email" id="reg-email" class="input-field" placeholder="hong@university.ac.kr" required autocomplete="email">
           </div>
 
-          <!-- University -->
+          <!-- University / Institution -->
           <div class="input-group">
             <label class="input-label" for="reg-university">
-              학교명<span class="req">*</span>
+              <span id="label-reg-university">학교명</span><span class="req">*</span>
             </label>
             <input type="text" id="reg-university" class="input-field" placeholder="예: 한국대학교" required>
           </div>
@@ -347,9 +347,9 @@
           <!-- Department -->
           <div class="input-group">
             <label class="input-label" for="reg-department">
-              학과 / 소속부서<span class="req">*</span>
+              <span id="label-reg-department">학과</span><span class="req">*</span>
             </label>
-            <input type="text" id="reg-department" class="input-field" placeholder="예: 컴퓨터공학과 / 교무처" required>
+            <input type="text" id="reg-department" class="input-field" placeholder="예: 컴퓨터공학과" required>
           </div>
         </div>
 
@@ -382,15 +382,27 @@
       const btnStudent = document.getElementById('btn-role-student');
       const btnStaff = document.getElementById('btn-role-staff');
       const roleTip = document.getElementById('role-tip');
+      const labelUniv = document.getElementById('label-reg-university');
+      const inputUniv = document.getElementById('reg-university');
+      const labelDept = document.getElementById('label-reg-department');
+      const inputDept = document.getElementById('reg-department');
 
       if (role === 'student') {
         btnStudent.classList.add('active');
         btnStaff.classList.remove('active');
         roleTip.innerHTML = '💡 <strong>대학생 모드:</strong> 기초 디지털 리터러시부터 실무 AI 도구 활용, 문제해결 및 윤리 평가 로드맵이 제공됩니다.';
+        if (labelUniv) labelUniv.textContent = '학교명';
+        if (inputUniv) inputUniv.placeholder = '예: 한국대학교';
+        if (labelDept) labelDept.textContent = '학과';
+        if (inputDept) inputDept.placeholder = '예: 컴퓨터공학과';
       } else {
         btnStaff.classList.add('active');
         btnStudent.classList.remove('active');
         roleTip.innerHTML = '💡 <strong>교직원 모드:</strong> 행정 업무 자동화, 수업 설계 및 학생 AI 과제 지도, 대학 AI 거버넌스 가이드가 제공됩니다.';
+        if (labelUniv) labelUniv.textContent = '소속기관명';
+        if (inputUniv) inputUniv.placeholder = '예: 한국대학교 / 한국교육개발원';
+        if (labelDept) labelDept.textContent = '소속부서';
+        if (inputDept) inputDept.placeholder = '예: 교무처 / 학사지원팀';
       }
     }
 
