@@ -131,7 +131,11 @@ const DashboardApp = {
             <span>종합 ${diagReport.overallScore}점 (${diagReport.overallRating})</span>
           </span>
          </div>`
-      : '';
+      : `<div style="margin-top: 10px;">
+          <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-weight: 800; font-size: 13px; padding: 4px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
+            <span>AI 리터러시 역량 진단 해보세요!</span>
+          </span>
+         </div>`;
 
     // 진단 완료자에게만 표시되는 진단 결과 레포트 확인 바로가기 링크
     const factorQuestionsSection = isCompleted
