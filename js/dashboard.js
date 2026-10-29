@@ -784,8 +784,6 @@ const DashboardApp = {
             <div style="margin-top: 10px;">
               <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-weight: 800; font-size: 12.5px; padding: 4px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
                 <span>⚡ 스마트 행정 4대 실무 코스</span>
-                <span style="opacity: 0.75;">|</span>
-                <span>공문서 기안 · 규정 챗봇 · 카드뉴스 · 시트 집계 자동화</span>
               </span>
             </div>
           </div>
@@ -2591,7 +2589,7 @@ const DashboardApp = {
     if (imgEl) {
       imgEl.dataset.triedFallback = '';
       imgEl.src = imageSrc;
-      imgEl.onerror = function() {
+      imgEl.onerror = function () {
         if (!this.dataset.triedFallback) {
           this.dataset.triedFallback = '1';
           this.src = imageSrc.startsWith('public/') ? imageSrc.replace('public/', '') : 'public/' + imageSrc;
