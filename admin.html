@@ -582,7 +582,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261028_admin"></script>
+  <script src="js/auth.js?v=20261029_sync"></script>
 
   <script>
     let currentUsers = [];
@@ -1014,6 +1014,7 @@
 
       registered.push(newUser);
       localStorage.setItem('ai_lit_registered_users', JSON.stringify(registered));
+      await Auth.upsertUserToFirestore(newUser, { preserveExistingStatus: false });
       await Auth.setUserApproval(email || username, status, role);
 
       showToast(`'${name}' 회원이 성공적으로 등록되었습니다.`);
