@@ -394,14 +394,24 @@ const Auth = {
 
       for (const docId of candidateDocIds) {
         if (!docId) continue;
-        const snap = await this.firebaseDb.collection('users').doc(docId).get();
-        if (snap.exists) {
+        let snap;
+        try {
+          snap = await this.firebaseDb.collection('users').doc(docId).get({ source: 'server' });
+        } catch (e) {
+          snap = await this.firebaseDb.collection('users').doc(docId).get();
+        }
+        if (snap && snap.exists) {
           return { docId: snap.id, data: snap.data() || {} };
         }
       }
 
       // 2. 아이디 로그인 등 문서 ID와 필드가 다른 경우 전체 문서에서 email/username 매칭 폴백
-      const colSnap = await this.firebaseDb.collection('users').get();
+      let colSnap;
+      try {
+        colSnap = await this.firebaseDb.collection('users').get({ source: 'server' });
+      } catch (e) {
+        colSnap = await this.firebaseDb.collection('users').get();
+      }
       for (const doc of colSnap.docs) {
         const d = doc.data() || {};
         const dEmail = String(d.email || '').trim().toLowerCase();
@@ -1654,14 +1664,19 @@ const Auth = {
     const effectiveStatus = (existing && existing.status) ? existing.status : localApproval.status;
 
     if (effectiveStatus !== 'approved') {
+      const initialRoleRaw = existing && (existing.allowedRole || existing.role);
+      const preservedRole = initialRoleRaw
+        ? (initialRoleRaw === 'staff' ? 'staff' : 'student')
+        : attemptedRole;
+
       await this.recordPendingUser({
         name: (existing && existing.name) ? existing.name : (payload.name || payload.email.split('@')[0]),
         email: payload.email,
         username: (existing && existing.username) ? existing.username : payload.email.split('@')[0],
         picture: payload.picture || '',
         googleId: payload.sub || '',
-        role: attemptedRole,
-        allowedRole: attemptedRole,
+        role: preservedRole,
+        allowedRole: preservedRole,
         status: effectiveStatus === 'blocked' ? 'blocked' : 'pending',
         university: existing ? (existing.university || '') : '',
         department: existing ? (existing.department || '') : '',
@@ -1678,8 +1693,35 @@ const Auth = {
       return;
     }
 
-    // 로그인 모달 창에서 선택한 대상자(attemptedRole)를 role 및 allowedRole로 반영 및 DB 저장
-    const userRole = attemptedRole;
+    // 첫 로그인 정보로 등록·승인된 대상자와 다른 대상자로 간편로그인 시도 시 차단 및 재로그인 유도
+    const approvedRoleRaw = (existing && (existing.allowedRole || existing.role)) || localApproval.allowedRole || '';
+    const approvedRole = approvedRoleRaw === 'staff' ? 'staff' : (approvedRoleRaw === 'student' ? 'student' : '');
+    const isSuperAdmin = Boolean(existing && (existing.isAdmin || existing.role === 'admin'));
+
+    if (!isSuperAdmin && approvedRole && attemptedRole !== approvedRole) {
+      if (
+        typeof window.google !== 'undefined' &&
+        window.google.accounts &&
+        window.google.accounts.id &&
+        typeof window.google.accounts.id.disableAutoSelect === 'function'
+      ) {
+        window.google.accounts.id.disableAutoSelect();
+      }
+      if (this.firebaseAuth) {
+        this.firebaseAuth.signOut().catch(() => {});
+      }
+      const approvedKo = approvedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+      const attemptedKo = attemptedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+      alert(
+        `⚠️ [잘못된 로그인 안내]\n` +
+        `해당 계정은 [${approvedKo}] 대상자로 등록·승인된 계정입니다.\n` +
+        `선택하신 [${attemptedKo}] 대상자로는 간편로그인하실 수 없습니다.\n\n` +
+        `로그인 창에서 [${approvedKo}]을(를) 선택한 후 다시 간편로그인해 주세요.`
+      );
+      return;
+    }
+
+    const userRole = approvedRole || attemptedRole;
 
     const user = {
       name: (existing && existing.name) ? existing.name : (payload.name || payload.email.split('@')[0]),
@@ -2121,6 +2163,7 @@ const Auth = {
     // 1. Firebase Auth가 설정되어 있으면 Firebase Google 팝업 로그인 우선 실행
     if (this.isFirebaseReady() && this.firebaseAuth && typeof firebase !== 'undefined') {
       const provider = new firebase.auth.GoogleAuthProvider();
+      provider.setCustomParameters({ prompt: 'select_account' });
       this.firebaseAuth.signInWithPopup(provider).then(async (result) => {
         const fbUser = result.user;
         const existing = await this.fetchExistingUser(fbUser.email);
@@ -2135,14 +2178,19 @@ const Auth = {
         const effectiveStatus = (existing && existing.status) ? existing.status : localApproval.status;
 
         if (effectiveStatus !== 'approved') {
+          const initialRoleRaw = existing && (existing.allowedRole || existing.role);
+          const preservedRole = initialRoleRaw
+            ? (initialRoleRaw === 'staff' ? 'staff' : 'student')
+            : attemptedRole;
+
           await this.recordPendingUser({
             name: (existing && existing.name) ? existing.name : (fbUser.displayName || fbUser.email.split('@')[0]),
             email: fbUser.email,
             username: (existing && existing.username) ? existing.username : fbUser.email.split('@')[0],
             picture: fbUser.photoURL || '',
             googleId: fbUser.uid || '',
-            role: attemptedRole,
-            allowedRole: attemptedRole,
+            role: preservedRole,
+            allowedRole: preservedRole,
             status: effectiveStatus === 'blocked' ? 'blocked' : 'pending',
             university: existing ? (existing.university || '') : '',
             department: existing ? (existing.department || '') : '',
@@ -2159,7 +2207,25 @@ const Auth = {
           return;
         }
 
-        const userRole = attemptedRole;
+        // 첫 로그인 정보로 등록·승인된 대상자와 다른 대상자로 간편로그인 시도 시 차단 및 재로그인 유도
+        const approvedRoleRaw = (existing && (existing.allowedRole || existing.role)) || localApproval.allowedRole || '';
+        const approvedRole = approvedRoleRaw === 'staff' ? 'staff' : (approvedRoleRaw === 'student' ? 'student' : '');
+        const isSuperAdmin = Boolean(existing && (existing.isAdmin || existing.role === 'admin'));
+
+        if (!isSuperAdmin && approvedRole && attemptedRole !== approvedRole) {
+          await this.firebaseAuth.signOut().catch(() => {});
+          const approvedKo = approvedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+          const attemptedKo = attemptedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+          alert(
+            `⚠️ [잘못된 로그인 안내]\n` +
+            `해당 계정은 [${approvedKo}] 대상자로 등록·승인된 계정입니다.\n` +
+            `선택하신 [${attemptedKo}] 대상자로는 간편로그인하실 수 없습니다.\n\n` +
+            `로그인 창에서 [${approvedKo}]을(를) 선택한 후 다시 간편로그인해 주세요.`
+          );
+          return;
+        }
+
+        const userRole = approvedRole || attemptedRole;
         const nowIso = new Date().toISOString();
         const user = {
           name: (existing && existing.name) ? existing.name : (fbUser.displayName || fbUser.email.split('@')[0]),
