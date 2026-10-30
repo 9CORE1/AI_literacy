@@ -485,10 +485,31 @@ const DashboardApp = {
 
         <!-- 카드 6-2: 대표 활용 분야 5선 & 실전 수식 템플릿 (9개 수식 완벽 수록) -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.15rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.15rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>⚡ 2. 대표 활용 분야 5선 & 실전 수식 예시 (원클릭 복사)</span>
             </h3>
+            <a href="https://docs.google.com/spreadsheets/d/1tx-E9auNundLk1rLqLwYlFKAlk1-ke_zn51a4KO8dRo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 6px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: #0f9d58; color: #0f9d58; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="실습용 구글 스프레드시트 새 창으로 열기">
+              <span>📊 실습 구글시트 열기 ↗</span>
+            </a>
+          </div>
+
+          <!-- 실습용 구글시트 접속 및 사본 만들기 안내 배너 -->
+          <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 14px 18px; margin-bottom: 1.35rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;">
+            <div style="display: flex; align-items: flex-start; gap: 10px;">
+              <span style="font-size: 22px; line-height: 1.2;">📊</span>
+              <div>
+                <div style="font-weight: 700; font-size: 14px; color: #166534; margin-bottom: 3px;">
+                  실습용 구글 스프레드시트 연동 및 복사본(사본) 생성 안내
+                </div>
+                <div style="font-size: 12.5px; color: #14532d; line-height: 1.55; word-break: keep-all;">
+                  아래 <strong>[실습 구글시트 바로가기]</strong>를 클릭해 접속한 후, 상단 메뉴의 <strong>[파일] ➔ [사본 만들기]</strong>를 클릭하여 본인의 구글 드라이브로 복사본을 생성해 자유롭게 =GEMINI() 함수를 실습해 보세요.
+                </div>
+              </div>
+            </div>
+            <a href="https://docs.google.com/spreadsheets/d/1tx-E9auNundLk1rLqLwYlFKAlk1-ke_zn51a4KO8dRo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" style="background: #0f9d58; color: #ffffff; font-size: 12.5px; font-weight: 700; padding: 7px 16px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; box-shadow: 0 2px 5px rgba(15,157,88,0.25); cursor: pointer;" title="새 창으로 실습용 스프레드시트 열기">
+              <span>실습 구글시트 바로가기 ↗</span>
+            </a>
           </div>
 
           <p style="font-size: 13.5px; color: #64748b; line-height: 1.6; margin-bottom: 1.5rem; word-break: keep-all;">
