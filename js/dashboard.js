@@ -2998,7 +2998,7 @@ const DashboardApp = {
                   <span>1. 📋 [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
-                  <a href="https://chatgpt.com/share/6ae41cf4-60c8-83ec-ba45-a666a0dabebe" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                  <a href="https://chatgpt.com/share/6ae41ee5-3958-83ee-95c9-51ed94d4a6c0" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
                     <span>💬 채팅창 대화보기</span>
                   </a>
                   <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
