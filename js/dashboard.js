@@ -1506,7 +1506,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 부서</strong>: 교무처, 총무처, 기획처, 학생처 등 전 행정부서 / <strong>활용 방법</strong>: 학내 규정집 PDF를 소스로 등록하고 여비, 복무, 전결 규정을 조항 번호와 함께 즉시 확인합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 우리 대학 학칙 및 교직원 복무 규정 전문 행정 자문 비서야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 우리 대학 학칙 및 교직원 복무 규정 전문 행정 자문 비서야.
 [지시] 업로드된 <span class="prompt-edit-target">[교직원 복무 규정 및 여비 지급 규정]</span> 소스만을 근거로 아래 질문에 명확하게 답변해 줘:
 1. <span class="prompt-edit-target">교직원이 공무로 국외 출장을 갈 경우 일비 및 숙박비 지급 기준과 출장 후 정산 기한은 며칠 이내인가?</span>
 2. <span class="prompt-edit-target">출장 신청 시 결재 전결 기준과 필수 첨부 증빙 서류 목록을 정리해 줘.</span>
@@ -1527,7 +1527,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 부서</strong>: 기획처, 산학협력단, 국고사업추진단 / <strong>활용 방법</strong>: 수백 페이지의 정부 공모 편람에서 신청 자격, 배점 상위 성과지표, 예산 불인정 기준을 1분 만에 도출합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 교육부 대학 재정지원사업 기획 및 평가 대응 수석 컨설턴트야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 교육부 대학 재정지원사업 기획 및 평가 대응 수석 컨설턴트야.
 [지시] 업로드된 <span class="prompt-edit-target">[2026 교육부 재정지원사업 신청 편람]</span> 소스를 정밀 분석해서 아래 항목을 일목요연하게 정리해 줘:
 1. 사업 신청 필수 요건 및 결격 사유 (참여 배제 조건)
 2. 정량·정성 평가 항목 중 배점이 가장 높은 3대 핵심 성과지표 및 산출 방식
@@ -1549,7 +1549,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 부서</strong>: 총장실, 기획평가팀, 교원인사팀 / <strong>활용 방법</strong>: 긴 회의록 원문을 부서별 후속 조치 과제(Action Item)와 함께 결재용 1장 브리핑으로 압축합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 총장단 및 교무위원회를 보좌하는 기획조정실 수석 행정관이야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 총장단 및 교무위원회를 보좌하는 기획조정실 수석 행정관이야.
 [지시] 업로드된 <span class="prompt-edit-target">[제3차 교무위원회 회의록 및 부서별 현안 보고서]</span>를 바탕으로 부서장 보고용 1장(One-page) 브리핑 문서를 작성해 줘:
 1. 주요 안건별 최종 의결 사항 요약 (의결/보류/조건부 승인 구분)
 2. 각 행정부서별<span class="prompt-edit-target">(교무, 학생, 기획, 총무)</span> 향후 실행 조치 과제(Action Item) 및 완료 권장 기한
@@ -1571,7 +1571,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 부서</strong>: 입학홍보처, 학생지원팀, 대외협력팀 / <strong>활용 방법</strong>: 딱딱한 행사 요강을 모바일 친화형 6장 카드뉴스 문구로 자동 변환합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 공식 SNS 및 대외 홍보 전문 콘텐츠 디렉터야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 공식 SNS 및 대외 홍보 전문 콘텐츠 디렉터야.
 [지시] 업로드된 <span class="prompt-edit-target">[신입생 역량강화 캠프 모집 요강 및 보도자료]</span> 소스를 분석하여 학생들이 쉽게 읽을 수 있는 '<span class="prompt-edit-target">인스타그램 6장 카드뉴스 기획안</span>'을 작성해 줘:
 - 1장 (표지): 학생들의 호기심을 자극하는 직관적인 헤드카피 및 서브카피
 - 2~4장 (핵심 혜택): 참가자에게 주어지는 3대 핵심 특전 <span class="prompt-edit-target">(장학금 마일리지, 1:1 멘토링 등)</span>
@@ -1612,7 +1612,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 긴 사업계획서나 정책 보고서를 처장단 보고용 5장 슬라이드 구조와 구술 대본으로 변환합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 자료를 바탕으로 <span class="prompt-edit-target">처장단 회의 보고용 "5장 슬라이드 기획안"</span>을 작성해 줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[목표] 업로드된 소스 자료를 바탕으로 <span class="prompt-edit-target">처장단 회의 보고용 "5장 슬라이드 기획안"</span>을 작성해 줘.
 
 [발표 환경]
 - 대상 청중: <span class="prompt-edit-target">총장 및 주요 처장단 (신속한 의사결정 필요)</span>
@@ -1641,7 +1641,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 장학금, 비교과, 연구비 정산 등 복잡한 학사·사업 공고를 4단계 순서도 및 D-Day 일정표 인포그래픽으로 구조화합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 문서를 분석하여 <span class="prompt-edit-target">학내 포털 및 웹페이지 게시용</span> "단계별 절차 인포그래픽(Process Infographic) 기획안"을 작성해 줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[목표] 업로드된 소스 문서를 분석하여 <span class="prompt-edit-target">학내 포털 및 웹페이지 게시용</span> "단계별 절차 인포그래픽(Process Infographic) 기획안"을 작성해 줘.
 
 [시각화 타깃]
 - 대상: <span class="prompt-edit-target">복잡한 공문을 읽기 힘들어하는 학생 및 신임 교직원</span>
@@ -1672,7 +1672,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 사업 결과보고서의 핵심 수치 3~4선과 전년 대비 성과(Before vs After)를 1페이지 대시보드형으로 추출합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 <span class="prompt-edit-target">사업 결과보고서</span> 소스를 분석하여 "1페이지 대시보드형 성과 인포그래픽(Stat Infographic) 기획안"을 추출해 줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[목표] 업로드된 <span class="prompt-edit-target">사업 결과보고서</span> 소스를 분석하여 "1페이지 대시보드형 성과 인포그래픽(Stat Infographic) 기획안"을 추출해 줘.
 
 [청중 및 목적]
 - 대상 청중: <span class="prompt-edit-target">대학 본부 보직자 및 대외 평가위원</span>
@@ -1706,7 +1706,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: NotebookLM 우측 Studio의 [오디오 생성] 옆 <strong>[맞춤설정(Customize)]</strong> 창에 입력하여 정책 쟁점 사전 토론을 유도합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">이번 보고서의 핵심 주제는 <span class="prompt-edit-target">[예: 2026 RISE 사업 개편안 및 학과 구조혁신 방향]</span>입니다. 
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">이번 보고서의 핵심 주제는 <span class="prompt-edit-target">[예: 2026 RISE 사업 개편안 및 학과 구조혁신 방향]</span>입니다. 
 단순한 요약 나열보다는, <span class="prompt-edit-target">대학 구성원(교수, 학생, 행정)</span> 간에 발생할 수 있는 주요 갈등 요인과 행정적 쟁점을 중심으로 남녀 호스트가 객관적인 토론을 진행해 주세요. 
 특히 의사결정권자가 검토해야 할 <span class="prompt-edit-target">'핵심 성공 요인 3가지'</span>와 <span class="prompt-edit-target">'예산 리스크'</span>를 집중적으로 다뤄 주세요.</pre>
             </div>
@@ -2639,6 +2639,10 @@ const DashboardApp = {
 
     const onSuccess = () => {
       const originalHtml = btn.innerHTML;
+      const origBg = btn.style.background;
+      const origColor = btn.style.color;
+      const origBorder = btn.style.borderColor;
+      const origWeight = btn.style.fontWeight;
       btn.innerHTML = '<span>✓ 복사완료!</span>';
       btn.style.background = 'var(--color-sulfur)';
       btn.style.color = 'var(--color-obsidian)';
@@ -2646,10 +2650,10 @@ const DashboardApp = {
       btn.style.fontWeight = '700';
       setTimeout(() => {
         btn.innerHTML = originalHtml;
-        btn.style.background = '#ffffff';
-        btn.style.color = '';
-        btn.style.borderColor = '#d1d5db';
-        btn.style.fontWeight = '';
+        btn.style.background = origBg;
+        btn.style.color = origColor;
+        btn.style.borderColor = origBorder;
+        btn.style.fontWeight = origWeight;
       }, 1800);
     };
 
@@ -3007,9 +3011,9 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 공문서나 행사 요강을 바탕으로 인스타그램 5컷 카드뉴스 구성안과 슬라이드별 이미지 프롬프트를 한 번에 기획합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">다음 대학 행사 공문(또는 특강 안내문)을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">다음 <span class="prompt-edit-target">대학 행사 공문(또는 특강 안내문)</span>을 분석하여 <span class="prompt-edit-target">인스타그램·카카오톡 배포용 5컷</span> 카드뉴스 기획안을 작성해줘.
 
-[공문 내용 / 행사 요강 붙여넣기]
+<span class="prompt-edit-target">[공문 내용 / 행사 요강 붙여넣기]</span>
 
 [작성 규칙]
 1. 1컷(표지): 클릭을 유도하는 직관적이고 매력적인 헤드카피 (15자 이내)
@@ -3037,7 +3041,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: AI 신기술 워크숍, 코딩 캠프 등 미래지향적 특강의 메인 표지 배경(정사각형 1:1)을 생성합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">A bright and futuristic university computer lab, glowing 3D AI nodes and data particles floating in the air, modern minimalist claymorphism style, soft pastel orange and corporate navy color palette, ample clean negative space at the center for Korean text overlay, bright daylight, 8k resolution, professional academic flyer aesthetic --ar 1:1</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">A bright and futuristic <span class="prompt-edit-target">university computer lab, glowing 3D AI nodes and data particles floating in the air</span>, modern minimalist claymorphism style, <span class="prompt-edit-target">soft pastel orange and corporate navy</span> color palette, ample clean negative space at the center for Korean text overlay, bright daylight, 8k resolution, professional academic flyer aesthetic <span class="prompt-edit-target">--ar 1:1</span></pre>
             </div>
 
             <!-- 프롬프트 3: 학사/장학 본문컷 -->
@@ -3059,7 +3063,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 장학금 신청 기간, 성적 기준, 학사일정을 안내하는 본문 카드(텍스트 여백 확보형 1:1)를 생성합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">Minimalist 3D isometric university desk with an open scholarship certificate, graduation cap, and golden star coins, clean white background, soft studio lighting, subtle blue accents, lots of empty space on the right side for text, neat and professional educational infographic style --ar 1:1</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">Minimalist 3D isometric <span class="prompt-edit-target">university desk with an open scholarship certificate, graduation cap, and golden star coins</span>, clean white background, soft studio lighting, <span class="prompt-edit-target">subtle blue accents</span>, lots of empty space on the right side for text, neat and professional educational infographic style <span class="prompt-edit-target">--ar 1:1</span></pre>
             </div>
 
             <!-- 프롬프트 4: 행사/캠프 홍보컷 -->
@@ -3081,7 +3085,7 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 모바일 피드에 최적화된 세로형(4:5) 구도로 대학생 라이프스타일 멘토링 모집 홍보컷을 생성합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">Two cheerful Korean university students discussing together with laptops in a sunny modern campus lounge, bright aesthetic, soft focus background, warm and welcoming atmosphere, modern college lifestyle photography, clean composition with negative space on top for headline --ar 4:5</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;"><span class="prompt-edit-target">Two cheerful Korean university students discussing together with laptops in a sunny modern campus lounge</span>, bright aesthetic, soft focus background, warm and welcoming atmosphere, modern college lifestyle photography, clean composition with negative space on top for headline <span class="prompt-edit-target">--ar 4:5</span></pre>
             </div>
           </div>
         </div>
@@ -3259,13 +3263,13 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">당신은 대학교 및 교육기관의 교육 프로그램 기획 및 성과관리 전문 행정관입니다.
-이번에 진행된 [프로그램명: 생성형 AI 활용 행정 실무 역량 강화 워크숍]의 사후 만족도 조사를 구글 폼(Google Forms)으로 제작하려고 합니다.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">당신은 대학교 및 교육기관의 교육 프로그램 기획 및 성과관리 전문 행정관입니다.
+이번에 진행된 <span class="prompt-edit-target">[프로그램명: 생성형 AI 활용 행정 실무 역량 강화 워크숍]</span>의 사후 만족도 조사를 구글 폼(Google Forms)으로 제작하려고 합니다.
 
 [기본 정보]
-- 교육 대상: [대학 교직원 60명]
-- 교육 형태: [3시간 실습 및 이론 병행]
-- 평가 목적: 향후 차기 교육과정 개편 및 대학혁신지원사업 성과보고서 증빙 데이터 확보
+- 교육 대상: <span class="prompt-edit-target">[대학 교직원 60명]</span>
+- 교육 형태: <span class="prompt-edit-target">[3시간 실습 및 이론 병행]</span>
+- 평가 목적: <span class="prompt-edit-target">향후 차기 교육과정 개편 및 대학혁신지원사업 성과보고서 증빙 데이터 확보</span>
 
 다음 조건에 맞추어 구글 폼에 바로 복사-붙여넣기 할 수 있는 문항 목록을 작성해 주세요:
 1. 설문 도입 안내문 (조사 목적, 소요 시간 2분, 익명성 보장 멘트 포함)
@@ -3290,10 +3294,10 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">위에서 만든 설문 문항들을 내가 구글 폼에 일일이 타이핑하기 번거로워.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">위에서 만든 설문 문항들을 내가 구글 폼에 일일이 타이핑하기 번거로워.
 구글 드라이브에서 복사해 넣고 [실행] 버튼만 누르면 이 설문지가 자동으로 뚝딱 만들어지는 '구글 앱스 스크립트(Google Apps Script)' 코드로 작성해 줘.
 
-- 5점 척도, 객관식, 주관식에 맞게 알아서 설정해 줘.
+- <span class="prompt-edit-target">5점 척도, 객관식, 주관식</span>에 맞게 알아서 설정해 줘.
 - 필수 질문도 잘 체크해 줘.
 - 다 만들고 나면 내가 수정할 수 있는 편집 링크와 참가자에게 보낼 응답 링크가 콘솔 로그에 나오게 해줘.
 - 코딩을 전혀 모르니까 손댈 필요 없이 그냥 통째로 복사해서 쓸 수 있게 완성된 코드만 줘.</pre>
@@ -3335,45 +3339,45 @@ const DashboardApp = {
             </div>
           </div>
 
-          <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 11.5px; color: #334151; overflow-x: auto; margin: 0; line-height: 1.5; font-family: monospace;">function createSurveyForm() {
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 코드 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 11.5px; color: #334151; overflow-x: auto; margin: 0; line-height: 1.5; font-family: monospace; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">function createSurveyForm() {
   // 1. 새 구글 폼 생성 및 안내문 설정
-  var form = FormApp.create('[만족도 조사] 생성형 AI 활용 행정 실무 워크숍');
-  form.setDescription('본 조사는 연수 만족도 및 의견 수렴을 위한 설문입니다. 성실한 응답 부탁드립니다. (소요시간: 약 2분)');
+  var form = FormApp.create('<span class="prompt-edit-target">[만족도 조사] 생성형 AI 활용 행정 실무 워크숍</span>');
+  form.setDescription('<span class="prompt-edit-target">본 조사는 연수 만족도 및 의견 수렴을 위한 설문입니다. 성실한 응답 부탁드립니다. (소요시간: 약 2분)</span>');
   form.setAllowResponseEdits(false); // 제출 후 수정 금지
   form.setRequireLogin(false);       // 외부인 응답 가능 (익명 보장)
 
   // 2. 5점 리커트 척도 문항
   form.addScaleItem()
-    .setTitle('1. 강사는 교육 주제에 대해 전문성을 가지고 알기 쉽게 강의하였습니까?')
+    .setTitle('<span class="prompt-edit-target">1. 강사는 교육 주제에 대해 전문성을 가지고 알기 쉽게 강의하였습니까?</span>')
     .setBounds(1, 5)
     .setLabels('전혀 그렇지 않다', '매우 그렇다')
     .setRequired(true);
 
   form.addScaleItem()
-    .setTitle('2. 본 교육에서 다룬 내용은 실제 업무 및 행정 실무에 유용하다고 생각하십니까?')
+    .setTitle('<span class="prompt-edit-target">2. 본 교육에서 다룬 내용은 실제 업무 및 행정 실무에 유용하다고 생각하십니까?</span>')
     .setBounds(1, 5)
     .setLabels('전혀 그렇지 않다', '매우 그렇다')
     .setRequired(true);
 
   form.addScaleItem()
-    .setTitle('3. 본 교육 프로그램에 전반적으로 만족하며 타인에게 추천할 의향이 있습니까?')
+    .setTitle('<span class="prompt-edit-target">3. 본 교육 프로그램에 전반적으로 만족하며 타인에게 추천할 의향이 있습니까?</span>')
     .setBounds(1, 5)
     .setLabels('전혀 그렇지 않다', '매우 그렇다')
     .setRequired(true);
 
   // 3. 객관식 선택 문항
   form.addMultipleChoiceItem()
-    .setTitle('4. 오늘 교육 중 가장 도움이 되었던 실무 세션을 선택해 주세요.')
+    .setTitle('<span class="prompt-edit-target">4. 오늘 교육 중 가장 도움이 되었던 실무 세션을 선택해 주세요.</span>')
     .setChoiceValues([
-      '프롬프트 공식 4+2 & 기안문 작성',
-      '카드뉴스 및 비주얼 에셋 제작',
-      '구글 폼 & 스프레드시트 =GEMINI() 자동화'
+      '<span class="prompt-edit-target">프롬프트 공식 4+2 & 기안문 작성</span>',
+      '<span class="prompt-edit-target">카드뉴스 및 비주얼 에셋 제작</span>',
+      '<span class="prompt-edit-target">구글 폼 & 스프레드시트 =GEMINI() 자동화</span>'
     ])
     .setRequired(true);
 
   // 4. 주관식 서술형 문항
   form.addParagraphTextItem()
-    .setTitle('5. 향후 개설을 희망하는 연수 주제나 개선 건의사항을 자유롭게 작성해 주세요.')
+    .setTitle('<span class="prompt-edit-target">5. 향후 개설을 희망하는 연수 주제나 개선 건의사항을 자유롭게 작성해 주세요.</span>')
     .setRequired(false);
 
   // 5. 완료 후 링크 출력
@@ -3494,15 +3498,25 @@ const DashboardApp = {
 
           <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 1.25rem;">
             <!-- 감정 분석 수식 -->
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;">
-              <div style="font-weight: 700; font-size: 13px; color: #4338ca; margin-bottom: 4px;">① 감정 분석 및 라벨링 (단어 하나로 출력)</div>
-              <code style="display: block; background: #ffffff; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600; word-break: break-all; line-height: 1.5;">=GEMINI("다음 수강생 주관식 피드백의 감정을 [매우긍정 / 긍정 / 건의사항 / 불만족] 중 단어 하나로만 분류해줘. 부가 설명 없이 단어만 출력:", F2)</code>
+            <div class="prompt-template-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                <div style="font-weight: 700; font-size: 13px; color: #4338ca;">① 감정 분석 및 라벨링 (단어 하나로 출력)</div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #cbd5e1; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 수강생 주관식 피드백의 감정을 <span class="prompt-edit-target">[매우긍정 / 긍정 / 건의사항 / 불만족]</span> 중 단어 하나로만 분류해줘. 부가 설명 없이 단어만 출력:", <span class="prompt-edit-target">F2</span>)</pre>
             </div>
 
             <!-- 키워드 추출 수식 -->
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;">
-              <div style="font-weight: 700; font-size: 13px; color: #c2410c; margin-bottom: 4px;">② 핵심 행정 개선 키워드 추출</div>
-              <code style="display: block; background: #ffffff; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600; word-break: break-all; line-height: 1.5;">=GEMINI("다음 피드백에서 행정 지원 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘. 쉼표로 구분:", F2)</code>
+            <div class="prompt-template-card" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px 14px;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 6px;">
+                <div style="font-weight: 700; font-size: 13px; color: #c2410c;">② 핵심 행정 개선 키워드 추출</div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 11.5px; padding: 3px 10px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #cbd5e1; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #cbd5e1; padding: 8px 12px; border-radius: 8px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.5; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 피드백에서 <span class="prompt-edit-target">행정 지원 개선이 필요한 핵심 키워드를 단어 2개 이내</span>로 추출해줘. 쉼표로 구분:", <span class="prompt-edit-target">F2</span>)</pre>
             </div>
           </div>
 
@@ -3526,12 +3540,12 @@ const DashboardApp = {
           </div>
 
 
-          <pre style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12px; color: #334155; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.6; font-family: inherit;">다음은 [생성형 AI 활용 행정 실무 워크숍] 종료 후 수집된 주관식 피드백 원문 데이터입니다.
-당신은 교육 성과분석관으로서, 상급자 보고용 [결과 요약 보고서]를 작성해야 합니다.
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12px; color: #334155; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.6; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">다음은 <span class="prompt-edit-target">[생성형 AI 활용 행정 실무 워크숍]</span> 종료 후 수집된 주관식 피드백 원문 데이터입니다.
+당신은 교육 성과분석관으로서, 상급자 보고용 <span class="prompt-edit-target">[결과 요약 보고서]</span>를 작성해야 합니다.
 
 [주관식 원문 데이터]
 """
-(여기에 스프레드시트의 주관식 열 텍스트를 그대로 복사하여 붙여넣기)
+<span class="prompt-edit-target">(여기에 스프레드시트의 주관식 열 텍스트를 그대로 복사하여 붙여넣기)</span>
 """
 
 다음 구조로 요약 분석해 주세요:
