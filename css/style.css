@@ -1891,6 +1891,7 @@ button {
   box-shadow: 0 0 0 3px rgba(85, 56, 150, 0.14);
 }
 
+.prompt-edit-target,
 .editable-prompt-pre .prompt-edit-target {
   color: #ea580c;
   font-weight: 600;

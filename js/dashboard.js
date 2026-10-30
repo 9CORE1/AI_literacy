@@ -1507,9 +1507,9 @@ const DashboardApp = {
                 <strong>활용 부서</strong>: 교무처, 총무처, 기획처, 학생처 등 전 행정부서 / <strong>활용 방법</strong>: 학내 규정집 PDF를 소스로 등록하고 여비, 복무, 전결 규정을 조항 번호와 함께 즉시 확인합니다.
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 우리 대학 학칙 및 교직원 복무 규정 전문 행정 자문 비서야.
-[지시] 업로드된 [교직원 복무 규정 및 여비 지급 규정] 소스만을 근거로 아래 질문에 명확하게 답변해 줘:
-1. 교직원이 공무로 국외 출장을 갈 경우 일비 및 숙박비 지급 기준과 출장 후 정산 기한은 며칠 이내인가?
-2. 출장 신청 시 결재 전결 기준과 필수 첨부 증빙 서류 목록을 정리해 줘.
+[지시] 업로드된 <span class="prompt-edit-target">[교직원 복무 규정 및 여비 지급 규정]</span> 소스만을 근거로 아래 질문에 명확하게 답변해 줘:
+1. <span class="prompt-edit-target">교직원이 공무로 국외 출장을 갈 경우 일비 및 숙박비 지급 기준과 출장 후 정산 기한은 며칠 이내인가?</span>
+2. <span class="prompt-edit-target">출장 신청 시 결재 전결 기준과 필수 첨부 증빙 서류 목록을 정리해 줘.</span>
 [조건] 업로드된 규정에 명시되지 않은 내용은 임의로 추측하지 말고, 답변의 모든 항목마다 반드시 관련 규정의 조항 번호([제0조 제0항])와 인라인 각주([1], [2])를 정확히 표기할 것.</pre>
             </div>
 
@@ -1528,7 +1528,7 @@ const DashboardApp = {
                 <strong>활용 부서</strong>: 기획처, 산학협력단, 국고사업추진단 / <strong>활용 방법</strong>: 수백 페이지의 정부 공모 편람에서 신청 자격, 배점 상위 성과지표, 예산 불인정 기준을 1분 만에 도출합니다.
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 교육부 대학 재정지원사업 기획 및 평가 대응 수석 컨설턴트야.
-[지시] 업로드된 [2026 교육부 재정지원사업 신청 편람] 소스를 정밀 분석해서 아래 항목을 일목요연하게 정리해 줘:
+[지시] 업로드된 <span class="prompt-edit-target">[2026 교육부 재정지원사업 신청 편람]</span> 소스를 정밀 분석해서 아래 항목을 일목요연하게 정리해 줘:
 1. 사업 신청 필수 요건 및 결격 사유 (참여 배제 조건)
 2. 정량·정성 평가 항목 중 배점이 가장 높은 3대 핵심 성과지표 및 산출 방식
 3. 국고 사업비 집행 시 '집행 불가 항목(불인정 기준)' 5가지
@@ -1550,9 +1550,9 @@ const DashboardApp = {
                 <strong>활용 부서</strong>: 총장실, 기획평가팀, 교원인사팀 / <strong>활용 방법</strong>: 긴 회의록 원문을 부서별 후속 조치 과제(Action Item)와 함께 결재용 1장 브리핑으로 압축합니다.
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 총장단 및 교무위원회를 보좌하는 기획조정실 수석 행정관이야.
-[지시] 업로드된 [제3차 교무위원회 회의록 및 부서별 현안 보고서]를 바탕으로 부서장 보고용 1장(One-page) 브리핑 문서를 작성해 줘:
+[지시] 업로드된 <span class="prompt-edit-target">[제3차 교무위원회 회의록 및 부서별 현안 보고서]</span>를 바탕으로 부서장 보고용 1장(One-page) 브리핑 문서를 작성해 줘:
 1. 주요 안건별 최종 의결 사항 요약 (의결/보류/조건부 승인 구분)
-2. 각 행정부서별(교무, 학생, 기획, 총무) 향후 실행 조치 과제(Action Item) 및 완료 권장 기한
+2. 각 행정부서별<span class="prompt-edit-target">(교무, 학생, 기획, 총무)</span> 향후 실행 조치 과제(Action Item) 및 완료 권장 기한
 3. 차기 회의 전까지 사전 법률·규정 검토가 필요한 잠재적 행정 리스크 2가지
 [형식] '안건 요약 ➔ 부서별 조치 과제 표 ➔ 행정 유의사항' 3단계 구조로 정리해 줘.</pre>
             </div>
@@ -1572,11 +1572,11 @@ const DashboardApp = {
                 <strong>활용 부서</strong>: 입학홍보처, 학생지원팀, 대외협력팀 / <strong>활용 방법</strong>: 딱딱한 행사 요강을 모바일 친화형 6장 카드뉴스 문구로 자동 변환합니다.
               </div>
               <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 공식 SNS 및 대외 홍보 전문 콘텐츠 디렉터야.
-[지시] 업로드된 [신입생 역량강화 캠프 모집 요강 및 보도자료] 소스를 분석하여 학생들이 쉽게 읽을 수 있는 '인스타그램 6장 카드뉴스 기획안'을 작성해 줘:
+[지시] 업로드된 <span class="prompt-edit-target">[신입생 역량강화 캠프 모집 요강 및 보도자료]</span> 소스를 분석하여 학생들이 쉽게 읽을 수 있는 '<span class="prompt-edit-target">인스타그램 6장 카드뉴스 기획안</span>'을 작성해 줘:
 - 1장 (표지): 학생들의 호기심을 자극하는 직관적인 헤드카피 및 서브카피
-- 2~4장 (핵심 혜택): 참가자에게 주어지는 3대 핵심 특전 (장학금 마일리지, 1:1 멘토링 등)
+- 2~4장 (핵심 혜택): 참가자에게 주어지는 3대 핵심 특전 <span class="prompt-edit-target">(장학금 마일리지, 1:1 멘토링 등)</span>
 - 5장 (신청 안내): 지원 자격, 선발 인원, 접수 일정, 온라인 신청 링크 안내
-- 6장 (마무리): 참여 독려 메시지 및 문의처 (학생처 번호/이메일)
+- 6장 (마무리): 참여 독려 메시지 및 문의처 <span class="prompt-edit-target">(학생처 번호/이메일)</span>
 [조건] 어려운 행정 용어를 배제하고, 모바일 카드뉴스 템플릿에 맞추어 슬라이드별 3줄 이내의 간결한 문구로 작성할 것.</pre>
             </div>
           </div>
@@ -1612,11 +1612,11 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 긴 사업계획서나 정책 보고서를 처장단 보고용 5장 슬라이드 구조와 구술 대본으로 변환합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 자료를 바탕으로 처장단 회의 보고용 "5장 슬라이드 기획안"을 작성해 줘.
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 자료를 바탕으로 <span class="prompt-edit-target">처장단 회의 보고용 "5장 슬라이드 기획안"</span>을 작성해 줘.
 
 [발표 환경]
-- 대상 청중: 총장 및 주요 처장단 (신속한 의사결정 필요)
-- 발표 시간: 약 5~7분
+- 대상 청중: <span class="prompt-edit-target">총장 및 주요 처장단 (신속한 의사결정 필요)</span>
+- 발표 시간: <span class="prompt-edit-target">약 5~7분</span>
 
 [슬라이드별 필수 구성]
 1. 슬라이드 제목 & 한 줄 핵심 의사결정 메시지(헤드카피)
@@ -1641,16 +1641,16 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 장학금, 비교과, 연구비 정산 등 복잡한 학사·사업 공고를 4단계 순서도 및 D-Day 일정표 인포그래픽으로 구조화합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 문서를 분석하여 학내 포털 및 웹페이지 게시용 "단계별 절차 인포그래픽(Process Infographic) 기획안"을 작성해 줘.
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 문서를 분석하여 <span class="prompt-edit-target">학내 포털 및 웹페이지 게시용</span> "단계별 절차 인포그래픽(Process Infographic) 기획안"을 작성해 줘.
 
 [시각화 타깃]
-- 대상: 복잡한 공문을 읽기 힘들어하는 학생 및 신임 교직원
-- 형식: 웹 공지용 세로형(Long Form) 인포그래픽
+- 대상: <span class="prompt-edit-target">복잡한 공문을 읽기 힘들어하는 학생 및 신임 교직원</span>
+- 형식: <span class="prompt-edit-target">웹 공지용 세로형(Long Form) 인포그래픽</span>
 
 [요청 구성]
-1. 인포그래픽 헤드카피: 사업의 핵심 혜택을 담은 직관적인 제목 (예: "3단계로 끝내는 2026 00장학금 올인원 가이드")
+1. 인포그래픽 헤드카피: 사업의 핵심 혜택을 담은 직관적인 제목 (예: <span class="prompt-edit-target">"3단계로 끝내는 2026 00장학금 올인원 가이드"</span>)
 2. 단계별 프로세스 흐름 (Timeline Flow):
-   - [1단계 신청] ➔ [2단계 자격 검증] ➔ [3단계 심사/면접] ➔ [4단계 최종 선발 및 지급]
+   - <span class="prompt-edit-target">[1단계 신청] ➔ [2단계 자격 검증] ➔ [3단계 심사/면접] ➔ [4단계 최종 선발 및 지급]</span>
    - 각 단계마다 [행정 일정/기한], [신청자 필수 액션], [제출 서류 체크리스트]를 2~3줄로 압축 정리
 3. 💡 담당 부서 꿀팁 & 주의사항 (Callout Box): 탈락 방지를 위한 빈출 실수 2가지와 문의처
 4. 시각화 아이콘 가이드: 각 단계별로 배치하면 어울릴 추천 아이콘 명칭 (예: 캘린더, 서류, 돋보기, 계좌 등)
@@ -1672,15 +1672,15 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 사업 결과보고서의 핵심 수치 3~4선과 전년 대비 성과(Before vs After)를 1페이지 대시보드형으로 추출합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 사업 결과보고서 소스를 분석하여 "1페이지 대시보드형 성과 인포그래픽(Stat Infographic) 기획안"을 추출해 줘.
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 <span class="prompt-edit-target">사업 결과보고서</span> 소스를 분석하여 "1페이지 대시보드형 성과 인포그래픽(Stat Infographic) 기획안"을 추출해 줘.
 
 [청중 및 목적]
-- 대상 청중: 대학 본부 보직자 및 대외 평가위원
-- 목적: 사업의 핵심 성과 수치와 전년 대비 성장세를 단 10초 만에 인지시키는 것
+- 대상 청중: <span class="prompt-edit-target">대학 본부 보직자 및 대외 평가위원</span>
+- 목적: <span class="prompt-edit-target">사업의 핵심 성과 수치와 전년 대비 성장세를 단 10초 만에 인지시키는 것</span>
 
 [요청 구성]
 1. Big Numbers (핵심 강조 지표 3~4선):
-   - 폰트를 가장 크게 키워 배치할 핵심 수치 추출 (예: 예산 집행률 98.5%, 참여 학생 수 1,240명, 만족도 4.8/5.0 등)
+   - 폰트를 가장 크게 키워 배치할 핵심 수치 추출 (예: <span class="prompt-edit-target">예산 집행률 98.5%, 참여 학생 수 1,240명, 만족도 4.8/5.0 등</span>)
    - 각 숫자 밑에 들어갈 설명 문구 (15자 이내)
 2. 성과 비교표 (Before vs After):
    - 사업 도입 전과 도입 후의 변화를 비교할 수 있는 3대 비교 항목과 수치
@@ -1706,9 +1706,9 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: NotebookLM 우측 Studio의 [오디오 생성] 옆 <strong>[맞춤설정(Customize)]</strong> 창에 입력하여 정책 쟁점 사전 토론을 유도합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">이번 보고서의 핵심 주제는 [예: 2026 RISE 사업 개편안 및 학과 구조혁신 방향]입니다. 
-단순한 요약 나열보다는, 대학 구성원(교수, 학생, 행정) 간에 발생할 수 있는 주요 갈등 요인과 행정적 쟁점을 중심으로 남녀 호스트가 객관적인 토론을 진행해 주세요. 
-특히 의사결정권자가 검토해야 할 '핵심 성공 요인 3가지'와 '예산 리스크'를 집중적으로 다뤄 주세요.</pre>
+              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">이번 보고서의 핵심 주제는 <span class="prompt-edit-target">[예: 2026 RISE 사업 개편안 및 학과 구조혁신 방향]</span>입니다. 
+단순한 요약 나열보다는, <span class="prompt-edit-target">대학 구성원(교수, 학생, 행정)</span> 간에 발생할 수 있는 주요 갈등 요인과 행정적 쟁점을 중심으로 남녀 호스트가 객관적인 토론을 진행해 주세요. 
+특히 의사결정권자가 검토해야 할 <span class="prompt-edit-target">'핵심 성공 요인 3가지'</span>와 <span class="prompt-edit-target">'예산 리스크'</span>를 집중적으로 다뤄 주세요.</pre>
             </div>
           </div>
 
