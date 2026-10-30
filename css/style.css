@@ -1892,6 +1892,6 @@ button {
 }
 
 .editable-prompt-pre .prompt-edit-target {
-  color: var(--color-plasma-violet);
+  color: #ea580c;
   font-weight: 600;
 }
