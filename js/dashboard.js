@@ -1482,11 +1482,11 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 3: 교직원 스마트 행정 실전 활용 시나리오 4선 & 추천 프롬프트 (템플릿 복사 기능 탑재) -->
+        <!-- 카드 3: 교직원 스마트 행정 실전 활용 시나리오 3선 & 추천 프롬프트 (템플릿 복사 기능 탑재) -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>🎯 3. 교직원 스마트 행정 실전 활용 시나리오 4선 & 추천 프롬프트</span>
+              <span>🎯 3. 교직원 스마트 행정 실전 활용 시나리오 3선 & 추천 프롬프트</span>
             </h3>
             <span style="font-size: 12.5px; color: #6b7280;">NotebookLM 중앙 채팅창에 그대로 복사·붙여넣기하여 사용하세요.</span>
           </div>
@@ -1535,34 +1535,12 @@ const DashboardApp = {
 [형식] 표(Table) 또는 개조식 보고서 형식으로 작성하고, 세부 페이지 각주를 표기할 것.</pre>
             </div>
 
-            <!-- 시나리오 3: 회의록 1장 요약 -->
-            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
-              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
-                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
-                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">보고서 요약</span>
-                  <span>3. 📋 처장단/위원회 회의록 및 자체평가보고서 핵심 1장(One-Page) 브리핑</span>
-                </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
-              </div>
-              <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
-                <strong>활용 부서</strong>: 총장실, 기획평가팀, 교원인사팀 / <strong>활용 방법</strong>: 긴 회의록 원문을 부서별 후속 조치 과제(Action Item)와 함께 결재용 1장 브리핑으로 압축합니다.
-              </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 총장단 및 교무위원회를 보좌하는 기획조정실 수석 행정관이야.
-[지시] 업로드된 <span class="prompt-edit-target">[제3차 교무위원회 회의록 및 부서별 현안 보고서]</span>를 바탕으로 부서장 보고용 1장(One-page) 브리핑 문서를 작성해 줘:
-1. 주요 안건별 최종 의결 사항 요약 (의결/보류/조건부 승인 구분)
-2. 각 행정부서별<span class="prompt-edit-target">(교무, 학생, 기획, 총무)</span> 향후 실행 조치 과제(Action Item) 및 완료 권장 기한
-3. 차기 회의 전까지 사전 법률·규정 검토가 필요한 잠재적 행정 리스크 2가지
-[형식] '안건 요약 ➔ 부서별 조치 과제 표 ➔ 행정 유의사항' 3단계 구조로 정리해 줘.</pre>
-            </div>
-
-            <!-- 시나리오 4: 홍보 카드뉴스 기획 -->
+            <!-- 시나리오 3: 홍보 카드뉴스 기획 -->
             <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">행정 홍보</span>
-                  <span>4. 📢 학내 보도자료 및 행사 요강 기반 홍보 카드뉴스/공지안 도출</span>
+                  <span>3. 📢 학내 보도자료 및 행사 요강 기반 홍보 카드뉴스/공지안 도출</span>
                 </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
