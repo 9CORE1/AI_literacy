@@ -1966,9 +1966,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">과제 기획</span>
                   <span>1. 뻔한 주제를 차별화하는 「주제 구체화 프롬프트」</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://chatgpt.com/share/6ae428ec-8318-83ee-848a-ba07be4a3e1c" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                    <span>💬 채팅창 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div class="prompt-compare-grid">
                 <div class="prompt-col-basic">
@@ -2000,9 +2005,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">시험 대비</span>
                   <span>2. 어려운 전공 개념을 뚫어주는 「파인만 튜터 프롬프트」</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://chatgpt.com/share/6ae42923-2090-83e8-9d50-2d031c55c3cc" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                    <span>💬 채팅창 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div class="prompt-compare-grid">
                 <div class="prompt-col-basic">
@@ -2036,9 +2046,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">팀 프로젝트</span>
                   <span>3. 발표 전 약점을 미리 잡는 「악마의 변호인(반박 검증) 프롬프트」</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://chatgpt.com/share/6ae42953-594c-83ee-a2fe-3b71d58e72ca" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                    <span>💬 채팅창 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div class="prompt-compare-grid">
                 <div class="prompt-col-basic">
@@ -2077,9 +2092,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">글쓰기 윤리</span>
                   <span>4. 표절 없이 문장력만 올리는 「논리 구조 첨삭 프롬프트」</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://chatgpt.com/share/6ae42987-25d4-83ec-89b6-504cbfc06632" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                    <span>💬 채팅창 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div class="prompt-compare-grid">
                 <div class="prompt-col-basic">
@@ -2118,9 +2138,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">취업·진로</span>
                   <span>5. 학과 활동을 스펙으로 바꾸는 「STAR 역량 분해 프롬프트」</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://chatgpt.com/share/6ae429ae-76cc-83e8-9a6b-2da8e59c83d4" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                    <span>💬 채팅창 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div class="prompt-compare-grid">
                 <div class="prompt-col-basic">
