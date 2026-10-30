@@ -79,6 +79,7 @@ const DashboardApp = {
     this.renderDashboard(user);
     this.renderQuickNav(user);
     this.bindCopyEvents();
+    this.initEditablePrompts();
     this.initScrollSpy(user);
   },
 
@@ -1014,7 +1015,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 기획처 및 국고 재정지원사업 총괄 PM이자 교육행정 기획관이야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 기획처 및 국고 재정지원사업 총괄 PM이자 교육행정 기획관이야.
 [배경] 우리 대학 재학생들의 미래 신기술 적응력 강화를 위한 [2026학년도 비교과 AI 리터러시 역량 강화 워크숍] 사업 기획안을 수립 중이야.
 [지시] 교내 내부 결재용 기안문 초안을 작성해 줘. 
 1. 사업 추진 배경 및 필요성 (최근 산업계 수요 및 교육부 정책 방향 반영)
@@ -1042,7 +1043,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학교육 평가 전문가이자 고등교육 교수설계자(Instructional Designer)야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학교육 평가 전문가이자 고등교육 교수설계자(Instructional Designer)야.
 [배경] [경영학/IT융합] 전공 3학년 대상의 [생성형 AI를 활용한 비즈니스 모델 기획 및 창업 실습] 전공 선택 과목(3학점, 15주차) 강의계획서를 새로 개발하고 있어.
 [지시]
 1. 15주차 주별 강의 세부 계획 (주차 / 강의 주제 / 학습 목표 / 학생 실습 과제)을 표로 설계해 줘.
@@ -1064,7 +1065,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 총장실 및 처장단 회의를 보좌하는 수석 행정관이야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 총장실 및 처장단 회의를 보좌하는 수석 행정관이야.
 [배경] 아래 제공된 [회의록 / 교육부 공문 지침 / 평가 편람]의 텍스트를 검토하여 부서장 보고용 1장(One-page) 핵심 브리핑 문서를 작성해야 해.
 [지시]
 1. 핵심 안건 및 결정 사항 요약 (3줄 이내)
@@ -1092,7 +1093,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학생들의 눈높이에 맞추어 친절하고 명확하게 소통하는 학사지원팀 소통 전문가야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학생들의 눈높이에 맞추어 친절하고 명확하게 소통하는 학사지원팀 소통 전문가야.
 [배경] 이번 학기 변경된 [복수전공 이수 요건 및 수강신청 학점 변경 규정]에 대한 공식 학칙 개정문을 재학생 대상 카카오톡 알림톡 및 홈페이지 공지사항으로 게시하려고 해.
 [지시] 딱딱하고 난해한 규정 조항을 학생들이 오해 없이 쉽게 이해할 수 있는 친절한 공지문과 FAQ로 변환해 줘.
 ---
@@ -1117,7 +1118,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 교육성과관리센터(IR)의 교육 품질 분석관이자 정성 데이터 분석 전문가야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 교육성과관리센터(IR)의 교육 품질 분석관이자 정성 데이터 분석 전문가야.
 [배경] 지난 학기 교내 [교직원 직무 연수 프로그램 / 학생 비교과 특강] 종료 후 수집된 주관식 서술형 피드백 응답 텍스트야.
 [지시]
 1. 수집된 모든 주관식 의견을 감정(만족 / 불만족 / 건의사항)별로 분류하고 비율을 요약해 줘.
@@ -1870,7 +1871,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 학술 글쓰기 지도 교수이자 연구 설계 전문가야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 학술 글쓰기 지도 교수이자 연구 설계 전문가야.
 [배경] [경영학/컴퓨터공학/사회복지학] 전공 과제로 [생성형 AI의 도입]에 관한 A4 5장 분량의 리포트 주제를 정해야 해.
 [지시] 뻔하고 흔한 주제 대신, 최신 쟁점과 구체적인 타깃이 결합된 독창적인 리포트 소주제 3가지를 제안해 줘. 각 주제마다 '문제 제기 - 핵심 연구 질문 - 기대 효과'를 제시해 줘.
 [형식] 표(Table) 형태로 정리해 줘.
@@ -1889,7 +1890,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 복잡한 전공 이론을 아주 쉽고 직관적으로 설명해 주는 친절한 대학 1:1 튜터야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 복잡한 전공 이론을 아주 쉽고 직관적으로 설명해 주는 친절한 대학 1:1 튜터야.
 [배경] 나는 [컴퓨터·IT / 경영학] 전공 [2학년] 학생이고, 이번 시험 대비를 위해 [머신러닝의 과적합(Overfitting)과 해결 기법]을 완벽히 이해해야 해.
 [지시]
 1. 이 개념의 핵심 원리를 일상 비유를 들어 비전공자도 이해할 수 있게 설명해 줘.
@@ -1910,7 +1911,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 팀 프로젝트 평가에서 가장 까다롭고 날카로운 질문을 던지는 심사위원(악마의 변호인)이야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 팀 프로젝트 평가에서 가장 까다롭고 날카로운 질문을 던지는 심사위원(악마의 변호인)이야.
 [배경] 우리 팀은 [경영혁신과 창업] 수업에서 [대학생 교내 전공서적 무인 대여 및 순환 플랫폼 '캠퍼스북스']에 대해 발표할 예정이야.
 [지시] 아래 작성된 우리 팀의 발표 개요를 비판적으로 검토하고, 발표 당일 교수님이나 청중이 공격할 수 있는 취약점 3가지와 예상 압박 질문을 뽑아줘. 그리고 각 질문에 대한 방어 논리(대응 가이드)도 함께 제시해 줘.
 ---
@@ -1934,7 +1935,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학술 논문 및 대학 리포트 전문 에디터야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학술 논문 및 대학 리포트 전문 에디터야.
 [배경] 대학 전공 과제로 내가 직접 작성한 리포트 단락이야. 인공지능이 새로 글을 창작해서는 안 되며, 내 원래 문장과 주장을 그대로 살려야 해.
 [지시] 아래 글의 문맥 흐름, 비문, 단어 중복, 논리적 비약을 교정해 줘.
 ---
@@ -1958,7 +1959,7 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대기업 및 IT 기업 출신의 채용 면접관이자 커리어 컨설턴트야.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대기업 및 IT 기업 출신의 채용 면접관이자 커리어 컨설턴트야.
 [배경] [희망 직무: 예) 서비스 기획 / 데이터 분석 / 마케팅 / 연구개발] 인턴십 지원을 위해 내 대학 활동 경험을 정리하고 있어.
 [지시] 아래 적힌 나의 학과 프로젝트 경험을 바탕으로, 기업 채용관이 매력적으로 느낄 수 있도록 STAR 기법에 맞추어 체계적으로 재구성해 줘.
 ---
@@ -2485,14 +2486,50 @@ const DashboardApp = {
   },
 
   /**
-   * 프롬프트 템플릿 클립보드 복사 헬퍼
+   * 프롬프트 템플릿 5선 코드 영역 인라인 수정 초기화
+   */
+  initEditablePrompts() {
+    let supportsPlaintextOnly = false;
+    try {
+      const testEl = document.createElement('div');
+      testEl.contentEditable = 'plaintext-only';
+      supportsPlaintextOnly = testEl.contentEditable === 'plaintext-only';
+    } catch (e) {
+      supportsPlaintextOnly = false;
+    }
+
+    document.querySelectorAll('.editable-prompt-pre').forEach((pre) => {
+      if (supportsPlaintextOnly) {
+        pre.setAttribute('contenteditable', 'plaintext-only');
+      } else {
+        pre.setAttribute('contenteditable', 'true');
+        pre.addEventListener('paste', (e) => {
+          e.preventDefault();
+          const text = (e.clipboardData || window.clipboardData).getData('text/plain');
+          if (document.queryCommandSupported && document.queryCommandSupported('insertText')) {
+            document.execCommand('insertText', false, text);
+          } else {
+            const sel = window.getSelection();
+            if (!sel || !sel.rangeCount) return;
+            sel.deleteFromDocument();
+            sel.getRangeAt(0).insertNode(document.createTextNode(text));
+            sel.collapseToEnd();
+          }
+        });
+      }
+    });
+  },
+
+  /**
+   * 프롬프트 템플릿 클립보드 복사 헬퍼 (수정된 내용 반영)
    * @param {HTMLElement} btn
    */
   copyPrompt(btn) {
     const card = btn.closest('.prompt-template-card');
     const pre = card ? card.querySelector('pre') : null;
     if (!pre) return;
-    const textToCopy = pre.innerText || pre.textContent;
+    const rawText = typeof pre.innerText === 'string' ? pre.innerText : (pre.textContent || '');
+    const textToCopy = rawText.replace(/\r\n/g, '\n');
 
     const onSuccess = () => {
       const originalHtml = btn.innerHTML;

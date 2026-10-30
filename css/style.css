@@ -1880,4 +1880,13 @@ button {
   }
 }
 
+/* 프롬프트 템플릿 5선 인라인 편집 코드 영역 */
+.editable-prompt-pre:hover {
+  border-color: #cbd5e1 !important;
+}
 
+.editable-prompt-pre:focus {
+  outline: none;
+  border-color: var(--color-ember) !important;
+  box-shadow: 0 0 0 3px rgba(85, 56, 150, 0.14);
+}
