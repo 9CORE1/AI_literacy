@@ -1016,7 +1016,7 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 기획처 및 국고 재정지원사업 총괄 PM이자 교육행정 기획관이야.
-[배경] 우리 대학 재학생들의 미래 신기술 적응력 강화를 위한 [2026학년도 비교과 AI 리터러시 역량 강화 워크숍] 사업 기획안을 수립 중이야.
+[배경] 우리 대학 재학생들의 미래 신기술 적응력 강화를 위한 <span class="prompt-edit-target">[2026학년도 비교과 AI 리터러시 역량 강화 워크숍]</span> 사업 기획안을 수립 중이야.
 [지시] 교내 내부 결재용 기안문 초안을 작성해 줘. 
 1. 사업 추진 배경 및 필요성 (최근 산업계 수요 및 교육부 정책 방향 반영)
 2. 운영 개요 (대상, 일정, 운영 방식)
@@ -1044,10 +1044,10 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학교육 평가 전문가이자 고등교육 교수설계자(Instructional Designer)야.
-[배경] [경영학/IT융합] 전공 3학년 대상의 [생성형 AI를 활용한 비즈니스 모델 기획 및 창업 실습] 전공 선택 과목(3학점, 15주차) 강의계획서를 새로 개발하고 있어.
+[배경] <span class="prompt-edit-target">[경영학/IT융합]</span> 전공 3학년 대상의 <span class="prompt-edit-target">[생성형 AI를 활용한 비즈니스 모델 기획 및 창업 실습]</span> 전공 선택 과목(3학점, 15주차) 강의계획서를 새로 개발하고 있어.
 [지시]
 1. 15주차 주별 강의 세부 계획 (주차 / 강의 주제 / 학습 목표 / 학생 실습 과제)을 표로 설계해 줘.
-2. 학생들이 학기 말 제출할 [AI 활용 비즈니스 기획서 과제]의 공정한 채점을 위한 4단계 루브릭(Rubric)을 제작해 줘.
+2. 학생들이 학기 말 제출할 <span class="prompt-edit-target">[AI 활용 비즈니스 기획서 과제]</span>의 공정한 채점을 위한 4단계 루브릭(Rubric)을 제작해 줘.
 [형식]
 - 1단계: 15주차 강의 계획표 (Table)
 - 2단계: 평가 루브릭 표 (평가 항목 / 배점(비중) / 탁월(A) / 보통(B) / 미흡(C) / 부적합(D) 세부 기준)
@@ -1066,14 +1066,14 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 총장실 및 처장단 회의를 보좌하는 수석 행정관이야.
-[배경] 아래 제공된 [회의록 / 교육부 공문 지침 / 평가 편람]의 텍스트를 검토하여 부서장 보고용 1장(One-page) 핵심 브리핑 문서를 작성해야 해.
+[배경] 아래 제공된 <span class="prompt-edit-target">[회의록 / 교육부 공문 지침 / 평가 편람]</span>의 텍스트를 검토하여 부서장 보고용 1장(One-page) 핵심 브리핑 문서를 작성해야 해.
 [지시]
 1. 핵심 안건 및 결정 사항 요약 (3줄 이내)
 2. 부서별(교무처, 학생처, 기획처, 전산원) 후속 조치 과제(Action Item) 및 추진 기한
 3. 예상되는 행정적 리스크 및 사전 검토 규정 조항
 ---
 [문서 텍스트 입력]
-(여기에 긴 회의록 원문이나 지침 텍스트를 붙여넣기 하세요)
+<span class="prompt-edit-target">(여기에 긴 회의록 원문이나 지침 텍스트를 붙여넣기 하세요)</span>
 ---
 [형식]
 • [핵심 결정 사항]
@@ -1094,11 +1094,11 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학생들의 눈높이에 맞추어 친절하고 명확하게 소통하는 학사지원팀 소통 전문가야.
-[배경] 이번 학기 변경된 [복수전공 이수 요건 및 수강신청 학점 변경 규정]에 대한 공식 학칙 개정문을 재학생 대상 카카오톡 알림톡 및 홈페이지 공지사항으로 게시하려고 해.
+[배경] 이번 학기 변경된 <span class="prompt-edit-target">[복수전공 이수 요건 및 수강신청 학점 변경 규정]</span>에 대한 공식 학칙 개정문을 재학생 대상 카카오톡 알림톡 및 홈페이지 공지사항으로 게시하려고 해.
 [지시] 딱딱하고 난해한 규정 조항을 학생들이 오해 없이 쉽게 이해할 수 있는 친절한 공지문과 FAQ로 변환해 줘.
 ---
 [학칙 개정 조항 원문]
-(여기에 대학 규정집 조항이나 개정 공문 문구를 입력하세요)
+<span class="prompt-edit-target">(여기에 대학 규정집 조항이나 개정 공문 문구를 입력하세요)</span>
 ---
 [형식]
 1. 30초 한눈에 보기 요약 (카드뉴스형 3대 핵심 변경사항)
@@ -1119,14 +1119,14 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 교육성과관리센터(IR)의 교육 품질 분석관이자 정성 데이터 분석 전문가야.
-[배경] 지난 학기 교내 [교직원 직무 연수 프로그램 / 학생 비교과 특강] 종료 후 수집된 주관식 서술형 피드백 응답 텍스트야.
+[배경] 지난 학기 교내 <span class="prompt-edit-target">[교직원 직무 연수 프로그램 / 학생 비교과 특강]</span> 종료 후 수집된 주관식 서술형 피드백 응답 텍스트야.
 [지시]
 1. 수집된 모든 주관식 의견을 감정(만족 / 불만족 / 건의사항)별로 분류하고 비율을 요약해 줘.
 2. 불만족 및 건의사항에서 반복적으로 등장하는 핵심 키워드 3가지를 도출해 줘.
 3. 차기 프로그램 개선을 위한 행정 부서 조치 권고사항 3가지를 제안해 줘.
 ---
 [설문 주관식 응답 데이터]
-(여기에 학생 또는 교직원의 주관식 응답을 엑셀 등에서 복사하여 붙여넣기 하세요. *개인정보 제외)
+<span class="prompt-edit-target">(여기에 학생 또는 교직원의 주관식 응답을 엑셀 등에서 복사하여 붙여넣기 하세요. *개인정보 제외)</span>
 ---
 [형식] 표(Table)로 감정 및 카테고리별 분류 정리 후, 하단에 [주요 쟁점 분석] 및 [차기 추진 개선안] 서술
 [조건] 특정 개인을 비난하는 어조는 완곡한 행정 과제로 순화하여 보고서형 문체로 작성할 것.</pre>
@@ -1872,7 +1872,7 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 학술 글쓰기 지도 교수이자 연구 설계 전문가야.
-[배경] [경영학/컴퓨터공학/사회복지학] 전공 과제로 [생성형 AI의 도입]에 관한 A4 5장 분량의 리포트 주제를 정해야 해.
+[배경] <span class="prompt-edit-target">[경영학/컴퓨터공학/사회복지학]</span> 전공 과제로 <span class="prompt-edit-target">[생성형 AI의 도입]</span>에 관한 A4 5장 분량의 리포트 주제를 정해야 해.
 [지시] 뻔하고 흔한 주제 대신, 최신 쟁점과 구체적인 타깃이 결합된 독창적인 리포트 소주제 3가지를 제안해 줘. 각 주제마다 '문제 제기 - 핵심 연구 질문 - 기대 효과'를 제시해 줘.
 [형식] 표(Table) 형태로 정리해 줘.
 [조건] 학부생 수준에서 한 학기 동안 국내외 학술 논문과 기사를 찾아 분석할 수 있는 현실적인 범위여야 해.
@@ -1891,7 +1891,7 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 복잡한 전공 이론을 아주 쉽고 직관적으로 설명해 주는 친절한 대학 1:1 튜터야.
-[배경] 나는 [컴퓨터·IT / 경영학] 전공 [2학년] 학생이고, 이번 시험 대비를 위해 [머신러닝의 과적합(Overfitting)과 해결 기법]을 완벽히 이해해야 해.
+[배경] 나는 <span class="prompt-edit-target">[컴퓨터·IT / 경영학]</span> 전공 <span class="prompt-edit-target">[2학년]</span> 학생이고, 이번 시험 대비를 위해 <span class="prompt-edit-target">[머신러닝의 과적합(Overfitting)과 해결 기법]</span>을 완벽히 이해해야 해.
 [지시]
 1. 이 개념의 핵심 원리를 일상 비유를 들어 비전공자도 이해할 수 있게 설명해 줘.
 2. 학부 시험에 자주 출제되는 기술적/학문적 핵심 포인트 3가지를 짚어줘.
@@ -1912,13 +1912,13 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 팀 프로젝트 평가에서 가장 까다롭고 날카로운 질문을 던지는 심사위원(악마의 변호인)이야.
-[배경] 우리 팀은 [경영혁신과 창업] 수업에서 [대학생 교내 전공서적 무인 대여 및 순환 플랫폼 '캠퍼스북스']에 대해 발표할 예정이야.
+[배경] 우리 팀은 <span class="prompt-edit-target">[경영혁신과 창업]</span> 수업에서 <span class="prompt-edit-target">[대학생 교내 전공서적 무인 대여 및 순환 플랫폼 '캠퍼스북스']</span>에 대해 발표할 예정이야.
 [지시] 아래 작성된 우리 팀의 발표 개요를 비판적으로 검토하고, 발표 당일 교수님이나 청중이 공격할 수 있는 취약점 3가지와 예상 압박 질문을 뽑아줘. 그리고 각 질문에 대한 방어 논리(대응 가이드)도 함께 제시해 줘.
 ---
 [기획안 개요]
-1. 문제 정의: 비싼 전공서적 비용 부담과 학기 후 폐기되는 책 낭비 문제
+<span class="prompt-edit-target">1. 문제 정의: 비싼 전공서적 비용 부담과 학기 후 폐기되는 책 낭비 문제
 2. 해결 방안: 단과대 로비에 무인 반납/대여함을 설치하고, 학생증 NFC로 학기당 저렴한 구독료로 전공책 대여
-3. 수익 모델: 학생 구독료(월 3,000원) 및 교내 학식·카페 쿠폰 제휴 배너 광고
+3. 수익 모델: 학생 구독료(월 3,000원) 및 교내 학식·카페 쿠폰 제휴 배너 광고</span>
 ---
 [형식] '[취약점 분석] -> [예상 압박 질문] -> [추천 방어 답변]' 구조로 정리해 줘.
 [조건] 칭찬이나 빈말은 일체 생략하고, 논리적 비약과 실현 가능성의 한계 위주로 엄격하게 비판해 줘.</pre>
@@ -1940,7 +1940,7 @@ const DashboardApp = {
 [지시] 아래 글의 문맥 흐름, 비문, 단어 중복, 논리적 비약을 교정해 줘.
 ---
 [초안 텍스트]
-최근 생성형 인공지능의 발전으로 많은 학생들이 과제를 할 때 챗지피티를 많이 쓰고 있는데, 이것은 편리하지만 표절 문제나 할루시네이션 같은 거짓 정보 때문에 부작용도 크다고 생각한다. 그래서 교수님들도 무조건 금지하기보다는 올바른 사용 가이드라인을 만들어서 학생들에게 가르쳐주는 교육이 진짜 중요하다고 본다.
+<span class="prompt-edit-target">최근 생성형 인공지능의 발전으로 많은 학생들이 과제를 할 때 챗지피티를 많이 쓰고 있는데, 이것은 편리하지만 표절 문제나 할루시네이션 같은 거짓 정보 때문에 부작용도 크다고 생각한다. 그래서 교수님들도 무조건 금지하기보다는 올바른 사용 가이드라인을 만들어서 학생들에게 가르쳐주는 교육이 진짜 중요하다고 본다.</span>
 ---
 [형식] 
 1. 교정 전/후 비교 표
@@ -1960,10 +1960,10 @@ const DashboardApp = {
                 </button>
               </div>
               <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대기업 및 IT 기업 출신의 채용 면접관이자 커리어 컨설턴트야.
-[배경] [희망 직무: 예) 서비스 기획 / 데이터 분석 / 마케팅 / 연구개발] 인턴십 지원을 위해 내 대학 활동 경험을 정리하고 있어.
+[배경] <span class="prompt-edit-target">[희망 직무: 예) 서비스 기획 / 데이터 분석 / 마케팅 / 연구개발]</span> 인턴십 지원을 위해 내 대학 활동 경험을 정리하고 있어.
 [지시] 아래 적힌 나의 학과 프로젝트 경험을 바탕으로, 기업 채용관이 매력적으로 느낄 수 있도록 STAR 기법에 맞추어 체계적으로 재구성해 줘.
 ---
-[내가 한 활동 자유롭게 메모: 예) 마케팅 조사론 수업 때 4명이서 키오스크 개선안을 설문조사하고 발표해서 A+ 받음]
+<span class="prompt-edit-target">[내가 한 활동 자유롭게 메모: 예) 마케팅 조사론 수업 때 4명이서 키오스크 개선안을 설문조사하고 발표해서 A+ 받음]</span>
 ---
 [형식]
 • 상황 (Situation): 어떤 배경과 문제 상황이었는가?

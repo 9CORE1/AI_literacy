@@ -1890,3 +1890,8 @@ button {
   border-color: var(--color-ember) !important;
   box-shadow: 0 0 0 3px rgba(85, 56, 150, 0.14);
 }
+
+.editable-prompt-pre .prompt-edit-target {
+  color: #dc2626;
+  font-weight: 600;
+}
