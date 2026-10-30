@@ -1970,12 +1970,27 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 학술 글쓰기 지도 교수이자 연구 설계 전문가야.
+              <div class="prompt-compare-grid">
+                <div class="prompt-col-basic">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
+                  </div>
+                  <div class="basic-prompt-box">"경영학 전공 과제인데 생성형 AI 도입에 관한 리포트 주제 추천해 줘."</div>
+                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> '생성형 AI의 장단점', '기업의 AI 활용 사례'처럼 누구나 떠올리는 광범위하고 뻔한 주제만 나열되며, 핵심 연구 질문이나 학부생 수준에서 실제 수집·분석 가능한 데이터 범위가 제시되지 않습니다.</div>
+                </div>
+                <div class="prompt-col-improved">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
+                  </div>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 학술 글쓰기 지도 교수이자 연구 설계 전문가야.
 [배경] <span class="prompt-edit-target">[경영학/컴퓨터공학/사회복지학]</span> 전공 과제로 <span class="prompt-edit-target">[생성형 AI의 도입]</span>에 관한 A4 5장 분량의 리포트 주제를 정해야 해.
 [지시] 뻔하고 흔한 주제 대신, 최신 쟁점과 구체적인 타깃이 결합된 독창적인 리포트 소주제 3가지를 제안해 줘. 각 주제마다 '문제 제기 - 핵심 연구 질문 - 기대 효과'를 제시해 줘.
 [형식] 표(Table) 형태로 정리해 줘.
 [조건] 학부생 수준에서 한 학기 동안 국내외 학술 논문과 기사를 찾아 분석할 수 있는 현실적인 범위여야 해.
 [샘플] | 순번 | 추천 소주제 | 핵심 연구 질문 | 분석 대상 및 데이터 |</pre>
+                </div>
+              </div>
             </div>
 
             <!-- 템플릿 2 -->
@@ -1989,7 +2004,20 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 복잡한 전공 이론을 아주 쉽고 직관적으로 설명해 주는 친절한 대학 1:1 튜터야.
+              <div class="prompt-compare-grid">
+                <div class="prompt-col-basic">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
+                  </div>
+                  <div class="basic-prompt-box">"머신러닝의 과적합(Overfitting)이랑 해결 방법이 뭔지 설명해 줘."</div>
+                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 교과서·백과사전식 전문 용어 정의가 그대로 나열되어 직관적인 이해가 어렵고, 실제 학부 시험 빈출 포인트나 내 이해도를 점검할 연습문제 풀이까지 이어지지 못합니다.</div>
+                </div>
+                <div class="prompt-col-improved">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
+                  </div>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 복잡한 전공 이론을 아주 쉽고 직관적으로 설명해 주는 친절한 대학 1:1 튜터야.
 [배경] 나는 <span class="prompt-edit-target">[컴퓨터·IT / 경영학]</span> 전공 <span class="prompt-edit-target">[2학년]</span> 학생이고, 이번 시험 대비를 위해 <span class="prompt-edit-target">[머신러닝의 과적합(Overfitting)과 해결 기법]</span>을 완벽히 이해해야 해.
 [지시]
 1. 이 개념의 핵심 원리를 일상 비유를 들어 비전공자도 이해할 수 있게 설명해 줘.
@@ -1997,6 +2025,8 @@ const DashboardApp = {
 3. 내가 제대로 이해했는지 점검할 수 있는 4지선다형 연습문제 2문제를 출제하고, 정답과 해설은 맨 밑에 따로 배치해 줘.
 [형식] 1단계(직관적 비유) -> 2단계(학술 핵심 요약) -> 3단계(확인 퀴즈) 순서로 구분해 줘.
 [조건] 단순 사전적 정의 나열은 금지하며, 친근하고 명쾌한 어조로 설명해 줘.</pre>
+                </div>
+              </div>
             </div>
 
             <!-- 템플릿 3 -->
@@ -2010,7 +2040,22 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 팀 프로젝트 평가에서 가장 까다롭고 날카로운 질문을 던지는 심사위원(악마의 변호인)이야.
+              <div class="prompt-compare-grid">
+                <div class="prompt-col-basic">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
+                  </div>
+                  <div class="basic-prompt-box">"우리 팀 발표 기획안인데 어때? 피드백 좀 해 줘."
+
+(여기에 기획안 개요 붙여넣기)</div>
+                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> AI 특유의 동조 성향 때문에 "좋은 아이디어입니다" 같은 원론적 칭찬 위주로 답변하며, 발표 당일 교수님이나 청중이 파고들 논리적 비약·수익성 한계와 방어 논리를 사전에 대비하기 어렵습니다.</div>
+                </div>
+                <div class="prompt-col-improved">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
+                  </div>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 팀 프로젝트 평가에서 가장 까다롭고 날카로운 질문을 던지는 심사위원(악마의 변호인)이야.
 [배경] 우리 팀은 <span class="prompt-edit-target">[경영혁신과 창업]</span> 수업에서 <span class="prompt-edit-target">[대학생 교내 전공서적 무인 대여 및 순환 플랫폼 '캠퍼스북스']</span>에 대해 발표할 예정이야.
 [지시] 아래 작성된 우리 팀의 발표 개요를 비판적으로 검토하고, 발표 당일 교수님이나 청중이 공격할 수 있는 취약점 3가지와 예상 압박 질문을 뽑아줘. 그리고 각 질문에 대한 방어 논리(대응 가이드)도 함께 제시해 줘.
 ---
@@ -2021,6 +2066,8 @@ const DashboardApp = {
 ---
 [형식] '[취약점 분석] -> [예상 압박 질문] -> [추천 방어 답변]' 구조로 정리해 줘.
 [조건] 칭찬이나 빈말은 일체 생략하고, 논리적 비약과 실현 가능성의 한계 위주로 엄격하게 비판해 줘.</pre>
+                </div>
+              </div>
             </div>
 
             <!-- 템플릿 4 -->
@@ -2034,7 +2081,22 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학술 논문 및 대학 리포트 전문 에디터야.
+              <div class="prompt-compare-grid">
+                <div class="prompt-col-basic">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
+                  </div>
+                  <div class="basic-prompt-box">"아래 내가 쓴 리포트 내용 좀 더 자연스럽고 학술적으로 다듬어 줘."
+
+(여기에 초안 텍스트 붙여넣기)</div>
+                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> AI가 학생의 원래 문장을 통째로 새로 쓰거나 없던 주장을 임의로 덧붙여 대필·표절 논란 위험이 커지며, 교정 전/후 비교와 수정 근거가 제시되지 않아 본인의 글쓰기 역량 향상으로 이어지지 않습니다.</div>
+                </div>
+                <div class="prompt-col-improved">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
+                  </div>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학술 논문 및 대학 리포트 전문 에디터야.
 [배경] 대학 전공 과제로 내가 직접 작성한 리포트 단락이야. 인공지능이 새로 글을 창작해서는 안 되며, 내 원래 문장과 주장을 그대로 살려야 해.
 [지시] 아래 글의 문맥 흐름, 비문, 단어 중복, 논리적 비약을 교정해 줘.
 ---
@@ -2045,6 +2107,8 @@ const DashboardApp = {
 1. 교정 전/후 비교 표
 2. 주요 수정 이유 (문법, 어휘, 논리성 측면) 3가지 요약
 [조건] 내 고유의 주장이나 문맥의 핵심 의미를 왜곡하지 말 것. 학술 보고서에 어울리는 정중하고 객관적인 문체(~다, ~이다)를 유지할 것.</pre>
+                </div>
+              </div>
             </div>
 
             <!-- 템플릿 5 -->
@@ -2058,7 +2122,20 @@ const DashboardApp = {
                   <span>📋 프롬프트 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대기업 및 IT 기업 출신의 채용 면접관이자 커리어 컨설턴트야.
+              <div class="prompt-compare-grid">
+                <div class="prompt-col-basic">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
+                  </div>
+                  <div class="basic-prompt-box">"마케팅 조사론 수업 때 4명이서 키오스크 개선안 설문조사하고 발표해서 A+ 받았는데, 이거 인턴 자기소개서용으로 써 줘."</div>
+                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 희망 직무의 전문 역량 키워드 없이 단순 활동 나열이나 상투적인 미사여구만 생성되며, 채용 면접관이 핵심으로 평가하는 '상황(S)-과제(T)-주도적 행동(A)-성과(R)' 구조가 뚜렷하게 드러나지 않습니다.</div>
+                </div>
+                <div class="prompt-col-improved">
+                  <div class="prompt-col-header">
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
+                  </div>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대기업 및 IT 기업 출신의 채용 면접관이자 커리어 컨설턴트야.
 [배경] <span class="prompt-edit-target">[희망 직무: 예) 서비스 기획 / 데이터 분석 / 마케팅 / 연구개발]</span> 인턴십 지원을 위해 내 대학 활동 경험을 정리하고 있어.
 [지시] 아래 적힌 나의 학과 프로젝트 경험을 바탕으로, 기업 채용관이 매력적으로 느낄 수 있도록 STAR 기법에 맞추어 체계적으로 재구성해 줘.
 ---
@@ -2070,6 +2147,8 @@ const DashboardApp = {
 • 행동 (Action): 나의 주도적 역할과 사용한 역량/도구는 무엇인가?
 • 결과 (Result): 구체적인 성과 및 배운 점(정량적·정성적 결과)
 [조건] 직무에 부합하는 전문 직무 역량 키워드를 최소 3개 이상 도출하여 본문에 자연스럽게 녹여낼 것.</pre>
+                </div>
+              </div>
             </div>
           </div>
         </div>
