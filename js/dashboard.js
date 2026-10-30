@@ -514,7 +514,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 리뷰의 감정을 [긍정 / 부정 / 중립] 중 단어 하나로만 분류해줘:", A2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 리뷰의 감정을 <span class="prompt-edit-target">[긍정 / 부정 / 중립]</span> 중 단어 하나로만 분류해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -524,7 +524,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 문의 내용을 [결제 / 배송 / 환불 / 단순문의] 중 하나로만 분류해줘:", B2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 문의 내용을 <span class="prompt-edit-target">[결제 / 배송 / 환불 / 단순문의]</span> 중 하나로만 분류해줘:", <span class="prompt-edit-target">B2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -547,7 +547,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 고객 상담 내용의 핵심 쟁점을 30자 이내의 한 문장으로 요약해줘:", A2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 <span class="prompt-edit-target">고객 상담 내용의 핵심 쟁점을 30자 이내</span>의 한 문장으로 요약해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -557,7 +557,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 텍스트에서 '이메일 주소'만 추출해서 출력해줘. 없으면 '없음'이라고 써줘:", C2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 텍스트에서 <span class="prompt-edit-target">'이메일 주소'</span>만 추출해서 출력해줘. 없으면 <span class="prompt-edit-target">'없음'</span>이라고 써줘:", <span class="prompt-edit-target">C2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -580,7 +580,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 오타가 섞인 제품명을 공식 표준 한국어 표기법으로 교정해줘:", A2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 오타가 섞인 <span class="prompt-edit-target">제품명을 공식 표준 한국어 표기법</span>으로 교정해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -590,7 +590,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 비정형 주소를 [시/도 구/군 동/면/읍] 표준 행정구역 포맷으로 변환해줘:", B2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 비정형 주소를 <span class="prompt-edit-target">[시/도 구/군 동/면/읍]</span> 표준 행정구역 포맷으로 변환해줘:", <span class="prompt-edit-target">B2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -613,7 +613,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 문장을 해외 바이어에게 보낼 정중하고 격식 있는 비즈니스 영어로 번역해줘:", A2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 문장을 <span class="prompt-edit-target">해외 바이어에게 보낼 정중하고 격식 있는 비즈니스 영어</span>로 번역해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -623,7 +623,7 @@ const DashboardApp = {
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 딱딱한 안내 공지문을 대학생들에게 친근한 카카오톡 알림톡 말투로 바꿔줘:", A2)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 딱딱한 안내 공지문을 <span class="prompt-edit-target">대학생들에게 친근한 카카오톡 알림톡 말투</span>로 바꿔줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -644,7 +644,7 @@ const DashboardApp = {
                     <span>📋 수식 복사</span>
                   </button>
                 </div>
-                <pre style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("A열의 [상품명]과 B열의 [핵심 타깃]을 고려해 20자 내외의 매력적인 인스타그램 광고 카피를 써줘", A2:B2)</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("A열의 <span class="prompt-edit-target">[상품명]</span>과 B열의 <span class="prompt-edit-target">[핵심 타깃]</span>을 고려해 <span class="prompt-edit-target">20자 내외의 매력적인 인스타그램 광고 카피</span>를 써줘", <span class="prompt-edit-target">A2:B2</span>)</pre>
               </div>
             </div>
           </div>
@@ -697,7 +697,7 @@ const DashboardApp = {
                     <span>📋 복사</span>
                   </button>
                 </div>
-                <pre style="background: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 6px 10px; font-size: 11.5px; color: #0369a1; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono);">=GEMINI("다음 수강생 " & A2 & "님의 취약점인 " & B2 & " 영역을 보완할 한 줄 피드백을 작성해줘")</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 6px 10px; font-size: 11.5px; color: #0369a1; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 수강생 " & <span class="prompt-edit-target">A2</span> & "님의 취약점인 " & <span class="prompt-edit-target">B2</span> & " 영역을 보완할 <span class="prompt-edit-target">한 줄 피드백</span>을 작성해줘")</pre>
               </div>
             </div>
           </div>
@@ -2310,11 +2310,11 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 전공 논문 PDF를 소스로 등록한 뒤, 연구 가설과 방법론, 한계점을 인용 각주와 함께 10초 만에 추출합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학술 논문 분석 전문 연구 튜터야.
-[지시] 업로드된 논문 소스를 바탕으로 아래 핵심 내용을 명확하게 정리해 줘:
-1. 연구의 핵심 배경 및 연구 질문(가설)
-2. 실증 분석에 사용된 데이터와 연구 방법론
-3. 최종 도출된 주요 결과 3가지와 연구의 한계점
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학술 논문 분석 전문 연구 튜터야.
+[지시] 업로드된 <span class="prompt-edit-target">논문 소스</span>를 바탕으로 아래 핵심 내용을 명확하게 정리해 줘:
+1. <span class="prompt-edit-target">연구의 핵심 배경 및 연구 질문(가설)</span>
+2. <span class="prompt-edit-target">실증 분석에 사용된 데이터와 연구 방법론</span>
+3. <span class="prompt-edit-target">최종 도출된 주요 결과 3가지와 연구의 한계점</span>
 [형식] 각 항목마다 반드시 본문 인용 각주([1], [2])를 표기하고, 표(Table) 또는 개조식으로 요약해 줘.</pre>
             </div>
 
@@ -2332,10 +2332,10 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 교수님의 한 학기 교안(PPT)과 필기 노트를 모두 업로드하고, 서술형 예상 문제와 객관식 퀴즈를 출제합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 대학 전공 시험 출제 위원이자 학습 코치야.
-[지시] 이번 학기 업로드된 교수님의 교안(PPT)과 강의 노트 전체를 분석해서:
-1. 기말고사 서술형/단답형으로 출제될 확률이 가장 높은 핵심 개념 5개를 선정해 줘.
-2. 각 개념마다 학부생 수준의 4지선다형 연습문제 1문제씩 출제하고, 해설과 정답은 맨 아래에 따로 배치해 줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 대학 전공 시험 출제 위원이자 학습 코치야.
+[지시] 이번 학기 업로드된 <span class="prompt-edit-target">교수님의 교안(PPT)과 강의 노트</span> 전체를 분석해서:
+1. <span class="prompt-edit-target">기말고사 서술형/단답형</span>으로 출제될 확률이 가장 높은 <span class="prompt-edit-target">핵심 개념 5개</span>를 선정해 줘.
+2. 각 개념마다 학부생 수준의 <span class="prompt-edit-target">4지선다형 연습문제 1문제씩</span> 출제하고, 해설과 정답은 맨 아래에 따로 배치해 줘.
 [조건] 교안에 명시된 용어와 정의만을 근거로 출제할 것.</pre>
             </div>
 
@@ -2353,11 +2353,11 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 조원들이 각자 조사한 보고서·기사·통계를 한 노트북에 모으고, 상호 상충되는 관점이나 수치 차이를 비교합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 팀 프로젝트 리서치 검토 전문가야.
-[지시] 우리 조원들이 각자 업로드한 소스 자료들을 교차 분석해 줘:
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 팀 프로젝트 리서치 검토 전문가야.
+[지시] <span class="prompt-edit-target">우리 조원들이 각자 업로드한 소스 자료들</span>을 교차 분석해 줘:
 1. 각 소스가 공통적으로 동의하고 지지하는 핵심 논점 요약
 2. 소스 간에 서로 상충되거나 데이터 수치 및 관점이 엇갈리는 부분 비교 대조
-[형식] '논점 | 소스A 관점 | 소스B 관점 | 시사점' 형태의 비교표로 정리해 줘.</pre>
+[형식] <span class="prompt-edit-target">'논점 | 소스A 관점 | 소스B 관점 | 시사점'</span> 형태의 비교표로 정리해 줘.</pre>
             </div>
 
             <!-- 시나리오 4 -->
@@ -2374,11 +2374,11 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 1~2시간짜리 해외 석학 강의나 세미나 유튜브 URL을 추가하여 핵심 메시지와 타임라인을 일목요연하게 파악합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[역할] 너는 학술 세미나 및 콘퍼런스 전문 서머라이저야.
-[지시] 추가된 유튜브 영상 소스의 전체 내용을 분석해서:
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할] 너는 학술 세미나 및 콘퍼런스 전문 서머라이저야.
+[지시] 추가된 <span class="prompt-edit-target">유튜브 영상 소스</span>의 전체 내용을 분석해서:
 1. 연사가 청중에게 전달하고자 하는 3대 핵심 메시지 요약
 2. 주요 발표 구간(타임스탬프 흐름)별 핵심 논의 내용 정리
-3. 우리 전공 과제에 접목할 수 있는 실천 아이디어 2가지 제안</pre>
+3. <span class="prompt-edit-target">우리 전공 과제</span>에 접목할 수 있는 실천 아이디어 2가지 제안</pre>
             </div>
           </div>
         </div>
@@ -2410,11 +2410,11 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 긴 논문이나 전공 교안을 "발표용 6~8장 슬라이드 덱 구조"로 변환할 때 중앙 채팅창에 입력합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 소스 자료를 바탕으로 대학생 팀플 발표용 "7장 슬라이드 기획안"을 작성해 줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[목표] 업로드된 소스 자료를 바탕으로 <span class="prompt-edit-target">대학생 팀플 발표용 "7장 슬라이드 기획안"</span>을 작성해 줘.
 
 [자료 설명 및 청중]
-- 대상 청중: 이 분야를 처음 접하는 동료 학부생 및 교수님
-- 발표 시간: 약 7~10분
+- 대상 청중: <span class="prompt-edit-target">이 분야를 처음 접하는 동료 학부생 및 교수님</span>
+- 발표 시간: <span class="prompt-edit-target">약 7~10분</span>
 
 [슬라이드별 요청 구성]
 각 슬라이드마다 다음 4가지 요소를 반드시 포함해서 정리해 줘:
@@ -2440,15 +2440,15 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 복잡한 개념이나 통계 자료를 한눈에 들어오는 디자인 기획서 포맷으로 추출합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">[목표] 업로드된 자료를 인포그래픽(또는 카드뉴스)으로 제작할 수 있도록 "시각화 기획 데이터"를 추출해 줘.
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[목표] 업로드된 자료를 <span class="prompt-edit-target">인포그래픽(또는 카드뉴스)</span>으로 제작할 수 있도록 "시각화 기획 데이터"를 추출해 줘.
 
 [요청 사항]
 1. 핵심 데이터 & 수치 3선: 가장 충격적이거나 중요한 숫자(%, 연도, 증감율 등)를 큰 폰트로 강조할 수 있게 추출
 2. 구조화 다이어그램:
-   - 문서의 핵심 흐름을 '단계별 프로세스(Step 1 → Step 2 → Step 3)' 또는 '비교 대조(기존 vs 신규)' 구조로 정리
+   - 문서의 핵심 흐름을 <span class="prompt-edit-target">'단계별 프로세스(Step 1 → Step 2 → Step 3)' 또는 '비교 대조(기존 vs 신규)'</span> 구조로 정리
    - Mermaid 플로우차트 코드나 마크다운 표(Table)로 시각화 표현 제공
 3. 키워드 & 픽토그램 매칭:
-   - 슬라이드나 카드뉴스 아이콘으로 쓸 수 있는 핵심 키워드 4개와 어울리는 아이콘 메타포(예: 돋보기, 방패, 번개 등) 추천
+   - 슬라이드나 카드뉴스 아이콘으로 쓸 수 있는 <span class="prompt-edit-target">핵심 키워드 4개</span>와 어울리는 아이콘 메타포(예: 돋보기, 방패, 번개 등) 추천
 4. 3줄 요약 테이크어웨이(Takeaway): 독자가 기억해야 할 핵심 결론
 
 [조건] 텍스트를 길게 쓰지 말고, 디자이너에게 바로 전달할 수 있는 디자인 기획서 포맷으로 작성해 줘.</pre>
@@ -2468,9 +2468,9 @@ const DashboardApp = {
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: NotebookLM 우측 Studio의 [오디오 생성] 옆 <strong>[맞춤설정(Customize)]</strong> 창에 입력하여 발표 전 예행연습 및 쟁점 토론을 유도합니다.
               </div>
-              <pre style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit;">이번 발표 슬라이드의 핵심 주제는 [예: 인공지능 윤리와 저작권 분쟁]입니다. 
-지루한 학술 용어 나열보다는, 대학생들이 실생활에서 겪을 수 있는 구체적인 딜레마 사례를 중심으로 남녀 호스트가 열띤 토론을 벌여 주세요. 
-특히 청중들이 가장 궁금해할 '핵심 쟁점 3가지'와 '한계점'을 집중적으로 다뤄 주면 좋겠습니다.</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">이번 발표 슬라이드의 핵심 주제는 <span class="prompt-edit-target">[예: 인공지능 윤리와 저작권 분쟁]</span>입니다. 
+지루한 학술 용어 나열보다는, <span class="prompt-edit-target">대학생들이 실생활에서 겪을 수 있는 구체적인 딜레마 사례</span>를 중심으로 남녀 호스트가 열띤 토론을 벌여 주세요. 
+특히 청중들이 가장 궁금해할 <span class="prompt-edit-target">'핵심 쟁점 3가지'</span>와 <span class="prompt-edit-target">'한계점'</span>을 집중적으로 다뤄 주면 좋겠습니다.</pre>
             </div>
           </div>
 
