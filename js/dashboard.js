@@ -2980,7 +2980,7 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 카드 3-2: 카드뉴스 생성 실무 프롬프트 예시 (4종) -->
+        <!-- 카드 3-2: 카드뉴스 생성 실무 프롬프트 예시 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
@@ -3020,70 +3020,161 @@ const DashboardApp = {
 4. 각 컷마다 배경 이미지로 생성할 수 있는 AI 이미지 프롬프트(영문)를 1줄씩 제안해줘.</pre>
             </div>
 
-            <!-- 프롬프트 2: 특강 홍보 배경 -->
+            <!-- 프롬프트 2: 이미지제작 -->
             <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
-                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">특강 표지</span>
-                  <span>2. 🚀 [비교과/특강] AI·SW 신기술 워크숍 홍보 표지</span>
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">후속 지시</span>
+                  <span>2. 🖼️ 이미지제작</span>
                 </div>
-                <div style="display: inline-flex; align-items: center; gap: 6px;">
-                  <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('public/Gemini_cardnews01.png', '🚀 [비교과/특강] AI·SW 신기술 워크숍 홍보 표지 프롬프트 결과')" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="생성 결과 이미지 팝업 보기">
-                    <span>🖼️ 프롬프트 결과</span>
-                  </button>
-                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                    <span>📋 프롬프트 복사</span>
-                  </button>
-                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
-                <strong>활용 방법</strong>: AI 신기술 워크숍, 코딩 캠프 등 미래지향적 특강의 메인 표지 배경(정사각형 1:1)을 생성합니다.
+                <strong>활용 방법</strong>: 1번 기획안이 도출된 동일한 채팅창에 이어서 입력하여 1~5컷 각각의 상세 영문 이미지 생성 프롬프트를 추출합니다.
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">A bright and futuristic <span class="prompt-edit-target">university computer lab, glowing 3D AI nodes and data particles floating in the air</span>, modern minimalist claymorphism style, <span class="prompt-edit-target">soft pastel orange and corporate navy</span> color palette, ample clean negative space at the center for Korean text overlay, bright daylight, 8k resolution, professional academic flyer aesthetic <span class="prompt-edit-target">--ar 1:1</span></pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">위의 <span class="prompt-edit-target">1컷~ 5컷</span> 까지의 카드뉴스를 생성할 수 있는 영문 프롬프트를 각각 생성해줘.</pre>
             </div>
 
-            <!-- 프롬프트 3: 학사/장학 본문컷 -->
+            <!-- 프롬프트 3: 템플릿제작 -->
             <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
-                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">학사 안내</span>
-                  <span>3. 📜 [학사/장학] 장학금 신청 및 학사일정 안내 본문컷</span>
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">템플릿화</span>
+                  <span>3. 🧩 템플릿제작</span>
                 </div>
-                <div style="display: inline-flex; align-items: center; gap: 6px;">
-                  <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('public/Gemini_cardnews02.png', '📜 [학사/장학] 장학금 신청 및 학사일정 안내 본문컷 프롬프트 결과')" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="생성 결과 이미지 팝업 보기">
-                    <span>🖼️ 프롬프트 결과</span>
-                  </button>
-                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                    <span>📋 프롬프트 복사</span>
-                  </button>
-                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
-                <strong>활용 방법</strong>: 장학금 신청 기간, 성적 기준, 학사일정을 안내하는 본문 카드(텍스트 여백 확보형 1:1)를 생성합니다.
+                <strong>활용 방법</strong>: 앞선 대화 과정을 재사용 가능한 범용 카드뉴스 제작 마스터 프롬프트 템플릿으로 구조화합니다.
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">Minimalist 3D isometric <span class="prompt-edit-target">university desk with an open scholarship certificate, graduation cap, and golden star coins</span>, clean white background, soft studio lighting, <span class="prompt-edit-target">subtle blue accents</span>, lots of empty space on the right side for text, neat and professional educational infographic style <span class="prompt-edit-target">--ar 1:1</span></pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">위의 프롬프트를 통해 <span class="prompt-edit-target">카드뉴스 제작</span>을 위한 프롬프트 템플릿을 만들어줘.</pre>
             </div>
 
-            <!-- 프롬프트 4: 행사/캠프 홍보컷 -->
+            <!-- 프롬프트 4: 카드뉴스 템플릿 예시 -->
             <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
-                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">행사 홍보</span>
-                  <span>4. 🤝 [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷</span>
+                  <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">마스터 템플릿</span>
+                  <span>4. 📑 카드뉴스 템플릿 예시</span>
                 </div>
-                <div style="display: inline-flex; align-items: center; gap: 6px;">
-                  <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('public/Gemini_cardnews03.png', '🤝 [행사/캠프] 선후배 멘토링 프로그램 모집 홍보컷 프롬프트 결과')" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="생성 결과 이미지 팝업 보기">
-                    <span>🖼️ 프롬프트 결과</span>
-                  </button>
-                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                    <span>📋 프롬프트 복사</span>
-                  </button>
-                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
-                <strong>활용 방법</strong>: 모바일 피드에 최적화된 세로형(4:5) 구도로 대학생 라이프스타일 멘토링 모집 홍보컷을 생성합니다.
+                <strong>활용 방법</strong>: 주황색으로 표시된 <code>{{입력 정보}}</code> 영역을 클릭하여 실제 행사 안내문과 옵션으로 수정한 뒤 복사·실행하세요.
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;"><span class="prompt-edit-target">Two cheerful Korean university students discussing together with laptops in a sunny modern campus lounge</span>, bright aesthetic, soft focus background, warm and welcoming atmosphere, modern college lifestyle photography, clean composition with negative space on top for headline <span class="prompt-edit-target">--ar 4:5</span></pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">[역할]
+너는 대학 홍보 전문 콘텐츠 기획자, SNS 카피라이터, AI 이미지 프롬프트 엔지니어이자 카드뉴스 아트디렉터다.
+제공된 행사 안내문을 분석하여 인스타그램과 카카오톡에 배포할 카드뉴스 기획안 및 이미지 생성 프롬프트를 작성한다.
+
+[입력 정보]
+행사 안내문:
+<span class="prompt-edit-target">{{여기에 행사 공문 또는 특강 안내문 전체 입력}}</span>
+
+제작 컷 수: <span class="prompt-edit-target">{{5}}</span>
+배포 채널: <span class="prompt-edit-target">{{인스타그램, 카카오톡}}</span>
+이미지 규격: <span class="prompt-edit-target">{{4:5, 1080×1350px}}</span>
+대상 독자: <span class="prompt-edit-target">{{대학생 및 재학생}}</span>
+디자인 콘셉트: <span class="prompt-edit-target">{{모던 캠퍼스 × 트렌디한 에디토리얼}}</span>
+메인 컬러: <span class="prompt-edit-target">{{네이비, 블루, 옐로우, 화이트}}</span>
+타이포그래피: <span class="prompt-edit-target">{{Pretendard 계열}}</span>
+신청 링크: <span class="prompt-edit-target">{{링크 입력 또는 안내문 참조}}</span>
+기존 브랜드 가이드: <span class="prompt-edit-target">{{없음 또는 상세 정보}}</span>
+
+[핵심 원칙]
+1. 안내문에서 확인된 사실만 사용하고 날짜, 장소, 강연자, 혜택, 신청 마감일을 임의로 만들지 않는다.
+2. 가장 중요한 학생 혜택 세 가지를 선정한다. 혜택이 세 개 미만이면 참여 가치나 학습 내용을 대체한다.
+3. 어려운 행정 용어는 학생 친화적인 언어로 바꾸되 의미는 유지한다.
+4. 각 컷은 메인 카피 한 개와 간결한 보조 문구로 구성한다.
+5. 한국어 문구는 이미지 생성 프롬프트 내에 정확하게 명시한다.
+6. 모든 컷은 동일한 디자인 시스템, 컬러, 레이아웃 원칙으로 통일한다.
+7. 실제 QR코드는 임의로 생성하지 않고 QR 삽입을 위한 빈 공간만 설계한다.
+8. 신청 링크가 Google Form인지 대학 포털인지 실제 제공 정보로 확인하여 정확하게 표기한다.
+9. 공식 기관 로고, 인물 사진, 행사 포스터가 제공되지 않았다면 임의로 실제 공식 자산인 것처럼 만들지 않는다.
+
+[작업 단계]
+
+STEP 1. 행사 정보 분석
+다음 항목을 추출한다.
+- 행사명
+- 주관 기관
+- 행사 목적
+- 핵심 대상
+- 일정 및 장소
+- 연사 또는 진행자
+- 주요 프로그램
+- 참가 혜택
+- 신청 방법 및 링크
+- 신청 기한
+- 문의처
+- 누락되었거나 검증이 필요한 정보
+
+STEP 2. 5컷 스토리 구성
+1컷: 학생의 관심과 클릭을 유도하는 표지. 헤드카피는 15자 이내.
+2컷: 첫 번째 핵심 혜택 또는 학습 가치.
+3컷: 두 번째 핵심 혜택 또는 학습 가치.
+4컷: 세 번째 핵심 혜택 또는 참여 가치.
+5컷: 행사 일정, 장소, 신청 방법과 명확한 행동 유도 문구(CTA).
+
+STEP 3. 컷별 카피라이팅
+각 컷에 대해 아래를 작성한다.
+- 컷 번호와 목적
+- 메인 헤드카피
+- 서브 카피
+- 강조할 핵심 키워드
+- 시각적으로 표현할 핵심 장면
+- 카드 내 텍스트 배치 제안
+
+STEP 4. 영문 이미지 생성 프롬프트
+각 컷마다 바로 이미지 생성 AI에 입력할 수 있는 완전한 독립형 영문 프롬프트를 작성한다.
+반드시 포함할 요소:
+- 4:5 vertical, 1080x1350 pixels
+- Korean university promotional card news
+- 주제에 맞는 구체적 인물, 사물, 행동, 공간
+- 일관된 색상과 일러스트 스타일
+- 상단 제목, 중앙 비주얼, 하단 보조정보의 시각적 계층
+- 생성할 정확한 한국어 문구
+- 넉넉한 여백 및 모바일 가독성
+- No extra text, no watermark, no invented facts
+- QR 코드가 필요한 경우 빈 삽입 영역 확보
+
+이미지 생성 AI가 한국어를 정확하게 표현할 수 있도록 모든 한국어 문구를 큰따옴표로 구분한다. 문구 임의 변경이나 불필요한 텍스트 삽입을 금지한다.
+
+STEP 5. 품질 검수
+- 사실과 다른 정보가 없는가?
+- 5컷의 정보 흐름이 자연스러운가?
+- 헤드카피가 짧고 매력적인가?
+- 장황하거나 중복된 문구가 없는가?
+- 모든 이미지의 디자인 스타일이 통일되는가?
+- 신청 링크 및 QR코드의 실제 사용이 가능한가?
+- 한국어 표기 및 오탈자 검수 항목이 제시되었는가?
+
+[출력 형식]
+
+A. 행사 분석 요약
+핵심 홍보 메시지, 주요 대상, 핵심 혜택 3개.
+
+B. 5컷 카드뉴스 기획표
+| 컷 | 목적 | 메인 카피 | 서브 카피 | 이미지 콘셉트 |
+
+C. 컷별 영문 이미지 생성 프롬프트
+1컷부터 5컷까지 각각 독립된 코드블록으로 작성한다.
+복사하여 이미지 생성 AI에 바로 입력할 수 있도록 완전한 문장으로 작성한다.
+
+D. 카드뉴스 공통 디자인 가이드
+이미지 비율, 컬러 코드, 폰트, 구성, 여백과 일관성 유지 기준.
+
+E. 게시 전 검수 체크리스트
+잘못된 정보, 누락 사항, QR코드, 오탈자, 게시 적합성을 확인한다.
+
+[추가 조건]
+불필요한 설명보다 바로 제작할 수 있는 실용적인 결과를 우선한다.
+영문 이미지 프롬프트는 구체적으로, 카드뉴스에 들어가는 한국어 카피는 짧고 명확하게 작성한다.</pre>
             </div>
           </div>
         </div>
