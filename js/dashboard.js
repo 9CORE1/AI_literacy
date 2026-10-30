@@ -2400,9 +2400,14 @@ const DashboardApp = {
                   <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">논문 리서치</span>
                   <span>시나리오 1. 50페이지 학술 논문에서 핵심 가설 & 한계점 추출</span>
                 </div>
-                <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://notebook.google.com/notebook/31ba3653-f539-4cc5-bed1-3cb3f5b5b945" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
+                    <span>📓 노트북 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 전공 논문 PDF를 소스로 등록한 뒤, 연구 가설과 방법론, 한계점을 인용 각주와 함께 10초 만에 추출합니다.
@@ -2422,9 +2427,14 @@ const DashboardApp = {
                   <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">시험 대비</span>
                   <span>시나리오 2. 기말고사 대비 '나만의 족보 & 모의 퀴즈' 만들기</span>
                 </div>
-                <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://notebook.google.com/notebook/f285e9ed-6005-4e06-963d-8da4dc468794" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
+                    <span>📓 노트북 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 교수님의 한 학기 교안(PPT)과 필기 노트를 모두 업로드하고, 서술형 예상 문제와 객관식 퀴즈를 출제합니다.
@@ -2464,9 +2474,14 @@ const DashboardApp = {
                   <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">영상 특강</span>
                   <span>시나리오 4. 유튜브 학술 특강 & 긴 발표 영상 요약</span>
                 </div>
-                <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://notebook.google.com/notebook/fa1c19c1-6e3a-44e6-93eb-15cce1771c0e" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
+                    <span>📓 노트북 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 1~2시간짜리 해외 석학 강의나 세미나 유튜브 URL을 추가하여 핵심 메시지와 타임라인을 일목요연하게 파악합니다.
