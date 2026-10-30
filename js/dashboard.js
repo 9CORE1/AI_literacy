@@ -3025,7 +3025,7 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">후속 지시</span>
-                  <span>2. 🖼️ 이미지제작</span>
+                  <span>2. 🖼️ 이미지제작 프롬프트 요청</span>
                 </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
@@ -3042,7 +3042,7 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">템플릿화</span>
-                  <span>3. 🧩 템플릿제작</span>
+                  <span>3. 🧩 카드뉴스 제작 템플릿 요청</span>
                 </div>
                 <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
                   <span>📋 프롬프트 복사</span>
