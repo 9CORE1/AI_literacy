@@ -2513,11 +2513,17 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">PPT 제작</span>
+                  <span style="background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">🔗 논문리서치 후속작업</span>
                   <span>1. 📊 슬라이드(PPT) 발표 자료 제작용 요청 가이드</span>
                 </div>
-                <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://notebook.google.com/notebook/31ba3653-f539-4cc5-bed1-3cb3f5b5b945" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
+                    <span>📓 노트북 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 긴 논문이나 전공 교안을 "발표용 6~8장 슬라이드 덱 구조"로 변환할 때 중앙 채팅창에 입력합니다.
@@ -2543,11 +2549,17 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #be185d; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">인포그래픽</span>
+                  <span style="background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">🔗 영상특강 후속작업</span>
                   <span>2. 🎨 인포그래픽 & 카드뉴스 제작용 요청 가이드</span>
                 </div>
-                <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://notebook.google.com/notebook/fa1c19c1-6e3a-44e6-93eb-15cce1771c0e" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
+                    <span>📓 노트북 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 복잡한 개념이나 통계 자료를 한눈에 들어오는 디자인 기획서 포맷으로 추출합니다.
@@ -2571,11 +2583,17 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #7c3aed; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">오디오 맞춤</span>
+                  <span style="background: #fff7ed; color: #c2410c; border: 1px solid #fed7aa; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 600; display: inline-flex; align-items: center; gap: 3px;">🔗 영상특강 후속작업</span>
                   <span>3. 🎙️ 스튜디오 '오디오 오버뷰' 커스터마이징 지시문</span>
                 </div>
-                <button type="button" class="btn btn-outline" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://notebook.google.com/notebook/fa1c19c1-6e3a-44e6-93eb-15cce1771c0e" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
+                    <span>📓 노트북 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: NotebookLM 우측 Studio의 [오디오 생성] 옆 <strong>[맞춤설정(Customize)]</strong> 창에 입력하여 발표 전 예행연습 및 쟁점 토론을 유도합니다.
