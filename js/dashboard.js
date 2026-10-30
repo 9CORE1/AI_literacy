@@ -2997,9 +2997,14 @@ const DashboardApp = {
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">카피 기획</span>
                   <span>1. 📋 [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
                 </div>
-                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
-                  <span>📋 프롬프트 복사</span>
-                </button>
+                <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://chatgpt.com/share/6ae41cf4-60c8-83ec-ba45-a666a0dabebe" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="채팅창 대화 결과 새 창으로 보기">
+                    <span>💬 채팅창 대화보기</span>
+                  </a>
+                  <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                    <span>📋 프롬프트 복사</span>
+                  </button>
+                </div>
               </div>
               <div style="font-size: 12.5px; color: #64748b; margin-bottom: 8px; line-height: 1.5; word-break: keep-all;">
                 <strong>활용 방법</strong>: 공문서나 행사 요강을 바탕으로 인스타그램 5컷 카드뉴스 구성안과 슬라이드별 이미지 프롬프트를 한 번에 기획합니다.
