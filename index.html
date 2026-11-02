@@ -432,13 +432,13 @@
         },
         {
           num: "04",
-          tag: "FORM & REPORT",
-          title: "구글 폼 제작 및 집계시스템 설정",
-          desc: "AI로 행사 및 특강 설문 문항을 기획하고, 구글 앱스 스크립트(GAS)로 원클릭 폼 생성 후 스프레드시트 실시간 집계 대시보드를 구축합니다.",
+          tag: "DATA AUTOMATION",
+          title: "GEMINI() 함수 활용 가이드",
+          desc: "스프레드시트에서 함수 하나로 설문 주관식 텍스트의 감정 분석, 카테고리 분류, 다국어 번역 및 데이터 정제를 수백 행 단위로 일괄 자동화합니다.",
           items: [
-            "구글 폼 제작 시 필수 설정 4선 체크리스트 & 원본 데이터 보존 철칙",
-            "비전문가를 위한 원클릭 구글 폼 자동 생성 스크립트(GAS) 및 테스트",
-            "실시간 핵심 통계 공식 및 =GEMINI() 함수 기반 주관식 피드백 자동 분류"
+            "=GEMINI() 기본 문법 및 작동 원리 (프롬프트/참조 셀 결합)",
+            "감정 분석·핵심 추출·데이터 정제·다국어 번역 실전 수식 5선",
+            "실습용 템플릿 제공 및 값 붙여넣기·Rate Limit 등 실무 주의사항"
           ]
         }
       ]
@@ -471,14 +471,14 @@
     };
 
     function applyStaffCurriculumModule4(type) {
-      const selectedType = type || localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
-      CURRICULUM_DATA.staff[3] = STAFF_MODULE_4_OPTIONS[selectedType] || STAFF_MODULE_4_OPTIONS.google_form;
+      const selectedType = type || localStorage.getItem('ai_lit_staff_module4_type') || 'gemini_sheet';
+      CURRICULUM_DATA.staff[3] = STAFF_MODULE_4_OPTIONS[selectedType] || STAFF_MODULE_4_OPTIONS.gemini_sheet;
     }
 
     async function syncStaffCurriculumSettings() {
       const applyRemote = (remoteType) => {
         if (!remoteType) return;
-        const currentLocal = localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
+        const currentLocal = localStorage.getItem('ai_lit_staff_module4_type') || 'gemini_sheet';
         if (remoteType !== currentLocal || !CURRICULUM_DATA.staff[3] || CURRICULUM_DATA.staff[3].title !== STAFF_MODULE_4_OPTIONS[remoteType]?.title) {
           localStorage.setItem('ai_lit_staff_module4_type', remoteType);
           applyStaffCurriculumModule4(remoteType);

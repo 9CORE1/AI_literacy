@@ -3532,9 +3532,10 @@ E. 게시 전 검수 체크리스트
   },
   /**
    * 교직원 모듈 04 설정값 조회 ('google_form' | 'gemini_sheet')
+   * 기본값: 'gemini_sheet' (=GEMINI() 함수 활용 가이드)
    */
   getStaffModule4Type() {
-    return localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
+    return localStorage.getItem('ai_lit_staff_module4_type') || 'gemini_sheet';
   },
 
   /**
