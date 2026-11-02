@@ -415,6 +415,59 @@
       </div>
     </section>
 
+    <!-- 3.5. 교직원 강의 커리큘럼 04 항목 설정 섹션 -->
+    <section class="admin-controls-card" style="border: 1.5px solid var(--color-pumice); background: #ffffff; border-radius: 24px; padding: 22px 24px; margin-bottom: 20px;">
+      <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 14px; margin-bottom: 14px;">
+        <div>
+          <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+            <span style="background: #fff3ee; color: var(--color-ember); border: 1px solid #fed7aa; font-size: 11.5px; font-weight: 800; padding: 3px 10px; border-radius: 999px;">
+              🏛️ 교직원 강의실 설정
+            </span>
+            <h2 style="font-size: 16px; font-weight: 800; color: var(--color-obsidian); margin: 0;">
+              교직원 강의 내용 중 [04 항목] 제공 콘텐츠 선택
+            </h2>
+          </div>
+          <p style="font-size: 13px; color: #64748b; margin: 0; line-height: 1.5;">
+            교직원 맞춤형 강의실의 04번 모듈에 노출할 강의 콘텐츠를 아래 2가지 중 선택하여 즉시 설정할 수 있습니다.
+          </p>
+        </div>
+        <div id="staff-mod4-save-badge" style="font-size: 12px; font-weight: 700; color: #16a34a; background: #f0fdf4; border: 1px solid #bbf7d0; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px;">
+          <span>✅ 현재 저장됨</span>
+        </div>
+      </div>
+
+      <!-- 2개 옵션 선택 카드 -->
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 12px;">
+        <!-- 옵션 1: 구글 폼 제작 & 스프레드시트 실시간 집계 -->
+        <label id="card-staff-mod4-form" style="border: 2px solid var(--color-ember); background: #fffaf5; border-radius: 16px; padding: 14px 18px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: flex-start; gap: 12px;">
+          <input type="radio" name="staffModule4Setting" value="google_form" checked onchange="updateStaffModule4Setting('google_form')" style="margin-top: 3px; accent-color: var(--color-ember); width: 18px; height: 18px; cursor: pointer;">
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; flex-wrap: wrap; gap: 6px;">
+              <strong style="font-size: 14px; color: var(--color-obsidian);">1. 구글 폼 제작 &amp; 스프레드시트 실시간 집계</strong>
+              <span class="mod4-status-tag" id="tag-staff-mod4-form" style="background: var(--color-ember); color: #fff; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;">현재 적용 중</span>
+            </div>
+            <p style="font-size: 12.5px; color: #475569; margin: 0; line-height: 1.5;">
+              (기존 교직원 설정) 15분 라이브 시연 로드맵, AI 문항 기획, GAS 1클릭 자동생성, 실시간 집계 수식 및 1-Page 보고서
+            </p>
+          </div>
+        </label>
+
+        <!-- 옵션 2: Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드 -->
+        <label id="card-staff-mod4-gemini" style="border: 1.5px solid var(--color-pumice); background: #ffffff; border-radius: 16px; padding: 14px 18px; cursor: pointer; transition: all 0.2s ease; display: flex; align-items: flex-start; gap: 12px;">
+          <input type="radio" name="staffModule4Setting" value="gemini_sheet" onchange="updateStaffModule4Setting('gemini_sheet')" style="margin-top: 3px; accent-color: var(--color-ember); width: 18px; height: 18px; cursor: pointer;">
+          <div style="flex: 1;">
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 4px; flex-wrap: wrap; gap: 6px;">
+              <strong style="font-size: 14px; color: var(--color-obsidian);">2. Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드</strong>
+              <span class="mod4-status-tag" id="tag-staff-mod4-gemini" style="display: none; background: #0284c7; color: #fff; font-size: 11px; font-weight: 800; padding: 2px 8px; border-radius: 999px;">현재 적용 중</span>
+            </div>
+            <p style="font-size: 12.5px; color: #475569; margin: 0; line-height: 1.5;">
+              (대학생 강의 내용) =GEMINI() 기본 문법 및 작동 원리, 대표 활용 분야 5선 실전 수식, 최적화 팁 및 실무 주의사항
+            </p>
+          </div>
+        </label>
+      </div>
+    </section>
+
     <!-- 4. Controls & Filter Bar -->
     <section class="admin-controls-card">
       <div class="admin-controls-row">
@@ -596,6 +649,72 @@
       setTimeout(() => toast.classList.remove('show'), 2200);
     }
 
+    // [교직원 04 항목 설정 로드 & 업데이트]
+    async function loadStaffModule4Setting() {
+      let currentVal = localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
+      try {
+        if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
+          const snap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
+          if (snap.exists && snap.data().module4) {
+            currentVal = snap.data().module4;
+            localStorage.setItem('ai_lit_staff_module4_type', currentVal);
+          }
+        }
+      } catch (e) {
+        console.warn('loadStaffModule4Setting firestore error:', e);
+      }
+      applyStaffModule4Ui(currentVal);
+    }
+
+    function applyStaffModule4Ui(val) {
+      const isForm = val === 'google_form';
+      const radForm = document.querySelector('input[name="staffModule4Setting"][value="google_form"]');
+      const radGemini = document.querySelector('input[name="staffModule4Setting"][value="gemini_sheet"]');
+      if (radForm) radForm.checked = isForm;
+      if (radGemini) radGemini.checked = !isForm;
+
+      const cardForm = document.getElementById('card-staff-mod4-form');
+      const cardGemini = document.getElementById('card-staff-mod4-gemini');
+      const tagForm = document.getElementById('tag-staff-mod4-form');
+      const tagGemini = document.getElementById('tag-staff-mod4-gemini');
+
+      if (cardForm) {
+        cardForm.style.borderColor = isForm ? 'var(--color-ember)' : 'var(--color-pumice)';
+        cardForm.style.background = isForm ? '#fffaf5' : '#ffffff';
+      }
+      if (cardGemini) {
+        cardGemini.style.borderColor = !isForm ? 'var(--color-ember)' : 'var(--color-pumice)';
+        cardGemini.style.background = !isForm ? '#fffaf5' : '#ffffff';
+      }
+      if (tagForm) tagForm.style.display = isForm ? 'inline-block' : 'none';
+      if (tagGemini) tagGemini.style.display = !isForm ? 'inline-block' : 'none';
+    }
+
+    async function updateStaffModule4Setting(type) {
+      applyStaffModule4Ui(type);
+      localStorage.setItem('ai_lit_staff_module4_type', type);
+
+      const badge = document.getElementById('staff-mod4-save-badge');
+      if (badge) badge.innerHTML = '<span>⏳ 저장 중...</span>';
+
+      try {
+        if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
+          await Auth.firebaseDb.collection('settings').doc('staff_curriculum').set({
+            module4: type,
+            updatedAt: new Date().toISOString()
+          }, { merge: true });
+        }
+        if (badge) badge.innerHTML = '<span>✅ 현재 저장됨</span>';
+        showToast(type === 'google_form'
+          ? '📋 [04. 구글 폼 제작 & 집계] 콘텐츠로 설정되었습니다.'
+          : '📊 [Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드] 콘텐츠로 설정되었습니다.');
+      } catch (err) {
+        console.error('Failed to save to firestore:', err);
+        if (badge) badge.innerHTML = '<span>💾 로컬에 저장됨</span>';
+        showToast('💾 브라우저에 설정이 저장되었습니다.');
+      }
+    }
+
     // 1. 관리자 인증 검사
     function checkAdminAuth() {
       if (!Auth.isAdmin()) {
@@ -616,6 +735,7 @@
         showToast('🛡️ 관리자 모드로 로그인되었습니다.');
         document.getElementById('admin-barrier-modal').style.display = 'none';
         await loadUsersData();
+        await loadStaffModule4Setting();
       } else {
         alert(res.message);
       }
@@ -1045,6 +1165,7 @@
       await Auth.init();
       if (checkAdminAuth()) {
         await loadUsersData();
+        await loadStaffModule4Setting();
       }
     });
   </script>
