@@ -3632,9 +3632,14 @@ E. 게시 전 검수 체크리스트
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>💡 1. 기본 개념 및 수식 문법 (Syntax & 작동 원리)</span>
             </h3>
-            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
-              Google Sheets × Gemini 1.5 Pro 대량 일괄 자동화
-            </span>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <a href="https://workspace.google.com/intl/ko_kr/products/sheets/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #0f9d58; color: #0f9d58; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="Google Sheets 공식 소개 및 AI 함수 활용 안내 새 창으로 열기">
+                <span>✨ AI함수 사용하기 ↗</span>
+              </a>
+              <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
+                Google Sheets × Gemini 1.5 Pro 대량 일괄 자동화
+              </span>
+            </div>
           </div>
 
           <p style="font-size: 14px; color: #475569; line-height: 1.65; margin-bottom: 1.25rem; word-break: keep-all;">
@@ -4003,9 +4008,14 @@ E. 게시 전 검수 체크리스트
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>💡 1. 기본 개념 및 수식 문법 (Syntax &amp; 행정 업무 적용 원리)</span>
             </h3>
-            <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
-              Google Sheets × Gemini 1.5 Pro 대량 행정 자동화
-            </span>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <a href="https://workspace.google.com/intl/ko_kr/products/sheets/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #0f9d58; color: #0f9d58; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="Google Sheets 공식 소개 및 AI 함수 활용 안내 새 창으로 열기">
+                <span>✨ AI함수 사용하기 ↗</span>
+              </a>
+              <span style="background: #ecfdf5; color: #047857; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid #a7f3d0;">
+                Google Sheets × Gemini 1.5 Pro 대량 행정 자동화
+              </span>
+            </div>
           </div>
 
           <p style="font-size: 14px; color: #475569; line-height: 1.65; margin-bottom: 1.25rem; word-break: keep-all;">
