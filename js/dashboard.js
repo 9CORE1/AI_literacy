@@ -2514,7 +2514,7 @@ const DashboardApp = {
    * @param {string} imageSrc 이미지 경로
    * @param {string} title 모달 타이틀
    */
-  showImageModal(imageSrc, title) {
+  showImageModal(imageSrc, title, subtitle) {
     let modal = document.getElementById('cardnews-image-modal');
     if (!modal) {
       modal = document.createElement('div');
@@ -2533,7 +2533,7 @@ const DashboardApp = {
             <img id="cardnews-modal-img" src="" alt="프롬프트 결과 이미지" style="max-width: 100%; max-height: 58vh; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
           </div>
           <div style="padding: 12px 20px; background: #fafafa; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #64748b;">
-            <span>💡 나노바나나 / 비주얼 AI 생성 예시 결과물</span>
+            <span id="cardnews-modal-subtitle">💡 나노바나나 / 비주얼 AI 생성 예시 결과물</span>
             <a id="cardnews-modal-link" href="" target="_blank" rel="noopener noreferrer" style="color: var(--color-ember); font-weight: 700; text-decoration: none;">원본 새창 보기 ↗</a>
           </div>
         </div>
@@ -2560,8 +2560,14 @@ const DashboardApp = {
     const imgEl = document.getElementById('cardnews-modal-img');
     const linkEl = document.getElementById('cardnews-modal-link');
     const contentEl = document.getElementById('cardnews-modal-content');
-
+    const subtitleEl = document.getElementById('cardnews-modal-subtitle');
     if (titleEl) titleEl.textContent = title || '프롬프트 결과 이미지';
+    if (subtitleEl) {
+      subtitleEl.textContent = (typeof subtitle === 'string' && subtitle) ? subtitle : ((imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic'))) ? '💡 구글 폼 실시간 집계 8단계 로드맵 인포그래픽' : '💡 나노바나나 / 비주얼 AI 생성 예시 결과물');
+    }
+    if (contentEl) {
+      contentEl.style.maxWidth = (imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic'))) ? '820px' : '640px';
+    }
     if (imgEl) {
       imgEl.dataset.triedFallback = '';
       imgEl.src = imageSrc;
@@ -3990,11 +3996,11 @@ E. 게시 전 검수 체크리스트
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.15rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>⚡ 2. [교직원 유인물 연계] 대표 =GEMINI() 실무 수식 &amp; GAS 프롬프트 5선</span>
+              <span>⚡ 2. 대표 =GEMINI() 실무 수식 &amp; GAS 프롬프트 5선</span>
             </h3>
-            <a href="https://docs.google.com/spreadsheets/d/1tx-E9auNundLk1rLqLwYlFKAlk1-ke_zn51a4KO8dRo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 6px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: #0f9d58; color: #0f9d58; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="실습용 구글 스프레드시트 새 창으로 열기">
-              <span>📊 실습 구글시트 열기 ↗</span>
-            </a>
+            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/staff_form_roadmap_infographic2.png', '📋 구글 폼 제작 &amp; 스프레드시트 실시간 집계 8단계 로드맵', '💡 구글 폼 실시간 집계 8단계 로드맵 인포그래픽')" style="font-size: 12.5px; padding: 6px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="구글 폼 실시간 집계 8단계 로드맵 과정 보기">
+              <span>구글 폼 실시간 집계 과정보기</span>
+            </button>
           </div>
 
           <!-- 실습용 구글시트 접속 안내 배너 -->
