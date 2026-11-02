@@ -427,6 +427,9 @@ const DashboardApp = {
 
       <!-- Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드 섹션 -->
       ${this.getGeminiSpreadsheetSectionHtml('lecture-sec-4')}
+
+      <!-- Ending. AI 리터러시 미래 학습 가이드 섹션 -->
+      ${this.getEndingSectionHtml('lecture-sec-ending')}
     `;
   },
 
@@ -579,6 +582,9 @@ const DashboardApp = {
       ${this.getStaffCardNewsSectionHtml()}
 
       ${isGeminiMod4 ? this.getStaffGeminiSpreadsheetSectionHtml('lecture-staff-sec-4') : this.getStaffGoogleFormSectionHtml()}
+
+      <!-- Ending. AI 리터러시 미래 학습 가이드 섹션 -->
+      ${this.getEndingSectionHtml('lecture-sec-ending')}
     `;
   },
 
@@ -2536,6 +2542,60 @@ const DashboardApp = {
    * @param {string} imageSrc 이미지 경로
    * @param {string} title 모달 타이틀
    */
+
+  /**
+   * 대학생 / 교직원 공통 Ending 섹션 HTML 반환
+   * @param {string} sectionId
+   */
+  getEndingSectionHtml(sectionId = 'lecture-sec-ending') {
+    return `
+      <!-- ======================================================== -->
+      <!-- Ending. AI 리터러시 미래 학습 가이드 -->
+      <!-- ======================================================== -->
+      <div id="${sectionId}" class="lecture-nav-section" style="margin-top: 3.5rem; margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
+        <div style="margin-bottom: var(--spacing-20);">
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">AI LITERACY COURSE FINALE &amp; FUTURE ROADMAP</span>
+          <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🎓 Ending. AI 리터러시 미래 학습 가이드</h2>
+        </div>
+
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.25rem;">
+            <div>
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+                <span style="background: var(--color-ember); color: #fff; font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px;">COURSE FINALE</span>
+                <span style="font-size: 18px; font-weight: 700; color: var(--color-obsidian);">🎓 AI 리터러시 미래 학습 &amp; 실천 로드맵</span>
+              </div>
+              <p style="font-size: 13.5px; color: #64748b; margin: 0; line-height: 1.6; word-break: keep-all;">
+                교육 과정을 마치며 정리한 <strong>AI 역량 성장 및 미래 실천 가이드 인포그래픽</strong>입니다. 이미지를 클릭하면 고화질로 크게 확대하여 확인하실 수 있습니다.
+              </p>
+            </div>
+            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/learning_ex.png', '🎓 AI 리터러시 미래 학습 가이드 (Ending)', '💡 전체 화면 인포그래픽 크게 보기')" style="font-size: 13px; padding: 7px 18px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="인포그래픽 팝업으로 크게 보기">
+              <span>🖼️ Ending 인포그래픽 크게 보기 ↗</span>
+            </button>
+          </div>
+
+          <!-- 이미지 미리보기 배너 (클릭 시 확대 팝업) -->
+          <div onclick="DashboardApp.showImageModal('images/learning_ex.png', '🎓 AI 리터러시 미래 학습 가이드 (Ending)', '💡 전체 화면 인포그래픽 크게 보기')" style="position: relative; border-radius: 18px; overflow: hidden; border: 1px solid #e2e8f0; background: #0f172a; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';" title="클릭하여 크게 보기">
+            <img src="images/learning_ex.png" alt="AI 리터러시 미래 학습 가이드" style="width: 100%; max-height: 380px; object-fit: cover; display: block; opacity: 0.94; transition: opacity 0.2s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.94'">
+            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.1) 60%, transparent 100%); display: flex; align-items: flex-end; justify-content: space-between; padding: 18px 24px; flex-wrap: wrap; gap: 10px;">
+              <div style="color: #ffffff;">
+                <div style="font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
+                  <span>🔍 클릭하여 원본 크기로 확대 보기</span>
+                </div>
+                <div style="font-size: 12px; color: #cbd5e1;">
+                  고해상도(1672×941px) 인포그래픽으로 세부 실천 지침을 확인하세요.
+                </div>
+              </div>
+              <span style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); color: #ffffff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.4);">
+                크게 보기 🔍
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `;
+  },
+
   showImageModal(imageSrc, title, subtitle) {
     let modal = document.getElementById('cardnews-image-modal');
     if (!modal) {
@@ -2587,7 +2647,7 @@ const DashboardApp = {
     if (subtitleEl) {
       subtitleEl.textContent = (typeof subtitle === 'string' && subtitle) ? subtitle : ((imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic'))) ? '💡 구글 폼 실시간 집계 8단계 로드맵 인포그래픽' : '💡 나노바나나 / 비주얼 AI 생성 예시 결과물');
     }
-    const isLargeMedia = imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic') || imageSrc.includes('staff_form'));
+    const isLargeMedia = imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic') || imageSrc.includes('staff_form') || imageSrc.includes('learning_ex'));
     if (contentEl) {
       contentEl.style.maxWidth = isLargeMedia ? 'min(1360px, 96vw)' : '640px';
       contentEl.style.width = isLargeMedia ? '96vw' : '100%';
@@ -2684,6 +2744,10 @@ const DashboardApp = {
           <span class="nav-badge">04</span>
           <span class="nav-text">${this.getStaffModule4Type() === 'gemini_sheet' ? '=GEMINI() 함수' : '구글 폼 & 집계'}</span>
         </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-ending" onclick="DashboardApp.scrollToSection('lecture-sec-ending')">
+          <span class="nav-badge" style="background: var(--color-ember); color: #fff;">Fin</span>
+          <span class="nav-text">Ending</span>
+        </button>
       `;
     } else {
       if (titleEl) titleEl.textContent = '📚 강의 바로가기';
@@ -2704,6 +2768,10 @@ const DashboardApp = {
           <span class="nav-badge">04</span>
           <span class="nav-text">구글 시트 Gemini</span>
         </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-sec-ending" onclick="DashboardApp.scrollToSection('lecture-sec-ending')">
+          <span class="nav-badge" style="background: var(--color-ember); color: #fff;">Fin</span>
+          <span class="nav-text">Ending</span>
+        </button>
       `;
     }
   },
@@ -2715,8 +2783,8 @@ const DashboardApp = {
   initScrollSpy(user) {
     const isStaff = user && user.role === 'staff';
     const sectionIds = isStaff
-      ? ['lecture-sec-2', 'lecture-sec-3', 'lecture-staff-sec-3', 'lecture-staff-sec-4']
-      : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4'];
+      ? ['lecture-sec-2', 'lecture-sec-3', 'lecture-staff-sec-3', 'lecture-staff-sec-4', 'lecture-sec-ending']
+      : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4', 'lecture-sec-ending'];
     let ticking = false;
 
     window.addEventListener('scroll', () => {
