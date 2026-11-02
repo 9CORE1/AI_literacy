@@ -4020,7 +4020,7 @@ E. 게시 전 검수 체크리스트
                 </div>
               </div>
             </div>
-            <a href="https://docs.google.com/spreadsheets/d/1tx-E9auNundLk1rLqLwYlFKAlk1-ke_zn51a4KO8dRo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" style="background: #0f9d58; color: #ffffff; font-size: 12.5px; font-weight: 700; padding: 7px 16px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; box-shadow: 0 2px 5px rgba(15,157,88,0.25); cursor: pointer;" title="새 창으로 실습용 스프레드시트 열기">
+            <a href="https://docs.google.com/spreadsheets/d/1Gi7euptQzGJh0-kT320CcCcs_3RD0-6PXMJ6Hr_8FUk/edit?usp=sharing" target="_blank" rel="noopener noreferrer" style="background: #0f9d58; color: #ffffff; font-size: 12.5px; font-weight: 700; padding: 7px 16px; border-radius: 999px; text-decoration: none; display: inline-flex; align-items: center; gap: 5px; white-space: nowrap; box-shadow: 0 2px 5px rgba(15,157,88,0.25); cursor: pointer;" title="새 창으로 실습용 스프레드시트 열기">
               <span>실습 구글시트 바로가기 ↗</span>
             </a>
           </div>
