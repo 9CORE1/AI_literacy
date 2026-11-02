@@ -2012,3 +2012,58 @@ button {
     grid-template-columns: 1fr;
   }
 }
+
+/* ==========================================================================
+   Mobile-Only Safety Overrides (PC 화면 100% 보존 & 스마트폰 전용 최적화)
+   ========================================================================== */
+@media (max-width: 768px) {
+  /* 1. 모바일 카드 여백 슬림화 (인라인 2rem 패딩 오버라이드하여 본문 가독성 대폭 향상) */
+  .dashboard-content .card,
+  .curriculum-section .card,
+  .lecture-nav-section .card {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  /* 2. 교직원/대학생 수식 복사 버튼의 모바일 최소 터치 면적 확보 (미스터치 방지) */
+  button[onclick*="copyPrompt"] {
+    min-height: 38px !important;
+    padding: 6px 14px !important;
+    font-size: 12.5px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  /* 3. 모바일 구글 시트 배너 및 액션 버튼 가독성 및 터치 최적화 */
+  .lecture-nav-section a[title*="스프레드시트"],
+  .lecture-nav-section a[title*="구글"],
+  .lecture-nav-section button[onclick*="showImageModal"] {
+    min-height: 40px !important;
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    text-align: center !important;
+  }
+
+  /* 4. 카드뉴스 및 인포그래픽 모달 모바일 최적화 */
+  #cardnews-modal-content {
+    border-radius: 20px !important;
+    max-height: 92vh !important;
+  }
+
+  #cardnews-image-modal button[onclick*="closeImageModal"] {
+    width: 38px !important;
+    height: 38px !important;
+    font-size: 18px !important;
+  }
+}
+
+@media (max-width: 480px) {
+  /* 초소형 모바일: 배너 액션 버튼 전폭(Full-Width) 배치로 엄지손가락 터치 편의성 극대화 */
+  .lecture-nav-section div[style*="background: #f0fdf4"] a[title*="스프레드시트"],
+  .lecture-nav-section button[onclick*="showImageModal"] {
+    width: 100% !important;
+    margin-top: 6px !important;
+  }
+}
