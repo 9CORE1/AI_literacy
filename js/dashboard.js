@@ -2565,10 +2565,14 @@ const DashboardApp = {
     if (subtitleEl) {
       subtitleEl.textContent = (typeof subtitle === 'string' && subtitle) ? subtitle : ((imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic'))) ? '💡 구글 폼 실시간 집계 8단계 로드맵 인포그래픽' : '💡 나노바나나 / 비주얼 AI 생성 예시 결과물');
     }
+    const isLargeMedia = imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic') || imageSrc.includes('staff_form'));
     if (contentEl) {
-      contentEl.style.maxWidth = (imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic'))) ? '820px' : '640px';
+      contentEl.style.maxWidth = isLargeMedia ? 'min(1360px, 96vw)' : '640px';
+      contentEl.style.width = isLargeMedia ? '96vw' : '100%';
     }
     if (imgEl) {
+      imgEl.style.maxHeight = isLargeMedia ? '76vh' : '58vh';
+      imgEl.style.width = isLargeMedia ? '100%' : 'auto';
       imgEl.dataset.triedFallback = '';
       imgEl.src = imageSrc;
       imgEl.onerror = function () {
@@ -3999,7 +4003,7 @@ E. 게시 전 검수 체크리스트
               <span>⚡ 2. 대표 =GEMINI() 실무 수식 &amp; GAS 프롬프트 5선</span>
             </h3>
             <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/staff_form_roadmap_infographic2.png', '📋 구글 폼 제작 &amp; 스프레드시트 실시간 집계 8단계 로드맵', '💡 구글 폼 실시간 집계 8단계 로드맵 인포그래픽')" style="font-size: 12.5px; padding: 6px 16px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="구글 폼 실시간 집계 8단계 로드맵 과정 보기">
-              <span>구글 폼 실시간 집계 과정보기</span>
+              <span>구글 폼 실시간 집계 과정보기  ↗</span>
             </button>
           </div>
 
