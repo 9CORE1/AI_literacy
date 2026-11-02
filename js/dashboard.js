@@ -2107,6 +2107,9 @@ const DashboardApp = {
                   <span>시나리오 1. 50페이지 학술 논문에서 핵심 가설 & 한계점 추출</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://drive.google.com/file/d/1vjk2UgkbSKK0Nv06JdgXKH5Li2DJxZ5T/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="실습용 논문 PDF 파일 다운로드 및 열기">
+                    <span>📄 논문 PDF 다운로드 ↗</span>
+                  </a>
                   <a href="https://notebook.google.com/notebook/31ba3653-f539-4cc5-bed1-3cb3f5b5b945" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
                     <span>📓 노트북 대화보기</span>
                   </a>
@@ -2134,6 +2137,9 @@ const DashboardApp = {
                   <span>시나리오 2. 기말고사 대비 '나만의 족보 & 모의 퀴즈' 만들기</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://drive.google.com/file/d/1sSu2vZm1iaa8FjYUpcbL0bZMxee_CAkc/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="시험대비 실습 교안 PDF 파일 다운로드 및 열기">
+                    <span>📄 시험대비 PDF 다운로드 ↗</span>
+                  </a>
                   <a href="https://notebook.google.com/notebook/f285e9ed-6005-4e06-963d-8da4dc468794" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
                     <span>📓 노트북 대화보기</span>
                   </a>
@@ -2181,6 +2187,9 @@ const DashboardApp = {
                   <span>시나리오 4. 유튜브 학술 특강 & 긴 발표 영상 요약</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://youtu.be/yzaNYdL4C2w?si=fIBsxsPTqxrLqFQa" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #dc2626; color: #dc2626; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="유튜브 학술 영상 특강 새 창으로 열기">
+                    <span>▶ 영상 특강 보기 ↗</span>
+                  </a>
                   <a href="https://notebook.google.com/notebook/fa1c19c1-6e3a-44e6-93eb-15cce1771c0e" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
                     <span>📓 노트북 대화보기</span>
                   </a>
