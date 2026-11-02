@@ -2726,10 +2726,6 @@ const DashboardApp = {
           <span class="nav-badge">04</span>
           <span class="nav-text">${this.getStaffModule4Type() === 'gemini_sheet' ? '=GEMINI() 함수' : '구글 폼 & 집계'}</span>
         </button>
-        <button type="button" class="quick-nav-item" data-target="lecture-sec-ending" onclick="DashboardApp.scrollToSection('lecture-sec-ending')">
-          <span class="nav-badge" style="background: var(--color-ember); color: #fff;">Fin</span>
-          <span class="nav-text">Ending</span>
-        </button>
       `;
     } else {
       if (titleEl) titleEl.textContent = '📚 강의 바로가기';
@@ -2750,10 +2746,6 @@ const DashboardApp = {
           <span class="nav-badge">04</span>
           <span class="nav-text">구글 시트 Gemini</span>
         </button>
-        <button type="button" class="quick-nav-item" data-target="lecture-sec-ending" onclick="DashboardApp.scrollToSection('lecture-sec-ending')">
-          <span class="nav-badge" style="background: var(--color-ember); color: #fff;">Fin</span>
-          <span class="nav-text">Ending</span>
-        </button>
       `;
     }
   },
@@ -2765,8 +2757,8 @@ const DashboardApp = {
   initScrollSpy(user) {
     const isStaff = user && user.role === 'staff';
     const sectionIds = isStaff
-      ? ['lecture-sec-2', 'lecture-sec-3', 'lecture-staff-sec-3', 'lecture-staff-sec-4', 'lecture-sec-ending']
-      : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4', 'lecture-sec-ending'];
+      ? ['lecture-sec-2', 'lecture-sec-3', 'lecture-staff-sec-3', 'lecture-staff-sec-4']
+      : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4'];
     let ticking = false;
 
     window.addEventListener('scroll', () => {
