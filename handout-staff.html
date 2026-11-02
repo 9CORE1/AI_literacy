@@ -1,0 +1,1344 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>교직원 AI 리터러시 마스터 코스 핵심 유인물 (A4 2Page)</title>
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --ember: #ea580c;
+      --ember-light: #fff7ed;
+      --dark: #0f172a;
+      --slate: #1e293b;
+      --muted: #475569;
+      --border: #94a3b8;
+      --border-light: #cbd5e1;
+      --green: #0f9d58;
+      --green-light: #f0fdf4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #cbd5e1;
+      color: var(--dark);
+      line-height: 1.48;
+      font-size: 11.5px;
+    }
+
+    /* 플로팅 컨트롤 바 (화면에서만 노출) */
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    .toolbar-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-badge {
+      font-size: 11px;
+      background: #334155;
+      padding: 3px 10px;
+      border-radius: 999px;
+      color: #cbd5e1;
+      font-weight: 600;
+    }
+
+    .btn-print {
+      background: var(--ember);
+      color: #ffffff;
+      border: none;
+      padding: 8px 20px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(234,88,12,0.3);
+      transition: background 0.15s ease;
+    }
+
+    .btn-print:hover {
+      background: #c2410c;
+    }
+
+    .container {
+      padding-top: 55px;
+      padding-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* A4 규격 페이지 (여백 수정 금지 유지: 11mm 13mm 10mm 13mm) */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      height: 297mm;
+      padding: 11mm 13mm 10mm 13mm;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* 헤더 */
+    .doc-header {
+      border-bottom: 2.5px solid var(--dark);
+      padding-bottom: 8px;
+      margin-bottom: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .doc-title-group h1 {
+      font-size: 20px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .doc-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .staff-meta {
+      display: flex;
+      gap: 14px;
+      font-size: 11px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      background: #fafafa;
+    }
+
+    /* 1. 코스 학습 순서 로드맵 */
+    .roadmap-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 7px 10px;
+    }
+
+    .roadmap-step {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 9px;
+    }
+
+    .roadmap-num {
+      background: var(--dark);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .roadmap-info {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.25;
+    }
+
+    .roadmap-step-title {
+      font-size: 11.5px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .roadmap-step-sub {
+      font-size: 9.5px;
+      color: var(--muted);
+    }
+
+    /* 모듈 섹션 공통 헤더 (대학생용과 100% 동일) */
+    .module-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: #f8fafc;
+      border-left: 4px solid var(--ember);
+      padding: 6px 12px;
+      margin-bottom: 7px;
+      border-radius: 0 6px 6px 0;
+    }
+
+    .module-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .module-tag {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--primary-dark);
+      background: var(--primary-light);
+      padding: 2px 8px;
+      border-radius: 4px;
+    }
+
+    /* 테이블 스타일 (대학생용과 100% 동일) */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10.5px;
+      margin-bottom: 7px;
+    }
+
+    .table-custom th {
+      background: #f1f5f9;
+      color: var(--dark);
+      font-weight: 700;
+      text-align: left;
+      padding: 6px 10px;
+      border: 1px solid var(--border);
+      font-size: 10.5px;
+    }
+
+    .table-custom td {
+      padding: 6px 10px;
+      border: 1px solid var(--border-light);
+      line-height: 1.45;
+      vertical-align: middle;
+      color: var(--dark);
+      font-size: 10.5px;
+    }
+
+    /* 4+2 프레임워크 그리드 (대학생용 6열 구조 100% 동일) */
+    .framework-grid {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 6px;
+      margin-bottom: 8px;
+    }
+
+    .framework-item {
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 6px 6px;
+      background: #fafafa;
+      text-align: center;
+    }
+
+    .framework-badge {
+      font-size: 9.5px;
+      font-weight: 800;
+      padding: 2px 6px;
+      border-radius: 3px;
+      display: inline-block;
+      margin-bottom: 2px;
+    }
+    .badge-core { background: #fee2e2; color: #991b1b; }
+    .badge-addon { background: #ccfbf1; color: #0f766e; }
+
+    .framework-name {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 2px;
+    }
+
+    .framework-desc {
+      font-size: 9.5px;
+      color: var(--slate);
+      line-height: 1.3;
+      word-break: keep-all;
+    }
+
+    /* 일반 vs 개선 비교 (대학생용과 100% 동일) */
+    .compare-container {
+      display: grid;
+      grid-template-columns: 1fr 1.35fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .compare-card {
+      border-radius: 6px;
+      padding: 7px 11px;
+      font-size: 10.5px;
+      line-height: 1.4;
+    }
+    .compare-bad {
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+    .compare-good {
+      background: #f0fdf4;
+      border: 1px solid #bbf7d0;
+    }
+
+    /* 교직원 프롬프트 예시 & 안전수칙 2열 박스 (대학생용 여백 & 크기 일치) */
+    .staff-feature-row {
+      display: grid;
+      grid-template-columns: 1.25fr 1fr;
+      gap: 8px;
+      margin-bottom: 9px;
+    }
+
+    .feature-box {
+      border-radius: 6px;
+      border: 1px solid var(--border-light);
+      background: #f8fafc;
+      padding: 7px 10px;
+    }
+
+    .feature-box-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* 실전 워크시트 (대학생용과 100% 동일한 크기 및 높이 25px) */
+    .worksheet-box {
+      background: #fffdfa;
+      border: 1.5px dashed var(--ember);
+      border-radius: 8px;
+      padding: 10px 15px 11px 15px;
+      margin-bottom: 10px;
+    }
+
+    .worksheet-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 11px;
+    }
+
+    .worksheet-title {
+      font-size: 13px;
+      font-weight: 800;
+      color: #c2410c;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .worksheet-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .worksheet-row-single {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      border-bottom: 1px dotted #e2e8f0;
+      padding-bottom: 3px;
+    }
+
+    .worksheet-label-single {
+      font-weight: 700;
+      color: var(--slate);
+      width: 140px;
+      flex-shrink: 0;
+      font-size: 11px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .worksheet-line-single {
+      flex: 1;
+      height: 22px;
+      border: none;
+    }
+
+    .worksheet-lines-multi {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .worksheet-lines-multi .worksheet-line-single {
+      flex: none;
+      width: 100%;
+      height: 22px;
+    }
+
+    /* 1페이지 하단 감사 대비 5대 실무 체크리스트 (2페이지 메모란과 대칭) */
+    .checklist-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 10px 14px 11px 14px;
+    }
+
+    .checklist-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1.5px solid var(--border-light);
+    }
+
+    .checklist-title {
+      font-size: 12px;
+      font-weight: 800;
+      color: var(--dark);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .checklist-tag {
+      font-size: 9.5px;
+      font-weight: 700;
+      color: #9a3412;
+      background: #ffedd5;
+      padding: 1px 7px;
+      border-radius: 4px;
+      border: 1px solid #fed7aa;
+    }
+
+    .checklist-body {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .checklist-items-top {
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .checklist-bottom-wrap {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+
+    .checklist-items-bottom {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 5px;
+      padding: 4px 9px;
+      font-size: 9.5px;
+      line-height: 1.35;
+    }
+
+    .check-box {
+      font-size: 12px;
+      color: #ea580c;
+      font-weight: 800;
+    }
+
+    .check-title {
+      font-weight: 800;
+      color: var(--dark);
+      white-space: nowrap;
+    }
+
+    .check-desc {
+      color: #475569;
+      font-size: 9.5px;
+    }
+
+    /* 2페이지 시나리오 그리드 (대학생용과 100% 동일) */
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .scenario-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      padding: 7px 11px;
+    }
+
+    .scenario-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-bottom: 3px;
+    }
+
+    .scenario-badge {
+      background: #0284c7;
+      color: #fff;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+    }
+
+    .scenario-title {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: var(--dark);
+    }
+
+    .prompt-pre {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 4px;
+      padding: 6px 9px;
+      font-size: 10px;
+      line-height: 1.42;
+      color: #334155;
+      white-space: pre-wrap;
+      word-break: break-all;
+      font-family: inherit;
+      margin-top: 4px;
+    }
+
+    .target-highlight {
+      color: #9a3412;
+      font-weight: 700;
+      background: #ffedd5;
+      padding: 0 3px;
+      border-radius: 2px;
+      border: 1px solid #fed7aa;
+    }
+
+    /* 2열 듀얼 모듈 그리드 (카드뉴스 & 구글폼) */
+    .dual-module-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    /* 2페이지 하단 핵심 강의 메모란 (대학생용과 100% 동일) */
+    .notes-full-card {
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 11px 15px 12px 15px;
+    }
+
+    .notes-header {
+      font-size: 12.5px;
+      font-weight: 800;
+      color: var(--dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .notes-header-title {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .notes-header-sub {
+      font-size: 9.5px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .notes-body {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      margin-top: 4px;
+    }
+
+    .note-lines-top {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .notes-bottom-wrap {
+      display: flex;
+      gap: 14px;
+      align-items: stretch;
+      width: 100%;
+    }
+
+    .note-lines-bottom {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .note-line {
+      height: 21px;
+      border-bottom: 1.2px dashed #cbd5e1;
+      width: 100%;
+    }
+
+    .notes-qr-card {
+      width: 96px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #ffffff;
+      border: 1.2px dashed #cbd5e1;
+      border-radius: 6px;
+      padding: 4px 6px;
+      flex-shrink: 0;
+      box-sizing: border-box;
+    }
+
+    .notes-qr-img {
+      width: 74px;
+      height: 74px;
+      display: block;
+      object-fit: contain;
+    }
+
+    .notes-qr-label {
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--slate);
+      margin-top: 3px;
+      text-align: center;
+      letter-spacing: -0.2px;
+      line-height: 1.2;
+    }
+
+    /* 1페이지 QR코드 고정 절대 좌표 (2페이지 메모란 QR과 동일) */
+    .p1-qr-fixed {
+      position: absolute;
+      right: calc(13mm + 16px);
+      bottom: calc(10mm + 27px);
+      width: 96px;
+      height: 108px;
+      z-index: 20;
+      background: #ffffff;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+    }
+
+    /* 푸터 */
+    .doc-footer {
+      border-top: 1.5px solid var(--border-light);
+      padding-top: 6px;
+      margin-top: 8px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 10px;
+      color: var(--muted);
+      flex-shrink: 0;
+    }
+
+    /* 인쇄 전용 (@media print) - 흑백 인쇄 시에도 높은 가독성을 보장하는 고대비 모노크롬 최적화 */
+    @media print {
+      .p1-qr-fixed {
+        right: calc(15px + 1.5mm) !important;
+        bottom: 27px !important;
+      }
+
+      @page {
+        size: A4 portrait;
+        margin: 8mm 10mm 8mm 10mm;
+      }
+
+      body {
+        background: transparent !important;
+        color: #000000 !important;
+      }
+
+      .toolbar {
+        display: none !important;
+      }
+
+      .container {
+        padding: 0 !important;
+        gap: 0 !important;
+      }
+
+      .page {
+        width: 100% !important;
+        height: auto !important;
+        min-height: 280mm !important;
+        max-height: 281mm !important;
+        box-shadow: none !important;
+        border: none !important;
+        padding: 0 1.5mm 0 0 !important;
+        margin: 0 !important;
+        overflow: visible !important;
+        box-sizing: border-box !important;
+        page-break-after: always !important;
+        page-break-inside: avoid !important;
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      .page:last-child {
+        page-break-after: auto !important;
+      }
+
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+      }
+
+      /* 흑백 인쇄 고대비 가독성 강화 */
+      h1, h2, h3, .doc-header, .module-title, .worksheet-title {
+        color: #000000 !important;
+      }
+
+      .module-header {
+        background: #f1f5f9 !important;
+        border-left: 4px solid #000000 !important;
+      }
+
+      .module-tag {
+        background: #e2e8f0 !important;
+        color: #000000 !important;
+        border: 1px solid #cbd5e1 !important;
+      }
+
+      .doc-subtitle, .notes-header-sub, .doc-footer {
+        color: #1e293b !important;
+      }
+
+      .roadmap-num, .scenario-badge, .framework-badge {
+        background: #0f172a !important;
+        color: #ffffff !important;
+        border: 1px solid #000000 !important;
+      }
+
+      .table-custom, .table-custom th, .table-custom td {
+        border-color: #64748b !important;
+      }
+
+      .table-custom thead tr {
+        background: #e2e8f0 !important;
+      }
+
+      .table-custom th {
+        color: #000000 !important;
+        font-weight: 800 !important;
+        border-bottom: 2px solid #334155 !important;
+      }
+
+      .worksheet-box {
+        border: 1.5px dashed #334155 !important;
+        background: #ffffff !important;
+      }
+
+      .worksheet-line-single {
+        border: none !important;
+        background: transparent !important;
+      }
+
+      .worksheet-lines-multi .worksheet-line-single:first-child {
+        border-bottom: 1px dotted #94a3b8 !important;
+      }
+
+      .worksheet-row-single {
+        border-bottom: 1px dotted #94a3b8 !important;
+      }
+
+      .note-line {
+        border-bottom: 1.2px dashed #475569 !important;
+      }
+
+      .notes-full-card, .checklist-card {
+        border: 1.2px solid #64748b !important;
+        background: #ffffff !important;
+      }
+
+      .check-item {
+        border: 1px solid #94a3b8 !important;
+        background: #ffffff !important;
+      }
+
+      .check-sign-row {
+        border: 1px dashed #64748b !important;
+        background: #f8fafc !important;
+        color: #000000 !important;
+      }
+
+      .check-box {
+        color: #000000 !important;
+      }
+
+      .feature-box, .scenario-card {
+        border: 1.2px solid #94a3b8 !important;
+        background: #ffffff !important;
+      }
+
+      .compare-bad {
+        border: 1.2px solid #64748b !important;
+        background: #ffffff !important;
+      }
+      .compare-bad strong {
+        color: #000000 !important;
+      }
+
+      .compare-good {
+        border: 1.5px solid #1e293b !important;
+        background: #f8fafc !important;
+      }
+      .compare-good strong {
+        color: #000000 !important;
+      }
+
+      .target-highlight {
+        color: #000000 !important;
+        background: #e2e8f0 !important;
+        border: 1px solid #cbd5e1 !important;
+        font-weight: 800 !important;
+      }
+
+      .prompt-pre {
+        border: 1px solid #64748b !important;
+        color: #000000 !important;
+      }
+
+      .notes-qr-card {
+        border: 1.2px dashed #334155 !important;
+        background: #ffffff !important;
+      }
+      .notes-qr-label {
+        color: #000000 !important;
+        font-weight: 800 !important;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 컨트롤 툴바 (화면 표시용) -->
+  <aside class="toolbar" aria-label="문서 도구 모음">
+    <div class="toolbar-title">
+      <span>🏛️</span>
+      <span>교직원 AI 리터러시 마스터 코스 핵심 유인물 & 워크시트</span>
+      <span class="toolbar-badge">A4 2페이지 규격</span>
+    </div>
+    <div class="toolbar-actions">
+      <button type="button" class="btn-print" onclick="window.print()">
+        <span>🖨️ 인쇄 / PDF 저장하기</span>
+      </button>
+    </div>
+  </aside>
+
+  <div class="container">
+
+    <!-- ==================== PAGE 1 (앞면) ==================== -->
+    <div class="page" id="page-1">
+      <div>
+        <!-- 헤더 (대학생용과 100% 동일한 규격 및 간격) -->
+        <header class="doc-header">
+          <div class="doc-title-group">
+            <h1>
+              <span>교직원 AI 리터러시 마스터 코스 실전 유인물</span>
+            </h1>
+            <div class="doc-subtitle">스마트 행정 & 대학 업무 혁신 4대 교육 모듈 핵심 정리 (A4 앞면: 프롬프트 기안문 & 안전 수칙)</div>
+          </div>
+          <div class="staff-meta">
+            <span><strong>소속 부서:</strong> _________________</span>
+            <span><strong>직급/성명:</strong> _________</span>
+          </div>
+        </header>
+
+        <!-- 1. 교직원 4대 핵심 교육 & 실습 모듈 로드맵 (대학생용과 100% 동일) -->
+        <div class="roadmap-container">
+          <div class="roadmap-step">
+            <span class="roadmap-num">1</span>
+            <div class="roadmap-info">
+              <span class="roadmap-step-title">프롬프트 공식 4+2</span>
+              <span class="roadmap-step-sub">공문서·기안문 혁신</span>
+            </div>
+          </div>
+          <div class="roadmap-step">
+            <span class="roadmap-num">2</span>
+            <div class="roadmap-info">
+              <span class="roadmap-step-title">NotebookLM 행정</span>
+              <span class="roadmap-step-sub">학칙 Q&A & 편람 분석</span>
+            </div>
+          </div>
+          <div class="roadmap-step">
+            <span class="roadmap-num">3</span>
+            <div class="roadmap-info">
+              <span class="roadmap-step-title">카드뉴스 비주얼 홍보</span>
+              <span class="roadmap-step-sub">나노바나나 AI 제작</span>
+            </div>
+          </div>
+          <div class="roadmap-step">
+            <span class="roadmap-num">4</span>
+            <div class="roadmap-info">
+              <span class="roadmap-step-title">구글 폼 & 시트 집계</span>
+              <span class="roadmap-step-sub">GAS 1클릭 & =GEMINI()</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- ================= [MODULE 01] 스마트 행정 프롬프트 공식 4+2 & 기안문 작성 ================= -->
+        <section aria-labelledby="mod1-heading" style="margin-bottom: 9px;">
+          <div class="module-header" id="mod1-heading">
+            <span class="module-title">
+              <span>🏛️ 01. 스마트 행정 「프롬프트 공식 4+2」 & 공문서·품의서 기안 혁신</span>
+            </span>
+            <span class="module-tag">4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)</span>
+          </div>
+
+          <!-- 4+2 공식 그리드 (대학생용과 100% 동일한 6열 가로 배치) -->
+          <div class="framework-grid">
+            <div class="framework-item">
+              <span class="framework-badge badge-core">뼈대 1</span>
+              <div class="framework-name">역할 (Role)</div>
+              <div class="framework-desc">전문적 직무 관점 ("학생처 15년 차 기획관")</div>
+            </div>
+            <div class="framework-item">
+              <span class="framework-badge badge-core">뼈대 2</span>
+              <div class="framework-name">배경 (Context)</div>
+              <div class="framework-desc">추진 배경·대상 ("신입생 적응 멘토링 사업")</div>
+            </div>
+            <div class="framework-item">
+              <span class="framework-badge badge-core">뼈대 3</span>
+              <div class="framework-name">지시 (Task)</div>
+              <div class="framework-desc">구체 과업 ("목적, 절차, 예산, 기대효과 도출")</div>
+            </div>
+            <div class="framework-item">
+              <span class="framework-badge badge-core">뼈대 4</span>
+              <div class="framework-name">형식 (Format)</div>
+              <div class="framework-desc">문서 규격 ("대학 공문 개조식 1.-가.-1))")</div>
+            </div>
+            <div class="framework-item">
+              <span class="framework-badge badge-addon">보강재 1</span>
+              <div class="framework-name">조건 (Constraint)</div>
+              <div class="framework-desc">보안·학칙 ("개인정보 가명화, 허위조항 금지")</div>
+            </div>
+            <div class="framework-item">
+              <span class="framework-badge badge-addon">보강재 2</span>
+              <div class="framework-name">샘플 (Example)</div>
+              <div class="framework-desc">모범 서식 ("기안문 [배경]➔[계획]➔[예산]")</div>
+            </div>
+          </div>
+
+          <!-- ❌ vs ✅ 비교 (대학생용과 100% 동일한 10.5px / 1.4 라인 높이) -->
+          <div class="compare-container">
+            <div class="compare-card compare-bad">
+              <strong style="color: #991b1b; display: block; margin-bottom: 2px;">❌ 단순 지시형 (일반적인 프롬프트)</strong>
+              <div>"신입생 멘토링 프로그램 기획안 써줘."</div>
+              <div style="font-size: 9.5px; color: #7f1d1d; margin-top: 2px;">⚠️ 한계: 인터넷 일반론 나열로 실제 학내 결재 기안문으로 사용 불가 및 재작업 발생.</div>
+            </div>
+            <div class="compare-card compare-good">
+              <strong style="color: #166534; display: block; margin-bottom: 2px;">✅ 프롬프트 공식 4+2 적용 (고품질 행정 기안문)</strong>
+              <div>"[역할] 기획처 PM / [배경] 비교과 AI 리터러시 워크숍 / [지시] 내부 결재용 기안문(배경, 개요, 세부일정, 소요예산, 기대효과) / [형식] 공문서 개조식(1. - 가. - 1)) / [조건] 실무 반영 구체적 일정·수치 가상 배치 / [샘플] 1. 추진 배경 및 목적..."</div>
+            </div>
+          </div>
+
+          <!-- 교직원 실전 행정 프롬프트 대표 예시 3선 (10.5px 넉넉한 텍스트 크기) -->
+          <div style="margin-bottom: 9px;">
+            <div style="font-size: 11px; font-weight: 800; color: var(--dark); margin-bottom: 4px; display: flex; align-items: center; justify-content: space-between;">
+              <span style="display: flex; align-items: center; gap: 5px;">
+                <span>📋 교직원 실무 행정 프롬프트 대표 예시 3선</span>
+                <span style="font-size: 9.5px; font-weight: 600; color: var(--muted);">(공식 4+2 실무 적용 모델)</span>
+              </span>
+              <span style="font-size: 9.5px; color: #0284c7; font-weight: 700;">기안문 · 학사FAQ · 1장 브리핑</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px;">
+              <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 6px; padding: 6px 8px;">
+                <div style="font-size: 10px; font-weight: 800; color: #0284c7; margin-bottom: 2px;">① [기획/기안문] 비교과 워크숍</div>
+                <div style="font-size: 9.5px; line-height: 1.36; color: #334155; word-break: keep-all;">
+                  <strong>[역할]</strong> 기획처 PM / <strong>[배경]</strong> 2026 비교과 AI 워크숍 / <strong>[지시]</strong> 내부 결재용 기안문 초안(추진배경, 개요, 세부일정, 소요예산, 기대효과) / <strong>[형식]</strong> 공문서 개조식 / <strong>[조건]</strong> 일정·수치 가상 배치
+                </div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 6px; padding: 6px 8px;">
+                <div style="font-size: 10px; font-weight: 800; color: #ea580c; margin-bottom: 2px;">② [학사/소통] 규정 개정안 FAQ</div>
+                <div style="font-size: 9.5px; line-height: 1.36; color: #334155; word-break: keep-all;">
+                  <strong>[역할]</strong> 학생처 소통관 / <strong>[배경]</strong> 복잡한 학사규정·장학지침 개정 / <strong>[지시]</strong> 학생 눈높이 핵심 3줄 요약 및 다빈도 질문 FAQ 3선 도출 / <strong>[형식]</strong> 불릿포인트 / <strong>[조건]</strong> 권위적 문체 배제, 친절한 어조
+                </div>
+              </div>
+              <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 6px; padding: 6px 8px;">
+                <div style="font-size: 10px; font-weight: 800; color: #166534; margin-bottom: 2px;">③ [문서 요약] 1장 브리핑</div>
+                <div style="font-size: 9.5px; line-height: 1.36; color: #334155; word-break: keep-all;">
+                  <strong>[역할]</strong> 수석행정관 / <strong>[배경]</strong> 회의록 원문 및 교육부 지침 문서 / <strong>[지시]</strong> 핵심 의결사항(3줄), 부서별 조치과제(Action Item) 및 기한, 행정 리스크 분석 / <strong>[형식]</strong> 부서장 보고용 One-page 표
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 2. 실전 워크시트 (대학생용과 100% 동일한 패딩 및 줄 높이 23px) -->
+        <section aria-labelledby="worksheet-heading">
+          <div class="worksheet-box">
+            <div class="worksheet-header">
+              <span class="worksheet-title" id="worksheet-heading">
+                <span>✍️ [실전 워크시트] 나의 행정/교무 업무용 「프롬프트 공식 4+2」 직접 설계하기</span>
+              </span>
+              <span style="font-size: 10px; color: #9a3412; font-weight: 600;">강의 중 직접 펜으로 1줄씩 작성해 보세요!</span>
+            </div>
+            
+            <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 12px; font-size: 11px;">
+              <span style="font-weight: 700; color: var(--dark);">🎯 나의 담당 업무 / 해결 행정 과제:</span>
+              <span style="flex: 1; border-bottom: 1.5px solid #94a3b8; height: 18px;"></span>
+            </div>
+
+            <div class="worksheet-list">
+              <div class="worksheet-row-single">
+                <span class="worksheet-label-single">1. 역할 (Role) :</span>
+                <span class="worksheet-line-single"></span>
+              </div>
+              <div class="worksheet-row-single" style="align-items: flex-start;">
+                <span class="worksheet-label-single" style="padding-top: 4px;">2. 배경 (Context) :</span>
+                <div class="worksheet-lines-multi">
+                  <span class="worksheet-line-single" style="border-bottom: 1px dotted #e2e8f0;"></span>
+                  <span class="worksheet-line-single"></span>
+                </div>
+              </div>
+              <div class="worksheet-row-single">
+                <span class="worksheet-label-single">3. 지시 (Task) :</span>
+                <span class="worksheet-line-single"></span>
+              </div>
+              <div class="worksheet-row-single">
+                <span class="worksheet-label-single">4. 형식 (Format) :</span>
+                <span class="worksheet-line-single"></span>
+              </div>
+              <div class="worksheet-row-single">
+                <span class="worksheet-label-single">5. 조건 (Constraint) :</span>
+                <span class="worksheet-line-single"></span>
+              </div>
+              <div class="worksheet-row-single">
+                <span class="worksheet-label-single">6. 샘플 (Example) :</span>
+                <span class="worksheet-line-single"></span>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- 3. [추천 3안] 대학 교직원 생성형 AI 행정 활용 5대 실무 체크리스트 & 점검표 -->
+        <section aria-labelledby="checklist-heading">
+          <div class="checklist-card">
+            <div class="checklist-header" id="checklist-heading">
+              <div class="checklist-title">
+                <span>🛡️ [행정 안전·감사 대비] 대학 교직원 생성형 AI 업무 활용 5대 실무 체크리스트</span>
+              </div>
+              <span class="checklist-tag">교육부 감사 대비 점검 표준</span>
+            </div>
+
+            <div class="checklist-body">
+              <!-- 상단 전폭 3개 점검 항목 -->
+              <div class="checklist-items-top">
+                <div class="check-item">
+                  <span class="check-box">☐</span>
+                  <span class="check-title">1. 개인정보 비식별 조치 (가명화) :</span>
+                  <span class="check-desc">학생 성명, 학번, 주민등록번호, 성적, 상담기록 등 개인 식별 정보 일체 마스킹 완료 확인</span>
+                </div>
+                <div class="check-item">
+                  <span class="check-box">☐</span>
+                  <span class="check-title">2. 학칙·법령 조항 원문 대조 (팩트체크) :</span>
+                  <span class="check-desc">AI가 인용한 학칙 번호와 관련 법령 조항은 대학 규정집 및 국가법령 원문과 직접 대조 확인</span>
+                </div>
+                <div class="check-item">
+                  <span class="check-box">☐</span>
+                  <span class="check-title">3. AI 초안 보조 활용 명시 :</span>
+                  <span class="check-desc">내부 기안문 작성 시 "생성형 AI 초안 보조 활용" 표기 및 결재 라인 공유로 업무 주도권 유지</span>
+                </div>
+              </div>
+
+              <!-- 하단 2개 점검 항목 + 확인 서명란 (우측 QR코드와 자연스러운 연계) -->
+              <div class="checklist-bottom-wrap">
+                <div class="checklist-items-bottom">
+                  <div class="check-item">
+                    <span class="check-box">☐</span>
+                    <span class="check-title">4. 사정·평가 공정성 교차 검증 :</span>
+                    <span class="check-desc">장학생 선발·채용 등 핵심 평가에 AI 단독 판단을 배제하고 위원회 교차 검증 절차 준수 확인</span>
+                  </div>
+                  <div class="check-item">
+                    <span class="check-box">☐</span>
+                    <span class="check-title">5. 행정적·법적 최종 책임 인지 :</span>
+                    <span class="check-desc">AI가 생성한 모든 결재 문서의 최종 행정적·법적 책임은 결재자 본인에게 귀속됨을 확인</span>
+                  </div>
+                </div>
+
+                <!-- 우측 하단 고정 QR코드 전용 빈 공간 (100% 동일 좌표 연계) -->
+                <div style="width: 96px; flex-shrink: 0;"></div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 1페이지 QR코드 (2페이지와 100% 동일한 절대 좌표 배치) -->
+      <div class="notes-qr-card p1-qr-fixed">
+        <img src="qrcode-chassem.jpg" alt="차쌤 AI 리터러시 QR코드" class="notes-qr-img" />
+        <span class="notes-qr-label">chassem.ai.kr</span>
+      </div>
+
+      <!-- 1페이지 푸터 (대학생용과 100% 동일) -->
+      <footer class="doc-footer">
+        <span>대학·기관 교직원 AI 리터러시 마스터 코스 배포용 자료</span>
+        <span>Page 1 of 2</span>
+      </footer>
+    </div>
+
+    <!-- ==================== PAGE 2 (뒷면) ==================== -->
+    <div class="page" id="page-2">
+      <div>
+        <!-- 헤더 (대학생용과 100% 동일) -->
+        <header class="doc-header">
+          <div class="doc-title-group">
+            <h1>
+              <span>NotebookLM · 카드뉴스 · 구글 폼 스마트 행정 실전 가이드</span>
+            </h1>
+            <div class="doc-subtitle">교직원 전용 4대 교육 모듈 핵심 정리 (A4 뒷면: 규정 팩트체크 · 비주얼 홍보 · 설문 자동화)</div>
+          </div>
+          <div style="font-size: 11px; color: var(--muted); text-align: right;">
+            도구: <strong>NotebookLM & 나노바나나 & 구글 폼·시트</strong>
+          </div>
+        </header>
+
+        <!-- ================= [MODULE 02] Google NotebookLM 행정 실무 ================= -->
+        <section aria-labelledby="mod2-heading" style="margin-bottom: 9px;">
+          <div class="module-header" id="mod2-heading">
+            <span class="module-title">
+              <span>📓 02. Google NotebookLM 활용 행정 실무 (규정 Q&A & 편람 분석)</span>
+            </span>
+            <span class="module-tag">할루시네이션 없는 인라인 각주 팩트체크</span>
+          </div>
+
+          <div style="background: #f1f5f9; padding: 5px 12px; border-radius: 5px; font-size: 10px; margin-bottom: 6px; color: var(--dark);">
+            💡 <strong>스마트 행정 3단계 사용 흐름:</strong> ① 학내 규정집·편람(PDF/Docs) 업로드 ➔ ② 근거 조항 기반 질문 ➔ ③ 인라인 각주([1], [2]) 1초 원문 팩트체크
+          </div>
+
+          <!-- 교직원 학사·행정 실무 2대 대표 시나리오 (대학생용과 100% 동일한 폰트 & 패딩) -->
+          <div class="scenario-grid" style="margin-bottom: 0;">
+            <!-- 시나리오 1: 규정집 비서 -->
+            <div class="scenario-card" style="padding: 8px 12px;">
+              <div class="scenario-header">
+                <span class="scenario-badge">규정 Q&A 비서</span>
+                <span class="scenario-title">1. 복무·여비·출장 규정집 실시간 질의</span>
+              </div>
+              <div style="font-size: 9.5px; color: var(--muted); margin-bottom: 3px;">학내 규정집 PDF 소스 등록 ➔ 공무 국외출장 여비 기준 및 정산 기한 도출</div>
+              <pre class="prompt-pre">[역할] 너는 학내 규정 전문 행정 보좌 비서야.
+[지시] 업로드된 <span class="target-highlight">[교직원 복무 및 여비 지급 규정]</span> 소스 근거:
+1. 교직원 공무 국외출장 일비·숙박비 지급 기준과 출장 후 정산 기한 명시
+2. 출장 결재 전결 기준 및 필수 첨부 증빙 서류 목록 정리
+[조건] 임의 추측 금지, 조항 번호([제0조])와 인라인 각주([1]) 표기</pre>
+            </div>
+
+            <!-- 시나리오 2: 사업 편람 분석 -->
+            <div class="scenario-card" style="padding: 8px 12px;">
+              <div class="scenario-header">
+                <span class="scenario-badge">정부 국고 편람</span>
+                <span class="scenario-title">2. 재정지원사업 편람 분석 & 1장 브리핑</span>
+              </div>
+              <div style="font-size: 9.5px; color: var(--muted); margin-bottom: 3px;">교육부 수백 쪽 편람 등록 ➔ 참여 배제 요건 및 3대 핵심 성과지표 추출</div>
+              <pre class="prompt-pre">[역할] 국고 재정지원사업 총괄 PM이자 기획관이야.
+[지시] 업로드된 <span class="target-highlight">[2026 교육부 재정지원사업 편람]</span> 정밀 분석:
+1. 사업 신청 필수 요건 및 결격 사유 (참여 배제 조건) 추출
+2. 배점이 가장 높은 3대 핵심 성과지표 및 산출 방식 정리
+3. 국고 사업비 집행 불가 항목(불인정 기준) 5가지 [형식] One-page 표 요약</pre>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= [MODULE 03] 카드뉴스 제작 (나노바나나 & 비주얼 AI 활용) ================= -->
+        <section aria-labelledby="mod3-heading" style="margin-bottom: 9px;">
+          <div class="module-header" id="mod3-heading">
+            <span class="module-title">
+              <span>🎨 03. 카드뉴스 제작 (나노바나나 &amp; 비주얼 AI 활용)</span>
+            </span>
+            <span class="module-tag">3단계 제작 파이프라인 &amp; 실전 프롬프트</span>
+          </div>
+
+          <!-- 3단계 파이프라인 & 프롬프트 2개 카드 3열 그리드 (3개 항목 너비 균등 1:1:1 분할) -->
+          <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 5px;">
+            <!-- 파이프라인 요약 -->
+            <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 6px; padding: 7px 10px;">
+              <strong style="font-size: 11px; color: var(--dark); display: block; margin-bottom: 4px;">🛠️ 3단계 제작 파이프라인</strong>
+              <div style="font-size: 9.5px; line-height: 1.4; color: #334155;">
+                • <strong>① 5컷 카피 기획:</strong> 표지 ➔ 혜택 3종 ➔ 신청 안내<br>
+                • <strong>② 나노바나나 생성:</strong> 텍스트 배제, 여백 확보(--ar 1:1)<br>
+                • <strong>③ 안심 폰트 마감:</strong> 미리캔버스에서 Pretendard 배치
+              </div>
+            </div>
+
+            <!-- 프롬프트 1: 카피 기획 -->
+            <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 6px; padding: 7px 10px;">
+              <div style="font-size: 10.5px; font-weight: 800; color: #ea580c; margin-bottom: 3px;">💬 5컷 카드뉴스 카피 기획 프롬프트</div>
+              <div style="font-size: 9.5px; line-height: 1.38; color: #334155;">
+                "다음 <span class="target-highlight">[행사 공문]</span> 분석 후 5컷 카드뉴스 기획안 작성: 1컷: 15자 이내 헤드카피 | 2~4컷: 핵심 혜택 3가지 요약 | 5컷: 일정·구글폼 링크 | 컷별 AI 영문 프롬프트 제안"
+              </div>
+            </div>
+
+            <!-- 프롬프트 2: 나노바나나 영문 비주얼 (다른 프롬프트와 동일한 본문 폰트 적용) -->
+            <div style="background: #ffffff; border: 1px solid var(--border-light); border-radius: 6px; padding: 7px 10px;">
+              <div style="font-size: 10.5px; font-weight: 800; color: #0284c7; margin-bottom: 3px;">🖼️ 나노바나나 비주얼 프롬프트 예시</div>
+              <div style="font-size: 9.5px; line-height: 1.38; color: #334155;">
+                "A bright futuristic university lab, glowing 3D AI nodes, minimalist claymorphism style, soft pastel palette, clean negative space at center for text overlay --ar 1:1"
+              </div>
+            </div>
+          </div>
+
+          <!-- 카드뉴스 실무 팁 4선 바 -->
+          <div style="background: #f8fafc; border: 1px solid var(--border-light); border-radius: 4px; padding: 3px 8px; font-size: 8.5px; line-height: 1.3; color: var(--slate);">
+            💡 <strong>나노바나나 실무 4대 수칙:</strong> 1. 화면비 1:1 고정(<code>--ar 1:1</code>) | 2. 텍스트 배제 여백 확보(<code>no text, negative space</code>) | 3. 시리즈 일관 키워드 고정 | 4. 하단 AI 출처 명시
+          </div>
+        </section>
+
+        <!-- ================= [MODULE 04] 구글 폼 제작 & 스프레드시트 =GEMINI() 집계시스템 설정 ================= -->
+        <section aria-labelledby="mod4-heading" style="margin-bottom: 9px;">
+          <div class="module-header" id="mod4-heading">
+            <span class="module-title">
+              <span>📋 04. 구글 폼 제작 &amp; 스프레드시트 =GEMINI() 집계시스템 설정</span>
+            </span>
+            <span class="module-tag">15분 완성: GAS 원클릭 폼 생성 ➔ =GEMINI() 감정분석</span>
+          </div>
+
+          <div style="background: #f1f5f9; padding: 5px 12px; border-radius: 5px; font-size: 10px; margin-bottom: 6px; color: var(--dark);">
+            💡 <strong>15분 완성 8단계 로드맵:</strong> [1] AI 문항 기획 ➔ [2] GAS 코드 생성 ➔ [3] 1클릭 폼 생성 ➔ [4] 도메인 제한 해제 ➔ [5~6] 시트 연동 ➔ [7] =GEMINI() 감정분석 ➔ [8] 1-Page 보고서
+          </div>
+
+          <!-- 대표 =GEMINI() 수식 및 GAS 프롬프트 5선 표 (대학생용과 100% 동일한 10.5px / 5.5px 9px 패딩) -->
+          <table class="table-custom" style="margin-bottom: 0;">
+            <thead>
+              <tr style="background: #f8fafc;">
+                <th style="width: 28%;">실무 기능 구분</th>
+                <th style="width: 72%;">실전 =GEMINI() 수식 및 GAS 프롬프트 예시 (셀에 직접 입력)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>① 설문 만족도 감정 분류</strong></td>
+                <td>=GEMINI("다음 연수 만족도 의견의 감정을 [긍정 / 부정 / 건의] 중 단어 하나로만 분류해줘:", A2)</td>
+              </tr>
+              <tr>
+                <td><strong>② 민원 요약 및 정보 추출</strong></td>
+                <td>=GEMINI("다음 학사 행정 민원 내용의 핵심 요지를 30자 이내의 한 문장으로 요약해줘:", A2)<br>
+                    =GEMINI("다음 텍스트에서 '학번'과 '이메일 주소'만 추출해서 슬래시(/)로 구분해줘:", C2)</td>
+              </tr>
+              <tr>
+                <td><strong>③ 비전문가용 GAS 코드 생성</strong></td>
+                <td>"구글 폼을 생성하는 GAS 코드를 작성해 줘. 제목은 [행정 워크숍 사후 만족도], 1~5번 리커트 5점 척도, 6번 주관식 건의사항으로 구성해 줘."</td>
+              </tr>
+              <tr>
+                <td><strong>④ 공문서 톤앤매너 변환</strong></td>
+                <td>=GEMINI("다음 딱딱한 학사 안내 공지문을 학생들에게 친근한 카카오톡 알림톡 말투로 변환해줘:", A2)</td>
+              </tr>
+              <tr>
+                <td><strong>⑤ 부서/대상자별 맞춤 안내문</strong></td>
+                <td>=GEMINI("A열의 [소속부서]와 B열의 [대상자]를 고려해 30자 내외의 정중한 행사 안내 문구를 작성해줘", A2:B2)</td>
+              </tr>
+            </tbody>
+          </table>
+        </section>
+
+        <!-- 5. 2페이지 하단 핵심 강의 메모란 (대학생용과 100% 동일한 7줄 점선 노트 & QR코드) -->
+        <section aria-labelledby="notes-heading">
+          <div class="notes-full-card">
+            <div class="notes-header" id="notes-heading">
+              <span class="notes-header-title">
+                <span>📝 [핵심 강의 메모 (Notes)]</span>
+              </span>
+              <span class="notes-header-sub">실습 팁, 질의응답 및 개인 행정 업무 아이디어 필기</span>
+            </div>
+            <div class="notes-body">
+              <!-- 상단 전폭 점선 노트 (4줄) -->
+              <div class="note-lines-top">
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+              </div>
+
+              <!-- 하단 점선 노트 (4줄) + 우측 하단 QR코드 연계 -->
+              <div class="notes-bottom-wrap">
+                <div class="note-lines-bottom">
+                  <div class="note-line"></div>
+                  <div class="note-line"></div>
+                  <div class="note-line"></div>
+                  <div class="note-line"></div>
+                </div>
+                <div class="notes-qr-card">
+                  <img src="qrcode-chassem.jpg" alt="차쌤 AI 리터러시 QR코드" class="notes-qr-img" />
+                  <span class="notes-qr-label">chassem.ai.kr</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 2페이지 푸터 (대학생용과 100% 동일) -->
+      <footer class="doc-footer">
+        <span>대학·기관 교직원 AI 리터러시 마스터 코스 배포용 자료</span>
+        <span>Page 2 of 2</span>
+      </footer>
+    </div>
+
+  </div>
+
+</body>
+</html>
