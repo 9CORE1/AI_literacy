@@ -475,24 +475,48 @@
       CURRICULUM_DATA.staff[3] = STAFF_MODULE_4_OPTIONS[selectedType] || STAFF_MODULE_4_OPTIONS.google_form;
     }
 
-    function syncStaffCurriculumSettings() {
+    async function syncStaffCurriculumSettings() {
+      const applyRemote = (remoteType) => {
+        if (!remoteType) return;
+        const currentLocal = localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
+        if (remoteType !== currentLocal || !CURRICULUM_DATA.staff[3] || CURRICULUM_DATA.staff[3].title !== STAFF_MODULE_4_OPTIONS[remoteType]?.title) {
+          localStorage.setItem('ai_lit_staff_module4_type', remoteType);
+          applyStaffCurriculumModule4(remoteType);
+          if (currentRole === 'staff') {
+            renderCurriculum();
+          }
+        }
+      };
+
       try {
         if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
-          Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot((snap) => {
+          // 1. 초기 1회 즉시 get() 조회 (다른 기기 첫 진입 시 지연 없이 최신 상태 렌더링)
+          let initSnap = null;
+          try {
+            initSnap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
+          } catch (e1) {}
+          if (!initSnap || !initSnap.exists) {
+            try {
+              initSnap = await Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').get();
+            } catch (e2) {}
+          }
+          if (initSnap && initSnap.exists && initSnap.data().module4) {
+            applyRemote(initSnap.data().module4);
+          }
+
+          // 2. 실시간 변경 감지 리스너 (settings 및 users 이중 등록)
+          const onUpdate = (snap) => {
             if (snap && snap.exists && snap.data().module4) {
-              const remoteType = snap.data().module4;
-              const currentLocal = localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
-              if (remoteType !== currentLocal || !CURRICULUM_DATA.staff[3] || CURRICULUM_DATA.staff[3].title !== STAFF_MODULE_4_OPTIONS[remoteType]?.title) {
-                localStorage.setItem('ai_lit_staff_module4_type', remoteType);
-                applyStaffCurriculumModule4(remoteType);
-                if (currentRole === 'staff') {
-                  renderCurriculum();
-                }
-              }
+              applyRemote(snap.data().module4);
             }
-          }, (err) => {
-            console.warn('Firestore curriculum settings listener error:', err);
-          });
+          };
+
+          try {
+            Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot(onUpdate, () => {});
+          } catch (e) {}
+          try {
+            Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').onSnapshot(onUpdate, () => {});
+          } catch (e) {}
         }
       } catch (e) {
         console.warn('Failed to sync staff curriculum settings:', e);

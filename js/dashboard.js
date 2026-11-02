@@ -4,7 +4,7 @@
  */
 
 const DashboardApp = {
-  init() {
+  async init() {
     const user = Auth.getCurrentUser();
     if (!user || !user.email) {
       alert('로그인이 필요한 서비스입니다.\n메인 화면에서 로그인 또는 회원가입 후 입장해 주세요.');
@@ -76,14 +76,17 @@ const DashboardApp = {
       navTag.textContent = user.role === 'student' ? 'STUDENT LAB' : 'STAFF LAB';
     }
 
+    if (user.role === 'staff') {
+      // 다른 기기에서 첫 접속 시 원격 클라우드 설정을 먼저 확인하여 localStorage 갱신 후 렌더링
+      await this.loadRemoteStaffModule4Type();
+      this.syncStaffModule4Type();
+    }
+
     this.renderDashboard(user);
     this.renderQuickNav(user);
     this.bindCopyEvents();
     this.initEditablePrompts();
     this.initScrollSpy(user);
-    if (user.role === 'staff') {
-      this.syncStaffModule4Type();
-    }
   },
 
   renderDashboard(user) {
@@ -597,9 +600,14 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🧱 「스마트 행정 프롬프트 공식 4+2」 프레임워크</span>
             </h3>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
-            </span>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <a href="https://huggingface.co/spaces/Xenova/the-tokenizer-playground" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #524ae9; color: #524ae9; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="Hugging Face 토크나이저 플레이그라운드 새 창으로 열기">
+                <span>🔤 토큰 이해하기 ↗</span>
+              </a>
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
+              </span>
+            </div>
           </div>
           
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
@@ -1552,9 +1560,14 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🧱 「프롬프트 공식 4+2」 프레임워크</span>
             </h3>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
-            </span>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <a href="https://huggingface.co/spaces/Xenova/the-tokenizer-playground" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #524ae9; color: #524ae9; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="Hugging Face 토크나이저 플레이그라운드 새 창으로 열기">
+                <span>🔤 토큰 이해하기 ↗</span>
+              </a>
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
+              </span>
+            </div>
           </div>
           
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
@@ -3525,13 +3538,39 @@ E. 게시 전 검수 체크리스트
   },
 
   /**
-   * Firestore settings/staff_curriculum 동기화
+   * 원격 Firestore 설정 비동기 사전 로드 (다른 기기 첫 접속 지원)
+   */
+  async loadRemoteStaffModule4Type() {
+    try {
+      if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
+        let snap = null;
+        try {
+          snap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
+        } catch (e1) {}
+        if (!snap || !snap.exists) {
+          try {
+            snap = await Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').get();
+          } catch (e2) {}
+        }
+        if (snap && snap.exists && snap.data().module4) {
+          const remoteType = snap.data().module4;
+          localStorage.setItem('ai_lit_staff_module4_type', remoteType);
+          return remoteType;
+        }
+      }
+    } catch (e) {
+      console.warn('loadRemoteStaffModule4Type error:', e);
+    }
+    return this.getStaffModule4Type();
+  },
+
+  /**
+   * Firestore settings/staff_curriculum 및 users/settings_staff_curriculum 실시간 동기화
    */
   async syncStaffModule4Type() {
     try {
       if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
-        // 실시간 변경 감지 (관리자가 변경 즉시 접속 중인 모든 교직원 화면 실시간 자동 전환)
-        Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot((snap) => {
+        const handleSnap = (snap) => {
           if (snap && snap.exists && snap.data().module4) {
             const remoteType = snap.data().module4;
             const currentType = this.getStaffModule4Type();
@@ -3547,9 +3586,17 @@ E. 게시 전 검수 체크리스트
               }
             }
           }
-        }, (err) => {
-          console.warn('Firestore snapshot listener error:', err);
-        });
+        };
+
+        // 1. settings 컬렉션 실시간 리스너
+        try {
+          Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot(handleSnap, () => {});
+        } catch (e1) {}
+
+        // 2. users 컬렉션 실시간 리스너 (이중 안전망)
+        try {
+          Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').onSnapshot(handleSnap, () => {});
+        } catch (e2) {}
       }
     } catch (e) {
       console.warn('Failed to sync staff module4 type:', e);

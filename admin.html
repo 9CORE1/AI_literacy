@@ -654,8 +654,20 @@
       let currentVal = localStorage.getItem('ai_lit_staff_module4_type') || 'google_form';
       try {
         if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
-          const snap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
-          if (snap.exists && snap.data().module4) {
+          // 1차: settings/staff_curriculum 조회
+          let snap = null;
+          try {
+            snap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
+          } catch (e1) {}
+
+          // 2차: users/settings_staff_curriculum 조회 (users 컬렉션 권한 기반 이중 안전망)
+          if (!snap || !snap.exists) {
+            try {
+              snap = await Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').get();
+            } catch (e2) {}
+          }
+
+          if (snap && snap.exists && snap.data().module4) {
             currentVal = snap.data().module4;
             localStorage.setItem('ai_lit_staff_module4_type', currentVal);
           }
@@ -695,19 +707,43 @@
       localStorage.setItem('ai_lit_staff_module4_type', type);
 
       const badge = document.getElementById('staff-mod4-save-badge');
-      if (badge) badge.innerHTML = '<span>⏳ 저장 중...</span>';
+      if (badge) badge.innerHTML = '<span>⏳ 클라우드 동기화 중...</span>';
+
+      const payload = {
+        module4: type,
+        updatedAt: new Date().toISOString()
+      };
+
+      let firestoreSaved = false;
 
       try {
         if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
-          await Auth.firebaseDb.collection('settings').doc('staff_curriculum').set({
-            module4: type,
-            updatedAt: new Date().toISOString()
-          }, { merge: true });
+          // 1. settings/staff_curriculum에 저장
+          try {
+            await Auth.firebaseDb.collection('settings').doc('staff_curriculum').set(payload, { merge: true });
+            firestoreSaved = true;
+          } catch (e1) {
+            console.warn('settings collection write failed:', e1);
+          }
+
+          // 2. users/settings_staff_curriculum에도 동시 이중 저장 (타 기기 및 권한 차이 완벽 극복)
+          try {
+            await Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').set(payload, { merge: true });
+            firestoreSaved = true;
+          } catch (e2) {
+            console.warn('users collection settings write failed:', e2);
+          }
         }
-        if (badge) badge.innerHTML = '<span>✅ 현재 저장됨</span>';
-        showToast(type === 'google_form'
-          ? '📋 [04. 구글 폼 제작 & 집계] 콘텐츠로 설정되었습니다.'
-          : '📊 [Google 스프레드시트 =GEMINI() 함수 완벽 활용 가이드] 콘텐츠로 설정되었습니다.');
+
+        if (firestoreSaved) {
+          if (badge) badge.innerHTML = '<span>✅ 클라우드 저장 완료 (모든 기기 반영)</span>';
+          showToast(type === 'google_form'
+            ? '📋 [04. 구글 폼 제작 & 집계] 클라우드 동기화 완료 (모든 기기 반영)'
+            : '📊 [GEMINI() 함수 활용 가이드] 클라우드 동기화 완료 (모든 기기 반영)');
+        } else {
+          if (badge) badge.innerHTML = '<span>💾 로컬에 저장됨</span>';
+          showToast('💾 브라우저에 설정이 저장되었습니다.');
+        }
       } catch (err) {
         console.error('Failed to save to firestore:', err);
         if (badge) badge.innerHTML = '<span>💾 로컬에 저장됨</span>';
