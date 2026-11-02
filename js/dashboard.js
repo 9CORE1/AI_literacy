@@ -1207,6 +1207,12 @@ const DashboardApp = {
                   <span>1. 📜 학내 규정집 연동 '근거 조항 기반 스마트 행정 Q&A 비서'</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://drive.google.com/file/d/1NDvkPVNJ3OUaMyagFFmvVnmWy-zdhFYx/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="학칙·규정 실습 PDF 1 다운로드 및 열기">
+                    <span>📄 규정 PDF ① ↗</span>
+                  </a>
+                  <a href="https://drive.google.com/file/d/1oTzJoTY4AcgAUmvCkwMq9MjBl9tKuTU9/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="학칙·규정 실습 PDF 2 다운로드 및 열기">
+                    <span>📄 규정 PDF ② ↗</span>
+                  </a>
                   <a href="https://notebook.google.com/notebook/e8339b84-0aba-477e-bdf0-79625b892e8f" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
                     <span>📓 노트북 대화보기</span>
                   </a>
@@ -1233,6 +1239,9 @@ const DashboardApp = {
                   <span>2. 📊 교육부 국고 재정지원사업(RISE 등) 편람 분석 및 핵심 지표 추출</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://drive.google.com/file/d/1ONiw5W4gQkyKqBs05k7o6NzJVwIYcnpL/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="국고사업 편람 실습 PDF 다운로드 및 열기">
+                    <span>📄 국고사업 PDF 다운로드 ↗</span>
+                  </a>
                   <a href="https://notebook.google.com/notebook/40840ca8-392a-4bd7-8d1a-dc06efc08bf7" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
                     <span>📓 노트북 대화보기</span>
                   </a>
@@ -1260,6 +1269,9 @@ const DashboardApp = {
                   <span>3. 📢 학내 보도자료 및 행사 요강 기반 홍보 카드뉴스/공지안 도출</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <a href="https://www.bufs.ac.kr/bbs/board.php?bo_table=notice_eve&wr_id=505" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="행정 홍보 원문 공지 페이지 새 창으로 열기">
+                    <span>📢 행사 공지글 보기 ↗</span>
+                  </a>
                   <a href="https://notebook.google.com/notebook/0cd48ff6-7f5e-4136-a8cc-a242160cc281" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="노트북 대화 결과 새 창으로 보기">
                     <span>📓 노트북 대화보기</span>
                   </a>
