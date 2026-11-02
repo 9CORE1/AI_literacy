@@ -2559,37 +2559,19 @@ const DashboardApp = {
         </div>
 
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem; box-shadow: 0 4px 20px rgba(0,0,0,0.04);">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1.25rem;">
-            <div>
-              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 4px;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 14px;">
+            <div style="flex: 1; min-width: 260px;">
+              <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 6px;">
                 <span style="background: var(--color-ember); color: #fff; font-size: 12px; font-weight: 800; padding: 3px 10px; border-radius: 999px;">COURSE FINALE</span>
                 <span style="font-size: 18px; font-weight: 700; color: var(--color-obsidian);">🎓 AI 리터러시 미래 학습 &amp; 실천 로드맵</span>
               </div>
               <p style="font-size: 13.5px; color: #64748b; margin: 0; line-height: 1.6; word-break: keep-all;">
-                교육 과정을 마치며 정리한 <strong>AI 역량 성장 및 미래 실천 가이드 인포그래픽</strong>입니다. 이미지를 클릭하면 고화질로 크게 확대하여 확인하실 수 있습니다.
+                본 교육 과정을 마무리하며 지속적인 AI 리터러시 역량 개발과 현업·학업 실천을 위한 <strong>미래 학습 가이드 인포그래픽</strong>을 제공합니다. 우측의 단추를 누르면 고화질 전체 화면으로 크게 열람하실 수 있습니다.
               </p>
             </div>
-            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/learning_ex.png', '🎓 AI 리터러시 미래 학습 가이드 (Ending)', '💡 전체 화면 인포그래픽 크게 보기')" style="font-size: 13px; padding: 7px 18px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; transition: all 0.15s ease;" title="인포그래픽 팝업으로 크게 보기">
-              <span>🖼️ Ending 인포그래픽 크게 보기 ↗</span>
+            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/learning_ex.png', '🎓 AI 리터러시 미래 학습 가이드 (Ending)', '💡 전체 화면 인포그래픽 크게 보기')" style="font-size: 13.5px; padding: 10px 22px; border-radius: 999px; display: inline-flex; align-items: center; gap: 8px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700; box-shadow: 0 2px 8px rgba(226,92,52,0.12); transition: all 0.2s ease;" onmouseover="this.style.background='var(--color-ember)'; this.style.color='#ffffff';" onmouseout="this.style.background='#ffffff'; this.style.color='var(--color-ember)';" title="인포그래픽 팝업으로 크게 보기">
+              <span>🖼️ Ending 인포그래픽 보기 ↗</span>
             </button>
-          </div>
-
-          <!-- 이미지 미리보기 배너 (클릭 시 확대 팝업) -->
-          <div onclick="DashboardApp.showImageModal('images/learning_ex.png', '🎓 AI 리터러시 미래 학습 가이드 (Ending)', '💡 전체 화면 인포그래픽 크게 보기')" style="position: relative; border-radius: 18px; overflow: hidden; border: 1px solid #e2e8f0; background: #0f172a; cursor: pointer; transition: transform 0.2s ease, box-shadow 0.2s ease;" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 12px 30px rgba(0,0,0,0.15)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';" title="클릭하여 크게 보기">
-            <img src="images/learning_ex.png" alt="AI 리터러시 미래 학습 가이드" style="width: 100%; max-height: 380px; object-fit: cover; display: block; opacity: 0.94; transition: opacity 0.2s ease;" onmouseover="this.style.opacity='1'" onmouseout="this.style.opacity='0.94'">
-            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(15,23,42,0.85) 0%, rgba(15,23,42,0.1) 60%, transparent 100%); display: flex; align-items: flex-end; justify-content: space-between; padding: 18px 24px; flex-wrap: wrap; gap: 10px;">
-              <div style="color: #ffffff;">
-                <div style="font-size: 15px; font-weight: 800; display: flex; align-items: center; gap: 6px; margin-bottom: 2px;">
-                  <span>🔍 클릭하여 원본 크기로 확대 보기</span>
-                </div>
-                <div style="font-size: 12px; color: #cbd5e1;">
-                  고해상도(1672×941px) 인포그래픽으로 세부 실천 지침을 확인하세요.
-                </div>
-              </div>
-              <span style="background: rgba(255,255,255,0.2); backdrop-filter: blur(4px); color: #ffffff; font-size: 12px; font-weight: 700; padding: 6px 14px; border-radius: 999px; border: 1px solid rgba(255,255,255,0.4);">
-                크게 보기 🔍
-              </span>
-            </div>
           </div>
         </div>
       </div>
