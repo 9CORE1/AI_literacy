@@ -3520,22 +3520,26 @@ E. 게시 전 검수 체크리스트
   async syncStaffModule4Type() {
     try {
       if (typeof Auth !== 'undefined' && Auth.firebaseDb) {
-        const snap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
-        if (snap.exists && snap.data().module4) {
-          const remoteType = snap.data().module4;
-          const currentType = this.getStaffModule4Type();
-          if (remoteType !== currentType) {
-            localStorage.setItem('ai_lit_staff_module4_type', remoteType);
-            const user = Auth.getCurrentUser();
-            if (user && user.role === 'staff') {
-              this.renderDashboard(user);
-              this.renderQuickNav(user);
-              this.bindCopyEvents();
-              this.initEditablePrompts();
-              this.initScrollSpy(user);
+        // 실시간 변경 감지 (관리자가 변경 즉시 접속 중인 모든 교직원 화면 실시간 자동 전환)
+        Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot((snap) => {
+          if (snap && snap.exists && snap.data().module4) {
+            const remoteType = snap.data().module4;
+            const currentType = this.getStaffModule4Type();
+            if (remoteType !== currentType) {
+              localStorage.setItem('ai_lit_staff_module4_type', remoteType);
+              const user = Auth.getCurrentUser();
+              if (user && user.role === 'staff') {
+                this.renderDashboard(user);
+                this.renderQuickNav(user);
+                this.bindCopyEvents();
+                this.initEditablePrompts();
+                this.initScrollSpy(user);
+              }
             }
           }
-        }
+        }, (err) => {
+          console.warn('Firestore snapshot listener error:', err);
+        });
       }
     } catch (e) {
       console.warn('Failed to sync staff module4 type:', e);
