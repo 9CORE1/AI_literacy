@@ -2603,21 +2603,26 @@ const DashboardApp = {
     if (!modal) {
       modal = document.createElement('div');
       modal.id = 'cardnews-image-modal';
-      modal.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.8); backdrop-filter: blur(6px); padding: 16px; opacity: 0; transition: opacity 0.2s ease;';
+      modal.style.cssText = 'position: fixed; inset: 0; z-index: 99999; display: flex; align-items: center; justify-content: center; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px); padding: 8px; opacity: 0; transition: opacity 0.2s ease;';
       modal.setAttribute('role', 'dialog');
       modal.setAttribute('aria-modal', 'true');
 
       modal.innerHTML = `
-        <div id="cardnews-modal-content" style="background: #ffffff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.4); max-width: 640px; width: 100%; max-height: 90vh; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform 0.2s ease; border: 1px solid rgba(255,255,255,0.2);">
-          <div style="display: flex; justify-content: space-between; align-items: center; padding: 14px 20px; border-bottom: 1px solid #f1f5f9; background: #fafafa;">
-            <div id="cardnews-modal-title" style="font-size: 14.5px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 6px; word-break: keep-all;"></div>
-            <button type="button" onclick="DashboardApp.closeImageModal()" style="background: #f1f5f9; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: #64748b; transition: background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'" aria-label="닫기">✕</button>
+        <div id="cardnews-modal-content" style="background: #ffffff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); max-width: 640px; width: 100%; max-height: 96vh; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform 0.2s ease; border: 1px solid rgba(255,255,255,0.25);">
+          <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; background: #fafafa;">
+            <div id="cardnews-modal-title" style="font-size: 15px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 6px; word-break: keep-all;"></div>
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <button type="button" id="cardnews-modal-zoom-btn" onclick="DashboardApp.toggleImageModalZoom()" style="background: #eef2ff; border: 1px solid #c7d2fe; color: #4338ca; border-radius: 999px; padding: 4px 12px; font-size: 12px; font-weight: 700; cursor: pointer; display: inline-flex; align-items: center; gap: 4px; transition: all 0.15s;" title="이미지 원본 크기로 확대/축소 토글">
+                <span>🔍 100% 확대</span>
+              </button>
+              <button type="button" onclick="DashboardApp.closeImageModal()" style="background: #f1f5f9; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: #64748b; transition: background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'" aria-label="닫기">✕</button>
+            </div>
           </div>
-          <div style="padding: 16px; text-align: center; background: #0b1120; display: flex; align-items: center; justify-content: center; overflow: hidden;">
-            <img id="cardnews-modal-img" src="" alt="프롬프트 결과 이미지" style="max-width: 100%; max-height: 58vh; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 24px rgba(0,0,0,0.5);">
+          <div id="cardnews-modal-img-container" style="padding: 12px; text-align: center; background: #0b1120; display: flex; align-items: center; justify-content: center; overflow: auto; max-height: 84vh; position: relative;">
+            <img id="cardnews-modal-img" src="" alt="인포그래픽 이미지" onclick="DashboardApp.toggleImageModalZoom()" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 28px rgba(0,0,0,0.6); cursor: zoom-in; transition: transform 0.15s ease;">
           </div>
-          <div style="padding: 12px 20px; background: #fafafa; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #64748b;">
-            <span id="cardnews-modal-subtitle">💡 나노바나나 / 비주얼 AI 생성 예시 결과물</span>
+          <div style="padding: 10px 20px; background: #fafafa; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #64748b;">
+            <span id="cardnews-modal-subtitle">💡 인포그래픽 크게 보기 (이미지 클릭 시 100% 확대/축소 토글)</span>
             <a id="cardnews-modal-link" href="" target="_blank" rel="noopener noreferrer" style="color: var(--color-ember); font-weight: 700; text-decoration: none;">원본 새창 보기 ↗</a>
           </div>
         </div>
@@ -2645,18 +2650,33 @@ const DashboardApp = {
     const linkEl = document.getElementById('cardnews-modal-link');
     const contentEl = document.getElementById('cardnews-modal-content');
     const subtitleEl = document.getElementById('cardnews-modal-subtitle');
-    if (titleEl) titleEl.textContent = title || '프롬프트 결과 이미지';
+    const zoomBtn = document.getElementById('cardnews-modal-zoom-btn');
+    if (titleEl) titleEl.textContent = title || '인포그래픽 크게 보기';
     if (subtitleEl) {
-      subtitleEl.textContent = (typeof subtitle === 'string' && subtitle) ? subtitle : ((imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic'))) ? '💡 구글 폼 실시간 집계 8단계 로드맵 인포그래픽' : '💡 나노바나나 / 비주얼 AI 생성 예시 결과물');
+      subtitleEl.textContent = (typeof subtitle === 'string' && subtitle) ? subtitle : '💡 인포그래픽 크게 보기 (이미지 클릭 시 100% 확대/축소 토글)';
     }
-    const isLargeMedia = imageSrc && (imageSrc.includes('roadmap') || imageSrc.includes('infographic') || imageSrc.includes('staff_form') || imageSrc.includes('learning_ex'));
+
+    // 대형 인포그래픽 파일명 판정 (notion, 인포그래픽, 생태계, roadmap 등 대폭 확대 지원)
+    const isLargeMedia = imageSrc && (
+      imageSrc.includes('notion') ||
+      imageSrc.includes('생태계') ||
+      imageSrc.includes('인포그래픽') ||
+      imageSrc.includes('roadmap') ||
+      imageSrc.includes('infographic') ||
+      imageSrc.includes('staff_form') ||
+      imageSrc.includes('learning_ex')
+    );
+
     if (contentEl) {
-      contentEl.style.maxWidth = isLargeMedia ? 'min(1360px, 96vw)' : '640px';
-      contentEl.style.width = isLargeMedia ? '96vw' : '100%';
+      contentEl.style.maxWidth = isLargeMedia ? 'min(1560px, 98vw)' : '640px';
+      contentEl.style.width = isLargeMedia ? '98vw' : '100%';
     }
     if (imgEl) {
-      imgEl.style.maxHeight = isLargeMedia ? '76vh' : '58vh';
-      imgEl.style.width = isLargeMedia ? '100%' : 'auto';
+      imgEl.dataset.isZoomed = '0';
+      imgEl.style.maxWidth = '100%';
+      imgEl.style.maxHeight = isLargeMedia ? '82vh' : '58vh';
+      imgEl.style.width = 'auto';
+      imgEl.style.cursor = 'zoom-in';
       imgEl.dataset.triedFallback = '';
       imgEl.src = imageSrc;
       imgEl.onerror = function () {
@@ -2666,6 +2686,10 @@ const DashboardApp = {
         }
       };
     }
+    if (zoomBtn) {
+      zoomBtn.innerHTML = '<span>🔍 100% 확대</span>';
+      zoomBtn.style.display = isLargeMedia ? 'inline-flex' : 'none';
+    }
     if (linkEl) linkEl.href = imageSrc;
 
     modal.style.display = 'flex';
@@ -2673,6 +2697,33 @@ const DashboardApp = {
       modal.style.opacity = '1';
       if (contentEl) contentEl.style.transform = 'scale(1)';
     }, 10);
+  },
+
+  /**
+   * 모달 내 인포그래픽 이미지 100% 원본 해상도 확대 / 화면 맞춤 토글
+   */
+  toggleImageModalZoom() {
+    const imgEl = document.getElementById('cardnews-modal-img');
+    const zoomBtn = document.getElementById('cardnews-modal-zoom-btn');
+    if (!imgEl) return;
+    const isZoomed = imgEl.dataset.isZoomed === '1';
+    if (!isZoomed) {
+      // 100% 원본 해상도로 확대 (스크롤 가능)
+      imgEl.dataset.isZoomed = '1';
+      imgEl.style.maxWidth = 'none';
+      imgEl.style.maxHeight = 'none';
+      imgEl.style.width = 'auto';
+      imgEl.style.cursor = 'zoom-out';
+      if (zoomBtn) zoomBtn.innerHTML = '<span>축소 (화면맞춤)</span>';
+    } else {
+      // 화면 맞춤으로 복귀
+      imgEl.dataset.isZoomed = '0';
+      imgEl.style.maxWidth = '100%';
+      imgEl.style.maxHeight = '82vh';
+      imgEl.style.width = 'auto';
+      imgEl.style.cursor = 'zoom-in';
+      if (zoomBtn) zoomBtn.innerHTML = '<span>🔍 100% 확대</span>';
+    }
   },
 
   /**
@@ -2870,8 +2921,21 @@ const DashboardApp = {
             생성형 AI 모델마다 특화된 장점과 한계가 명확합니다. PCO/PEO 실무에서는 업무 특성에 맞춰 적절한 모델을 교차 활용하는 것이 생산성 극대화의 핵심입니다.
           </p>
 
+          <!-- [인포그래픽] LLM 3종 비교 인포그래픽 (표 위 배치) -->
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-size: 13.5px; font-weight: 700; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
+                <span>📊 글로벌 빅3 LLM 비교 인포그래픽</span>
+              </span>
+              <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
+            </div>
+            <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+              <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain; cursor: pointer;" loading="lazy">
+            </div>
+          </div>
+
           <!-- 표: LLM 3종 비교 -->
-          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.25rem;">
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 0.5rem;">
             <table style="width: 100%; border-collapse: collapse; font-size: 13.5px; text-align: left; min-width: 620px; word-break: keep-all;">
               <thead>
                 <tr style="background-color: #f3f4f6; border-bottom: 2px solid #e5e7eb;">
@@ -2919,59 +2983,7 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- [인포그래픽 2] LLM 3종 비교 인포그래픽 -->
-        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
-            <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>📊 글로벌 빅3 LLM(OpenAI · Google · Anthropic) 비교 인포그래픽</span>
-            </h3>
-            <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
-          </div>
-          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
-            <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain; cursor: pointer;" loading="lazy">
-          </div>
-        </div>
-
-        <!-- 2. MICE 실무 5대 핵심 역량 카드 -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>💡 MICE 실무 중심 AI 리터러시 5대 핵심 역량</span>
-          </h3>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px;">
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: var(--color-ember); margin-bottom: 4px;">① 이해 (Understand)</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                AI 모델의 확률적 생성 원리를 이해하고, 베뉴 제원이나 날짜 등에서 발생하는 환각(Hallucination) 한계를 명확히 인지합니다.
-              </p>
-            </div>
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: #0f9d58; margin-bottom: 4px;">② 활용 (Apply)</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                단순 챗봇을 넘어 구글 폼, 스프레드시트, PPT 제작 스킬 등 업무 워크플로우에 결합하여 실제 생산성 도구로 활용합니다.
-              </p>
-            </div>
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: #7c3aed; margin-bottom: 4px;">③ 상호작용 (Prompt)</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                역·배·지·형과 조·샘 프레임워크를 기반으로 명확한 제약조건과 맥락을 부여하여 재작업 없는 고품질 산출물을 이끌어냅니다.
-              </p>
-            </div>
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: #ea580c; margin-bottom: 4px;">④ 윤리·평가 (Verify)</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                고객 개인정보 및 미공개 입찰 견적을 철저히 보호하고, 베뉴 스펙 교차 검증과 저작권 침해 여부를 스스로 검증합니다.
-              </p>
-            </div>
-            <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: #0284c7; margin-bottom: 4px;">⑤ 문제해결 (Solve)</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                반복적인 행정 노가다를 줄이고, 발주처 요구사항 분석 및 돌발 현장 위기대응 솔루션을 도출하여 비즈니스 가치를 높입니다.
-              </p>
-            </div>
-          </div>
-        </div>
-
-        <!-- 3. 실무자 10초 자가 검증 체크리스트 카드 -->
+        <!-- 2. 실무자 10초 자가 검증 체크리스트 카드 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
             <span>🔒 MICE 실무자 10초 자가 검증 체크리스트 (환각 방지 & 컴플라이언스)</span>
