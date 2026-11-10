@@ -94,6 +94,10 @@ const Auth = {
     return this.user && this.user.role === 'staff';
   },
 
+  isWorker() {
+    return this.user && this.user.role === 'worker';
+  },
+
   /**
    * 승인 대기 중인 사용자 임시 세션 저장 (비밀번호 제외)
    * @param {Object} userData
@@ -162,7 +166,8 @@ const Auth = {
           }
           if (snap && snap.exists) {
             const d = snap.data() || {};
-            const resolvedRole = (d.allowedRole || d.role || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+            const rawRole = d.allowedRole || d.role || pendingUser.role || 'student';
+            const resolvedRole = (rawRole === 'staff' || rawRole === 'worker') ? rawRole : 'student';
             return {
               status: d.status || 'pending',
               role: resolvedRole,
@@ -184,7 +189,8 @@ const Auth = {
           const dEmail = String(d.email || '').trim().toLowerCase();
           const dUser = String(d.username || '').trim().toLowerCase();
           if ((cleanEmail && dEmail === cleanEmail) || (cleanUser && dUser === cleanUser)) {
-            const resolvedRole = (d.allowedRole || d.role || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+            const rawRole = d.allowedRole || d.role || pendingUser.role || 'student';
+            const resolvedRole = (rawRole === 'staff' || rawRole === 'worker') ? rawRole : 'student';
             return {
               status: d.status || 'pending',
               role: resolvedRole,
@@ -200,7 +206,8 @@ const Auth = {
 
     // 오프라인 폴백: 로컬 승인 캐시 조회
     const localApp = this.getUserApproval(cleanEmail || cleanUser);
-    const fallbackRole = (localApp.allowedRole || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+    const rawFallback = localApp.allowedRole || pendingUser.role || 'student';
+    const fallbackRole = (rawFallback === 'staff' || rawFallback === 'worker') ? rawFallback : 'student';
     return {
       status: localApp.status || 'pending',
       role: fallbackRole,
@@ -2465,6 +2472,9 @@ const Auth = {
             <a href="dashboard.html?role=staff" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-weight: 700; font-size: 12px;" title="교직원 강의실 바로가기">
               🏛️ 교직원 강의실
             </a>
+            <a href="dashboard.html?role=worker" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-weight: 700; font-size: 12px;" title="실무자 강의실 바로가기">
+              💼 실무자 강의실
+            </a>
             <button id="logout-btn" type="button" class="btn btn-secondary btn-sm" style="white-space: nowrap; font-size: 12px;">로그아웃</button>
           </div>
         `;
@@ -2475,14 +2485,24 @@ const Auth = {
         return;
       }
 
-      const roleText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '구분 미선택');
+      const roleText = this.user.role === 'staff'
+        ? '🏛️ 교직원'
+        : (this.user.role === 'worker'
+          ? '💼 실무자 (MICE)'
+          : (this.user.role === 'student' ? '🎓 대학생' : '구분 미선택'));
       const safeName = this.escapeHtml(this.user.name || '사용자');
       const notionUrl = this.user.role === 'staff'
         ? 'https://9core.notion.site/AI-4060ce4c022480bcace7f6cf5209c762?source=copy_link'
-        : (this.user.role === 'student'
-          ? 'https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link'
-          : '');
-      const roleShortText = this.user.role === 'staff' ? '🏛️ 교직원' : (this.user.role === 'student' ? '🎓 대학생' : '회원');
+        : (this.user.role === 'worker'
+          ? 'https://9core.notion.site/AI-40d0ce4c0224806ca61de54712cb6428?source=copy_link'
+          : (this.user.role === 'student'
+            ? 'https://9core.notion.site/AI-4050ce4c022480468d6cd989497770ca?source=copy_link'
+            : ''));
+      const roleShortText = this.user.role === 'staff'
+        ? '🏛️ 교직원'
+        : (this.user.role === 'worker'
+          ? '💼 실무자'
+          : (this.user.role === 'student' ? '🎓 대학생' : '회원'));
       const notionNoteBtn = notionUrl
         ? `<a href="${notionUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-secondary btn-sm" style="display: inline-flex; align-items: center; gap: 4px; font-weight: 700; background: #ffffff; color: var(--color-obsidian); border-color: #d1d5db; white-space: nowrap;" title="새 창에서 노션 강의노트 열기">
              <span class="desktop-only">📝 노션 강의노트 보기 ↗</span>
@@ -2490,7 +2510,11 @@ const Auth = {
            </a>`
         : '';
       
-      const roleBadgeColor = this.user.role === 'staff' ? 'background: #fff3ee; color: var(--color-ember); border: 1px solid #fed7aa;' : 'background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;';
+      const roleBadgeColor = this.user.role === 'staff'
+        ? 'background: #fff3ee; color: var(--color-ember); border: 1px solid #fed7aa;'
+        : (this.user.role === 'worker'
+          ? 'background: #f5f3ff; color: #6d28d9; border: 1px solid #ddd6fe;'
+          : 'background: #f0fdf4; color: #15803d; border: 1px solid #bbf7d0;');
       
       navMenu.innerHTML = `
         <div class="user-badge" style="display: flex; align-items: center; gap: 6px; flex-wrap: nowrap;">

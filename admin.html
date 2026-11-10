@@ -351,6 +351,7 @@
           <a href="index.html" class="btn btn-secondary btn-sm">메인 홈</a>
           <a href="dashboard.html?role=student" class="btn btn-secondary btn-sm" style="font-weight: 700;">🎓 대학생 강의실</a>
           <a href="dashboard.html?role=staff" class="btn btn-secondary btn-sm" style="font-weight: 700;">🏛️ 교직원 강의실</a>
+          <a href="dashboard.html?role=worker" class="btn btn-secondary btn-sm" style="font-weight: 700;">💼 실무자 강의실</a>
           <button type="button" class="btn btn-secondary btn-sm" onclick="handleAdminLogout()">로그아웃</button>
         </div>
       </header>
@@ -492,6 +493,7 @@
             <option value="all">모든 대상자</option>
             <option value="student">🎓 대학생</option>
             <option value="staff">🏛️ 교직원</option>
+            <option value="worker">💼 실무자</option>
           </select>
           <button type="button" id="btn-refresh-users" class="btn btn-secondary btn-sm" onclick="refreshUsersFromDb()" title="users 데이터베이스에서 최신 회원정보 다시 불러오기">
             🔄
@@ -610,6 +612,7 @@
             <select id="new-user-role" class="role-select" style="width: 100%; padding: 10px;">
               <option value="student">🎓 대학생 맞춤 과정</option>
               <option value="staff">🏛️ 교직원 맞춤 과정</option>
+              <option value="worker">💼 실무자 맞춤 과정</option>
             </select>
           </div>
           <div>
@@ -969,7 +972,8 @@
         );
         const approval = Auth.getUserApproval(key);
         const status = isAdmin ? 'approved' : (u.status || approval.status || 'pending');
-        const currentRole = (u.role || u.allowedRole || approval.allowedRole || 'student') === 'staff' ? 'staff' : 'student';
+        const rawRole = u.role || u.allowedRole || approval.allowedRole || 'student';
+        const currentRole = (rawRole === 'staff' || rawRole === 'worker') ? rawRole : 'student';
 
         const tr = document.createElement('tr');
 
@@ -991,6 +995,7 @@
             <select class="role-select" onchange="handleUserRoleChange('${key}', this.value)" style="padding: 7px 10px; font-size: 13px; font-weight: 700; border-radius: 8px; border: 1.5px solid #cbd5e1; background: #fff; cursor: pointer; color: var(--color-obsidian);">
               <option value="student" ${currentRole === 'student' ? 'selected' : ''}>🎓 대학생 맞춤 과정</option>
               <option value="staff" ${currentRole === 'staff' ? 'selected' : ''}>🏛️ 교직원 맞춤 과정</option>
+              <option value="worker" ${currentRole === 'worker' ? 'selected' : ''}>💼 실무자 맞춤 과정</option>
             </select>
           `;
 

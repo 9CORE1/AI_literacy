@@ -40,6 +40,8 @@ const DashboardApp = {
           alert('💡 [소속 과정 안내]\n해당 계정의 소속 과정이 [대학생 맞춤 과정]으로 설정되어 있습니다.\n대학생 전용 맞춤 강의실로 전환합니다.');
         } else if (targetRole === 'staff') {
           alert('💡 [소속 과정 안내]\n해당 계정의 소속 과정이 [교직원 맞춤 과정]으로 설정되어 있습니다.\n교직원 전용 맞춤 강의실로 전환합니다.');
+        } else if (targetRole === 'worker') {
+          alert('💡 [소속 과정 안내]\n해당 계정의 소속 과정이 [실무자 맞춤 과정]으로 설정되어 있습니다.\n실무자 전용 맞춤 강의실로 전환합니다.');
         }
         user.role = targetRole;
         user.allowedRole = targetRole;
@@ -51,11 +53,11 @@ const DashboardApp = {
     const urlParams = new URLSearchParams(window.location.search);
     const requestedRole = urlParams.get('role');
     if (user.isAdmin || Auth.isAdmin()) {
-      // 최고 관리자는 대학생/교직원 강의실 모두 자유롭게 접근 및 전환 가능
-      if (requestedRole === 'student' || requestedRole === 'staff') {
+      // 최고 관리자는 대학생/교직원/실무자 강의실 모두 자유롭게 접근 및 전환 가능
+      if (requestedRole === 'student' || requestedRole === 'staff' || requestedRole === 'worker') {
         user.role = requestedRole;
         user.allowedRole = requestedRole;
-      } else if (!user.role || (user.role !== 'student' && user.role !== 'staff')) {
+      } else if (!user.role || (user.role !== 'student' && user.role !== 'staff' && user.role !== 'worker')) {
         user.role = 'student';
         user.allowedRole = 'student';
       }
@@ -64,7 +66,8 @@ const DashboardApp = {
       const approval = Auth.getUserApproval(user.email || user.username);
       const userRole = approval.allowedRole || user.role || 'student';
       if (requestedRole !== userRole) {
-        alert(`⛔ [접근 제한 안내]\n\n해당 계정은 [${userRole === 'student' ? '대학생' : '교직원'}] 맞춤 과정 회원입니다.\n타 과정 페이지는 열람하실 수 없습니다.`);
+        const roleKo = userRole === 'student' ? '대학생' : (userRole === 'worker' ? '실무자' : '교직원');
+        alert(`⛔ [접근 제한 안내]\n\n해당 계정은 [${roleKo}] 맞춤 과정 회원입니다.\n타 과정 페이지는 열람하실 수 없습니다.`);
         window.location.replace('dashboard.html');
         return;
       }
@@ -73,7 +76,7 @@ const DashboardApp = {
     // 네비게이션 태그 업데이트
     const navTag = document.getElementById('nav-mode-tag');
     if (navTag) {
-      navTag.textContent = user.role === 'student' ? 'STUDENT LAB' : 'STAFF LAB';
+      navTag.textContent = user.role === 'student' ? 'STUDENT LAB' : (user.role === 'worker' ? 'WORKER LAB' : 'STAFF LAB');
     }
 
     if (user.role === 'staff') {
@@ -99,7 +102,7 @@ const DashboardApp = {
         <div class="admin-classroom-switcher" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #fff; padding: 12px 20px; border-radius: 16px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; box-shadow: 0 4px 16px rgba(0,0,0,0.15);">
           <div style="display: flex; align-items: center; gap: 10px;">
             <span style="background: var(--color-ember); color: #fff; font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 999px;">🛡️ 최고 관리자 열람 모드</span>
-            <span style="font-weight: 700; font-size: 14px;">현재 열람 중: <strong style="color: var(--color-sulfur);">${user.role === 'staff' ? '🏛️ 교직원 맞춤 강의실' : '🎓 대학생 맞춤 강의실'}</strong></span>
+            <span style="font-weight: 700; font-size: 14px;">현재 열람 중: <strong style="color: var(--color-sulfur);">${user.role === 'staff' ? '🏛️ 교직원 맞춤 강의실' : (user.role === 'worker' ? '💼 실무자 맞춤 강의실' : '🎓 대학생 맞춤 강의실')}</strong></span>
           </div>
           <div style="display: flex; align-items: center; gap: 8px;">
             <a href="dashboard.html?role=student" class="btn btn-sm" style="font-size: 12.5px; font-weight: 800; padding: 6px 14px; border-radius: 8px; text-decoration: none; ${user.role === 'student' ? 'background: var(--color-sulfur); color: var(--color-obsidian); border: none;' : 'background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);'}">
@@ -107,6 +110,9 @@ const DashboardApp = {
             </a>
             <a href="dashboard.html?role=staff" class="btn btn-sm" style="font-size: 12.5px; font-weight: 800; padding: 6px 14px; border-radius: 8px; text-decoration: none; ${user.role === 'staff' ? 'background: var(--color-sulfur); color: var(--color-obsidian); border: none;' : 'background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);'}">
               🏛️ 교직원 강의실
+            </a>
+            <a href="dashboard.html?role=worker" class="btn btn-sm" style="font-size: 12.5px; font-weight: 800; padding: 6px 14px; border-radius: 8px; text-decoration: none; ${user.role === 'worker' ? 'background: var(--color-sulfur); color: var(--color-obsidian); border: none;' : 'background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);'}">
+              💼 실무자 강의실
             </a>
             <a href="admin.html" class="btn btn-sm" style="font-size: 12.5px; font-weight: 700; padding: 6px 14px; border-radius: 8px; text-decoration: none; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.35);">
               관리자 콘솔 ↗
@@ -118,6 +124,8 @@ const DashboardApp = {
 
     if (user.role === 'student') {
       container.innerHTML = adminBannerHtml + this.getStudentDashboardHtml(user);
+    } else if (user.role === 'worker') {
+      container.innerHTML = adminBannerHtml + this.getWorkerDashboardHtml(user);
     } else {
       container.innerHTML = adminBannerHtml + this.getStaffDashboardHtml(user);
     }
@@ -2682,6 +2690,338 @@ const DashboardApp = {
   },
 
   /**
+   * MICE 및 비즈니스 실무자 전용 대시보드 렌더링
+   * @param {Object} user
+   * @returns {string} HTML String
+   */
+  getWorkerDashboardHtml(user) {
+    const esc = window.escapeHtml || ((s) => s);
+    const displayName = esc(user.name || '실무자');
+    const affiliation = esc([user.university, user.department].filter(Boolean).join(' · ') || '소속 미설정 (내 정보에서 입력 가능)');
+    const loginTime = user.loginAt ? new Date(user.loginAt).toLocaleString('ko-KR', { month: 'numeric', day: 'numeric', hour: '2-digit', minute: '2-digit' }) : '방금';
+
+    return `
+      <!-- ================= 1. 실무자 웰컴 히어로 카드 ================= -->
+      <section class="dashboard-hero-card" style="background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); color: #fff; padding: 32px 28px; border-radius: 28px; margin-bottom: 28px; box-shadow: 0 12px 36px rgba(49, 46, 129, 0.22); word-break: keep-all;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 18px;">
+          <div>
+            <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.18); padding: 4px 12px; border-radius: 999px; font-size: 12px; font-weight: 700; color: var(--color-sulfur); margin-bottom: 12px;">
+              <span>💼 MICE &amp; 비즈니스 실무자 AI 역량 강화 전용 강의실</span>
+            </div>
+            <h1 style="font-size: clamp(22px, 3.5vw, 30px); font-weight: 800; line-height: 1.3; margin-bottom: 8px;">
+              ${displayName} 님, 환영합니다!
+            </h1>
+            <p style="font-size: 14px; opacity: 0.9; margin-bottom: 6px;">
+              소속: <strong>${affiliation}</strong> | 접속 시간: ${loginTime}
+            </p>
+            <p style="font-size: 13px; opacity: 0.8; line-height: 1.5; max-width: 680px;">
+              RFP 입찰 수주, 해외 VIP 연사 섭외, 개막식 현장 큐시트 작성부터 구글 폼 &amp; =GEMINI() 실시간 자동 집계까지 — 현장 업무 생산성을 극대화하는 실전 AI 워크플로우를 실습하세요.
+            </p>
+          </div>
+
+          <!-- 실무자 퀵 액션 버튼군 -->
+          <div style="display: flex; flex-direction: column; gap: 8px; min-width: 200px;">
+            <a href="handout-worker.html" target="_blank" rel="noopener noreferrer" class="btn btn-primary" style="font-weight: 800; font-size: 13.5px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 10px 16px; border-radius: 12px; box-shadow: 0 4px 12px rgba(234,88,12,0.35);">
+              <span>🖨️ A4 2Page 핸드아웃 보기 ↗</span>
+            </a>
+            <a href="https://9core.notion.site/AI-40d0ce4c0224806ca61de54712cb6428?source=copy_link" target="_blank" rel="noopener noreferrer" class="btn btn-secondary" style="font-weight: 700; font-size: 13px; text-decoration: none; display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 9px 16px; border-radius: 12px; background: rgba(255,255,255,0.15); color: #fff; border: 1px solid rgba(255,255,255,0.3);">
+              <span>📝 노션 공식 강의노트 ↗</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. 모듈 01: AI 생태계 & 실무자 5대 핵심 역량 ================= -->
+      <section id="lecture-worker-sec-1" class="lecture-section-card" style="background: #fff; border: 1px solid var(--color-pumice); border-radius: 24px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); word-break: keep-all;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; border-bottom: 2px solid var(--color-obsidian); padding-bottom: 10px;">
+          <div>
+            <span style="font-size: 12px; font-weight: 800; color: #6d28d9; text-transform: uppercase;">MODULE 01</span>
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--color-obsidian); margin-top: 2px;">
+              🌐 [1교시] 생성형 AI 생태계 맥락 &amp; 비즈니스 실무자 5대 핵심 역량
+            </h2>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; background: #ede9fe; color: #5b21b6; padding: 4px 12px; border-radius: 999px;">
+            LLM 3종 비교 분석
+          </span>
+        </div>
+
+        <p style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 18px;">
+          ChatGPT, Gemini, Claude 등 각 생성형 AI의 비즈니스 강점을 파악하고, MICE 기획·행정 업무에 최적화된 도구를 선택하여 활용하는 종합 리터러시 역량을 배양합니다.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px;">
+            <div style="font-weight: 800; font-size: 15px; color: #0f172a; margin-bottom: 6px;">⚡ ChatGPT (OpenAI)</div>
+            <p style="font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 6px;">
+              광범위한 데이터 분석, 코드 인터프리터, DALL-E 이미지 결합.
+            </p>
+            <div style="font-size: 12px; font-weight: 700; color: #ea580c;">👉 추천: 카드뉴스 기획, 창의적 공간 연출 아이디어</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px;">
+            <div style="font-weight: 800; font-size: 15px; color: #0f172a; margin-bottom: 6px;">⚡ Gemini (Google)</div>
+            <p style="font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 6px;">
+              구글 워크스페이스 연동, 최신 웹 검색 및 100만 토큰 문서 처리.
+            </p>
+            <div style="font-size: 12px; font-weight: 700; color: #0f9d58;">👉 추천: 구글 폼 원클릭 코드, 스프레드시트 =GEMINI() 감정분석</div>
+          </div>
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 14px; padding: 16px;">
+            <div style="font-weight: 800; font-size: 15px; color: #0f172a; margin-bottom: 6px;">⚡ Claude (Anthropic)</div>
+            <p style="font-size: 13px; color: #475569; line-height: 1.5; margin-bottom: 6px;">
+              압도적인 한국어/영문 작문 품질, 긴 문맥 이해 및 격식 있는 톤앤매너.
+            </p>
+            <div style="font-size: 12px; font-weight: 700; color: #7c3aed;">👉 추천: RFP 입찰 제안서, 글로벌 연사 초청 서한, 결과보고서</div>
+          </div>
+        </div>
+
+        <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 14px; padding: 16px;">
+          <div style="font-weight: 800; font-size: 14px; color: #581c87; margin-bottom: 8px;">💡 실무자 AI 리터러시 5대 핵심 요소</div>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 10px; font-size: 12.5px; color: #374151;">
+            <div><strong>1. 이해</strong>: 한계와 환각 현상 인지</div>
+            <div><strong>2. 활용</strong>: 업무별 최적 도구 선택</div>
+            <div><strong>3. 상호작용</strong>: 4+2 프롬프트 공식</div>
+            <div><strong>4. 윤리·평가</strong>: 베뉴 스펙 팩트체크/보안</div>
+            <div><strong>5. 문제해결</strong>: 실제 MICE 업무 자동화</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. 모듈 02: 프롬프트 공식 4+2 & MICE 실전 템플릿 5선 ================= -->
+      <section id="lecture-worker-sec-2" class="lecture-section-card" style="background: #fff; border: 1px solid var(--color-pumice); border-radius: 24px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); word-break: keep-all;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; border-bottom: 2px solid var(--color-obsidian); padding-bottom: 10px;">
+          <div>
+            <span style="font-size: 12px; font-weight: 800; color: #ea580c; text-transform: uppercase;">MODULE 02</span>
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--color-obsidian); margin-top: 2px;">
+              ✍️ [2교시] 프롬프트 공식 4+2 &amp; MICE 실전 템플릿 5선
+            </h2>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; background: #fff7ed; color: #c2410c; padding: 4px 12px; border-radius: 999px;">
+            원클릭 복사 지원
+          </span>
+        </div>
+
+        <p style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 16px;">
+          <strong>역·배·지·형</strong>(핵심 4대 뼈대)과 <strong>조·샘</strong>(2대 보강재)을 결합하여 환각을 없애고 즉시 현업에 투입 가능한 고품질 산출물을 뽑아내는 프롬프트입니다. 클릭하여 복사 후 바로 AI에 질문해 보세요.
+        </p>
+
+        <!-- 템플릿 5선 카드 목록 -->
+        <div style="display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px;">
+          <!-- 1. RFP 입찰 -->
+          <div style="background: #fbfbfa; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">① [RFP 입찰 제안서] 국제회의·전시 유치 제안서 차별화 콘셉트 &amp; 공간 연출안</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-p1" style="font-weight: 700; font-size: 12px;">📋 프롬프트 복사</button>
+            </div>
+            <pre id="worker-p1" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0;">[역할] 너는 15년 차 대형 국제회의 전문 PCO 총괄 기획 디렉터이자 정부/공공 입찰 제안서 평가위원 출신이야.
+
+[배경] 우리 회사는 이번에 [지자체/협회명]에서 발주한 '[행사명, 예: 2027 아시아-태평양 친환경 해양 모빌리티 서밋]' 유치 용역 입찰(RFP)에 참여하려고 해.
+- 개최 기간 및 장소: [예: 2027년 10월 중 3일간, 부산 벡스코]
+- 예상 규모: [예: 30개국 2,500명(해외 바이어 600명 포함), 전시 부스 150개]
+- 발주처의 핵심 요구사항: [예: 첨단 친환경 기술 시연, 지역 MICE 경제 활성화, 탄소중립 ESG 실천]
+
+[지시] 경쟁사 제안서와 압도적인 차별성을 가질 수 있도록 아래 항목을 도출해 줘:
+1. 본 행사의 핵심 비전과 심사위원의 뇌리에 각인될 매력적인 메인 슬로건 (국문/영문 각 2종)
+2. 타 행사와 차별화되는 3대 핵심 추진 전략(Key Strategy)
+3. 전시장 로비 및 오프닝 세레모니의 혁신적인 공간 연출 및 테크놀로지(디지털 트윈, 인터랙티브 미디어 등) 결합 아이디어 2가지
+4. 지속 가능한 MICE를 실천하기 위한 실질적인 친환경(ESG) 운영 방안
+
+[형식] 심사위원 PT 제안서에 바로 삽입할 수 있도록 개조식(1. - 가. - 1)) 목차 체계로 정리하고, 핵심 키워드는 **볼드체**로 강조해 줘.
+
+[조건] 뜬구름 잡는 일반론을 피하고, 개최지인 [도시/베뉴명]의 지역 인프라와 산업적 특성이 자연스럽게 녹아들게 작성해 줘.</pre>
+          </div>
+
+          <!-- 2. 글로벌 연사 섭외 -->
+          <div style="background: #fbfbfa; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">② [글로벌 연사 섭외] 해외 VIP·기조연설자(Keynote Speaker) 영문 공식 초청 서한</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-p2" style="font-weight: 700; font-size: 12px;">📋 프롬프트 복사</button>
+            </div>
+            <pre id="worker-p2" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP protocol and speaker curation.
+
+[배경] We are hosting [행사 공식 영문명, e.g., The Global AI & Future Healthcare Congress 2027].
+- Date & Location: [일정 및 장소, e.g., November 12-14, 2027 | Seoul, South Korea]
+- Target Audience: [청중 특성, e.g., 1,500+ global medical leaders, hospital CEOs, and AI researchers]
+- We want to invite [연사 성함 및 직함, e.g., Dr. Andrew Ng, Founder of DeepLearning.AI] as our prestigious Opening Keynote Speaker.
+
+[지시] Draft an extremely professional, courteous, and compelling official Invitation Letter in English. Include:
+1. Formal invitation to deliver a 30-minute keynote speech followed by a 15-minute Q&A.
+2. Clear explanation of why this specific speaker is the undisputed ideal person for this year's theme: [행사 메인 테마].
+3. Comprehensive hospitality package provided (First/Business airfare, 5-star hotel accommodation, VIP concierge, speaker honorarium).
+4. Flexible options (in-person attendance preferred, but live hybrid participation open).
+5. Response deadline and point of contact info.
+
+[형식] Standard Diplomatic/Executive Business Letter format (Date, Salutation, Body Paragraphs, Call to Action, Complimentary Close, Signature block).
+
+[조건] Tone must be highly respectful, prestigious, and persuasive. Frame the speech as a defining global moment.</pre>
+          </div>
+
+          <!-- 3. 스폰서십 -->
+          <div style="background: #fbfbfa; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">③ [스폰서십 &amp; 세일즈] 기업 후원사 유치를 위한 등급별(Tier) 스폰서십 제안서</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-p3" style="font-weight: 700; font-size: 12px;">📋 프롬프트 복사</button>
+            </div>
+            <pre id="worker-p3" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0;">[역할] 너는 글로벌 메가 컨벤션 및 B2B 산업 엑스포의 스폰서십 세일즈 전문 디렉터야.
+
+[배경] 우리는 [행사명, 예: 2027 글로벌 스마트 모빌리티 엑스포]의 성공적인 개최와 재정 확충을 위해 기업들을 대상으로 스폰서십 유치를 진행하고 있어.
+- 총 모금 목표액: [예: 10억 원]
+- 행사 특징: [전 세계 완성차 제조사 C-Level 바이어 400명, 공공 발주처 구매 결정권자 참석]
+
+[지시] 기업들이 '단순 기부'가 아니라 '투자 대비 마케팅 효과(ROI)'가 확실하다고 느낄 수 있는 매력적인 스폰서십 패키지 제안안을 설계해 줘:
+1. 스폰서 등급 분류: 다이아몬드(단독), 플래티넘, 골드, 실버
+2. 등급별 권장 후원 금액 및 모집 슬롯 수(한정 구좌) 설정
+3. 등급별 차등 제공 혜택: 온·오프라인 브랜딩, 세션 발표 기회, VIP 네트워킹 라운지 독점권, 1:1 바이어 매칭 우선권
+4. 기업 후원 담당자가 예산 승인을 올리기 쉽도록 유도하는 '스폰서십 참여 3대 기대효과(ROI)' 요약
+
+[형식] 각 등급별 혜택을 한눈에 비교할 수 있는 깔끔한 Markdown 비교 표(Table)와 세부 설명 개조식으로 구성해 줘.</pre>
+          </div>
+
+          <!-- 4. 현장 큐시트 & 위기관리 -->
+          <div style="background: #fbfbfa; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">④ [현장 운영 &amp; 위기관리] 개막식 분 단위 큐시트 &amp; 돌발 비상대응(Contingency Plan)</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-p4" style="font-weight: 700; font-size: 12px;">📋 프롬프트 복사</button>
+            </div>
+            <pre id="worker-p4" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄한 무대감독이자 MICE 현장 운영 총괄 PM이야.
+
+[배경] [행사명, 예: 2027 세계 도시혁신 포럼]의 공식 개막식(90분) 현장 총괄 큐시트를 작성 중이야.
+- 일시 및 장소: [예: 2027년 9월 15일 10:00~11:30, 컨벤션홀 1층]
+- 주요 참석자: [장관급 2명, 해외 시장 10명, 초청 참가자 1,200명]
+- 주요 식순: 식전 공연 ➔ 개회 선언 ➔ 국민의례 ➔ 환영사/축사 ➔ 개막 퍼포먼스 ➔ 기조연설 ➔ 기념촬영
+
+[지시] 아래 두 가지 산출물을 구체적으로 작성해 줘:
+1. 분 단위 공식 개막식 큐시트 (Run-through Sheet) : [시간 / 식순 / 사회자 멘트 요지 / 무대·영상LED·조명·음향 큐 / 의전 및 스태프 행동 요령]
+2. 현장 돌발 위기대응 시나리오 3선 (단계별 프로토콜: 발생 ➔ 보고 ➔ 조치 ➔ 사후처리):
+   - 상황 ①: 메인 무대 LED 영상 송출 중단 및 마이크 하울링/두절 발생 시
+   - 상황 ②: 예정된 주요 VIP 연사가 교통 체증으로 20분 지연 도착 시
+   - 상황 ③: 밀집 인파로 인한 객석 응급환자 발생 시 구급 동선 대처
+
+[형식] 큐시트는 현장 바인더 출력용 표(Table)로, 위기대응은 단계별 프로토콜로 작성해 줘.</pre>
+          </div>
+
+          <!-- 5. 사후 결과보고서 -->
+          <div style="background: #fbfbfa; border: 1.5px solid #e2e8f0; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">⑤ [사후 성과보고] 바이어 데이터 기반 최종 종합 결과보고서 (Executive Summary)</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-p5" style="font-weight: 700; font-size: 12px;">📋 프롬프트 복사</button>
+            </div>
+            <pre id="worker-p5" style="background: #fff; border: 1px solid #cbd5e1; border-radius: 10px; padding: 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0;">[역할] 너는 컨벤션 뷰로(CVB) 평가위원 및 대형 MICE 행사 사후 성과평가 분석 전문 연구원이야.
+
+[배경] 최근 성공적으로 종료된 [행사명, 예: 2026 K-바이오 글로벌 파트너링 페어]의 종합 결과보고서를 작성 중이야.
+- 총 참가자: 3,420명 달성 (해외 28개국 520명)
+- 1:1 상담: 840건 (MOU 12건, 상담액 약 4,500만 달러)
+- 만족도: 프로그램 4.42점, 베뉴 4.61점, 다만 F&B 부족과 동시통역 수신기 부족 불만 접수
+
+[지시] 지자체장 및 주최 협회 이사회에 공식 보고할 '결과보고서 핵심 요약'을 작성해 줘:
+1. 행사 개최 종합 개요 및 주요 핵심 성과(Key Achievements) 3대 하이라이트
+2. 정량적 성과 분석 및 지역 경제 파급효과 추정치
+3. 정성적 만족도 분석 및 긍정적 요인
+4. 참가자 불만 사항(F&B, 통역)에 대한 솔직한 진단과 차기 행사 개선 로드맵(Action Plan)
+
+[형식] 정부/지자체 제출용 공문서 목차 체계(I. 개최 개요 ➔ II. 주요 추진 성과 ➔ III. 세부 평가 ➔ IV. 향후 제언) 준수.</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. 모듈 03: MICE 에이전트 스킬 제작 ================= -->
+      <section id="lecture-worker-sec-3" class="lecture-section-card" style="background: #fff; border: 1px solid var(--color-pumice); border-radius: 24px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); word-break: keep-all;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; border-bottom: 2px solid var(--color-obsidian); padding-bottom: 10px;">
+          <div>
+            <span style="font-size: 12px; font-weight: 800; color: #2563eb; text-transform: uppercase;">MODULE 03</span>
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--color-obsidian); margin-top: 2px;">
+              🛠️ [3교시] 스마트 MICE 행정 — AI 에이전트 스킬 제작 및 실무 활용
+            </h2>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; background: #dbeafe; color: #1e40af; padding: 4px 12px; border-radius: 999px;">
+            스킬 크리에이터 실습
+          </span>
+        </div>
+
+        <p style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 16px;">
+          반복되는 회사소개서 PPT 작성과 고객 카톡 문의 기반 견적서 생성을 'AI 스킬'로 등록하여 원클릭으로 자동화하는 실전 단계입니다.
+        </p>
+
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 16px;">
+          <!-- PPT 스킬 -->
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">📊 회사 홍보 PPT 제작 스킬 생성문</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-skill1" style="font-weight: 700; font-size: 12px;">복사</button>
+            </div>
+            <pre id="worker-skill1" style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; font-size: 12px; line-height: 1.5; color: #334155; white-space: pre-wrap; margin: 0;">PPT 슬라이드 작성과 관련된 스킬을 작성하려고 해.
+다음 스타일을 설정해줘:
+Name: "Monochrome Editorial Minimal"
+Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니멀 에디토리얼 프레젠테이션"
+
+1. PPT, 슬라이드라고 요청하면 이 스킬이 적용되도록 설정해줘.
+2. 기본 슬라이드 수는 10개로 설정해줘.
+3. 마지막 페이지에는 문의 이메일과 웹사이트 URL이 무조건 고정으로 추가되도록 스킬 수정해줘.</pre>
+          </div>
+
+          <!-- 견적서 스킬 -->
+          <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 16px; padding: 18px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+              <span style="font-weight: 800; font-size: 15px; color: var(--color-obsidian);">💰 카톡 견적서 자동 생성 스킬 프롬프트</span>
+              <button type="button" class="btn btn-secondary btn-sm copy-btn" data-copy-target="worker-skill2" style="font-weight: 700; font-size: 12px;">복사</button>
+            </div>
+            <pre id="worker-skill2" style="background: #fff; border: 1px solid #e2e8f0; border-radius: 10px; padding: 12px; font-size: 12px; line-height: 1.5; color: #334155; white-space: pre-wrap; margin: 0;">스킬 크리에이터를 써서 견적 스킬을 만들어줘.
+내가 메뉴, 가격, 진행 방식을 정리해줄테니 카톡 문의(텍스트 또는 캡처)를 붙여넣고 "행사 견적 뽑아줘"라고 하면 견적 답변과 견적서 PDF까지 만들어주는 스킬로 만들어줘.
+
+[포함 규칙]
+- 상호 및 공급자 정보, 1인당 단가 계산, 부가세 10% 별도 명시
+- 예약금 30%, 클래스 취소 및 환불 규정 포함
+- 어조: 친근한 존댓말, "문의 주셔서 감사합니다" 톤으로 시작하고 미비한 정보는 마지막에 정중히 되묻기</pre>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 5. 모듈 04: 구글 폼 & =GEMINI() 실시간 자동 집계 ================= -->
+      <section id="lecture-worker-sec-4" class="lecture-section-card" style="background: #fff; border: 1px solid var(--color-pumice); border-radius: 24px; padding: 28px; margin-bottom: 24px; box-shadow: 0 4px 20px rgba(0,0,0,0.03); word-break: keep-all;">
+        <div style="display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; border-bottom: 2px solid var(--color-obsidian); padding-bottom: 10px;">
+          <div>
+            <span style="font-size: 12px; font-weight: 800; color: #0f9d58; text-transform: uppercase;">MODULE 04 &amp; 05</span>
+            <h2 style="font-size: 20px; font-weight: 800; color: var(--color-obsidian); margin-top: 2px;">
+              📋 [4~5교시] 구글 폼 AI 원클릭 생성 &amp; 스프레드시트 =GEMINI() 실시간 집계
+            </h2>
+          </div>
+          <span style="font-size: 12px; font-weight: 700; background: #e6f4ea; color: #137333; padding: 4px 12px; border-radius: 999px;">
+            15분 완성 8단계 로드맵
+          </span>
+        </div>
+
+        <p style="font-size: 14px; color: #4b5563; line-height: 1.6; margin-bottom: 18px;">
+          설문 문항 기획부터 Google Apps Script 1클릭 폼 생성, 시트 연결, 그리고 <strong><code>=GEMINI()</code></strong>를 활용한 주관식 참가자 피드백 감정 분류 및 1-Page 요약 보고서까지 원스톱으로 마스터합니다.
+        </p>
+
+        <!-- 8단계 인터랙티브 로드맵 바 -->
+        <div style="background: #f1f5f9; border-radius: 14px; padding: 14px 18px; margin-bottom: 20px; font-size: 13px; color: #1e293b; line-height: 1.6;">
+          <strong>⏱️ 15분 완성 8단계 로드맵:</strong><br>
+          <code>[1] AI 문항 설계</code> ➔ <code>[2] GAS 코드 요청</code> ➔ <code>[3] 1초 폼 생성</code> ➔ <code>[4] 외부 응답 설정</code> ➔ <code>[5] 시트 연동</code> ➔ <code>[6] 실시간 집계 대시보드</code> ➔ <code>[7] =GEMINI() 감정분석</code> ➔ <code>[8] 1-Page 보고서</code>
+        </div>
+
+        <!-- =GEMINI() 핵심 수식 카드 3선 -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 20px;">
+          <div style="background: #fdfdfd; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px;">
+            <div style="font-weight: 800; font-size: 14px; color: #0f172a; margin-bottom: 6px;">① 행사 피드백 감정 분류 (수식)</div>
+            <pre style="background: #f1f5f9; padding: 10px; border-radius: 8px; font-size: 12px; line-height: 1.4; color: #0f172a; white-space: pre-wrap; margin: 0;">=GEMINI("다음 참가자 피드백의 감정을 [매우긍정 / 긍정 / 건의사항 / 불만족] 중 단어 하나로만 분류해줘. 부가 설명 없이 단어만 출력:", F2)</pre>
+          </div>
+          <div style="background: #fdfdfd; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px;">
+            <div style="font-weight: 800; font-size: 14px; color: #0f172a; margin-bottom: 6px;">② 시설/운영 개선 키워드 추출 (수식)</div>
+            <pre style="background: #f1f5f9; padding: 10px; border-radius: 8px; font-size: 12px; line-height: 1.4; color: #0f172a; white-space: pre-wrap; margin: 0;">=GEMINI("다음 피드백에서 행사 운영 및 시설 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘. 쉼표 구분:", F2)</pre>
+          </div>
+          <div style="background: #fdfdfd; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 16px;">
+            <div style="font-weight: 800; font-size: 14px; color: #0f172a; margin-bottom: 6px;">③ 상담 일지 1줄 압축 요약 (수식)</div>
+            <pre style="background: #f1f5f9; padding: 10px; border-radius: 8px; font-size: 12px; line-height: 1.4; color: #0f172a; white-space: pre-wrap; margin: 0;">=GEMINI("다음 비즈니스 상담 일지에서 핵심 품목과 바이어의 계약 체결 의향을 30자 이내의 한 문장으로 명확히 요약해줘:", D2)</pre>
+          </div>
+        </div>
+
+        <div style="background: #fff7ed; border-left: 4px solid #ea580c; border-radius: 0 12px 12px 0; padding: 14px 18px; font-size: 13px; color: #9a3412; line-height: 1.6;">
+          <strong>⚠️ 실무자 필수 주의사항:</strong> <code>=GEMINI()</code> 함수는 시트를 새로고침할 때마다 다시 계산됩니다. 결과가 도출되면 열 전체를 복사(<code>Ctrl+C</code>)한 뒤 <strong>값만 붙여넣기(<code>Ctrl+Shift+V</code>)</strong>로 고정해야 불필요한 API 재호출과 결과값 변경을 방지할 수 있습니다.
+        </div>
+      </section>
+    `;
+  },
+
+  /**
    * 우측 하단 플로팅 퀵 네비게이션 토글 (열기/닫기)
    */
   toggleQuickNav() {
@@ -2739,6 +3079,26 @@ const DashboardApp = {
           <span class="nav-text">${this.getStaffModule4Type() === 'gemini_sheet' ? '=GEMINI() 함수' : '구글 폼 & 집계'}</span>
         </button>
       `;
+    } else if (user && user.role === 'worker') {
+      if (titleEl) titleEl.textContent = '💼 실무자 커리큘럼 이동';
+      listEl.innerHTML = `
+        <button type="button" class="quick-nav-item" data-target="lecture-worker-sec-1" onclick="DashboardApp.scrollToSection('lecture-worker-sec-1')">
+          <span class="nav-badge">01</span>
+          <span class="nav-text">AI 생태계 &amp; 5대 역량</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-worker-sec-2" onclick="DashboardApp.scrollToSection('lecture-worker-sec-2')">
+          <span class="nav-badge">02</span>
+          <span class="nav-text">프롬프트 공식 4+2</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-worker-sec-3" onclick="DashboardApp.scrollToSection('lecture-worker-sec-3')">
+          <span class="nav-badge">03</span>
+          <span class="nav-text">MICE 에이전트 스킬</span>
+        </button>
+        <button type="button" class="quick-nav-item" data-target="lecture-worker-sec-4" onclick="DashboardApp.scrollToSection('lecture-worker-sec-4')">
+          <span class="nav-badge">04</span>
+          <span class="nav-text">구글 폼 &amp; =GEMINI()</span>
+        </button>
+      `;
     } else {
       if (titleEl) titleEl.textContent = '📚 강의 바로가기';
       listEl.innerHTML = `
@@ -2768,9 +3128,12 @@ const DashboardApp = {
    */
   initScrollSpy(user) {
     const isStaff = user && user.role === 'staff';
+    const isWorker = user && user.role === 'worker';
     const sectionIds = isStaff
       ? ['lecture-sec-2', 'lecture-sec-3', 'lecture-staff-sec-3', 'lecture-staff-sec-4']
-      : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4'];
+      : (isWorker
+        ? ['lecture-worker-sec-1', 'lecture-worker-sec-2', 'lecture-worker-sec-3', 'lecture-worker-sec-4']
+        : ['lecture-sec-1', 'lecture-sec-2', 'lecture-sec-3', 'lecture-sec-4']);
     let ticking = false;
 
     window.addEventListener('scroll', () => {

@@ -19,7 +19,7 @@ const ProfileApp = {
   renderForm(user) {
     document.getElementById('prof-email').value = user.email || '';
     document.getElementById('prof-name').value = user.name || '';
-    document.getElementById('prof-role').value = user.role === 'staff' ? '교직원' : (user.role === 'student' ? '대학생' : '미지정');
+    document.getElementById('prof-role').value = user.role === 'staff' ? '교직원' : (user.role === 'worker' ? '실무자 (MICE/비즈니스)' : (user.role === 'student' ? '대학생' : '미지정'));
     const univInput = document.getElementById('prof-university');
     if (univInput) univInput.value = user.university || '';
     document.getElementById('prof-dept').value = user.department || '';
@@ -32,7 +32,7 @@ const ProfileApp = {
     if (headerEmail) headerEmail.textContent = user.email || '';
     const badgeRole = document.getElementById('prof-badge-role');
     if (badgeRole) {
-      badgeRole.textContent = user.role === 'staff' ? '🏛️ 교직원' : (user.role === 'student' ? '🎓 대학생' : '회원');
+      badgeRole.textContent = user.role === 'staff' ? '🏛️ 교직원' : (user.role === 'worker' ? '💼 실무자' : (user.role === 'student' ? '🎓 대학생' : '회원'));
     }
     const avatarText = document.getElementById('prof-avatar-text');
     if (avatarText && user.name) {
@@ -45,6 +45,9 @@ const ProfileApp = {
     if (user.role === 'staff') {
       if (deptLabel) deptLabel.textContent = '소속 부서';
       if (gradeLabel) gradeLabel.textContent = '직급 / 담당업무';
+    } else if (user.role === 'worker') {
+      if (deptLabel) deptLabel.textContent = '소속 부서 (기획/운영팀 등)';
+      if (gradeLabel) gradeLabel.textContent = '직급 / 담당 직무 (과장, PM, PCO 등)';
     } else {
       if (deptLabel) deptLabel.textContent = '학과 / 전공';
       if (gradeLabel) gradeLabel.textContent = '학년 (예: 2학년)';

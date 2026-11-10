@@ -196,6 +196,9 @@
         <button type="button" class="role-btn" id="btn-role-staff" onclick="switchRole('staff')">
           🏛️ 교직원 (스마트 행정·자동화)
         </button>
+        <button type="button" class="role-btn" id="btn-role-worker" onclick="switchRole('worker')">
+          💼 실무자 (MICE 기획·비즈니스)
+        </button>
       </div>
     </div>
 
@@ -245,6 +248,9 @@
         </button>
         <button type="button" class="role-btn" id="modal-role-staff" onclick="setModalRole('staff')">
           🏛️ 교직원
+        </button>
+        <button type="button" class="role-btn" id="modal-role-worker" onclick="setModalRole('worker')">
+          💼 실무자
         </button>
       </div>
 
@@ -441,6 +447,52 @@
             "실습용 템플릿 제공 및 값 붙여넣기·Rate Limit 등 실무 주의사항"
           ]
         }
+      ],
+      worker: [
+        {
+          num: "01",
+          tag: "AI ECOSYSTEM & 5-FACTOR",
+          title: "AI 시장 맥락 & 5대 실무 역량",
+          desc: "ChatGPT, Gemini, Claude의 비즈니스 강점을 비교하고, MICE 기획·행정 실무자가 갖추어야 할 5대 핵심 AI 리터러시를 정립합니다.",
+          items: [
+            "글로벌 빅3 LLM(OpenAI/Google/Anthropic) 비즈니스 비교 분석",
+            "실무 중심 AI 리터러시 5대 핵심 요소 (이해·활용·상호작용·윤리·문제해결)",
+            "베뉴 스펙 교차 검증 및 환각(Hallucination) 방지 수칙"
+          ]
+        },
+        {
+          num: "02",
+          tag: "MICE PROMPT TEMPLATES",
+          title: "프롬프트 공식 4+2 & 실전 템플릿 5선",
+          desc: "역·배·지·형과 조·샘을 결합하여 RFP 입찰 제안서, 해외 VIP 초청 영문 서신, 등급별 스폰서십, 분 단위 큐시트를 원클릭 생성합니다.",
+          items: [
+            "RFP 입찰 유치 제안서 차별화 슬로건 및 공간 연출안 도출",
+            "해외 기조연설자(Keynote Speaker) 영문 공식 초청장 작성",
+            "개막식 분 단위 큐시트 및 돌발 위기대응(Contingency) 매뉴얼"
+          ]
+        },
+        {
+          num: "03",
+          tag: "AI AGENT SKILLS",
+          title: "스마트 MICE 에이전트 스킬 제작",
+          desc: "스킬 크리에이터를 통해 미니멀 회사 홍보 PPT와 카톡 문의 기반 자동 견적서 및 PDF 산출 스킬을 생성합니다.",
+          items: [
+            "Monochrome Minimal 스타일 10장 회사소개서 PPT 스킬",
+            "카톡 문의 텍스트/캡처 기반 견적 금액, 부가세, 환불규정 자동 산출",
+            "스킬 트리거 설정 및 현업 워크플로우 결합 실습"
+          ]
+        },
+        {
+          num: "04",
+          tag: "FORM & =GEMINI() AUTOMATION",
+          title: "구글 폼 생성 & =GEMINI() 실시간 집계",
+          desc: "Google Apps Script 1클릭 폼 생성부터 스프레드시트 =GEMINI() 함수를 이용한 주관식 참가자 피드백 감정 분석까지 15분 만에 완성합니다.",
+          items: [
+            "비전문가용 구글 폼 원클릭 자동 생성 Apps Script 코드 요청",
+            "실시간 집계 대시보드 함수 및 =GEMINI() 주관식 감정·키워드 분석",
+            "설문 결과 AI 1-Page 상급자 보고용 요약문 자동 추출"
+          ]
+        }
       ]
     };
 
@@ -533,18 +585,16 @@
     // Switch Role (로그인 상태 시 타 대상자 코스 열람 차단)
     function switchRole(role) {
       const user = (typeof Auth !== 'undefined' && Auth.getCurrentUser) ? Auth.getCurrentUser() : null;
-      if (user && user.role && user.role !== role) {
-        if (user.role === 'staff') {
-          alert('🏛️ [열람 제한]\n현재 교직원 전용 계정으로 로그인되어 있습니다.\n대학생 코스는 대학생 계정으로 로그인해야 열람하실 수 있습니다.');
-        } else {
-          alert('🎓 [열람 제한]\n현재 대학생 전용 계정으로 로그인되어 있습니다.\n교직원 코스는 교직원 계정으로 로그인해야 열람하실 수 있습니다.');
-        }
+      if (user && user.role && user.role !== role && !user.isAdmin && !(typeof Auth !== 'undefined' && Auth.isAdmin())) {
+        const roleNames = { student: '대학생', staff: '교직원', worker: '실무자' };
+        alert(`⛔ [열람 제한]\n현재 [${roleNames[user.role] || user.role}] 맞춤 계정으로 로그인되어 있습니다.\n해당 과정은 본인의 소속 과정 계정으로만 이용하실 수 있습니다.`);
         return;
       }
 
       currentRole = role;
       document.getElementById('btn-role-student').classList.toggle('active', role === 'student');
       document.getElementById('btn-role-staff').classList.toggle('active', role === 'staff');
+      document.getElementById('btn-role-worker')?.classList.toggle('active', role === 'worker');
 
       const eyebrow = document.getElementById('curr-eyebrow');
       const title = document.getElementById('curr-title');
@@ -554,6 +604,10 @@
         eyebrow.textContent = 'CURRICULUM FOR UNIVERSITY STUDENTS';
         title.textContent = '🎓 대학생 120분 AI 리터러시 마스터 코스';
         badge.textContent = 'STUDENT LAB';
+      } else if (role === 'worker') {
+        eyebrow.textContent = 'CURRICULUM FOR BUSINESS & MICE PROFESSIONALS';
+        title.textContent = '💼 MICE & 비즈니스 실무자 120분 AI 마스터 코스';
+        badge.textContent = 'WORKER LAB';
       } else {
         eyebrow.textContent = 'CURRICULUM FOR UNIVERSITY STAFF';
         title.textContent = '🏛️ 교직원 120분 스마트 행정 혁신 코스';
@@ -567,7 +621,7 @@
     // Render Curriculum
     function renderCurriculum() {
       const container = document.getElementById('curriculum-container');
-      const modules = CURRICULUM_DATA[currentRole];
+      const modules = CURRICULUM_DATA[currentRole] || CURRICULUM_DATA.student;
 
       container.innerHTML = modules.map(m => `
         <div class="module-card">
@@ -600,7 +654,7 @@
 
     // Modal Control
     function openLoginModal() {
-      if (currentRole === 'staff' || currentRole === 'student') {
+      if (currentRole === 'staff' || currentRole === 'student' || currentRole === 'worker') {
         setModalRole(currentRole);
       }
       document.getElementById('login-modal').classList.add('active');
@@ -629,13 +683,16 @@
 
     function setModalRole(role) {
       currentModalRole = role;
-      document.getElementById('modal-role-student').classList.toggle('active', role === 'student');
-      document.getElementById('modal-role-staff').classList.toggle('active', role === 'staff');
+      document.getElementById('modal-role-student')?.classList.toggle('active', role === 'student');
+      document.getElementById('modal-role-staff')?.classList.toggle('active', role === 'staff');
+      document.getElementById('modal-role-worker')?.classList.toggle('active', role === 'worker');
 
       const summaryEl = document.getElementById('modal-role-summary');
       if (summaryEl) {
         if (role === 'staff') {
           summaryEl.innerHTML = `<strong style="color: var(--color-ember);">[🏛️ 교직원 맞춤 과정]</strong> 행정 프롬프트 4+2 공식, 공문서 초안 작성 및 업무 자동화 실습 과정으로 연결됩니다.`;
+        } else if (role === 'worker') {
+          summaryEl.innerHTML = `<strong style="color: var(--color-ember);">[💼 실무자 맞춤 과정]</strong> MICE·비즈니스 기획, RFP 제안서 수주, AI 에이전트 스킬 제작 및 구글 폼·=GEMINI() 실시간 자동 집계 과정으로 연결됩니다.`;
         } else {
           summaryEl.innerHTML = `<strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.`;
         }
@@ -812,6 +869,9 @@
               <a href="dashboard.html?role=staff" class="btn btn-secondary btn-sm" style="font-size: 13px; font-weight: 700; white-space: nowrap;">
                 🏛️ 교직원 강의실
               </a>
+              <a href="dashboard.html?role=worker" class="btn btn-secondary btn-sm" style="font-size: 13px; font-weight: 700; white-space: nowrap;">
+                💼 실무자 강의실
+              </a>
               <button type="button" class="btn btn-secondary btn-sm" onclick="Auth.logoutAdmin(); Auth.logout(); location.reload();" style="font-size: 13px; white-space: nowrap;">
                 로그아웃
               </button>
@@ -826,6 +886,9 @@
               </a>
               <a href="dashboard.html?role=staff" class="btn btn-primary btn-lg" style="font-weight: 800;">
                 🏛️ 교직원 강의실 입장 →
+              </a>
+              <a href="dashboard.html?role=worker" class="btn btn-primary btn-lg" style="font-weight: 800; background: #6d28d9; border-color: #6d28d9;">
+                💼 실무자 강의실 입장 →
               </a>
               <a href="admin.html" class="btn btn-secondary btn-lg" style="font-weight: 700;">
                 🛡️ 관리자 콘솔 바로가기 ↗

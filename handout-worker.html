@@ -1,0 +1,979 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MICE &amp; 비즈니스 실무자 AI 리터러시 마스터 코스 핵심 유인물 (A4 2Page)</title>
+  <link rel="icon" type="image/png" href="literacy_logo.png">
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+  <style>
+    :root {
+      --primary: #7c3aed;
+      --primary-dark: #6d28d9;
+      --primary-light: #ede9fe;
+      --ember: #ea580c;
+      --ember-light: #fff7ed;
+      --sulfur: #f5f28e;
+      --dark: #0f172a;
+      --slate: #1e293b;
+      --muted: #475569;
+      --border: #94a3b8;
+      --border-light: #cbd5e1;
+      --green: #0f9d58;
+      --green-light: #f0fdf4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body {
+      font-family: "Pretendard Variable", Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, sans-serif;
+      background-color: #cbd5e1;
+      color: var(--dark);
+      line-height: 1.48;
+      font-size: 11.5px;
+      word-break: keep-all;
+    }
+
+    /* 플로팅 컨트롤 바 (화면에서만 노출) */
+    .toolbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: #1e293b;
+      color: #ffffff;
+      padding: 10px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      z-index: 1000;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.18);
+    }
+
+    .toolbar-left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toolbar-title {
+      font-size: 14px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .toolbar-badge {
+      font-size: 11px;
+      background: #4c1d95;
+      padding: 3px 10px;
+      border-radius: 999px;
+      color: #e9d5ff;
+      font-weight: 700;
+    }
+
+    .toolbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .btn-nav {
+      background: rgba(255, 255, 255, 0.15);
+      color: #ffffff;
+      text-decoration: none;
+      padding: 6px 14px;
+      border-radius: 800px;
+      font-size: 12.5px;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .btn-nav:hover {
+      background: rgba(255, 255, 255, 0.25);
+    }
+
+    .btn-print {
+      background: var(--ember);
+      color: #ffffff;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 2px 6px rgba(234,88,12,0.3);
+      transition: background 0.15s ease;
+    }
+
+    .btn-print:hover {
+      background: #c2410c;
+    }
+
+    .container {
+      padding-top: 55px;
+      padding-bottom: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+
+    /* A4 규격 페이지 (여백 규격: 11mm 13mm 10mm 13mm) */
+    .page {
+      width: 210mm;
+      min-height: 297mm;
+      height: 297mm;
+      padding: 11mm 13mm 10mm 13mm;
+      background: #ffffff;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    /* 헤더 */
+    .doc-header {
+      border-bottom: 2.5px solid var(--dark);
+      padding-bottom: 8px;
+      margin-bottom: 9px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .doc-title-group h1 {
+      font-size: 19px;
+      font-weight: 800;
+      color: var(--dark);
+      letter-spacing: -0.4px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 3px;
+    }
+
+    .doc-subtitle {
+      font-size: 11px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .worker-meta {
+      display: flex;
+      gap: 12px;
+      font-size: 11px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 5px 12px;
+      background: #fafafa;
+    }
+
+    /* 1. 코스 학습 순서 로드맵 */
+    .roadmap-container {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 7px;
+      margin-bottom: 10px;
+      background: #f8fafc;
+      border: 1px solid var(--border-light);
+      border-radius: 8px;
+      padding: 7px 10px;
+    }
+
+    .roadmap-step {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 6px;
+      padding: 6px 9px;
+    }
+
+    .roadmap-num {
+      background: var(--dark);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+
+    .roadmap-info h4 {
+      font-size: 10.5px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 1px;
+    }
+
+    .roadmap-info p {
+      font-size: 9.5px;
+      color: var(--muted);
+      line-height: 1.25;
+    }
+
+    /* 모듈 공통 헤더 */
+    .module-header {
+      background: var(--dark);
+      color: #ffffff;
+      padding: 5px 10px;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 6px;
+    }
+
+    .module-title {
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: -0.2px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .module-tag {
+      font-size: 9.5px;
+      background: rgba(255,255,255,0.2);
+      padding: 2px 7px;
+      border-radius: 4px;
+      font-weight: 600;
+    }
+
+    /* 2열 그리드 */
+    .grid-2col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+
+    .card {
+      border: 1px solid var(--border-light);
+      border-radius: 6px;
+      background: #ffffff;
+      padding: 7px 9px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .card-title {
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--dark);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      border-bottom: 1px solid #f1f5f9;
+      padding-bottom: 3px;
+    }
+
+    /* 표 커스텀 스타일 */
+    .table-custom {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 10px;
+      margin-bottom: 6px;
+      line-height: 1.35;
+    }
+
+    .table-custom th, .table-custom td {
+      border: 1px solid #cbd5e1;
+      padding: 4px 6px;
+      text-align: left;
+      vertical-align: middle;
+    }
+
+    .table-custom th {
+      background-color: #f1f5f9;
+      font-weight: 700;
+      color: var(--dark);
+      text-align: center;
+    }
+
+    /* 프롬프트 공식 박스 */
+    .formula-badge-group {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 6px;
+    }
+
+    .formula-badge {
+      flex: 1;
+      padding: 4px;
+      text-align: center;
+      border-radius: 4px;
+      font-weight: 700;
+      font-size: 9.5px;
+    }
+
+    .badge-core { background: #ede9fe; color: #5b21b6; border: 1px solid #c4b5fd; }
+    .badge-opt { background: #fff7ed; color: #9a3412; border: 1px solid #fdba74; }
+
+    /* 클릭 복사 가능한 프롬프트 스니펫 */
+    .copyable-prompt {
+      position: relative;
+      background: #f8fafc;
+      border: 1px solid #cbd5e1;
+      border-radius: 5px;
+      padding: 6px 8px;
+      font-family: Consolas, "Pretendard Variable", monospace;
+      font-size: 9.5px;
+      line-height: 1.4;
+      cursor: pointer;
+      transition: all 0.15s ease;
+      margin-bottom: 5px;
+    }
+
+    .copyable-prompt:hover {
+      border-color: var(--primary);
+      background: #f5f3ff;
+    }
+
+    .copyable-prompt::after {
+      content: "📋 클릭하여 복사";
+      position: absolute;
+      top: 4px;
+      right: 6px;
+      font-size: 8.5px;
+      font-weight: 700;
+      color: var(--primary);
+      background: rgba(255, 255, 255, 0.85);
+      padding: 1px 4px;
+      border-radius: 3px;
+      opacity: 0.8;
+    }
+
+    /* 체크리스트 */
+    .checklist-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 5px;
+      background: #fdf4ff;
+      border: 1px solid #f0abfc;
+      border-radius: 6px;
+      padding: 6px 8px;
+      font-size: 9.5px;
+      margin-bottom: 6px;
+    }
+
+    .checklist-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 4px;
+      line-height: 1.3;
+    }
+
+    /* 메모란 & QR */
+    .notes-full-card {
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      padding: 6px 10px;
+      background: #fafafa;
+    }
+
+    .notes-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 5px;
+    }
+
+    .notes-header-title {
+      font-size: 11px;
+      font-weight: 800;
+      color: var(--dark);
+    }
+
+    .notes-header-sub {
+      font-size: 9px;
+      color: var(--muted);
+    }
+
+    .notes-body {
+      display: flex;
+      gap: 12px;
+    }
+
+    .note-lines {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 7px;
+    }
+
+    .note-line {
+      height: 1px;
+      border-bottom: 1px dashed #94a3b8;
+    }
+
+    .notes-qr-card {
+      width: 68px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: #fff;
+      border: 1px solid var(--border-light);
+      border-radius: 5px;
+      padding: 3px;
+      flex-shrink: 0;
+    }
+
+    .notes-qr-img {
+      width: 52px;
+      height: 52px;
+      object-fit: cover;
+    }
+
+    .notes-qr-label {
+      font-size: 8px;
+      font-weight: 700;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    /* 푸터 */
+    .doc-footer {
+      border-top: 1px solid #e2e8f0;
+      padding-top: 5px;
+      display: flex;
+      justify-content: space-between;
+      font-size: 9px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    /* 복사 토스트 */
+    .copy-toast {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: #0f172a;
+      color: #f5f28e;
+      padding: 10px 22px;
+      border-radius: 999px;
+      font-size: 13px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.3);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      z-index: 2000;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .copy-toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+
+    /* 인쇄 최적화 (A4 2Page 강제) */
+    @media print {
+      body {
+        background-color: transparent !important;
+        color: #000 !important;
+      }
+
+      .toolbar, .copy-toast {
+        display: none !important;
+      }
+
+      .container {
+        padding: 0 !important;
+        gap: 0 !important;
+      }
+
+      .page {
+        box-shadow: none !important;
+        margin: 0 !important;
+        page-break-after: always;
+        break-after: page;
+        height: 297mm !important;
+        min-height: 297mm !important;
+      }
+
+      .page:last-child {
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+
+      .copyable-prompt::after {
+        display: none !important;
+      }
+    }
+
+    /* 모바일 반응형 뷰포트 */
+    @media screen and (max-width: 768px) {
+      .container {
+        padding-top: 65px;
+        padding-left: 10px;
+        padding-right: 10px;
+      }
+
+      .page {
+        width: 100%;
+        height: auto;
+        min-height: auto;
+        padding: 18px 14px;
+      }
+
+      .roadmap-container {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .grid-2col {
+        grid-template-columns: 1fr;
+      }
+
+      .checklist-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .toolbar-title {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- 상단 컨트롤 툴바 -->
+  <aside class="toolbar" aria-label="핸드아웃 제어 툴바">
+    <div class="toolbar-left">
+      <a href="index.html" class="btn-nav">← 메인 포털</a>
+      <span class="toolbar-title">
+        <span>💼 MICE &amp; 비즈니스 실무자 AI 리터러시 유인물</span>
+        <span class="toolbar-badge">A4 2Page 배포용</span>
+      </span>
+    </div>
+    <div class="toolbar-actions">
+      <a href="dashboard.html" class="btn-nav">강의실 이동 ↗</a>
+      <button type="button" class="btn-print" onclick="window.print()">
+        <span>🖨️ A4 2Page 인쇄 / PDF 저장</span>
+      </button>
+    </div>
+  </aside>
+
+  <main class="container">
+
+    <!-- =========================================================================
+         [PAGE 1] MICE 실무자 AI 역량 & 프롬프트 4+2 실전 템플릿 5선
+         ========================================================================= -->
+    <article class="page" id="page-1">
+      <div>
+        <!-- 1. 문서 헤더 -->
+        <header class="doc-header">
+          <div class="doc-title-group">
+            <h1>
+              <span>💼 MICE &amp; 비즈니스 실무자 AI 리터러시 마스터 코스</span>
+            </h1>
+            <div class="doc-subtitle">
+              기획·RFP 수주·글로벌 의전·현장 위기관리부터 자동화 스킬까지 — 120분 실전 워크플로우 가이드
+            </div>
+          </div>
+          <div class="worker-meta">
+            <div><strong>소속</strong>: __________________</div>
+            <div><strong>직급/성명</strong>: __________________</div>
+          </div>
+        </header>
+
+        <!-- 2. 코스 학습 순서 로드맵 -->
+        <section aria-labelledby="roadmap-heading" class="roadmap-container">
+          <div class="roadmap-step">
+            <span class="roadmap-num">01</span>
+            <div class="roadmap-info">
+              <h4>AI 생태계 &amp; 5대 역량</h4>
+              <p>LLM 3종 비교 및 실무 기준</p>
+            </div>
+          </div>
+          <div class="roadmap-step">
+            <span class="roadmap-num">02</span>
+            <div class="roadmap-info">
+              <h4>프롬프트 공식 4+2</h4>
+              <p>MICE 실전 템플릿 5선</p>
+            </div>
+          </div>
+          <div class="roadmap-step">
+            <span class="roadmap-num">03</span>
+            <div class="roadmap-info">
+              <h4>스마트 에이전트 스킬</h4>
+              <p>회사소개 PPT &amp; 견적서 생성</p>
+            </div>
+          </div>
+          <div class="roadmap-step">
+            <span class="roadmap-num">04</span>
+            <div class="roadmap-info">
+              <h4>구글 폼 &amp; =GEMINI()</h4>
+              <p>원클릭 폼 생성 &amp; 시트 집계</p>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= [MODULE 01] AI 시장 맥락 & 실무 5대 핵심 역량 ================= -->
+        <section aria-labelledby="mod1-heading" style="margin-bottom: 8px;">
+          <div class="module-header" id="mod1-heading">
+            <span class="module-title">
+              <span>🌐 01. 생성형 AI 시장의 맥락 &amp; 비즈니스 실무자 5대 핵심 역량</span>
+            </span>
+            <span class="module-tag">ChatGPT · Gemini · Claude 비즈니스 비교</span>
+          </div>
+
+          <div class="grid-2col">
+            <!-- LLM 3종 비교 요약 -->
+            <div class="card">
+              <div class="card-title">⚡ 비즈니스 실무 관점 LLM 3종 특화 영역</div>
+              <table class="table-custom" style="margin-bottom: 0;">
+                <thead>
+                  <tr>
+                    <th style="width: 25%;">도구</th>
+                    <th style="width: 40%;">핵심 강점 &amp; 특화 업무</th>
+                    <th style="width: 35%;">MICE 추천 업무</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>ChatGPT</strong></td>
+                    <td>광범위한 범용성, 고급 데이터 분석, 이미지 생성</td>
+                    <td>카드뉴스 기획, 창의적 공간 연출 아이디어</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Gemini</strong></td>
+                    <td>Google Workspace 연동, 최신 웹 검색, 긴 문서 처리</td>
+                    <td>구글 폼 생성, 스프레드시트 =GEMINI() 집계</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Claude</strong></td>
+                    <td>정교한 문서 작성, 긴 문맥 이해(200K), 감성적 뉘앙스</td>
+                    <td>RFP 입찰 제안서, 영문 연사 초청 서한</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- 실무 5대 핵심 역량 -->
+            <div class="card">
+              <div class="card-title">💡 실무 중심 AI 리터러시 5대 핵심 역량</div>
+              <ul style="padding-left: 14px; font-size: 9.5px; line-height: 1.4; color: var(--dark);">
+                <li><strong>① 이해(Understand)</strong>: AI 모델 원리와 환각(Hallucination) 한계 파악</li>
+                <li><strong>② 활용(Apply)</strong>: 업무 상황에 맞는 최적의 LLM 선택 및 멀티모달 도구 결합</li>
+                <li><strong>③ 상호작용(Prompt)</strong>: 4+2 공식을 활용한 명확한 제약조건 및 맥락 전달</li>
+                <li><strong>④ 윤리·평가(Verify)</strong>: 개인정보 보호(NDA), 베뉴 스펙 교차 검증, 저작권 준수</li>
+                <li><strong>⑤ 문제해결(Solve)</strong>: 반복 행정 자동화 및 고객 가치 중심 솔루션 도출</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= [MODULE 02] 프롬프트 공식 4+2 & 실전 템플릿 ================= -->
+        <section aria-labelledby="mod2-heading" style="margin-bottom: 8px;">
+          <div class="module-header" id="mod2-heading">
+            <span class="module-title">
+              <span>✍️ 02. 프롬프트 공식 4+2 &amp; MICE 실전 템플릿 5선</span>
+            </span>
+            <span class="module-tag">역·배·지·형 + 조·샘 원클릭 템플릿</span>
+          </div>
+
+          <!-- 공식 설명 뱃지 -->
+          <div class="formula-badge-group">
+            <div class="formula-badge badge-core">역할 (Role) : 구체적 전문 페르소나</div>
+            <div class="formula-badge badge-core">배경 (Context) : 행사 규모·장소·타깃</div>
+            <div class="formula-badge badge-core">지시 (Instruction) : 단계별 산출물 명시</div>
+            <div class="formula-badge badge-core">형식 (Format) : 표/개조식/보고서 규격</div>
+            <div class="formula-badge badge-opt">조건 (Constraint) : 환각 차단·지역성</div>
+            <div class="formula-badge badge-opt">샘플 (Few-Shot) : 기대 톤앤매너 예시</div>
+          </div>
+
+          <!-- 실전 템플릿 5선 2열 배치 -->
+          <div class="grid-2col" style="margin-bottom: 6px;">
+            <!-- 템플릿 1 -->
+            <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사">
+              <strong>① [RFP 입찰] 국제회의 유치 제안서 차별화 콘셉트</strong><br>
+              "[역할] 15년 차 PCO 총괄 디렉터이자 공공 입찰 평가위원 [배경] 2027 아시아-태평양 친환경 해양 모빌리티 서밋 유치 RFP (30개국 2,500명, 부산 벡스코) [지시] 심사위원을 사로잡을 메인 슬로건(국/영 각 2종), 3대 차별화 추진 전략, 디지털 트윈 기반 오프닝 세레모니 연출안을 개조식으로 작성해 줘."
+            </div>
+
+            <!-- 템플릿 2 -->
+            <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사">
+              <strong>② [글로벌 섭외] 해외 VIP 기조연설자 영문 공식 초청 서한</strong><br>
+              "[역할] Senior International Relations Coordinator [배경] Global AI Healthcare Congress 2027 (Seoul, 1,500+ leaders) [지시] Dr. Andrew Ng 초청 영문 서신 작성. 30분 키노트 제안, 본 테마와 연사의 독보적 적합성 강조, 항공/5성급 호텔/의전 패키지 명시, 정중하고 설득력 있는 Diplomatic Letter 규격 준수."
+            </div>
+
+            <!-- 템플릿 3 -->
+            <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사">
+              <strong>③ [스폰서십] 기업 후원 등급(Tier) &amp; ROI 패키지 제안</strong><br>
+              "[역할] 메가 컨벤션 스폰서십 세일즈 디렉터 [배경] 모빌리티 엑스포 후원금 10억 유치 [지시] 다이아몬드~실버 등급별 후원액, 한정 구좌, 온·오프라인 브랜딩, VIP 라운지 및 1:1 바이어 매칭 독점 혜택을 한눈에 비교할 수 있는 표(Table)로 설계하고 기업 후원 담당자가 결재받기 쉬운 3대 기대효과(ROI)를 도출해 줘."
+            </div>
+
+            <!-- 템플릿 4 -->
+            <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사">
+              <strong>④ [현장 운영] 개막식 분 단위 큐시트 &amp; 돌발 비상대응 매뉴얼</strong><br>
+              "[역할] 정상급 국제회의 총괄 무대감독 [배경] 장관 및 해외 시장 참석 90분 개막식 [지시] 1. [시간/식순/사회자 멘트/무대·음향·조명 큐/의전 행동] 분 단위 정밀 큐시트 작성 2. 메인 LED 영상 송출 중단 시, VIP 20분 지연 도착 시, 응급환자 발생 시 돌발 위기대응 시나리오(발생-보고-조치-사후)를 작성해 줘."
+            </div>
+          </div>
+
+          <!-- 템플릿 5 (단독 전폭) -->
+          <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사" style="margin-bottom: 6px;">
+            <strong>⑤ [사후 성과보고] 바이어 데이터 &amp; 설문 기반 최종 종합 결과보고서 (Executive Summary)</strong><br>
+            "[역할] 컨벤션 뷰로(CVB) 평가위원 [배경] 참가자 3,420명(해외 520명), 수출상담 840건(4,500만 달러), 전반 만족도 4.42 달성 [지시] 지자체장 보고용 핵심 요약서 작성: 3대 핵심 성과 하이라이트, 경제적 파급효과 추정치, 불만 피드백(F&B 부족, 통역 수신기 부족)을 극복하고 차기 예산 증액을 설득할 개선 로드맵(Action Plan)을 공문서 규격으로 서술해 줘."
+          </div>
+
+          <!-- 실무자 10초 자가 체크리스트 -->
+          <div class="checklist-grid">
+            <div class="checklist-item">
+              <span>🔒</span>
+              <span><strong>개인정보/견적 보호</strong>: 프롬프트에 바이어 여권번호나 미공개 입찰 단가가 없는가?</span>
+            </div>
+            <div class="checklist-item">
+              <span>🔍</span>
+              <span><strong>베뉴 스펙 팩트체크</strong>: AI가 제시한 전시장 제원(면적, 하중)을 공식 매뉴얼로 확인했는가?</span>
+            </div>
+            <div class="checklist-item">
+              <span>🌍</span>
+              <span><strong>글로벌 비즈니스 에티켓</strong>: 해외 VIP 안내문에 문화적·종교적 결례나 오역 소지가 없는가?</span>
+            </div>
+            <div class="checklist-item">
+              <span>⚖️</span>
+              <span><strong>지식재산권 준수</strong>: 도출된 슬로건·행사명이 타 행사의 상표 표절에 해당하지 않는가?</span>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 1페이지 푸터 -->
+      <footer class="doc-footer">
+        <span>MICE &amp; 비즈니스 실무자 AI 리터러시 마스터 코스 배포용 자료</span>
+        <span>Page 1 of 2</span>
+      </footer>
+    </article>
+
+
+    <!-- =========================================================================
+         [PAGE 2] 스마트 MICE 에이전트 스킬 & 구글 폼 =GEMINI() 자동화
+         ========================================================================= -->
+    <article class="page" id="page-2">
+      <div>
+        <!-- 2페이지 헤더 -->
+        <header class="doc-header">
+          <div class="doc-title-group">
+            <h1>
+              <span>⚡ MICE 업무 자동화: 스킬 제작 &amp; =GEMINI() 실시간 집계</span>
+            </h1>
+            <div class="doc-subtitle">
+              미니멀 회사 PPT · 카톡 견적서 스킬 생성부터 스프레드시트 주관식 감정 분석까지
+            </div>
+          </div>
+          <div class="worker-meta">
+            <div><strong>교시</strong>: 3교시 ~ 5교시 실습 연계</div>
+            <div><strong>플랫폼</strong>: Google Workspace &amp; LLM</div>
+          </div>
+        </header>
+
+        <!-- ================= [MODULE 03] MICE 에이전트 스킬 제작 및 실무 ================= -->
+        <section aria-labelledby="mod3-heading" style="margin-bottom: 8px;">
+          <div class="module-header" id="mod3-heading">
+            <span class="module-title">
+              <span>🛠️ 03. 스마트 MICE 행정 — AI 에이전트 스킬 제작 및 실무 활용</span>
+            </span>
+            <span class="module-tag">스킬 크리에이터 활용</span>
+          </div>
+
+          <div class="grid-2col">
+            <!-- 스킬 1: 회사 홍보 PPT -->
+            <div class="card">
+              <div class="card-title">📊 [스킬 1] Monochrome Minimal 회사소개 PPT 스킬</div>
+              <p style="font-size: 9.5px; color: var(--muted); margin-bottom: 4px;">
+                잡지풍의 미니멀 에디토리얼 스타일로 회사소개서 슬라이드를 자동 설계하는 스킬
+              </p>
+              <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사">
+                "PPT, 슬라이드라고 요청하면 'Monochrome Editorial Minimal' 스타일로 10장의 회사 소개 슬라이드를 제작하는 스킬을 만들어줘. 마지막 장에는 문의 이메일과 URL이 고정으로 들어가야 해."
+              </div>
+              <ul style="padding-left: 12px; font-size: 9px; color: var(--dark); line-height: 1.35;">
+                <li><strong>입력 항목</strong>: 1. 회사명/업종 ➔ 2. 핵심 사업 ➔ 3. 차별점 ➔ 4. 주요 실적(숫자) ➔ 5. 비전</li>
+                <li><strong>적용 효과</strong>: 텍스트 개요 입력 즉시 통일된 레이아웃의 발표 슬라이드 구조 자동 생성</li>
+              </ul>
+            </div>
+
+            <!-- 스킬 2: 카톡 견적서 생성 -->
+            <div class="card">
+              <div class="card-title">💰 [스킬 2] 카톡 문의 기반 원클릭 견적서 자동 생성</div>
+              <p style="font-size: 9.5px; color: var(--muted); margin-bottom: 4px;">
+                고객의 메신저/이메일 문의 텍스트를 분석하여 공급가액, 부가세, 안내문 자동 산출
+              </p>
+              <div class="copyable-prompt" onclick="copyPromptText(this)" title="클릭하여 프롬프트 복사">
+                "스킬 크리에이터를 써서 견적 스킬을 만들어줘. 고객 카톡 문의 캡처나 텍스트를 올리고 '행사 견적 뽑아줘'라고 하면 [공급자 정보, 인원별 단가, 10% 부가세, 환불 규정]이 포함된 견적 답변과 PDF를 만들어줘."
+              </div>
+              <ul style="padding-left: 12px; font-size: 9px; color: var(--dark); line-height: 1.35;">
+                <li><strong>필수 산출</strong>: 공급가액, VAT, 예약금(30%), 취소 환불 규정, 체크리스트</li>
+                <li><strong>친근한 어조</strong>: "문의 주셔서 감사합니다" 톤으로 시작하고 미비한 조건 정중히 되묻기</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <!-- ================= [MODULE 04] 구글 폼 & =GEMINI() 실시간 집계 ================= -->
+        <section aria-labelledby="mod4-heading" style="margin-bottom: 8px;">
+          <div class="module-header" id="mod4-heading">
+            <span class="module-title">
+              <span>📋 04. 구글 폼 AI 원클릭 생성 &amp; 스프레드시트 =GEMINI() 집계 로드맵</span>
+            </span>
+            <span class="module-tag">15분 완성: GAS 스크립트 ➔ 시트 대시보드 ➔ 감정 분석</span>
+          </div>
+
+          <div style="background: #f1f5f9; padding: 4px 10px; border-radius: 5px; font-size: 9.5px; margin-bottom: 5px; color: var(--dark);">
+            💡 <strong>15분 완성 8단계 로드맵:</strong> [1] AI 문항 기획 ➔ [2] GAS 코드 요청 ➔ [3] 1초 폼 자동 생성 ➔ [4] 도메인 제한 해제 ➔ [5] 시트 연동 ➔ [6] 집계 대시보드 ➔ [7] =GEMINI() 감정분석 ➔ [8] 1-Page 보고서
+          </div>
+
+          <!-- =GEMINI() 실전 수식 표 -->
+          <table class="table-custom" style="margin-bottom: 6px;">
+            <thead>
+              <tr style="background: #f8fafc;">
+                <th style="width: 28%;">실무 기능 구분</th>
+                <th style="width: 72%;">실전 =GEMINI() 수식 및 프롬프트 (시트 셀에 직접 입력)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>① 행사 피드백 감정 분류</strong></td>
+                <td><code style="font-size: 9px;">=GEMINI("다음 참가자 피드백의 감정을 [매우긍정 / 긍정 / 건의사항 / 불만족] 중 단어 하나로만 분류해줘:", F2)</code></td>
+              </tr>
+              <tr>
+                <td><strong>② 시설/운영 개선 키워드 추출</strong></td>
+                <td><code style="font-size: 9px;">=GEMINI("다음 피드백에서 베뉴 및 운영 지원 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘. 쉼표 구분:", F2)</code></td>
+              </tr>
+              <tr>
+                <td><strong>③ 비즈니스 상담 일지 요약</strong></td>
+                <td><code style="font-size: 9px;">=GEMINI("다음 상담 일지에서 핵심 품목과 바이어의 계약 체결 의향을 30자 이내의 한 문장으로 요약해줘:", D2)</code></td>
+              </tr>
+              <tr>
+                <td><strong>④ 비전문가용 GAS 원클릭 코드</strong></td>
+                <td>"구글 드라이브에서 실행만 누르면 리커트 5점 척도와 주관식 문항이 담긴 설문지가 자동으로 생성되는 Google Apps Script 코드를 작성해 줘."</td>
+              </tr>
+              <tr>
+                <td><strong>⑤ 바이어 영문 감사 메일 작성</strong></td>
+                <td><code style="font-size: 9px;">=GEMINI("바이어 " &amp; A2 &amp; "님 (" &amp; B2 &amp; " 소속)께 행사 참석 감사 및 후속 미팅을 제안하는 정중한 비즈니스 영문 메일 작성:")</code></td>
+              </tr>
+            </tbody>
+          </table>
+
+          <!-- 실시간 대시보드 함수 팁 박스 -->
+          <div style="background: #faf5ff; border: 1px solid #e9d5ff; border-radius: 5px; padding: 5px 8px; font-size: 9px; line-height: 1.4; color: #581c87; margin-bottom: 6px;">
+            <strong>📊 시트 실시간 집계 4대 핵심 수식:</strong> 
+            총 응답수: <code>=COUNTA('설문지 응답 1'!A2:A)</code> | 
+            프로그램 만족도 평균: <code>=AVERAGE('설문지 응답 1'!C2:C)</code> | 
+            우수 만족 비율(4점 이상): <code>=COUNTIF('설문지 응답 1'!C2:C, "&gt;=4") / COUNTA('설문지 응답 1'!C2:C)</code> | 
+            ⚠️ <strong>수식 고정</strong>: 결과 완성 후 반드시 <code>Ctrl+C</code> ➔ <code>Ctrl+Shift+V (값만 붙여넣기)</code>로 고정!
+          </div>
+        </section>
+
+        <!-- ================= [핵심 강의 메모 (Notes)] ================= -->
+        <section aria-labelledby="notes-heading">
+          <div class="notes-full-card">
+            <div class="notes-header" id="notes-heading">
+              <span class="notes-header-title">
+                <span>📝 [핵심 실무 메모 (Notes &amp; Action Items)]</span>
+              </span>
+              <span class="notes-header-sub">실습 팁, 질의응답 및 우리 회사 MICE 업무 적용 아이디어 필기</span>
+            </div>
+            <div class="notes-body">
+              <div class="note-lines">
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+                <div class="note-line"></div>
+              </div>
+              <div class="notes-qr-card">
+                <img src="qrcode-chassem.jpg" alt="차쌤 AI 리터러시 QR코드" class="notes-qr-img" />
+                <span class="notes-qr-label">chassem.ai.kr</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+
+      <!-- 2페이지 푸터 -->
+      <footer class="doc-footer">
+        <span>MICE &amp; 비즈니스 실무자 AI 리터러시 마스터 코스 배포용 자료</span>
+        <span>Page 2 of 2</span>
+      </footer>
+    </article>
+
+  </main>
+
+  <!-- 원클릭 복사 알림 토스트 -->
+  <div id="copy-toast" class="copy-toast" role="status" aria-live="polite">
+    <span>✅</span>
+    <span id="toast-message">프롬프트가 클립보드에 복사되었습니다!</span>
+  </div>
+
+  <script>
+    /**
+     * 프롬프트 스니펫 클릭 시 텍스트를 클립보드에 복사하고 세련된 토스트 메시지를 표시합니다.
+     * @param {HTMLElement} element
+     */
+    function copyPromptText(element) {
+      if (!element) return;
+      
+      // 본문 텍스트 복사 (앞의 레이블 번호 제외한 실질 지시문)
+      let text = element.innerText || element.textContent;
+      text = text.replace("📋 클릭하여 복사", "").trim();
+
+      navigator.clipboard.writeText(text).then(() => {
+        showToast("프롬프트가 클립보드에 복사되었습니다! (Ctrl+V로 붙여넣기)");
+      }).catch(err => {
+        // Fallback for older browsers
+        const textarea = document.createElement("textarea");
+        textarea.value = text;
+        document.body.appendChild(textarea);
+        textarea.select();
+        document.execCommand("copy");
+        document.body.removeChild(textarea);
+        showToast("프롬프트가 클립보드에 복사되었습니다!");
+      });
+    }
+
+    /**
+     * 하단 토스트 팝업 제어
+     * @param {string} msg
+     */
+    function showToast(msg) {
+      const toast = document.getElementById("copy-toast");
+      const msgEl = document.getElementById("toast-message");
+      if (!toast || !msgEl) return;
+
+      msgEl.textContent = msg;
+      toast.classList.add("show");
+
+      setTimeout(() => {
+        toast.classList.remove("show");
+      }, 2200);
+    }
+  </script>
+
+</body>
+</html>
+
