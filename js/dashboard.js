@@ -2983,41 +2983,8 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 2. 실무자 10초 자가 검증 체크리스트 카드 -->
+        <!-- 2. [노션 공식 가이드] AI 리터러시의 정의와 5대 핵심 요소 & 글로벌 프레임워크 카드 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>🔒 MICE 실무자 10초 자가 검증 체크리스트 (환각 방지 & 컴플라이언스)</span>
-          </h3>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
-            <div style="background: #fdf2f2; border: 1px solid #fecaca; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 4px;">🔒 1. 개인정보 & 견적 보안</div>
-              <div style="font-size: 12.5px; color: #7f1d1d; line-height: 1.5;">
-                프롬프트에 참가자 명단(여권번호, 연락처)이나 파트너사 미공개 견적 단가가 포함되지 않았는지 점검하세요.
-              </div>
-            </div>
-            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #1e40af; margin-bottom: 4px;">🔍 2. 베뉴 스펙 팩트체크</div>
-              <div style="font-size: 12.5px; color: #1e3a8a; line-height: 1.5;">
-                AI가 제안한 전시장 면적, 천장고, 바닥 하중, 주차 대수는 반드시 컨벤션센터 공식 임대 매뉴얼로 교차 검증하세요.
-              </div>
-            </div>
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 4px;">🌍 3. 글로벌 비즈니스 에티켓</div>
-              <div style="font-size: 12.5px; color: #14532d; line-height: 1.5;">
-                해외 VIP 안내문이나 영문 초청장에 문화적·종교적 결례(식단 할랄/코셔 배려 등)나 오역 소지가 없는지 확인하세요.
-              </div>
-            </div>
-            <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #854d0e; margin-bottom: 4px;">⚖️ 4. 지식재산권 준수</div>
-              <div style="font-size: 12.5px; color: #713f12; line-height: 1.5;">
-                AI가 도출한 행사 슬로건이나 프로그램명이 타 행사의 등록상표나 저작권을 침해하지 않는지 키프리스(KIPRIS)로 조회하세요.
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. [노션 공식 가이드] AI 리터러시의 정의와 5대 핵심 요소 & 글로벌 프레임워크 카드 -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>📖 AI 리터러시(AI Literacy)란 무엇인가?</span>
@@ -3049,7 +3016,7 @@ const DashboardApp = {
           <h4 style="font-size: 15px; color: var(--color-obsidian); margin: 0 0 10px 0; font-weight: 800;">
             🧩 5가지 핵심 역량 요소 (Core Competencies)
           </h4>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 1.5rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 1.25rem;">
             <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;">
               <div style="font-weight: 800; font-size: 13px; color: var(--color-ember); margin-bottom: 3px;">1. 이해 (Understand)</div>
               <div style="font-size: 12px; color: #64748b; line-height: 1.45;">AI의 기본 개념·원리·환각 한계 이해</div>
@@ -3070,6 +3037,46 @@ const DashboardApp = {
               <div style="font-weight: 800; font-size: 13px; color: #0284c7; margin-bottom: 3px;">5. 문제해결 (Solve)</div>
               <div style="font-size: 12px; color: #64748b; line-height: 1.45;">AI와 협력하여 실제 비즈니스 문제 해결책 설계</div>
             </div>
+          </div>
+
+          <!-- 핵심 역량 세부 내용 및 실제 활용 예시 표 -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 620px; word-break: keep-all; border-radius: 14px; overflow: hidden; border: 1px solid #e2e8f0;">
+              <thead>
+                <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                  <th style="padding: 12px 14px; width: 22%; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">핵심 영역</th>
+                  <th style="padding: 12px 14px; width: 40%; color: var(--color-obsidian); font-weight: 700;">세부 역량</th>
+                  <th style="padding: 12px 14px; width: 38%; color: var(--color-obsidian); font-weight: 700;">실제 활용 예시</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #edf2f7; background: #ffffff;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">① AI 개념 이해</td>
+                  <td style="padding: 12px 14px; color: #334155; line-height: 1.5;">AI·LLM의 기본 원리, 모델과 서비스 구분, 성능과 한계 이해</td>
+                  <td style="padding: 12px 14px; color: #475569; line-height: 1.5;">GPT와 ChatGPT의 차이 설명, 생성형 AI 오류 원인 이해</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #edf2f7; background: #fafafa;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #0f9d58; white-space: nowrap;">② AI 도구 활용</td>
+                  <td style="padding: 12px 14px; color: #334155; line-height: 1.5;">목적별 AI 서비스 선택, 멀티모달 기능 활용, 업무 도구 연동</td>
+                  <td style="padding: 12px 14px; color: #475569; line-height: 1.5;">ChatGPT로 기획, Gemini로 Google 문서 작업, Claude로 문서 분석</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #edf2f7; background: #ffffff;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #7c3aed; white-space: nowrap;">③ AI 상호작용 및 생성</td>
+                  <td style="padding: 12px 14px; color: #334155; line-height: 1.5;">프롬프트 설계, 반복 개선, 생성 콘텐츠 평가·편집</td>
+                  <td style="padding: 12px 14px; color: #475569; line-height: 1.5;">역할·맥락·출력 형식을 지정해 보고서 및 이미지 생성</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #edf2f7; background: #fafafa;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #ea580c; white-space: nowrap;">④ AI 윤리·안전·비판적 평가</td>
+                  <td style="padding: 12px 14px; color: #334155; line-height: 1.5;">사실 검증, 편향 인식, 개인정보 보호, 저작권, 책임 있는 활용</td>
+                  <td style="padding: 12px 14px; color: #475569; line-height: 1.5;">AI 답변 출처 검증, 기밀정보 입력 방지</td>
+                </tr>
+                <tr style="background: #ffffff;">
+                  <td style="padding: 12px 14px; font-weight: 700; color: #0284c7; white-space: nowrap;">⑤ AI 기반 문제해결·창의</td>
+                  <td style="padding: 12px 14px; color: #334155; line-height: 1.5;">문제 정의, AI 활용 전략 수립, 워크플로 설계, 성과 평가</td>
+                  <td style="padding: 12px 14px; color: #475569; line-height: 1.5;">반복 행정업무 자동화, AI Agent를 활용한 업무 개선</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
 
           <!-- 글로벌 표준 참고 문헌 및 공인 프레임워크 -->
@@ -3093,6 +3100,39 @@ const DashboardApp = {
             </ul>
           </div>
         </div>
+
+        <!-- 3. 실무자 10초 자가 검증 체크리스트 카드 (환각 방지 & 컴플라이언스) -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
+            <span>🔒 MICE 실무자 10초 자가 검증 체크리스트 (환각 방지 & 컴플라이언스)</span>
+          </h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
+            <div style="background: #fdf2f2; border: 1px solid #fecaca; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 4px;">🔒 1. 개인정보 & 견적 보안</div>
+              <div style="font-size: 12.5px; color: #7f1d1d; line-height: 1.5;">
+                프롬프트에 참가자 명단(여권번호, 연락처)이나 파트너사 미공개 견적 단가가 포함되지 않았는지 점검하세요.
+              </div>
+            </div>
+            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #1e40af; margin-bottom: 4px;">🔍 2. 베뉴 스펙 팩트체크</div>
+              <div style="font-size: 12.5px; color: #1e3a8a; line-height: 1.5;">
+                AI가 제안한 전시장 면적, 천장고, 바닥 하중, 주차 대수는 반드시 컨벤션센터 공식 임대 매뉴얼로 교차 검증하세요.
+              </div>
+            </div>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 4px;">🌍 3. 글로벌 비즈니스 에티켓</div>
+              <div style="font-size: 12.5px; color: #14532d; line-height: 1.5;">
+                해외 VIP 안내문이나 영문 초청장에 문화적·종교적 결례(식단 할랄/코셔 배려 등)나 오역 소지가 없는지 확인하세요.
+              </div>
+            </div>
+            <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: 14px; padding: 14px;">
+              <div style="font-weight: 700; font-size: 13.5px; color: #854d0e; margin-bottom: 4px;">⚖️ 4. 지식재산권 준수</div>
+              <div style="font-size: 12.5px; color: #713f12; line-height: 1.5;">
+                AI가 도출한 행사 슬로건이나 프로그램명이 타 행사의 등록상표나 저작권을 침해하지 않는지 키프리스(KIPRIS)로 조회하세요.
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   },
@@ -3114,9 +3154,14 @@ const DashboardApp = {
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🧱 「스마트 MICE 프롬프트 공식 4+2」 프레임워크</span>
             </h3>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
-            </span>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <a href="https://huggingface.co/spaces/Xenova/the-tokenizer-playground" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #524ae9; color: #524ae9; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; transition: all 0.15s ease;" title="Hugging Face 토크나이저 플레이그라운드 새 창으로 열기">
+                <span>🔤 토큰 이해하기 ↗</span>
+              </a>
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                4대 뼈대 (역·배·지·형) + 2대 보강재 (조·샘)
+              </span>
+            </div>
           </div>
           
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
