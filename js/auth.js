@@ -613,16 +613,16 @@ const Auth = {
         payload.loginCount = existingData.loginCount;
       }
 
-      const writePromise = this.firebaseDb.collection('users').doc(targetDocId).set(payload, { merge: true });
+      // Firestore 실제 쓰기 대기 (최대 5초 타임아웃)
       await Promise.race([
-        writePromise,
-        new Promise((resolve) => setTimeout(resolve, 2500))
+        this.firebaseDb.collection('users').doc(targetDocId).set(payload, { merge: true }),
+        new Promise((_, reject) => setTimeout(() => reject(new Error('Firestore 클라우드 저장 시간 초과(5초)')), 5000))
       ]);
 
       return { saved: true, docId: targetDocId, data: { ...existingData, ...payload, firestoreDocId: targetDocId } };
     } catch (err) {
       console.error('[Auth] Firestore users 문서 저장(Upsert) 오류:', err);
-      return { saved: false, docId: null, data: null };
+      return { saved: false, docId: null, data: null, error: err.code || err.message || String(err) };
     }
   },
 
@@ -1989,26 +1989,42 @@ const Auth = {
 
     // Firebase Cloud Firestore 단일 표준 문서 저장 (비밀번호 포함하여 타 기기 로그인 지원)
     let firestoreSaved = false;
+    let firestoreError = null;
+
     if (this.isFirebaseReady()) {
+      // 1. Firebase Auth 계정 생성 또는 로그인 선행 (인증 세션 확보하여 Firestore Security Rules 통과)
+      if (this.firebaseAuth && newUser.email && newUser.password) {
+        try {
+          await this.firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
+          console.log('[Auth] Firebase Auth 계정 생성 및 인증 세션 확보 성공:', newUser.email);
+        } catch (authErr) {
+          if (authErr.code === 'auth/email-already-in-use') {
+            try {
+              await this.firebaseAuth.signInWithEmailAndPassword(newUser.email, newUser.password);
+              console.log('[Auth] 기존 Firebase Auth 계정 로그인 연동 성공:', newUser.email);
+            } catch (signInErr) {
+              console.warn('[Auth] 기존 Firebase Auth 계정 로그인 실패:', signInErr.code);
+            }
+          } else {
+            console.warn('[Auth] Firebase Auth 계정 생성 안내:', authErr.code, authErr.message);
+          }
+        }
+      }
+
+      // 2. 인증 세션 상태에서 Cloud Firestore users 컬렉션에 사용자 문서 저장
       const upsertRes = await this.upsertUserToFirestore(newUser, { preserveExistingStatus: true });
       firestoreSaved = Boolean(upsertRes && upsertRes.saved);
 
       if (firestoreSaved && upsertRes.docId) {
         newUser.firestoreDocId = upsertRes.docId;
         console.log('[Auth] Cloud Firestore users 컬렉션 단일 문서 등록 완료:', upsertRes.docId);
-      }
-
-      // Firebase Auth 이메일/비밀번호 계정 생성 시도 (활성화된 경우)
-      if (this.firebaseAuth && newUser.email && newUser.password) {
-        try {
-          await this.firebaseAuth.createUserWithEmailAndPassword(newUser.email, newUser.password);
-          console.log('[Auth] Firebase Auth 계정 생성 성공:', newUser.email);
-        } catch (authErr) {
-          console.warn('[Auth] Firebase Auth 계정 생성 안내 (Firestore 등록은 정상 유지됨):', authErr.code, authErr.message);
-        }
+      } else {
+        firestoreError = upsertRes && upsertRes.error ? upsertRes.error : 'Firestore 저장 실패';
+        console.error('[Auth] Cloud Firestore users 컬렉션 저장 실패:', firestoreError);
       }
     } else {
       console.warn('[Auth] Firebase가 아직 준비되지 않아 로컬 저장소에 우선 등록되었습니다.');
+      firestoreError = 'Firebase 클라우드 데이터베이스 미초기화';
     }
 
     // 신규 가입자는 승인 대기 페이지(pending.html)로 이동하여 관리자 승인 시 자동 입장
@@ -2019,7 +2035,8 @@ const Auth = {
       redirectUrl: 'pending.html',
       message: '회원가입이 완료되었습니다. 관리자 승인 대기 페이지로 이동합니다.',
       user: newUser,
-      firestoreSaved: firestoreSaved
+      firestoreSaved: firestoreSaved,
+      firestoreError: firestoreError
     };
   },
 

@@ -375,7 +375,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261110_worker_fix"></script>
+  <script src="js/auth.js?v=20261110_firestore_sync"></script>
   <script>
     // Selected Role State (default: student)
     let selectedRole = 'student';
@@ -480,14 +480,25 @@
           return;
         }
 
-        const syncStatusText = res.firestoreSaved ? '☁️ Firebase users 데이터베이스에 실시간 등록되었습니다.\n' : '';
+        // 클라우드 데이터베이스(Firestore users) 저장 성공 여부 엄격 검증
+        if (!res.firestoreSaved) {
+          console.warn('[Register] Firestore 클라우드 저장 실패:', res.firestoreError);
+          const errDetail = res.firestoreError ? `\n(세부 원인: ${res.firestoreError})` : '';
+          alert(`⚠️ [클라우드 데이터베이스 저장 안내]\n로컬 브라우저 세션에는 등록되었으나, Firebase Cloud Firestore 데이터베이스 실시간 저장에 실패했습니다.${errDetail}\n\nFirebase 콘솔의 보안 규칙(Security Rules) 또는 네트워크 연결 상태를 확인해 주세요.\n관리자 콘솔에 즉시 표시되려면 데이터베이스 쓰기 권한이 필요합니다.`);
+        }
+
+        const roleLabel = selectedRole === 'staff' ? '교직원' : (selectedRole === 'worker' ? '실무자' : '대학생');
+        const syncStatusText = res.firestoreSaved 
+          ? '☁️ Firebase users 클라우드 데이터베이스에 실시간 등록되었습니다.\n' 
+          : '⚠️ 클라우드 데이터베이스 미동기화 상태입니다.\n';
+
         if (res.requiresApproval) {
+          alert(`환영합니다, ${name}님!\n[${roleLabel}] 맞춤형 과정으로 회원가입이 접수되었습니다.\n${syncStatusText}관리자 승인 대기 페이지로 이동합니다.`);
           window.location.href = res.redirectUrl || 'pending.html';
           return;
         }
 
-        const roleLabel = selectedRole === 'staff' ? '교직원' : (selectedRole === 'worker' ? '실무자' : '대학생');
-        alert(`환영합니다, ${name}님!\n[${roleLabel}] 역할로 가입이 완료되었습니다.\n${syncStatusText}\n맞춤형 강의실로 이동합니다.`);
+        alert(`환영합니다, ${name}님!\n[${roleLabel}] 역할로 가입이 완료되었습니다.\n${syncStatusText}맞춤형 강의실로 이동합니다.`);
         window.location.href = 'dashboard.html';
       } catch (err) {
         console.error('[Register] 오류 발생:', err);
