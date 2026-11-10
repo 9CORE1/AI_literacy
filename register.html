@@ -486,7 +486,8 @@
           return;
         }
 
-        alert(`환영합니다, ${name}님!\n[${selectedRole === 'staff' ? '교직원' : '대학생'}] 역할로 가입이 완료되었습니다.\n${syncStatusText}\n맞춤형 강의실로 이동합니다.`);
+        const roleLabel = selectedRole === 'staff' ? '교직원' : (selectedRole === 'worker' ? '실무자' : '대학생');
+        alert(`환영합니다, ${name}님!\n[${roleLabel}] 역할로 가입이 완료되었습니다.\n${syncStatusText}\n맞춤형 강의실로 이동합니다.`);
         window.location.href = 'dashboard.html';
       } catch (err) {
         console.error('[Register] 오류 발생:', err);

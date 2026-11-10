@@ -445,7 +445,8 @@ const Auth = {
     if (!primaryKey) return;
 
     const status = userObj.status || 'pending';
-    const role = (userObj.role || userObj.allowedRole || 'student') === 'staff' ? 'staff' : 'student';
+    const rawRole = userObj.role || userObj.allowedRole || 'student';
+    const role = (rawRole === 'staff' || rawRole === 'worker') ? rawRole : 'student';
 
     try {
       const approvals = this.getApprovals();
@@ -644,7 +645,7 @@ const Auth = {
       const role = approvals[cleanKey].allowedRole || approvals[cleanKey].role || null;
       return {
         status: approvals[cleanKey].status || 'pending',
-        allowedRole: role ? (role === 'staff' ? 'staff' : 'student') : null,
+        allowedRole: role ? ((role === 'staff' || role === 'worker') ? role : 'student') : null,
         exists: true
       };
     }
@@ -659,7 +660,7 @@ const Auth = {
       const role = found.allowedRole || found.role || null;
       return {
         status: found.status || 'pending',
-        allowedRole: role ? (role === 'staff' ? 'staff' : 'student') : null,
+        allowedRole: role ? ((role === 'staff' || role === 'worker') ? role : 'student') : null,
         exists: true
       };
     }
@@ -668,14 +669,14 @@ const Auth = {
   },
 
   /**
-   * 관리자가 사용자의 신청 역할/소속 과정(대학생 ↔ 교직원)을 직접 수정
+   * 관리자가 사용자의 신청 역할/소속 과정(대학생 ↔ 교직원 ↔ 실무자)을 직접 수정
    * 회원이 첫 로그인/가입 시 잘못 선택한 역할을 관리자가 정정
    * @param {string} emailOrUsername 
-   * @param {'student'|'staff'} newRole 
+   * @param {'student'|'staff'|'worker'} newRole 
    */
   async updateUserRole(emailOrUsername, newRole) {
     if (!emailOrUsername || !newRole) return { success: false, message: '유효한 인자가 아닙니다.' };
-    const cleanRole = newRole === 'staff' ? 'staff' : 'student';
+    const cleanRole = (newRole === 'staff' || newRole === 'worker') ? newRole : 'student';
     const cleanKey = emailOrUsername.trim().toLowerCase();
 
     // 1. ai_lit_registered_users 갱신
@@ -751,12 +752,12 @@ const Auth = {
    * 회원의 로그인 승인 상태 및 역할 업데이트 (관리자용)
    * @param {string} emailOrUsername 
    * @param {'approved'|'pending'|'blocked'} status 
-   * @param {'student'|'staff'} allowedRole 
+   * @param {'student'|'staff'|'worker'} allowedRole 
    */
   async setUserApproval(emailOrUsername, status, allowedRole) {
     if (!emailOrUsername) return;
     const cleanKey = emailOrUsername.trim().toLowerCase();
-    const cleanRole = allowedRole === 'staff' ? 'staff' : 'student';
+    const cleanRole = (allowedRole === 'staff' || allowedRole === 'worker') ? allowedRole : 'student';
 
     // 1. ai_lit_user_approvals 저장
     const approvals = this.getApprovals();
@@ -1131,7 +1132,7 @@ const Auth = {
     const cleanKey = (userData.email || userData.username || '').trim().toLowerCase();
     if (!cleanKey) return;
 
-    const selectedRole = userData.role === 'staff' ? 'staff' : 'student';
+    const selectedRole = (userData.role === 'staff' || userData.role === 'worker') ? userData.role : 'student';
     const nowIso = new Date().toISOString();
     const recordObj = {
       name: userData.name || '',
@@ -1673,7 +1674,7 @@ const Auth = {
     if (effectiveStatus !== 'approved') {
       const initialRoleRaw = existing && (existing.allowedRole || existing.role);
       const preservedRole = initialRoleRaw
-        ? (initialRoleRaw === 'staff' ? 'staff' : 'student')
+        ? ((initialRoleRaw === 'staff' || initialRoleRaw === 'worker') ? initialRoleRaw : 'student')
         : attemptedRole;
 
       await this.recordPendingUser({
@@ -1702,7 +1703,7 @@ const Auth = {
 
     // 첫 로그인 정보로 등록·승인된 대상자와 다른 대상자로 간편로그인 시도 시 차단 및 재로그인 유도
     const approvedRoleRaw = (existing && (existing.allowedRole || existing.role)) || localApproval.allowedRole || '';
-    const approvedRole = approvedRoleRaw === 'staff' ? 'staff' : (approvedRoleRaw === 'student' ? 'student' : '');
+    const approvedRole = (approvedRoleRaw === 'staff' || approvedRoleRaw === 'worker') ? approvedRoleRaw : (approvedRoleRaw === 'student' ? 'student' : '');
     const isSuperAdmin = Boolean(existing && (existing.isAdmin || existing.role === 'admin'));
 
     if (!isSuperAdmin && approvedRole && attemptedRole !== approvedRole) {
@@ -1717,8 +1718,8 @@ const Auth = {
       if (this.firebaseAuth) {
         this.firebaseAuth.signOut().catch(() => {});
       }
-      const approvedKo = approvedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
-      const attemptedKo = attemptedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+      const approvedKo = approvedRole === 'staff' ? '🏛️ 교직원' : (approvedRole === 'worker' ? '💼 실무자' : '🎓 대학생');
+      const attemptedKo = attemptedRole === 'staff' ? '🏛️ 교직원' : (attemptedRole === 'worker' ? '💼 실무자' : '🎓 대학생');
       alert(
         `⚠️ [잘못된 로그인 안내]\n` +
         `해당 계정은 [${approvedKo}] 대상자로 등록·승인된 계정입니다.\n` +
@@ -2110,7 +2111,7 @@ const Auth = {
         this.setPendingUser(pendingUpdated);
       }
 
-      const roleKo = chosenRole === 'staff' ? '교직원' : '대학생';
+      const roleKo = chosenRole === 'staff' ? '교직원' : (chosenRole === 'worker' ? '실무자' : '대학생');
       const statusText = effectiveStatus === 'blocked'
         ? '해당 계정은 관리자에 의해 접속이 차단되었습니다.\n관리자에게 문의해 주세요.'
         : `선택하신 [${roleKo} 과정]으로 회원 정보가 반영되었으며, 현재 관리자의 승인을 기다리는 중입니다.\n\n관리자가 승인한 회원만 로그인 및 강의실 이용이 가능합니다.`;
@@ -2176,7 +2177,7 @@ const Auth = {
         const existing = await this.fetchExistingUser(fbUser.email);
 
         // 로그인 모달 창에서 선택한 대상자 역할('student' | 'staff') 최우선 적용
-        const attemptedRole = (role === 'staff' || role === 'student')
+        const attemptedRole = (role === 'staff' || role === 'student' || role === 'worker')
           ? role
           : ((existing && existing.role) ? existing.role : 'student');
 
@@ -2187,7 +2188,7 @@ const Auth = {
         if (effectiveStatus !== 'approved') {
           const initialRoleRaw = existing && (existing.allowedRole || existing.role);
           const preservedRole = initialRoleRaw
-            ? (initialRoleRaw === 'staff' ? 'staff' : 'student')
+            ? ((initialRoleRaw === 'staff' || initialRoleRaw === 'worker') ? initialRoleRaw : 'student')
             : attemptedRole;
 
           await this.recordPendingUser({
@@ -2216,13 +2217,13 @@ const Auth = {
 
         // 첫 로그인 정보로 등록·승인된 대상자와 다른 대상자로 간편로그인 시도 시 차단 및 재로그인 유도
         const approvedRoleRaw = (existing && (existing.allowedRole || existing.role)) || localApproval.allowedRole || '';
-        const approvedRole = approvedRoleRaw === 'staff' ? 'staff' : (approvedRoleRaw === 'student' ? 'student' : '');
+        const approvedRole = (approvedRoleRaw === 'staff' || approvedRoleRaw === 'worker') ? approvedRoleRaw : (approvedRoleRaw === 'student' ? 'student' : '');
         const isSuperAdmin = Boolean(existing && (existing.isAdmin || existing.role === 'admin'));
 
         if (!isSuperAdmin && approvedRole && attemptedRole !== approvedRole) {
           await this.firebaseAuth.signOut().catch(() => {});
-          const approvedKo = approvedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
-          const attemptedKo = attemptedRole === 'staff' ? '🏛️ 교직원' : '🎓 대학생';
+          const approvedKo = approvedRole === 'staff' ? '🏛️ 교직원' : (approvedRole === 'worker' ? '💼 실무자' : '🎓 대학생');
+          const attemptedKo = attemptedRole === 'staff' ? '🏛️ 교직원' : (attemptedRole === 'worker' ? '💼 실무자' : '🎓 대학생');
           alert(
             `⚠️ [잘못된 로그인 안내]\n` +
             `해당 계정은 [${approvedKo}] 대상자로 등록·승인된 계정입니다.\n` +

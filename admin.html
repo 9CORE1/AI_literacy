@@ -1069,7 +1069,7 @@
     async function handleUserRoleChange(key, newRole) {
       const res = await Auth.updateUserRole(key, newRole);
       if (res.success) {
-        const roleKo = newRole === 'staff' ? '🏛️ 교직원 맞춤 과정' : '🎓 대학생 맞춤 과정';
+        const roleKo = newRole === 'staff' ? '🏛️ 교직원 맞춤 과정' : (newRole === 'worker' ? '💼 실무자 맞춤 과정' : '🎓 대학생 맞춤 과정');
         showToast(`'${key}' 회원의 소속 역할이 [${roleKo}]으로 수정되었습니다.`);
         await loadUsersData();
       } else {

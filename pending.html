@@ -424,11 +424,12 @@
       const badge = document.getElementById('info-role-badge');
       const affLabel = document.getElementById('label-affiliation');
       const isStaff = role === 'staff';
+      const isWorker = role === 'worker';
       if (badge) {
-        badge.textContent = isStaff ? '🏛️ 교직원 맞춤 강의실' : '🎓 대학생 맞춤 강의실';
+        badge.textContent = isStaff ? '🏛️ 교직원 맞춤 강의실' : (isWorker ? '💼 실무자 맞춤 강의실' : '🎓 대학생 맞춤 강의실');
       }
       if (affLabel) {
-        affLabel.textContent = isStaff ? '소속기관 / 부서' : '학교 / 학과';
+        affLabel.textContent = isStaff ? '소속기관 / 부서' : (isWorker ? '회사 / 소속부서' : '학교 / 학과');
       }
     }
 
@@ -449,7 +450,7 @@
     }
 
     /**
-     * 승인 완료 감지 시 세션 활성화 후 해당 역할(대학생/교직원) 맞춤 강의실로 즉시 이동
+     * 승인 완료 감지 시 세션 활성화 후 해당 역할(대학생/교직원/실무자) 맞춤 강의실로 즉시 이동
      */
     async function completeApprovalAndRedirect(liveResult) {
       if (isTransitioning) return;
@@ -461,9 +462,8 @@
       }
 
       const docData = (liveResult && liveResult.userDoc) || {};
-      const finalRole = ((liveResult && liveResult.role) || docData.allowedRole || docData.role || pendingUser.role || 'student') === 'staff'
-        ? 'staff'
-        : 'student';
+      const rawRole = (liveResult && liveResult.role) || docData.allowedRole || docData.role || pendingUser.role || 'student';
+      const finalRole = (rawRole === 'staff' || rawRole === 'worker') ? rawRole : 'student';
 
       updateRoleDisplay(finalRole);
 
@@ -479,7 +479,7 @@
       if (statusText) statusText.textContent = '관리자 승인 완료 · 강의실 자동 입장 중';
       if (iconBox) iconBox.textContent = '✅';
       if (titleEl) titleEl.textContent = '승인이 완료되었습니다!';
-      const roleKo = finalRole === 'staff' ? '교직원 맞춤 강의실' : '대학생 맞춤 강의실';
+      const roleKo = finalRole === 'staff' ? '교직원 맞춤 강의실' : (finalRole === 'worker' ? '실무자 맞춤 강의실' : '대학생 맞춤 강의실');
       if (descEl) {
         descEl.innerHTML = `관리자 승인이 확인되어 <strong>[${roleKo}]</strong> 페이지로 지금 이동합니다.`;
       }
@@ -610,7 +610,8 @@
           .onSnapshot((docSnap) => {
             if (!docSnap.exists || isTransitioning) return;
             const data = docSnap.data() || {};
-            const liveRole = (data.allowedRole || data.role || pendingUser.role || 'student') === 'staff' ? 'staff' : 'student';
+            const rawLive = data.allowedRole || data.role || pendingUser.role || 'student';
+            const liveRole = (rawLive === 'staff' || rawLive === 'worker') ? rawLive : 'student';
             updateRoleDisplay(liveRole);
 
             if (data.status === 'approved') {
@@ -637,7 +638,7 @@
       // 이미 정식 승인된 로그인 세션이 있는 경우 즉시 해당 강의실로 이동
       const activeUser = Auth.getCurrentUser();
       if (activeUser && activeUser.email && (activeUser.status === 'approved' || activeUser.isAdmin)) {
-        const targetRole = activeUser.role === 'staff' ? 'staff' : 'student';
+        const targetRole = (activeUser.role === 'staff' || activeUser.role === 'worker') ? activeUser.role : 'student';
         window.location.replace(`dashboard.html?role=${targetRole}`);
         return;
       }
