@@ -3476,6 +3476,107 @@ const DashboardApp = {
             </div>
           </div>
         </div>
+
+        <!-- 3. MICE 실무자를 위한 LLM 안전 활용 5대 수칙 카드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🛡️ MICE 실무자를 위한 LLM 안전 활용 5대 수칙</span>
+            </h3>
+            <span style="background: #fef2f2; color: #991b1b; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              Compliance &amp; Data Safety
+            </span>
+          </div>
+
+          <!-- 5대 수칙 그리드 (5열 배치 + 모바일 가로 스크롤 지원) -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; width: 100%; min-width: 820px;">
+              <!-- 1. 🔒 바이어·VIP 개인정보 및 입찰 대외비 유출 금지 (Data Privacy & NDA) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #dc2626; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #991b1b; margin-bottom: 6px; word-break: keep-all;">
+                  1. 🔒 바이어·VIP 개인정보 및 입찰 대외비 유출 금지
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Data Privacy &amp; NDA)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  공개형 LLM(무료 버전 등)에 입력한 데이터는 AI 모델 재학습에 활용될 수 있습니다.
+                </div>
+                <div style="font-size: 11.5px; color: #7f1d1d; background: #fee2e2; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 참가자 명단(여권번호, 연락처)이나 파트너사 미공개 견적 단가는 일체 가명·비식별 처리하세요.
+                </div>
+              </div>
+
+              <!-- 2. 🔍 베뉴(Venue) 스펙 & 의전 프로토콜 팩트체크 (Hallucination Zero) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #2563eb; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #1e40af; margin-bottom: 6px; word-break: keep-all;">
+                  2. 🔍 베뉴(Venue) 스펙 &amp; 의전 프로토콜 팩트체크
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Hallucination Zero)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  AI는 그럴듯하지만 완전히 왜곡된 숫자와 스펙(환각 현상)을 지어낼 수 있습니다.
+                </div>
+                <div style="font-size: 11.5px; color: #1e3a8a; background: #dbeafe; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 전시장 면적, 천장고, 바닥 하중, 의전 프로토콜은 컨벤션센터 공식 임대 매뉴얼로 교차 검증하세요.
+                </div>
+              </div>
+
+              <!-- 3. 🌍 다문화·종교·글로벌 비즈니스 에티켓 검증 (Cultural Sensitivity) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #16a34a; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #166534; margin-bottom: 6px; word-break: keep-all;">
+                  3. 🌍 다문화·종교·글로벌 비즈니스 에티켓 검증
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Cultural Sensitivity)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  MICE는 전 세계 다양한 국가와 문화권의 인사가 집결하는 무대입니다.
+                </div>
+                <div style="font-size: 11.5px; color: #14532d; background: #dcfce7; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 해외 VIP 안내장이나 영문 초청장에 문화적·종교적 결례(할랄/코셔 식단 등)나 오역이 없는지 점검하세요.
+                </div>
+              </div>
+
+              <!-- 4. ⚖️ 상업적 저작권 및 폰트·지식재산권(IP) 컴플라이언스 (Copyright Check) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #d97706; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #9a3412; margin-bottom: 6px; word-break: keep-all;">
+                  4. ⚖️ 상업적 저작권 및 폰트·지식재산권(IP) 컴플라이언스
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Copyright Check)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  AI가 생성한 슬로건, 이미지, 번역 텍스트를 상업적 인쇄물이나 웹사이트에 무단 사용할 경우 저작권 침해 분쟁이 발생할 수 있습니다.
+                </div>
+                <div style="font-size: 11.5px; color: #7c2d12; background: #ffedd5; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 도출된 슬로건과 행사명이 타 행사의 등록상표를 침해하지 않는지 키프리스(KIPRIS)로 사전 조회하세요.
+                </div>
+              </div>
+
+              <!-- 5. 🎯 생각과 의사결정의 주도권 유지 (Human-in-the-Loop) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #7c3aed; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #6d28d9; margin-bottom: 6px; word-break: keep-all;">
+                  5. 🎯 생각과 의사결정의 주도권 유지
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Human-in-the-Loop)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  현장 라이브(Live) 이벤트의 돌발 변수는 AI가 대신 수습해주지 못합니다.
+                </div>
+                <div style="font-size: 11.5px; color: #4c1d95; background: #ede9fe; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> AI는 초안 작성 비서일 뿐, 제안서 수주 전략과 현장 위기대응의 최종 책임은 기획자 본인에게 있습니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트' (노션 공식 연동) -->
+          <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-left: 4px solid var(--color-ember); border-radius: 0 16px 16px 0; padding: 1.15rem 1.4rem;">
+            <div style="font-weight: 800; font-size: 14px; color: var(--color-obsidian); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <span>📋 MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트'</span>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 6px; font-size: 12.5px; color: #44403c; line-height: 1.55;">
+              <div>• [ ] 프롬프트에 참가자 개인정보(이름, 연락처, 여권)나 미공개 입찰 견적이 포함되어 있지 않은가?</div>
+              <div>• [ ] AI가 제시한 전시장 제원(면적, 수용인원, 장비 규격)을 베뉴 공식 매뉴얼로 확인했는가?</div>
+              <div>• [ ] 해외 참가자 대상 안내문에 문화적·종교적 결례나 오역의 소지는 없는가?</div>
+              <div>• [ ] 도출된 슬로건과 행사명이 타 대형 행사의 상표나 표절에 해당하지 않는가?</div>
+              <div>• [ ] AI의 답변을 그대로 복사하지 않고, 현장 상황에 맞게 윤문·보완하였는가?</div>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   },
