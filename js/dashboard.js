@@ -3100,39 +3100,6 @@ const DashboardApp = {
             </ul>
           </div>
         </div>
-
-        <!-- 3. 실무자 10초 자가 검증 체크리스트 카드 (환각 방지 & 컴플라이언스) -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
-          <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
-            <span>🔒 MICE 실무자 10초 자가 검증 체크리스트 (환각 방지 & 컴플라이언스)</span>
-          </h3>
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
-            <div style="background: #fdf2f2; border: 1px solid #fecaca; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 4px;">🔒 1. 개인정보 & 견적 보안</div>
-              <div style="font-size: 12.5px; color: #7f1d1d; line-height: 1.5;">
-                프롬프트에 참가자 명단(여권번호, 연락처)이나 파트너사 미공개 견적 단가가 포함되지 않았는지 점검하세요.
-              </div>
-            </div>
-            <div style="background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #1e40af; margin-bottom: 4px;">🔍 2. 베뉴 스펙 팩트체크</div>
-              <div style="font-size: 12.5px; color: #1e3a8a; line-height: 1.5;">
-                AI가 제안한 전시장 면적, 천장고, 바닥 하중, 주차 대수는 반드시 컨벤션센터 공식 임대 매뉴얼로 교차 검증하세요.
-              </div>
-            </div>
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 4px;">🌍 3. 글로벌 비즈니스 에티켓</div>
-              <div style="font-size: 12.5px; color: #14532d; line-height: 1.5;">
-                해외 VIP 안내문이나 영문 초청장에 문화적·종교적 결례(식단 할랄/코셔 배려 등)나 오역 소지가 없는지 확인하세요.
-              </div>
-            </div>
-            <div style="background: #fefce8; border: 1px solid #fef08a; border-radius: 14px; padding: 14px;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #854d0e; margin-bottom: 4px;">⚖️ 4. 지식재산권 준수</div>
-              <div style="font-size: 12.5px; color: #713f12; line-height: 1.5;">
-                AI가 도출한 행사 슬로건이나 프로그램명이 타 행사의 등록상표나 저작권을 침해하지 않는지 키프리스(KIPRIS)로 조회하세요.
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
     `;
   },
@@ -3224,26 +3191,38 @@ const DashboardApp = {
           </div>
 
           <!-- Before vs After 비교 박스 (MICE 버전) -->
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-            <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 6px;">❌ 단순 지시형 (일반적인 프롬프트)</div>
-              <div style="font-size: 13px; color: #7f1d1d; line-height: 1.5; font-style: italic;">
-                "국제회의 유치 제안서 기획안 하나 작성해 줘."
+          <div style="margin-top: 1.25rem;">
+            <h4 style="font-size: 15px; color: var(--color-obsidian); margin: 0 0 10px 0; font-weight: 800; display: flex; align-items: center; gap: 6px;">
+              <span>💡 실전 비교 (Before vs After)</span>
+            </h4>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
+              <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 1.15rem 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 8px;">❌ 단순 지시형 (일반적인 프롬프트)</div>
+                  <div style="font-size: 13px; color: #7f1d1d; line-height: 1.6; font-style: italic; background: rgba(255, 255, 255, 0.6); padding: 10px 12px; border-radius: 10px; border-left: 3px solid #f87171; margin-bottom: 8px;">
+                    "친환경 에너지 엑스포 행사 기획안 하나 짜줘."
+                  </div>
+                </div>
+                <div style="font-size: 12px; color: #991b1b; line-height: 1.5; word-break: keep-all;">
+                  <strong>(결과:</strong> 인터넷에 흔히 있는 뜬구름 잡는 일반론(환영사, 축사, 전시 부스 운영 등)만 나열되어 실제 PEO/PCO 제안서나 주최측 보고용으로 활용 불가.<strong>)</strong>
+                </div>
               </div>
-              <div style="font-size: 12px; color: #991b1b; margin-top: 6px;">
-                ➔ 어디서나 볼 수 있는 뜬구름 잡는 일반론 나열로 실제 공공 입찰 평가에서 즉시 탈락
-              </div>
-            </div>
 
-            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1rem 1.25rem;">
-              <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 6px;">✅ 4+2 공식 결합형 (고품질 MICE 프롬프트)</div>
-              <div style="font-size: 12.5px; color: #14532d; line-height: 1.5;">
-                <strong>[역할]</strong> 15년 차 PCO 총괄 / <strong>[배경]</strong> 30개국 2,500명 친환경 서밋 유치 RFP<br>
-                <strong>[지시]</strong> 슬로건(국/영), 3대 차별화 전략, 디지털 트윈 오프닝 연출안<br>
-                <strong>[형식]</strong> PT 개조식 / <strong>[조건]</strong> 지역 인프라 및 탄소중립 ESG 구체안 반영
-              </div>
-              <div style="font-size: 12px; color: #166534; margin-top: 6px;">
-                ➔ 심사위원의 시선을 사로잡는 차별화된 제안서 초안이 단 1번에 완성
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.15rem 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+                <div>
+                  <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 8px;">✅ 4+2 공식 결합형 (고품질 행정 프롬프트)</div>
+                  <div style="font-size: 12.5px; color: #14532d; line-height: 1.65; background: rgba(255, 255, 255, 0.7); padding: 10px 12px; border-radius: 10px; border-left: 3px solid #4ade80; margin-bottom: 8px; word-break: keep-all;">
+                    <p style="margin: 0 0 4px 0;"><strong>[역할]</strong> 글로벌 전시 주최사(PEO) 수석 전시기획자</p>
+                    <p style="margin: 0 0 4px 0;"><strong>[배경]</strong> B2B 바이어 5,000명과 300개 부스가 참여하는 코엑스 3일간의 '2027 탄소중립 신재생에너지 엑스포’</p>
+                    <p style="margin: 0 0 4px 0;"><strong>[지시]</strong> 바이어-참가기업 1:1 비즈니스 매칭 상담회 운영안, 부대 세미나 3개 테마, 참관객 체류시간을 늘릴 인터랙티브 체험존 아이디어 제시</p>
+                    <p style="margin: 0 0 4px 0;"><strong>[형식]</strong> 제안서 피칭용 목차 형태와 부스 동선/세미나 일정 표(Table)로 출력</p>
+                    <p style="margin: 0 0 4px 0;"><strong>[조건]</strong> 해외 바이어 유치 인센티브 방안 포함, 부스 시공 시 폐기물 최소화(Zero Waste) 방안 필수 기재</p>
+                    <p style="margin: 0;"><strong>[샘플]</strong> <code>[프로그램명] | [대상] | [운영 방식] | [기대 바이어 상담 건수]</code> 표 서식 준수</p>
+                  </div>
+                </div>
+                <div style="font-size: 12px; color: #166534; line-height: 1.5; word-break: keep-all;">
+                  <strong>(결과:</strong> 주최측 제안 발표(PT)와 예산서 수립에 즉시 반영할 수 있는 구체적이고 전문적인 실행 계획안 완성.<strong>)</strong>
+                </div>
               </div>
             </div>
           </div>
@@ -3264,7 +3243,7 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">RFP 입찰</span>
-                  <span>1. [RFP 입찰] 국제회의·전시 유치 제안서 차별화 콘셉트 &amp; 공간 연출안</span>
+                  <span>1. [RFP 입찰 제안서] 국제회의·전시 유치 제안서 차별화 콘셉트 &amp; 추진 전략</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                   <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
@@ -3278,19 +3257,19 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
                   </div>
                   <div class="basic-prompt-box">"부산에서 열리는 친환경 해양 모빌리티 서밋 국제회의 유치 제안서 슬로건이랑 기획안 써줘."</div>
-                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 발주처의 평가 지표나 개최 도시 인프라 연계 없이 흔한 친환경 키워드만 나열되어 경쟁사 제안서와 차별점을 만들 수 없습니다.</div>
+                  <div class="basic-prompt-limit">💡 <strong>활용 상황:</strong> 지자체, 공공기관, 학회 등이 발주한 MICE 용역 입찰(RFP)에서 심사위원의 눈길을 사로잡을 핵심 슬로건, 차별화 콘셉트, 공간 연출안을 기획할 때</div>
                 </div>
                 <div class="prompt-col-improved">
                   <div class="prompt-col-header">
-                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 15년 차 대형 국제회의 전문 PCO 총괄 기획 디렉터이자 정부/공공 입찰 제안서 평가위원 출신이야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 15년 차 대형 국제회의 전문 PCO(국제회의기획사) 총괄 기획 디렉터이자 정부/공공 입찰 제안서 평가위원 출신이야.
 
 [배경] 우리 회사는 이번에 [지자체/협회명]에서 발주한 '<span class="prompt-edit-target">2027 아시아-태평양 친환경 해양 모빌리티 서밋</span>' 유치 용역 입찰(RFP)에 참여하려고 해.
 - 개최 기간 및 장소: <span class="prompt-edit-target">2027년 10월 중 3일간, 부산 벡스코</span>
 - 예상 규모: <span class="prompt-edit-target">30개국 2,500명(해외 바이어 600명 포함), 전시 부스 150개</span>
-- 발주처 핵심 요구: 첨단 친환경 기술 시연, 지역 MICE 경제 활성화, 탄소중립 ESG 실천
+- 발주처의 핵심 요구사항: <span class="prompt-edit-target">첨단 친환경 기술 시연, 지역 MICE 경제 활성화, 탄소중립 ESG 실천</span>
 
 [지시] 경쟁사 제안서와 압도적인 차별성을 가질 수 있도록 아래 항목을 도출해 줘:
 1. 본 행사의 핵심 비전과 심사위원의 뇌리에 각인될 매력적인 메인 슬로건 (국문/영문 각 2종)
@@ -3300,7 +3279,7 @@ const DashboardApp = {
 
 [형식] 심사위원 PT 제안서에 바로 삽입할 수 있도록 개조식(1. - 가. - 1)) 목차 체계로 정리하고, 핵심 키워드는 **볼드체**로 강조해 줘.
 
-[조건] 뜬구름 잡는 일반론을 피하고, 개최지인 <span class="prompt-edit-target">부산</span>의 지역 인프라와 산업적 특성이 자연스럽게 녹아들게 작성해 줘.</pre>
+[조건] 뜬구름 잡는 일반론을 피하고, 개최지인 [도시/베뉴명]의 지역 인프라와 산업적 특성이 자연스럽게 녹아들게 작성해 줘.</pre>
                 </div>
               </div>
             </div>
@@ -3310,7 +3289,7 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #7c3aed; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">글로벌 섭외</span>
-                  <span>2. [글로벌 연사 섭외] 해외 VIP·기조연설자(Keynote Speaker) 영문 공식 초청 서한</span>
+                  <span>2. [글로벌 연사 섭외] 해외 VIP·기조연설자(Keynote Speaker) 공식 초청 서한</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                   <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
@@ -3324,30 +3303,30 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
                   </div>
                   <div class="basic-prompt-box">"Write an invitation letter to Dr. Andrew Ng for our AI medical congress."</div>
-                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 의전 패키지(항공/호텔)나 수락 시 혜택, 연사와 테마의 정합성이 결여되어 세계적인 석학의 수락을 이끌어내기 어렵습니다.</div>
+                  <div class="basic-prompt-limit">💡 <strong>활용 상황:</strong> 인지도가 높은 글로벌 석학, 해외 유력 기업 CEO, 국제기구 인사를 기조연설자로 초청하기 위한 격식 있고 거절하기 힘든 영문 공식 서신 작성 시</div>
                 </div>
                 <div class="prompt-col-improved">
                   <div class="prompt-col-header">
-                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP protocol and speaker curation.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP VIP protocol and speaker curation.
 
-[배경] We are hosting '<span class="prompt-edit-target">The Global AI & Future Healthcare Congress 2027</span>'.
-- Date & Location: <span class="prompt-edit-target">November 12-14, 2027 | Seoul, South Korea</span>
-- Target Audience: 1,500+ global medical leaders, hospital CEOs, and AI healthcare researchers
-- Invitee: <span class="prompt-edit-target">Dr. Andrew Ng, Founder of DeepLearning.AI</span> as our Opening Keynote Speaker
+[배경] We are hosting [행사 공식 영문명, e.g., <span class="prompt-edit-target">The Global AI & Future Healthcare Congress 2027</span>].
+- Date & Location: [일정 및 장소, e.g., <span class="prompt-edit-target">November 12-14, 2027 | Seoul, South Korea</span>]
+- Target Audience: [청중 특성, e.g., <span class="prompt-edit-target">1,500+ global medical leaders, hospital CEOs, and AI researchers</span>]
+- We want to invite [연사 성함 및 직함, e.g., <span class="prompt-edit-target">Dr. Andrew Ng, Founder of DeepLearning.AI</span>] as our prestigious Opening Keynote Speaker.
 
-[지시] Draft an extremely professional, courteous, and compelling official Invitation Letter in English:
+[지시] Draft an extremely professional, courteous, and compelling official Invitation Letter in English. Include:
 1. Formal invitation to deliver a 30-minute keynote speech followed by a 15-minute Q&A.
-2. Clear explanation of why this speaker is the undisputed ideal person for this year's theme: <span class="prompt-edit-target">Empowering Patient Care with Frontier AI</span>.
-3. Comprehensive hospitality package provided (First/Business airfare, 5-star hotel accommodation, VIP concierge protocol, speaker honorarium).
-4. Flexible options (in-person attendance preferred, but live hybrid participation open).
-5. Response deadline and primary point of contact info.
+2. Clear explanation of why this specific speaker is the undisputed ideal person for this year's theme: [행사 메인 테마, e.g., "<span class="prompt-edit-target">Democratizing AI in Clinical Medicine</span>"].
+3. Comprehensive hospitality package provided (First/Business class airfare, 5-star hotel accommodation, VIP concierge, speaker honorarium, and post-tour).
+4. Flexible options (in-person attendance preferred, but live hybrid participation open if scheduling is tight).
+5. Response deadline and point of contact info.
 
 [형식] Standard Diplomatic/Executive Business Letter format (Date, Salutation, Body Paragraphs, Call to Action, Complimentary Close, Signature block).
 
-[조건] Tone must be highly respectful, prestigious, and persuasive. Frame the speech as a defining global milestone.</pre>
+[조건] Tone must be highly respectful, prestigious, and persuasive. Avoid pushy sales language; frame the speech as a defining global moment that inspires industry leaders worldwide.</pre>
                 </div>
               </div>
             </div>
@@ -3371,26 +3350,32 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
                   </div>
                   <div class="basic-prompt-box">"엑스포 행사 기업 후원 제안서 양식 써줘."</div>
-                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 등급별 차등 혜택 표나 기업의 마케팅 투자 수익률(ROI) 기대치가 빠져 있어 스폰서십 세일즈에 활용할 수 없습니다.</div>
+                  <div class="basic-prompt-limit">💡 <strong>활용 상황:</strong> 대기업, 공공기관, 테크 기업들로부터 행사 협찬금(후원금)을 유치하기 위해 후원 금액별 노출 혜택과 특전을 매력적으로 패키징할 때</div>
                 </div>
                 <div class="prompt-col-improved">
                   <div class="prompt-col-header">
-                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
                   <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 글로벌 메가 컨벤션 및 B2B 산업 엑스포의 스폰서십 세일즈 전문 디렉터야.
 
-[배경] 우리는 '<span class="prompt-edit-target">2027 글로벌 스마트 모빌리티 엑스포</span>'의 성공적인 개최와 재정 확충을 위해 기업들을 대상으로 스폰서십 유치를 진행하고 있어.
-- 총 모금 목표액: <span class="prompt-edit-target">10억 원</span>
-- 행사 특징: 전 세계 완성차 제조사 C-Level 바이어 400명, 공공 발주처 구매 결정권자 참석
+[배경] 우리는 [행사명, 예: <span class="prompt-edit-target">2027 글로벌 스마트 모빌리티 엑스포</span>]의 성공적인 개최와 재정 확충을 위해 국내외 주요 모빌리티·배터리·SW 기업들을 대상으로 스폰서십 유치 작업을 진행하고 있어.
+- 총 모금 목표액: [예: <span class="prompt-edit-target">10억 원</span>]
+- 행사 특징: [예: <span class="prompt-edit-target">전 세계 완성차 제조사 C-Level 바이어 400명, 공공 발주처 구매 결정권자 대거 참석</span>]
 
 [지시] 기업들이 '단순 기부'가 아니라 '투자 대비 마케팅 효과(ROI)'가 확실하다고 느낄 수 있는 매력적인 스폰서십 패키지 제안안을 설계해 줘:
-1. 스폰서 등급 분류: 다이아몬드(단독), 플래티넘, 골드, 실버
+1. 스폰서 등급 분류: 다이아몬드(단독 메인), 플래티넘, 골드, 실버, 스타트업 스폰서로 구분
 2. 등급별 권장 후원 금액 및 모집 슬롯 수(한정 구좌) 설정
-3. 등급별 차등 제공 혜택: 온·오프라인 브랜딩, 세션 발표 기회, VIP 네트워킹 라운지 독점권, 1:1 바이어 매칭 우선권
+3. 등급별 차등 제공 혜택:
+   - 온·오프라인 브랜딩 (홈페이지, 현장 대형 현수막, 바이어 네임택, 가방 로고 노출 등)
+   - 세션 발표 기회 (스폰서 세션, 키노트 패널 참여)
+   - VIP 네트워킹 라운지 독점 이용권 및 갈라 디너(Gala Dinner) VIP 테이블 지정
+   - 1:1 바이어 사전 비즈니스 매칭 데이터 우선 제공
 4. 기업 후원 담당자가 예산 승인을 올리기 쉽도록 유도하는 '스폰서십 참여 3대 기대효과(ROI)' 요약
 
-[형식] 각 등급별 혜택을 한눈에 비교할 수 있는 깔끔한 Markdown 비교 표(Table)와 세부 설명 개조식으로 구성해 줘.</pre>
+[형식] 각 등급별 혜택을 한눈에 비교할 수 있는 깔끔한 Markdown 비교 표(Table)와 세부 설명 개조식으로 구성해 줘.
+
+[조건] 현수막 노출 같은 낡은 혜택에만 치중하지 말고, B2B 기업이 가장 탐내는 '실질적인 바이어 리드(Lead) 확보'와 '언론 PR 노출' 혜택을 강조해 줘.</pre>
                 </div>
               </div>
             </div>
@@ -3400,7 +3385,7 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #0284c7; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">현장 운영</span>
-                  <span>4. [현장 운영 &amp; 위기관리] 개막식 분 단위 큐시트 &amp; 돌발 비상대응(Contingency Plan)</span>
+                  <span>4. [현장 운영 &amp; 위기관리] 개막식 분 단위 큐시트 &amp; 돌발 비상대응 매뉴얼</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                   <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
@@ -3414,28 +3399,31 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
                   </div>
                   <div class="basic-prompt-box">"국제회의 개막식 큐시트 작성해 줘."</div>
-                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 무대·음향·조명 큐나 사회자 멘트, 의전 스태프 동선 및 돌발 방송 사고 시의 대처 프로토콜이 전혀 포함되지 않습니다.</div>
+                  <div class="basic-prompt-limit">💡 <strong>활용 상황:</strong> VIP 참석 개막식, 갈라디너 현장에서 조명·음향·영상·사회자·의전 동선이 한 치의 오차 없이 맞아떨어지도록 큐시트를 짜고 안전사고 대비 매뉴얼을 수립할 때</div>
                 </div>
                 <div class="prompt-col-improved">
                   <div class="prompt-col-header">
-                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄한 무대감독이자 MICE 현장 운영 총괄 PM이야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄 총괄 무대감독이자 MICE 현장 운영 총괄 PM이야.
 
-[배경] '<span class="prompt-edit-target">2027 세계 도시혁신 포럼</span>'의 공식 개막식(90분) 현장 총괄 큐시트를 작성 중이야.
-- 일시 및 장소: <span class="prompt-edit-target">2027년 9월 15일 10:00~11:30, 컨벤션홀 1층</span>
-- 주요 참석자: 장관급 2명, 해외 시장 10명, 초청 참가자 1,200명
+[배경] [행사명, 예: <span class="prompt-edit-target">2027 세계 도시혁신 포럼</span>]의 공식 개막식(Opening Ceremony) 현장 총괄 큐시트를 작성 중이야.
+- 일시 및 장소: [예: <span class="prompt-edit-target">2027년 9월 15일(수) 10:00~11:30 (총 90분), 컨벤션홀 1층</span>]
+- 주요 참석자: [예: <span class="prompt-edit-target">장관급 인사 2명, 해외 시장(Mayor) 10명, 초청 참가자 1,200명</span>]
 - 주요 식순: 식전 공연 ➔ 개회 선언 ➔ 국민의례 ➔ 환영사/축사 ➔ 개막 퍼포먼스 ➔ 기조연설 ➔ 기념촬영
 
 [지시] 아래 두 가지 산출물을 구체적으로 작성해 줘:
-1. 분 단위 공식 개막식 큐시트 (Run-through Sheet) : [시간 / 식순 / 사회자 멘트 요지 / 무대·영상LED·조명·음향 큐 / 의전 및 스태프 행동 요령]
-2. 현장 돌발 위기대응 시나리오 3선 (단계별 프로토콜: 발생 ➔ 보고 ➔ 조치 ➔ 사후처리):
-   - 상황 ①: 메인 무대 LED 영상 송출 중단 및 마이크 하울링/두절 발생 시
-   - 상황 ②: 예정된 주요 VIP 연사가 교통 체증으로 20분 지연 도착 시
-   - 상황 ③: 밀집 인파로 인한 객석 응급환자 발생 시 구급 동선 대처
+1. **분 단위 공식 개막식 큐시트 (Run-through Sheet)**
+   - [시간] / [식순] / [주요 내용 및 사회자 멘트 요지] / [무대/영상(LED)/조명/음향 큐(Cue)] / [의전 및 스태프 행동 요령]
+2. **현장 돌발 위기대응 시나리오(Contingency Plan) 3선**
+   - 상황 ①: 개막식 도중 메인 무대 LED 영상 송출 중단 및 마이크 음향 하울링/두절 발생 시
+   - 상황 ②: 예정된 주요 VIP 연사가 교통 체증으로 20분 지연 도착할 때의 식순 재배치 방안
+   - 상황 ③: 밀집 인파로 인한 객석 응급환자(호흡곤란/실신) 발생 시 구급 동선 및 비상 대처
 
-[형식] 큐시트는 현장 바인더 출력용 표(Table)로, 위기대응은 단계별 프로토콜로 작성해 줘.</pre>
+[형식] 큐시트는 실제 현장 바인더에 출력해 넣을 수 있는 정밀한 표(Table)로 작성하고, 위기대응은 단계별 프로토콜(발생 ➔ 보고 ➔ 조치 ➔ 사후처리)로 작성해 줘.
+
+[조건] 1분 단위의 현실적인 소요 시간을 산정하고, 장비 담당 스태프와 의전팀 간의 무전 사인(Signal)까지 구체적으로 적시해 줘.</pre>
                 </div>
               </div>
             </div>
@@ -3445,7 +3433,7 @@ const DashboardApp = {
               <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
                 <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px;">
                   <span style="background: #166534; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px;">사후 보고</span>
-                  <span>5. [사후 성과보고] 바이어 데이터 &amp; 설문 기반 최종 종합 결과보고서 (Executive Summary)</span>
+                  <span>5. [사후 성과보고] 참가자·바이어 데이터 기반 종합 결과보고서 작성</span>
                 </div>
                 <div class="prompt-action-group" style="display: inline-flex; align-items: center; gap: 6px; flex-wrap: wrap;">
                   <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 템플릿 복사하기">
@@ -3459,27 +3447,30 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-basic">❌ 일반적인 프롬프트</span>
                   </div>
                   <div class="basic-prompt-box">"행사 끝나고 지자체에 제출할 결과보고서 요약본 써줘."</div>
-                  <div class="basic-prompt-limit">💡 <strong>일반 요청의 한계:</strong> 경제적 파급효과 추정치나 불만 사항에 대한 실질적인 차기 개선 로드맵(Action Plan) 없이 미사여구만 나열됩니다.</div>
+                  <div class="basic-prompt-limit">💡 <strong>활용 상황:</strong> 행사가 종료된 후 주최 기관(지자체, 중앙부처, 협회)에 제출할 정량·정성 성과 분석 및 차기 행사 개선 방향을 담은 최종 결과보고서를 작성할 때</div>
                 </div>
                 <div class="prompt-col-improved">
                   <div class="prompt-col-header">
-                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트</span>
+                    <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
                   <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 컨벤션 뷰로(CVB) 평가위원 및 대형 MICE 행사 사후 성과평가 분석 전문 연구원이야.
 
-[배경] 최근 성공적으로 종료된 '<span class="prompt-edit-target">2026 K-바이오 글로벌 파트너링 페어</span>'의 종합 결과보고서를 작성 중이야.
-- 총 참가자: <span class="prompt-edit-target">3,420명 달성 (해외 28개국 520명)</span>
-- 1:1 상담: <span class="prompt-edit-target">840건 (MOU 12건, 상담액 약 4,500만 달러)</span>
-- 만족도: 프로그램 4.42점, 베뉴 4.61점, 다만 F&B 부족과 동시통역 수신기 부족 불만 접수
+[배경] 최근 성공적으로 종료된 [행사명, 예: <span class="prompt-edit-target">2026 K-바이오 글로벌 파트너링 페어</span>]의 공식 종합 결과보고서(Final Report)를 작성 중이야.
+- 개최 결과 요약:
+  * 총 참가자 수: [예: <span class="prompt-edit-target">목표 3,000명 대비 3,420명 달성 (해외 28개국 520명)</span>]
+  * 1:1 비즈니스 수출 상담: [예: <span class="prompt-edit-target">총 840건 진행, 현장 MOU 체결 12건, 상담액 약 4,500만 달러</span>]
+  * 만족도 조사 결과(5점 만점): 전체 프로그램 만족도 [4.42점], 베뉴/시설 만족도 [4.61점], 다만 '점심 식음료(F&B) 부족'과 '동시통역 수신기 수량 부족'에 대한 불만 피드백이 일부 접수됨.
 
-[지시] 지자체장 및 주최 협회 이사회에 공식 보고할 '결과보고서 핵심 요약'을 작성해 줘:
-1. 행사 개최 종합 개요 및 주요 핵심 성과(Key Achievements) 3대 하이라이트
-2. 정량적 성과 분석 및 지역 경제 파급효과 추정치
-3. 정성적 만족도 분석 및 긍정적 요인
-4. 참가자 불만 사항(F&B, 통역)에 대한 솔직한 진단과 차기 행사 개선 로드맵(Action Plan)
+[지시] 지자체장 및 주최 협회 이사회에 공식 보고할 품격 있는 '결과보고서 핵심 요약(Executive Summary)'을 작성해 줘:
+1. 행사 개최 종합 개요 및 주요 핵심 성과(Key Achievements) 3대 하이라이트 요약
+2. 정량적 성과 분석 (참가자 수, 글로벌 비중, 비즈니스 수출 성과 및 지역 경제 파급효과 추정치 설명)
+3. 정성적 만족도 분석 및 긍정적 평가 요인 도출
+4. 참가자 불만 사항(F&B, 통역 인프라)에 대한 솔직한 진단과 차기 행사 개선 로드맵(Action Plan) 제시
 
-[형식] 정부/지자체 제출용 공문서 목차 체계(I. 개최 개요 ➔ II. 주요 추진 성과 ➔ III. 세부 평가 ➔ IV. 향후 제언) 준수.</pre>
+[형식] 지자체/정부 제출용 공문서 및 보고서 규격(I. 개최 개요 ➔ II. 주요 추진 성과 ➔ III. 세부 평가 및 설문 분석 ➔ IV. 향후 제언) 목차 체계 준수.
+
+[조건] 실패나 불만족 요소는 숨기지 않고 전문적인 개선 대책으로 승화시켜 차기 행사 예산 증액의 근거로 활용할 수 있도록 설득력 있게 서술해 줘.</pre>
                 </div>
               </div>
             </div>
