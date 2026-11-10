@@ -206,10 +206,10 @@ const DashboardApp = {
         </div>
       </div>
 
-      <!-- 학생 120분 강의 모듈 헤더 -->
+      <!-- 학생 강의 모듈 헤더 -->
       <div style="margin-bottom: var(--spacing-20);">
         <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">CURRICULUM FOR UNIVERSITY STUDENTS</span>
-        <h2 style="font-size: 32px; color: var(--color-obsidian); margin: 0.25rem 0 0 0;">🎓 대학생 120분 AI 리터러시 마스터 코스</h2>
+        <h2 style="font-size: 32px; color: var(--color-obsidian); margin: 0.25rem 0 0 0;">🎓 대학생 AI 리터러시 마스터 코스</h2>
       </div>
 
       <!-- 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
@@ -492,10 +492,10 @@ const DashboardApp = {
         </div>
       </div>
 
-      <!-- 교직원 120분 강의 모듈 헤더 -->
+      <!-- 교직원 강의 모듈 헤더 -->
       <div style="margin-bottom: var(--spacing-20);">
         <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">ADMINISTRATIVE PRODUCTIVITY WORKFLOW</span>
-        <h2 style="font-size: 32px; color: var(--color-obsidian); margin: 0.25rem 0 0 0;">📋 교직원 120분 스마트 행정 커리큘럼</h2>
+        <h2 style="font-size: 32px; color: var(--color-obsidian); margin: 0.25rem 0 0 0;">📋 교직원 스마트 행정 커리큘럼</h2>
       </div>
 
       <!-- 교직원 모듈 그리드 (대상자별 4대 핵심 교육 & 실습 모듈) -->
