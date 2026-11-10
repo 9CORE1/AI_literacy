@@ -3195,32 +3195,32 @@ const DashboardApp = {
             <h4 style="font-size: 15px; color: var(--color-obsidian); margin: 0 0 10px 0; font-weight: 800; display: flex; align-items: center; gap: 6px;">
               <span>💡 실전 비교 (Before vs After)</span>
             </h4>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem;">
-              <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 1.15rem 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+            <div class="before-after-compare-grid" style="display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.4fr); gap: 1.25rem; align-items: stretch;">
+              <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 1.2rem 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="font-weight: 700; font-size: 13.5px; color: #991b1b; margin-bottom: 8px;">❌ 단순 지시형 (일반적인 프롬프트)</div>
-                  <div style="font-size: 13px; color: #7f1d1d; line-height: 1.6; font-style: italic; background: rgba(255, 255, 255, 0.6); padding: 10px 12px; border-radius: 10px; border-left: 3px solid #f87171; margin-bottom: 8px;">
+                  <div style="font-weight: 700; font-size: 14px; color: #991b1b; margin-bottom: 8px;">❌ 단순 지시형 (일반적인 프롬프트)</div>
+                  <div style="font-size: 13px; color: #7f1d1d; line-height: 1.6; font-style: italic; background: rgba(255, 255, 255, 0.7); padding: 12px 14px; border-radius: 10px; border-left: 3px solid #f87171; margin-bottom: 10px;">
                     "친환경 에너지 엑스포 행사 기획안 하나 짜줘."
                   </div>
                 </div>
-                <div style="font-size: 12px; color: #991b1b; line-height: 1.5; word-break: keep-all;">
+                <div style="font-size: 12px; color: #991b1b; line-height: 1.55; word-break: keep-all; background: rgba(254, 226, 226, 0.45); padding: 8px 12px; border-radius: 8px;">
                   <strong>(결과:</strong> 인터넷에 흔히 있는 뜬구름 잡는 일반론(환영사, 축사, 전시 부스 운영 등)만 나열되어 실제 PEO/PCO 제안서나 주최측 보고용으로 활용 불가.<strong>)</strong>
                 </div>
               </div>
 
-              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.15rem 1.25rem; display: flex; flex-direction: column; justify-content: space-between;">
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.2rem 1.35rem; display: flex; flex-direction: column; justify-content: space-between;">
                 <div>
-                  <div style="font-weight: 700; font-size: 13.5px; color: #166534; margin-bottom: 8px;">✅ 4+2 공식 결합형 (고품질 행정 프롬프트)</div>
-                  <div style="font-size: 12.5px; color: #14532d; line-height: 1.65; background: rgba(255, 255, 255, 0.7); padding: 10px 12px; border-radius: 10px; border-left: 3px solid #4ade80; margin-bottom: 8px; word-break: keep-all;">
-                    <p style="margin: 0 0 4px 0;"><strong>[역할]</strong> 글로벌 전시 주최사(PEO) 수석 전시기획자</p>
-                    <p style="margin: 0 0 4px 0;"><strong>[배경]</strong> B2B 바이어 5,000명과 300개 부스가 참여하는 코엑스 3일간의 '2027 탄소중립 신재생에너지 엑스포’</p>
-                    <p style="margin: 0 0 4px 0;"><strong>[지시]</strong> 바이어-참가기업 1:1 비즈니스 매칭 상담회 운영안, 부대 세미나 3개 테마, 참관객 체류시간을 늘릴 인터랙티브 체험존 아이디어 제시</p>
-                    <p style="margin: 0 0 4px 0;"><strong>[형식]</strong> 제안서 피칭용 목차 형태와 부스 동선/세미나 일정 표(Table)로 출력</p>
-                    <p style="margin: 0 0 4px 0;"><strong>[조건]</strong> 해외 바이어 유치 인센티브 방안 포함, 부스 시공 시 폐기물 최소화(Zero Waste) 방안 필수 기재</p>
+                  <div style="font-weight: 700; font-size: 14px; color: #166534; margin-bottom: 8px;">✅ 4+2 공식 결합형 (고품질 행정 프롬프트)</div>
+                  <div style="font-size: 12.5px; color: #14532d; line-height: 1.65; background: rgba(255, 255, 255, 0.8); padding: 12px 14px; border-radius: 10px; border-left: 3px solid #4ade80; margin-bottom: 10px; word-break: keep-all;">
+                    <p style="margin: 0 0 5px 0;"><strong>[역할]</strong> 글로벌 전시 주최사(PEO) 수석 전시기획자</p>
+                    <p style="margin: 0 0 5px 0;"><strong>[배경]</strong> B2B 바이어 5,000명과 300개 부스가 참여하는 코엑스 3일간의 '2027 탄소중립 신재생에너지 엑스포’</p>
+                    <p style="margin: 0 0 5px 0;"><strong>[지시]</strong> 바이어-참가기업 1:1 비즈니스 매칭 상담회 운영안, 부대 세미나 3개 테마, 참관객 체류시간을 늘릴 인터랙티브 체험존 아이디어 제시</p>
+                    <p style="margin: 0 0 5px 0;"><strong>[형식]</strong> 제안서 피칭용 목차 형태와 부스 동선/세미나 일정 표(Table)로 출력</p>
+                    <p style="margin: 0 0 5px 0;"><strong>[조건]</strong> 해외 바이어 유치 인센티브 방안 포함, 부스 시공 시 폐기물 최소화(Zero Waste) 방안 필수 기재</p>
                     <p style="margin: 0;"><strong>[샘플]</strong> <code>[프로그램명] | [대상] | [운영 방식] | [기대 바이어 상담 건수]</code> 표 서식 준수</p>
                   </div>
                 </div>
-                <div style="font-size: 12px; color: #166534; line-height: 1.5; word-break: keep-all;">
+                <div style="font-size: 12px; color: #166534; line-height: 1.55; word-break: keep-all; background: rgba(220, 252, 231, 0.45); padding: 8px 12px; border-radius: 8px;">
                   <strong>(결과:</strong> 주최측 제안 발표(PT)와 예산서 수립에 즉시 반영할 수 있는 구체적이고 전문적인 실행 계획안 완성.<strong>)</strong>
                 </div>
               </div>
@@ -3264,7 +3264,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 15년 차 대형 국제회의 전문 PCO(국제회의기획사) 총괄 기획 디렉터이자 정부/공공 입찰 제안서 평가위원 출신이야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 15년 차 대형 국제회의 전문 PCO(국제회의기획사) 총괄 기획 디렉터이자 정부/공공 입찰 제안서 평가위원 출신이야.
 
 [배경] 우리 회사는 이번에 [지자체/협회명]에서 발주한 '<span class="prompt-edit-target">2027 아시아-태평양 친환경 해양 모빌리티 서밋</span>' 유치 용역 입찰(RFP)에 참여하려고 해.
 - 개최 기간 및 장소: <span class="prompt-edit-target">2027년 10월 중 3일간, 부산 벡스코</span>
@@ -3310,7 +3310,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP VIP protocol and speaker curation.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP VIP protocol and speaker curation.
 
 [배경] We are hosting [행사 공식 영문명, e.g., <span class="prompt-edit-target">The Global AI & Future Healthcare Congress 2027</span>].
 - Date & Location: [일정 및 장소, e.g., <span class="prompt-edit-target">November 12-14, 2027 | Seoul, South Korea</span>]
@@ -3357,7 +3357,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 글로벌 메가 컨벤션 및 B2B 산업 엑스포의 스폰서십 세일즈 전문 디렉터야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 글로벌 메가 컨벤션 및 B2B 산업 엑스포의 스폰서십 세일즈 전문 디렉터야.
 
 [배경] 우리는 [행사명, 예: <span class="prompt-edit-target">2027 글로벌 스마트 모빌리티 엑스포</span>]의 성공적인 개최와 재정 확충을 위해 국내외 주요 모빌리티·배터리·SW 기업들을 대상으로 스폰서십 유치 작업을 진행하고 있어.
 - 총 모금 목표액: [예: <span class="prompt-edit-target">10억 원</span>]
@@ -3406,7 +3406,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄 총괄 무대감독이자 MICE 현장 운영 총괄 PM이야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄 총괄 무대감독이자 MICE 현장 운영 총괄 PM이야.
 
 [배경] [행사명, 예: <span class="prompt-edit-target">2027 세계 도시혁신 포럼</span>]의 공식 개막식(Opening Ceremony) 현장 총괄 큐시트를 작성 중이야.
 - 일시 및 장소: [예: <span class="prompt-edit-target">2027년 9월 15일(수) 10:00~11:30 (총 90분), 컨벤션홀 1층</span>]
@@ -3454,7 +3454,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">[역할] 너는 컨벤션 뷰로(CVB) 평가위원 및 대형 MICE 행사 사후 성과평가 분석 전문 연구원이야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 컨벤션 뷰로(CVB) 평가위원 및 대형 MICE 행사 사후 성과평가 분석 전문 연구원이야.
 
 [배경] 최근 성공적으로 종료된 [행사명, 예: <span class="prompt-edit-target">2026 K-바이오 글로벌 파트너링 페어</span>]의 공식 종합 결과보고서(Final Report)를 작성 중이야.
 - 개최 결과 요약:
@@ -3544,7 +3544,7 @@ const DashboardApp = {
             잡지풍의 미니멀 에디토리얼 스타일로 회사소개서 10장 슬라이드를 단번에 완성하는 전문 스킬입니다.
           </p>
 
-          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0 0 1rem 0; font-family: var(--font-mono); cursor: text;">PPT 슬라이드 작성과 관련된 스킬을 작성하려고 해.
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0 0 1rem 0; font-family: inherit; cursor: text;">PPT 슬라이드 작성과 관련된 스킬을 작성하려고 해.
 다음 스타일을 설정해줘:
 Name: "Monochrome Editorial Minimal"
 Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니멀 에디토리얼 프레젠테이션"
@@ -3575,7 +3575,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
             고객의 비정형 카톡/메일 문의 텍스트나 캡처를 분석하여 견적서 산출과 안내 문구를 자동으로 완성합니다.
           </p>
 
-          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0 0 1rem 0; font-family: var(--font-mono); cursor: text;">스킬 크리에이터를 써서 견적 스킬을 만들어줘.
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0 0 1rem 0; font-family: inherit; cursor: text;">스킬 크리에이터를 써서 견적 스킬을 만들어줘.
 내가 메뉴, 가격, 진행 방식을 정리해줄테니 카톡 문의(텍스트 또는 캡처)를 붙여넣고 "행사 견적 뽑아줘"라고 하면 견적 답변과 견적서 PDF까지 만들어주는 스킬로 만들어줘.
 
 [포함 규칙]
@@ -3677,7 +3677,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
             아래 프롬프트를 AI(ChatGPT 또는 Gemini)에 입력하면 구글 드라이브에서 실행 즉시 설문지가 1초 만에 완성되는 Apps Script 코드를 얻을 수 있습니다.
           </p>
 
-          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: var(--font-mono); cursor: text;">구글 드라이브에서 실행만 누르면 리커트 5점 척도와 주관식 문항이 담긴 설문지가 자동으로 생성되는 Google Apps Script(GAS) 코드를 작성해 줘.
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">구글 드라이브에서 실행만 누르면 리커트 5점 척도와 주관식 문항이 담긴 설문지가 자동으로 생성되는 Google Apps Script(GAS) 코드를 작성해 줘.
 
 [행사 정보]
 - 행사명: 2027 아시아-태평양 모빌리티 서밋 만족도 설문조사
@@ -3720,7 +3720,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
                   <span>📋 수식 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 참가자 피드백의 감정을 [매우긍정 / 긍정 / 건의사항 / 불만족] 중 단어 하나로만 분류해줘. 부가 설명 없이 단어만 출력:", F2)</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 참가자 피드백의 감정을 [매우긍정 / 긍정 / 건의사항 / 불만족] 중 단어 하나로만 분류해줘. 부가 설명 없이 단어만 출력:", F2)</pre>
             </div>
 
             <!-- 수식 2 -->
@@ -3731,7 +3731,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
                   <span>📋 수식 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 피드백에서 베뉴 및 운영 지원 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘. 없으면 '없음'이라고 출력하고 쉼표로 구분:", F2)</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 피드백에서 베뉴 및 운영 지원 개선이 필요한 핵심 키워드를 단어 2개 이내로 추출해줘. 없으면 '없음'이라고 출력하고 쉼표로 구분:", F2)</pre>
             </div>
 
             <!-- 수식 3 -->
@@ -3742,7 +3742,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
                   <span>📋 수식 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 상담 일지에서 핵심 품목과 바이어의 계약 체결 의향을 30자 이내의 한 문장으로 명확히 요약해줘:", D2)</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 상담 일지에서 핵심 품목과 바이어의 계약 체결 의향을 30자 이내의 한 문장으로 명확히 요약해줘:", D2)</pre>
             </div>
 
             <!-- 수식 4 -->
@@ -3753,7 +3753,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
                   <span>📋 수식 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("바이어 " & A2 & "님 (" & B2 & " 소속)께 이번 모빌리티 서밋 참석 감사 및 후속 미팅을 제안하는 정중하고 격식 있는 비즈니스 영문 메일을 50단어 내외로 작성해줘:")</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("바이어 " & A2 & "님 (" & B2 & " 소속)께 이번 모빌리티 서밋 참석 감사 및 후속 미팅을 제안하는 정중하고 격식 있는 비즈니스 영문 메일을 50단어 내외로 작성해줘:")</pre>
             </div>
 
             <!-- 수식 5 -->
@@ -3764,7 +3764,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
                   <span>📋 수식 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("A열의 [후원사명]과 B열의 [핵심전시품목]을 고려해 공식 프로그램북에 실릴 25자 내외의 매력적인 홍보 카피를 작성해줘:", A2:B2)</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("A열의 [후원사명]과 B열의 [핵심전시품목]을 고려해 공식 프로그램북에 실릴 25자 내외의 매력적인 홍보 카피를 작성해줘:", A2:B2)</pre>
             </div>
           </div>
         </div>
@@ -4934,7 +4934,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 리뷰의 감정을 <span class="prompt-edit-target">[긍정 / 부정 / 중립]</span> 중 단어 하나로만 분류해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 리뷰의 감정을 <span class="prompt-edit-target">[긍정 / 부정 / 중립]</span> 중 단어 하나로만 분류해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -4944,7 +4944,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 문의 내용을 <span class="prompt-edit-target">[결제 / 배송 / 환불 / 단순문의]</span> 중 하나로만 분류해줘:", <span class="prompt-edit-target">B2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 문의 내용을 <span class="prompt-edit-target">[결제 / 배송 / 환불 / 단순문의]</span> 중 하나로만 분류해줘:", <span class="prompt-edit-target">B2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -4967,7 +4967,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 <span class="prompt-edit-target">고객 상담 내용의 핵심 쟁점을 30자 이내</span>의 한 문장으로 요약해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 <span class="prompt-edit-target">고객 상담 내용의 핵심 쟁점을 30자 이내</span>의 한 문장으로 요약해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -4977,7 +4977,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 텍스트에서 <span class="prompt-edit-target">'이메일 주소'</span>만 추출해서 출력해줘. 없으면 <span class="prompt-edit-target">'없음'</span>이라고 써줘:", <span class="prompt-edit-target">C2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 텍스트에서 <span class="prompt-edit-target">'이메일 주소'</span>만 추출해서 출력해줘. 없으면 <span class="prompt-edit-target">'없음'</span>이라고 써줘:", <span class="prompt-edit-target">C2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -5000,7 +5000,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 오타가 섞인 <span class="prompt-edit-target">제품명을 공식 표준 한국어 표기법</span>으로 교정해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 오타가 섞인 <span class="prompt-edit-target">제품명을 공식 표준 한국어 표기법</span>으로 교정해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -5010,7 +5010,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 비정형 주소를 <span class="prompt-edit-target">[시/도 구/군 동/면/읍]</span> 표준 행정구역 포맷으로 변환해줘:", <span class="prompt-edit-target">B2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 비정형 주소를 <span class="prompt-edit-target">[시/도 구/군 동/면/읍]</span> 표준 행정구역 포맷으로 변환해줘:", <span class="prompt-edit-target">B2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -5033,7 +5033,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 문장을 <span class="prompt-edit-target">해외 바이어에게 보낼 정중하고 격식 있는 비즈니스 영어</span>로 번역해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 문장을 <span class="prompt-edit-target">해외 바이어에게 보낼 정중하고 격식 있는 비즈니스 영어</span>로 번역해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 2 -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -5043,7 +5043,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 딱딱한 안내 공지문을 <span class="prompt-edit-target">대학생들에게 친근한 카카오톡 알림톡 말투</span>로 바꿔줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 딱딱한 안내 공지문을 <span class="prompt-edit-target">대학생들에게 친근한 카카오톡 알림톡 말투</span>로 바꿔줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -5064,7 +5064,7 @@ E. 게시 전 검수 체크리스트
                     <span>📋 수식 복사</span>
                   </button>
                 </div>
-                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("A열의 <span class="prompt-edit-target">[상품명]</span>과 B열의 <span class="prompt-edit-target">[핵심 타깃]</span>을 고려해 <span class="prompt-edit-target">20자 내외의 매력적인 인스타그램 광고 카피</span>를 써줘", <span class="prompt-edit-target">A2:B2</span>)</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("A열의 <span class="prompt-edit-target">[상품명]</span>과 B열의 <span class="prompt-edit-target">[핵심 타깃]</span>을 고려해 <span class="prompt-edit-target">20자 내외의 매력적인 인스타그램 광고 카피</span>를 써줘", <span class="prompt-edit-target">A2:B2</span>)</pre>
               </div>
             </div>
           </div>
@@ -5117,7 +5117,7 @@ E. 게시 전 검수 체크리스트
                     <span>📋 복사</span>
                   </button>
                 </div>
-                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 6px 10px; font-size: 11.5px; color: #0369a1; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 수강생 " & <span class="prompt-edit-target">A2</span> & "님의 취약점인 " & <span class="prompt-edit-target">B2</span> & " 영역을 보완할 <span class="prompt-edit-target">한 줄 피드백</span>을 작성해줘")</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f0f9ff; border: 1px solid #e0f2fe; border-radius: 6px; padding: 6px 10px; font-size: 11.5px; color: #0369a1; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">=GEMINI("다음 수강생 " & <span class="prompt-edit-target">A2</span> & "님의 취약점인 " & <span class="prompt-edit-target">B2</span> & " 영역을 보완할 <span class="prompt-edit-target">한 줄 피드백</span>을 작성해줘")</pre>
               </div>
             </div>
           </div>
@@ -5308,7 +5308,7 @@ E. 게시 전 검수 체크리스트
                     <span>📋 수식 복사</span>
                   </button>
                 </div>
-                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 연수 만족도 의견의 감정을 <span class="prompt-edit-target">[긍정 / 부정 / 건의]</span> 중 단어 하나로만 분류해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 연수 만족도 의견의 감정을 <span class="prompt-edit-target">[긍정 / 부정 / 건의]</span> 중 단어 하나로만 분류해줘:", <span class="prompt-edit-target">A2</span>)</pre>
               </div>
             </div>
 
@@ -5330,7 +5330,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 <span class="prompt-edit-target">학사 행정 민원 내용의 핵심 요지를 30자 이내</span>의 한 문장으로 요약해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 <span class="prompt-edit-target">학사 행정 민원 내용의 핵심 요지를 30자 이내</span>의 한 문장으로 요약해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 B -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -5340,7 +5340,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 텍스트에서 <span class="prompt-edit-target">'학번'과 '이메일 주소'</span>만 추출해서 <span class="prompt-edit-target">슬래시(/)</span>로 구분해줘. 없으면 '없음'으로 써줘:", <span class="prompt-edit-target">C2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 텍스트에서 <span class="prompt-edit-target">'학번'과 '이메일 주소'</span>만 추출해서 <span class="prompt-edit-target">슬래시(/)</span>로 구분해줘. 없으면 '없음'으로 써줘:", <span class="prompt-edit-target">C2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -5361,7 +5361,7 @@ E. 게시 전 검수 체크리스트
                     <span>📋 프롬프트 복사</span>
                   </button>
                 </div>
-                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">"구글 폼을 생성하는 GAS(Google Apps Script) 코드를 작성해 줘. 제목은 <span class="prompt-edit-target">[행정 워크숍 사후 만족도]</span>, 1~5번은 <span class="prompt-edit-target">리커트 5점 척도(매우 불만족~매우 만족)</span>, 6번은 <span class="prompt-edit-target">주관식 건의사항(단문형)</span>으로 구성해 줘. 실행 가능한 전체 완성형 코드로 출력해 줘."</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">"구글 폼을 생성하는 GAS(Google Apps Script) 코드를 작성해 줘. 제목은 <span class="prompt-edit-target">[행정 워크숍 사후 만족도]</span>, 1~5번은 <span class="prompt-edit-target">리커트 5점 척도(매우 불만족~매우 만족)</span>, 6번은 <span class="prompt-edit-target">주관식 건의사항(단문형)</span>으로 구성해 줘. 실행 가능한 전체 완성형 코드로 출력해 줘."</pre>
               </div>
             </div>
 
@@ -5383,7 +5383,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 딱딱한 학사 안내 공지문을 <span class="prompt-edit-target">학생들에게 친근한 카카오톡 알림톡 말투</span>로 변환해줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 딱딱한 학사 안내 공지문을 <span class="prompt-edit-target">학생들에게 친근한 카카오톡 알림톡 말투</span>로 변환해줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
                 <!-- 수식 B -->
                 <div class="prompt-template-card" style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 12px; padding: 0.95rem 1.1rem;">
@@ -5393,7 +5393,7 @@ E. 게시 전 검수 체크리스트
                       <span>📋 수식 복사</span>
                     </button>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("다음 문장을 <span class="prompt-edit-target">대학 본부 및 대외 기관에 제출할 정중하고 격식 있는 행정 공문서 표준 문체</span>로 다듬어줘:", <span class="prompt-edit-target">A2</span>)</pre>
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("다음 문장을 <span class="prompt-edit-target">대학 본부 및 대외 기관에 제출할 정중하고 격식 있는 행정 공문서 표준 문체</span>로 다듬어줘:", <span class="prompt-edit-target">A2</span>)</pre>
                 </div>
               </div>
             </div>
@@ -5414,7 +5414,7 @@ E. 게시 전 검수 체크리스트
                     <span>📋 수식 복사</span>
                   </button>
                 </div>
-                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: var(--font-mono); cursor: text;">=GEMINI("A열의 <span class="prompt-edit-target">[소속부서]</span>와 B열의 <span class="prompt-edit-target">[대상자]</span>를 고려해 30자 내외의 정중한 행사 안내 문구를 작성해줘:", <span class="prompt-edit-target">A2:B2</span>)</pre>
+                <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("A열의 <span class="prompt-edit-target">[소속부서]</span>와 B열의 <span class="prompt-edit-target">[대상자]</span>를 고려해 30자 내외의 정중한 행사 안내 문구를 작성해줘:", <span class="prompt-edit-target">A2:B2</span>)</pre>
               </div>
             </div>
           </div>

@@ -1881,6 +1881,10 @@ button {
 }
 
 /* 프롬프트 템플릿 5선 인라인 편집 코드 영역 */
+.editable-prompt-pre {
+  font-family: var(--font-body) !important;
+}
+
 .editable-prompt-pre:hover {
   border-color: #cbd5e1 !important;
 }
@@ -2065,5 +2069,12 @@ button {
   .lecture-nav-section button[onclick*="showImageModal"] {
     width: 100% !important;
     margin-top: 6px !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .before-after-compare-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0.85rem !important;
   }
 }
