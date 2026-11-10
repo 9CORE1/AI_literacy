@@ -562,13 +562,14 @@ const Auth = {
         ? existingData.status
         : (userData.status || existingData.status || 'pending');
 
-      const explicitRole = (userData.role === 'staff' || userData.role === 'student') ? userData.role : null;
+      const explicitRole = (userData.role === 'staff' || userData.role === 'worker' || userData.role === 'student') ? userData.role : null;
+      const explicitAllowedRole = (userData.allowedRole === 'staff' || userData.allowedRole === 'worker' || userData.allowedRole === 'student') ? userData.allowedRole : null;
       const resolvedRole = (forceUpdateRole && explicitRole)
         ? explicitRole
         : (explicitRole || existingData.role || existingData.allowedRole || 'student');
-      const resolvedAllowedRole = (forceUpdateRole && explicitRole)
-        ? explicitRole
-        : (userData.allowedRole || explicitRole || existingData.allowedRole || existingData.role || 'student');
+      const resolvedAllowedRole = (forceUpdateRole && (explicitAllowedRole || explicitRole))
+        ? (explicitAllowedRole || explicitRole)
+        : (explicitAllowedRole || explicitRole || existingData.allowedRole || existingData.role || 'student');
 
       const nowIso = new Date().toISOString();
       const payload = {
@@ -1422,9 +1423,11 @@ const Auth = {
         document.body.style.display = 'none';
       }
       if (userRole === 'student') {
-        alert('⛔ [대상자 접근 제한]\n해당 계정은 [대학생 과정] 회원입니다.\n교직원 과정에는 접속할 수 없습니다.\n\n대학생 맞춤 강의실로 이동합니다.');
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 [대학생 과정] 회원입니다.\n다른 대상자 과정에는 접속할 수 없습니다.\n\n대학생 맞춤 강의실로 이동합니다.');
       } else if (userRole === 'staff') {
-        alert('⛔ [대상자 접근 제한]\n해당 계정은 [교직원 과정] 회원입니다.\n대학생 과정에는 접속할 수 없습니다.\n\n교직원 맞춤 강의실로 이동합니다.');
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 [교직원 과정] 회원입니다.\n다른 대상자 과정에는 접속할 수 없습니다.\n\n교직원 맞춤 강의실로 이동합니다.');
+      } else if (userRole === 'worker') {
+        alert('⛔ [대상자 접근 제한]\n해당 계정은 [실무자 과정] 회원입니다.\n다른 대상자 과정에는 접속할 수 없습니다.\n\n실무자 맞춤 강의실로 이동합니다.');
       }
       window.location.replace('dashboard.html');
       return false;
@@ -1662,8 +1665,8 @@ const Auth = {
     // 기존 등록 회원 및 Firestore에서 동일 이메일 사용자 조회 (Firestore 최신 상태 자동 동기화)
     const existing = await this.fetchExistingUser(payload.email);
 
-    // 사용자가 로그인 모달 창에서 선택한 대상자 역할 ('student' | 'staff') 최우선 적용
-    const attemptedRole = (role === 'staff' || role === 'student')
+    // 사용자가 로그인 모달 창에서 선택한 대상자 역할 ('student' | 'staff' | 'worker') 최우선 적용
+    const attemptedRole = (role === 'staff' || role === 'worker' || role === 'student')
       ? role
       : ((existing && existing.role) ? existing.role : 'student');
 
@@ -2086,8 +2089,8 @@ const Auth = {
       ? existingProfile.status
       : (matched.status || localApproval.status || 'pending');
 
-    // 로그인 모달 창에서 선택한 대상자('student' | 'staff') 최우선 적용
-    const chosenRole = (selectedRole === 'staff' || selectedRole === 'student')
+    // 로그인 모달 창에서 선택한 대상자('student' | 'staff' | 'worker') 최우선 적용
+    const chosenRole = (selectedRole === 'staff' || selectedRole === 'worker' || selectedRole === 'student')
       ? selectedRole
       : (matched.role || (existingProfile && existingProfile.role) || localApproval.allowedRole || 'student');
 
