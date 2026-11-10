@@ -2804,11 +2804,11 @@ const DashboardApp = {
         <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-worker-sec-4')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 04</span>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글 폼 & =GEMINI() 집계</span>
+            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">구글 폼 &amp; 실시간 집계</span>
           </div>
-          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 폼 생성 & 스프레드시트 =GEMINI() 집계</h3>
+          <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 폼 제작 &amp; 스프레드시트 실시간 집계</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
-            15분 완성 8단계 로드맵, GAS 1클릭 폼 생성, 시트 실시간 수식 및 =GEMINI() 함수를 이용한 주관식 참가자 피드백 자동 분류.
+            15분 완성 8단계 로드맵, AI 문항 기획, GAS 원클릭 자동 생성, 시트 실시간 수식 대시보드 및 =GEMINI() 함수 활용.
           </p>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 04 섹션으로 바로 이동하기</span>
@@ -2824,7 +2824,7 @@ const DashboardApp = {
 
       ${this.getWorkerAgentSkillSectionHtml()}
 
-      ${this.getWorkerFormGeminiSectionHtml()}
+      ${this.getStaffGoogleFormSectionHtml('lecture-worker-sec-4')}
 
       <!-- Ending. AI 리터러시 미래 학습 가이드 섹션 -->
       ${this.getEndingSectionHtml('lecture-worker-sec-ending')}
@@ -4316,10 +4316,10 @@ E. 게시 전 검수 체크리스트
   /**
    * 교직원 모듈 04: 구글 폼 제작 및 집계시스템 설정 (15분 라이브 시연 실무 가이드 - 구글폼2.md 기반)
    */
-  getStaffGoogleFormSectionHtml() {
+  getStaffGoogleFormSectionHtml(sectionId = 'lecture-staff-sec-4') {
     return `
       <!-- 04. 구글 폼 제작 및 집계시스템 설정 실무 가이드 섹션 -->
-      <div id="lecture-staff-sec-4" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
+      <div id="${sectionId}" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <!-- 섹션 헤더 -->
         <div style="margin-bottom: var(--spacing-20);">
           <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">FORM DESIGN & AUTOMATED REPORTING</span>
