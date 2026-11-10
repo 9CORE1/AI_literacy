@@ -2848,12 +2848,10 @@ const DashboardApp = {
             <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🗺️ 한국 AI 생태계 지형도 한눈에 보기</span>
             </h3>
-            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/notion_한국_AI_생태계_한눈에_보기.png', '🗺️ 한국 AI 생태계 지형도 한눈에 보기', '💡 국내외 주요 생성형 AI 모델 및 인프라 생태계 지도')" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700;">
-              <span>🔍 크게 보기 ↗</span>
-            </button>
+            <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
           </div>
-          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center;" onclick="DashboardApp.showImageModal('images/notion_한국_AI_생태계_한눈에_보기.png', '🗺️ 한국 AI 생태계 지형도 한눈에 보기', '💡 국내외 주요 생성형 AI 모델 및 인프라 생태계 지도')">
-            <img src="images/notion_한국_AI_생태계_한눈에_보기.png" alt="한국 AI 생태계 한눈에 보기 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/notion_한국_AI_생태계_한눈에_보기.png', '🗺️ 한국 AI 생태계 지형도 한눈에 보기', '💡 국내외 주요 생성형 AI 모델 및 인프라 생태계 지도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+            <img src="images/notion_한국_AI_생태계_한눈에_보기.png" alt="한국 AI 생태계 한눈에 보기 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain; cursor: pointer;" loading="lazy">
           </div>
         </div>
 
@@ -2863,12 +2861,10 @@ const DashboardApp = {
             <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>📊 글로벌 빅3 LLM(OpenAI · Google · Anthropic) 비교 인포그래픽</span>
             </h3>
-            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700;">
-              <span>🔍 크게 보기 ↗</span>
-            </button>
+            <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
           </div>
-          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')">
-            <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+            <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain; cursor: pointer;" loading="lazy">
           </div>
         </div>
 
