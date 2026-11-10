@@ -2976,7 +2976,7 @@ const DashboardApp = {
         </div>
 
         <!-- 3. 실무자 10초 자가 검증 체크리스트 카드 -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
             <span>🔒 MICE 실무자 10초 자가 검증 체크리스트 (환각 방지 & 컴플라이언스)</span>
           </h3>
@@ -3005,6 +3005,84 @@ const DashboardApp = {
                 AI가 도출한 행사 슬로건이나 프로그램명이 타 행사의 등록상표나 저작권을 침해하지 않는지 키프리스(KIPRIS)로 조회하세요.
               </div>
             </div>
+          </div>
+        </div>
+
+        <!-- 4. [노션 공식 가이드] AI 리터러시의 정의와 5대 핵심 요소 & 글로벌 프레임워크 카드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📖 AI 리터러시(AI Literacy)란 무엇인가?</span>
+            </h3>
+            <span style="background: #eef2ff; color: #4338ca; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              노션 공식 강의 핵심 가이드
+            </span>
+          </div>
+
+          <!-- 개념 및 디지털 리터러시와의 차이 -->
+          <div style="background: #fafaf9; border-left: 4px solid var(--color-ember); padding: 14px 18px; border-radius: 0 16px 16px 0; margin-bottom: 1.25rem;">
+            <p style="font-size: 14px; color: var(--color-obsidian); line-height: 1.65; margin: 0 0 8px 0; word-break: keep-all; font-weight: 600;">
+              AI 리터러시(Artificial Intelligence Literacy)란 인공지능의 기본 원리와 특성을 이해하고, AI 도구를 목적에 맞게 활용하며, AI가 생성한 결과를 비판적으로 평가하고, 윤리적·책임감 있게 활용하여 실제 문제를 해결할 수 있는 종합적인 역량을 의미합니다.
+            </p>
+            <p style="font-size: 13px; color: #64748b; line-height: 1.6; margin: 0; word-break: keep-all;">
+              과거 <strong>디지털 리터러시</strong>가 디지털 기기와 정보를 이해하고 활용하는 능력에 중점을 두었다면, <strong>AI 리터러시</strong>는 여기에 <em>AI와의 상호작용, 결과 검증, 인간의 판단과 통제(Human-in-the-loop), AI를 활용한 실무 문제해결 능력</em>을 필수적으로 포함합니다.
+            </p>
+          </div>
+
+          <!-- 핵심 요약 콜아웃 -->
+          <div style="background: #fff7ed; border: 1.5px solid #ffedd5; border-radius: 16px; padding: 14px 18px; margin-bottom: 1.25rem; display: flex; align-items: center; gap: 10px;">
+            <span style="font-size: 20px;">💡</span>
+            <div style="font-size: 13.5px; color: #9a3412; font-weight: 700; line-height: 1.5; word-break: keep-all;">
+              <strong>핵심 요약 공식:</strong> AI를 잘 사용하는 능력 + AI 결과를 올바르게 판단하는 능력 + 실제 업무 문제에 적용하는 능력
+            </div>
+          </div>
+
+          <!-- 5가지 핵심 요소 목록 -->
+          <h4 style="font-size: 15px; color: var(--color-obsidian); margin: 0 0 10px 0; font-weight: 800;">
+            🧩 5가지 핵심 역량 요소 (Core Competencies)
+          </h4>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 1.5rem;">
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;">
+              <div style="font-weight: 800; font-size: 13px; color: var(--color-ember); margin-bottom: 3px;">1. 이해 (Understand)</div>
+              <div style="font-size: 12px; color: #64748b; line-height: 1.45;">AI의 기본 개념·원리·환각 한계 이해</div>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;">
+              <div style="font-weight: 800; font-size: 13px; color: #0f9d58; margin-bottom: 3px;">2. 활용 (Apply)</div>
+              <div style="font-size: 12px; color: #64748b; line-height: 1.45;">AI 서비스와 기능을 목적에 맞게 선택·활용</div>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;">
+              <div style="font-weight: 800; font-size: 13px; color: #7c3aed; margin-bottom: 3px;">3. 상호작용 (Prompt)</div>
+              <div style="font-size: 12px; color: #64748b; line-height: 1.45;">효과적인 프롬프트 설계와 결과 개선</div>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;">
+              <div style="font-weight: 800; font-size: 13px; color: #ea580c; margin-bottom: 3px;">4. 윤리·평가 (Verify)</div>
+              <div style="font-size: 12px; color: #64748b; line-height: 1.45;">사실 검증, 편향 인식, 개인정보·저작권 보호</div>
+            </div>
+            <div style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 14px; padding: 12px 14px;">
+              <div style="font-weight: 800; font-size: 13px; color: #0284c7; margin-bottom: 3px;">5. 문제해결 (Solve)</div>
+              <div style="font-size: 12px; color: #64748b; line-height: 1.45;">AI와 협력하여 실제 비즈니스 문제 해결책 설계</div>
+            </div>
+          </div>
+
+          <!-- 글로벌 표준 참고 문헌 및 공인 프레임워크 -->
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 18px; padding: 16px 20px;">
+            <div style="font-weight: 800; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
+              <span>🌐 글로벌 공인 AI 리터러시 프레임워크 &amp; 참고 자료</span>
+            </div>
+            <ul style="margin: 0; padding-left: 18px; font-size: 12.5px; color: #64748b; line-height: 1.7; word-break: keep-all;">
+              <li>
+                <strong>Long, D., &amp; Magerko, B. (2020)</strong>: <em>What Is AI Literacy? Competencies and Design Considerations</em>. ACM CHI Conference on Human Factors in Computing Systems (AI 리터러시 핵심 역량 이론 정립 논문)
+              </li>
+              <li>
+                <strong>UNESCO (2024)</strong>: <em>AI Competency Framework for Students</em> (유네스코 공인 학생 및 미래인재 AI 역량 프레임워크)
+              </li>
+              <li>
+                <strong>European Union (2024)</strong>: <em>Regulation (EU) 2024/1689 (EU Artificial Intelligence Act)</em>, Article 4 및 Article 3(56) (유럽연합 인공지능법상 조직 구성원 AI 리터러시 보장 의무 조항)
+              </li>
+              <li>
+                <strong>OECD · European Commission</strong>: AI Literacy 관련 교육 가이드라인 및 공공·재직자 역량 모델
+              </li>
+            </ul>
           </div>
         </div>
       </div>
