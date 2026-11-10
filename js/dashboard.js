@@ -2855,19 +2855,6 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- [인포그래픽 2] LLM 3종 비교 인포그래픽 -->
-        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
-            <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>📊 글로벌 빅3 LLM(OpenAI · Google · Anthropic) 비교 인포그래픽</span>
-            </h3>
-            <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
-          </div>
-          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
-            <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain; cursor: pointer;" loading="lazy">
-          </div>
-        </div>
-
         <!-- 1. LLM 3종 비즈니스 비교 분석 카드 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
@@ -2929,6 +2916,19 @@ const DashboardApp = {
                 </tr>
               </tbody>
             </table>
+          </div>
+        </div>
+
+        <!-- [인포그래픽 2] LLM 3종 비교 인포그래픽 -->
+        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 글로벌 빅3 LLM(OpenAI · Google · Anthropic) 비교 인포그래픽</span>
+            </h3>
+            <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
+          </div>
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';">
+            <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain; cursor: pointer;" loading="lazy">
           </div>
         </div>
 
