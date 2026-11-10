@@ -2734,12 +2734,6 @@ const DashboardApp = {
               <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-weight: 800; font-size: 12.5px; padding: 4px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px;">
                 <span>⚡ MICE 실무 4대 핵심 코스</span>
               </span>
-              <a href="handout-worker.html" target="_blank" rel="noopener noreferrer" style="background: rgba(255, 255, 255, 0.2); color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.35); display: inline-flex; align-items: center; gap: 5px;">
-                <span>🖨️ A4 2Page 핸드아웃 보기 ↗</span>
-              </a>
-              <a href="https://9core.notion.site/AI-40d0ce4c0224806ca61de54712cb6428?source=copy_link" target="_blank" rel="noopener noreferrer" style="background: rgba(255, 255, 255, 0.2); color: #ffffff; text-decoration: none; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; border: 1px solid rgba(255, 255, 255, 0.35); display: inline-flex; align-items: center; gap: 5px;">
-                <span>📝 노션 공식 강의노트 ↗</span>
-              </a>
             </div>
           </div>
           <div style="display: flex; align-items: center;">
