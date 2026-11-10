@@ -775,6 +775,7 @@
         document.getElementById('admin-barrier-modal').style.display = 'none';
         await loadUsersData();
         await loadStaffModule4Setting();
+        setupRealtimeUsersListener();
       } else {
         alert(res.message);
       }
@@ -782,6 +783,10 @@
 
     function handleAdminLogout() {
       if (confirm('관리자 모드에서 로그아웃하시겠습니까?')) {
+        if (realtimeUnsubscribe) {
+          realtimeUnsubscribe();
+          realtimeUnsubscribe = null;
+        }
         Auth.logoutAdmin();
         window.location.href = 'index.html';
       }
@@ -830,6 +835,26 @@
     }
 
     // 2. 회원 데이터 로드 및 통계 산출 (오직 Cloud Firestore users 데이터베이스 실제 등록 회원만 표시)
+    let realtimeUnsubscribe = null;
+
+    function setupRealtimeUsersListener() {
+      if (typeof Auth === 'undefined' || !Auth.isFirebaseReady()) return;
+      try {
+        if (realtimeUnsubscribe) {
+          realtimeUnsubscribe();
+          realtimeUnsubscribe = null;
+        }
+        realtimeUnsubscribe = Auth.firebaseDb.collection('users').onSnapshot(() => {
+          console.log('[Admin] Cloud Firestore users 컬렉션 실시간 변경 감지 -> 회원 목록 자동 갱신');
+          loadUsersData();
+        }, (err) => {
+          console.warn('[Admin] 실시간 리스너 오류 (수동 새로고침으로 동작):', err);
+        });
+      } catch (e) {
+        console.warn('[Admin] 실시간 리스너 설정 예외:', e);
+      }
+    }
+
     async function loadUsersData(options = {}) {
       try {
         const liveUsers = await Auth.getAllUsersForAdmin(options);
@@ -925,7 +950,8 @@
         // 역할 필터
         if (roleFilter !== 'all') {
           if (isAdmin) return true; // 관리자는 항상 조회에 포함
-          if (role !== roleFilter && u.role !== roleFilter) {
+          const userRole = (role || u.role || u.allowedRole || approval.allowedRole || 'student').toLowerCase();
+          if (userRole !== roleFilter && u.role !== roleFilter && u.allowedRole !== roleFilter) {
             return false;
           }
         }
@@ -1207,6 +1233,7 @@
       if (checkAdminAuth()) {
         await loadUsersData();
         await loadStaffModule4Setting();
+        setupRealtimeUsersListener();
       }
     });
   </script>
