@@ -2842,6 +2842,36 @@ const DashboardApp = {
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🌐 01. 생성형 AI 생태계 맥락 & MICE 실무 5대 핵심 역량</h2>
         </div>
 
+        <!-- [인포그래픽 1] 한국 AI 생태계 한눈에 보기 -->
+        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🗺️ 한국 AI 생태계 지형도 한눈에 보기</span>
+            </h3>
+            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/notion_한국_AI_생태계_한눈에_보기.png', '🗺️ 한국 AI 생태계 지형도 한눈에 보기', '💡 국내외 주요 생성형 AI 모델 및 인프라 생태계 지도')" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700;">
+              <span>🔍 크게 보기 ↗</span>
+            </button>
+          </div>
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center;" onclick="DashboardApp.showImageModal('images/notion_한국_AI_생태계_한눈에_보기.png', '🗺️ 한국 AI 생태계 지형도 한눈에 보기', '💡 국내외 주요 생성형 AI 모델 및 인프라 생태계 지도')">
+            <img src="images/notion_한국_AI_생태계_한눈에_보기.png" alt="한국 AI 생태계 한눈에 보기 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+          </div>
+        </div>
+
+        <!-- [인포그래픽 2] LLM 3종 비교 인포그래픽 -->
+        <div class="card" style="padding: 1.5rem 1.75rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 17px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 글로벌 빅3 LLM(OpenAI · Google · Anthropic) 비교 인포그래픽</span>
+            </h3>
+            <button type="button" class="btn btn-outline" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')" style="font-size: 12.5px; padding: 5px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 6px; border-color: #0284c7; color: #0284c7; background: #ffffff; cursor: pointer; font-weight: 700;">
+              <span>🔍 크게 보기 ↗</span>
+            </button>
+          </div>
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); background: #f8fafc; cursor: pointer; text-align: center;" onclick="DashboardApp.showImageModal('images/notion_LLM_3종_비교_인포그래픽.png', '📊 글로벌 빅3 LLM 비교 인포그래픽', '💡 ChatGPT vs Gemini vs Claude 모델별 특화점 및 실무 활용도')">
+            <img src="images/notion_LLM_3종_비교_인포그래픽.png" alt="LLM 3종 비교 인포그래픽" style="max-width: 100%; height: auto; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+          </div>
+        </div>
+
         <!-- 1. LLM 3종 비즈니스 비교 분석 카드 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
