@@ -3478,7 +3478,7 @@ const DashboardApp = {
         </div>
 
         <!-- 3. MICE 실무자를 위한 LLM 안전 활용 5대 수칙 카드 -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
               <span>🛡️ MICE 실무자를 위한 LLM 안전 활용 5대 수칙</span>
@@ -3563,17 +3563,117 @@ const DashboardApp = {
             </div>
           </div>
 
-          <!-- MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트' (노션 공식 연동) -->
-          <div style="background: #fafaf9; border: 1px solid #e7e5e4; border-left: 4px solid var(--color-ember); border-radius: 0 16px 16px 0; padding: 1.15rem 1.4rem;">
-            <div style="font-weight: 800; font-size: 14px; color: var(--color-obsidian); margin-bottom: 8px; display: flex; align-items: center; gap: 6px;">
-              <span>📋 MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트'</span>
+          <!-- MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트' (교직원 체크리스트 스타일 통일) -->
+          <div style="background: #fdfbf7; border: 1px solid #fed7aa; border-radius: 16px; padding: 1.1rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 6px;">📋 MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트'</div>
+            <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.6; display: flex; flex-direction: column; gap: 3px;">
+              <span>✓ 프롬프트에 참가자 개인정보(이름, 연락처, 여권)나 미공개 입찰 견적이 포함되어 있지 않은가?</span>
+              <span>✓ AI가 제시한 전시장 제원(면적, 수용인원, 장비 규격)을 베뉴 공식 매뉴얼로 확인했는가?</span>
+              <span>✓ 해외 참가자 대상 안내문에 문화적·종교적 결례나 오역의 소지는 없는가?</span>
+              <span>✓ 도출된 슬로건과 행사명이 타 대형 행사의 상표나 표절에 해당하지 않는가?</span>
+              <span>✓ AI의 답변을 그대로 복사하지 않고, 현장 상황에 맞게 윤문·보완하였는가?</span>
             </div>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 6px; font-size: 12.5px; color: #44403c; line-height: 1.55;">
-              <div>• [ ] 프롬프트에 참가자 개인정보(이름, 연락처, 여권)나 미공개 입찰 견적이 포함되어 있지 않은가?</div>
-              <div>• [ ] AI가 제시한 전시장 제원(면적, 수용인원, 장비 규격)을 베뉴 공식 매뉴얼로 확인했는가?</div>
-              <div>• [ ] 해외 참가자 대상 안내문에 문화적·종교적 결례나 오역의 소지는 없는가?</div>
-              <div>• [ ] 도출된 슬로건과 행사명이 타 대형 행사의 상표나 표절에 해당하지 않는가?</div>
-              <div>• [ ] AI의 답변을 그대로 복사하지 않고, 현장 상황에 맞게 윤문·보완하였는가?</div>
+          </div>
+        </div>
+
+        <!-- 4. MICE 실무 프롬프트 템플릿 제작 카드 (노션 강의 노트 원문 반영) -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 0.85rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🛠️ 4. MICE 실무 프롬프트 템플릿 제작</span>
+            </h3>
+            <a href="https://chatgpt.com/share/6af25f90-2784-83ee-8da9-4cbfcaadf514" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #10a37f; color: #047857; background: #ecfdf5; font-weight: 700; text-decoration: none;" title="노션 강의 노트에 연결된 실제 ChatGPT 대화 예시 열기">
+              <span>🔗 이 채팅을 확인해 보세요 (ChatGPT 실습 원문) ↗</span>
+            </a>
+          </div>
+
+          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
+            단발성 기획안 요청(1단계)에서 후속 이미지 프롬프트 생성(2단계), 반복 업무용 템플릿화(3단계)를 거쳐 즉시 재사용 가능한 <strong>마스터 프롬프트 템플릿(4단계)</strong>으로 발전시키는 실전 제작 흐름입니다.
+          </p>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- 단계 1 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px;">STEP 1</span>
+                  <span>1. [Gemini/GPT용] 5컷 카드뉴스 기획안 도출</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 14px; font-size: 12.5px; line-height: 1.65; color: #1e293b; white-space: pre-wrap; word-break: keep-all; margin: 0; font-family: inherit; cursor: text;">다음 MICE 행사(컨퍼런스·박람회·세미나) 안내문을 분석하여 인스타그램·카카오톡 배포용 5컷 카드뉴스 기획안을 작성해줘.
+
+<span class="prompt-edit-target">[행사 안내문 / 프로그램 요강 붙여넣기]</span>
+
+[작성 규칙]
+1. 1컷(표지): 업계 실무자의 눈길을 사로잡는 직관적이고 매력적인 헤드카피 (15자 이내)
+2. 2~4컷(본문): 참가자(또는 바이어)가 얻을 수 있는 핵심 실무 혜택 3가지를 컷당 1개씩 요약
+3. 5컷(참가 안내): 행사 일시, 장소(베뉴/홀), 사전 등록 기한, 신청 링크 안내 문구
+4. 각 컷마다 배경으로 쓸 수 있는 AI 이미지 프롬프트(영문)를 1줄씩 제안해줘.</pre>
+            </div>
+
+            <!-- 단계 2 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span style="background: #2563eb; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px;">STEP 2</span>
+                  <span>2. [후속 지시] 이미지제작 프롬프트 요청</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 14px; font-size: 12.5px; line-height: 1.65; color: #1e293b; white-space: pre-wrap; word-break: keep-all; margin: 0; font-family: inherit; cursor: text;">위의 1컷~ 5컷 까지의 카드뉴스를 생성할 수 있는 영문 프롬프트를 각각 생성해줘.</pre>
+            </div>
+
+            <!-- 단계 3 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 1.1rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span style="background: #7c3aed; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px;">STEP 3</span>
+                  <span>3. [템플릿화] 카드뉴스 제작 템플릿 요청</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 11px 14px; font-size: 12.5px; line-height: 1.65; color: #1e293b; white-space: pre-wrap; word-break: keep-all; margin: 0; font-family: inherit; cursor: text;">위의 프롬프트를 통해 카드뉴스 제작을 위한 프롬프트 템플릿을 만들어줘.</pre>
+            </div>
+
+            <!-- 단계 4 -->
+            <div class="prompt-template-card" style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.15rem 1.25rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: #14532d; display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span style="background: #16a34a; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px;">MASTER</span>
+                  <span>4. [마스터 템플릿] 카드뉴스 템플릿 예시</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #86efac; background: #ffffff; color: #166534; font-weight: 700; cursor: pointer;" title="마스터 템플릿 복사하기">
+                  <span>📋 마스터 템플릿 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #bbf7d0; border-radius: 10px; padding: 12px 14px; font-size: 12.5px; line-height: 1.65; color: #1e293b; white-space: pre-wrap; word-break: keep-all; margin: 0; font-family: inherit; cursor: text;">너는 MICE 전문 마케팅 기획자이자 카드뉴스 디자이너야. 다음 행사 안내문을 분석해 인스타그램·카카오톡용 5컷 카드뉴스를 기획해 줘.
+
+[행사 안내문]
+<span class="prompt-edit-target">{{행사 안내문 전체 입력}}</span>
+
+[제작 조건]
+- 5컷, 4:5(1080×1350px)
+- 스타일: 프리미엄 비즈니스 × 모던 MICE
+- 컬러: 네이비·블루·화이트·옐로우
+- 1컷: 15자 이내 헤드카피와 행사명
+- 2~4컷: 참가자가 얻는 실무 혜택을 컷당 1개씩
+- 5컷: 행사 일시·장소·등록 마감·신청 링크·CTA
+
+[출력]
+1. 행사 정보 요약표
+2. 컷별 메인·서브카피와 시각 요소 기획표
+3. 컷별 독립형 영문 AI 배경 이미지 프롬프트(텍스트 없는 이미지, 4:5, 카피 여백 확보)
+4. 공통 디자인 가이드
+5. 사실 검수 및 누락 정보
+
+안내문에 없는 사실은 만들어내지 말고 '정보 확인 필요'로 표시해 줘.</pre>
             </div>
           </div>
         </div>
