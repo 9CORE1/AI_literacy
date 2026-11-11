@@ -2811,7 +2811,7 @@ const DashboardApp = {
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>01</span> AI 생태계 맥락 & 실무 5대 핵심 역량</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
-            빅3 LLM(OpenAI/Google/Anthropic) 비즈니스 비교 분석, 실무 중심 AI 리터러시 5대 핵심 요소 및 베뉴 팩트체크 체크리스트.
+            빅3 LLM(OpenAI/Google/Anthropic) 비즈니스 비교 분석, 실무 중심 AI 리터러시 5대 핵심 역량 및 MICE 업무별 적재적소 도구 선택 전략.
           </p>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 01 섹션으로 바로 이동하기</span>
@@ -2827,7 +2827,7 @@ const DashboardApp = {
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>02</span> 프롬프트 공식 4+2 & MICE 실전 템플릿 5선</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
-            RFP 입찰 제안서, 해외 VIP 초청 영문 서신, 등급별 스폰서십 제안, 개막식 큐시트·위기대응 및 종합 결과보고서 원클릭 생성.
+            RFP 입찰 제안서, 해외 VIP 초청, 스폰서십, 큐시트·위기대응, 결과보고서, 카드뉴스 템플릿 제작 및 베뉴 팩트체크·안전 활용 5대 수칙.
           </p>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 02 섹션으로 바로 이동하기</span>
@@ -2859,7 +2859,7 @@ const DashboardApp = {
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>04</span> 구글 폼 제작 &amp; 스프레드시트 실시간 집계</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
-            15분 완성 8단계 로드맵, AI 문항 기획, GAS 원클릭 자동 생성, 시트 실시간 수식 대시보드 및 =GEMINI() 함수 활용.
+            8단계 자동화 로드맵, AI 문항 기획, GAS 원클릭 자동 생성, 시트 실시간 수식 대시보드 및 =GEMINI() 함수 활용.
           </p>
           <div style="margin-top: auto; padding-top: 12px; font-size: 13px; color: var(--color-ember); font-weight: 800; display: flex; align-items: center; gap: 4px;">
             <span>👉 04 섹션으로 바로 이동하기</span>
@@ -2875,7 +2875,7 @@ const DashboardApp = {
 
       ${this.getWorkerAgentSkillSectionHtml()}
 
-      ${this.getStaffGoogleFormSectionHtml('lecture-worker-sec-4')}
+      ${this.getWorkerFormGeminiSectionHtml()}
 
       <!-- Ending. AI 리터러시 미래 학습 가이드 섹션 -->
       ${this.getEndingSectionHtml('lecture-worker-sec-ending')}
@@ -3266,7 +3266,7 @@ const DashboardApp = {
                   </div>
                   <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 15년 차 대형 국제회의 전문 PCO(국제회의기획사) 총괄 기획 디렉터이자 정부/공공 입찰 제안서 평가위원 출신이야.
 
-[배경] 우리 회사는 이번에 [지자체/협회명]에서 발주한 '<span class="prompt-edit-target">2027 아시아-태평양 친환경 해양 모빌리티 서밋</span>' 유치 용역 입찰(RFP)에 참여하려고 해.
+[배경] 우리 회사는 이번에 <span class="prompt-edit-target">[지자체/협회명]</span>에서 발주한 '<span class="prompt-edit-target">2027 아시아-태평양 친환경 해양 모빌리티 서밋</span>' 유치 용역 입찰(RFP)에 참여하려고 해.
 - 개최 기간 및 장소: <span class="prompt-edit-target">2027년 10월 중 3일간, 부산 벡스코</span>
 - 예상 규모: <span class="prompt-edit-target">30개국 2,500명(해외 바이어 600명 포함), 전시 부스 150개</span>
 - 발주처의 핵심 요구사항: <span class="prompt-edit-target">첨단 친환경 기술 시연, 지역 MICE 경제 활성화, 탄소중립 ESG 실천</span>
@@ -3279,7 +3279,7 @@ const DashboardApp = {
 
 [형식] 심사위원 PT 제안서에 바로 삽입할 수 있도록 개조식(1. - 가. - 1)) 목차 체계로 정리하고, 핵심 키워드는 **볼드체**로 강조해 줘.
 
-[조건] 뜬구름 잡는 일반론을 피하고, 개최지인 [도시/베뉴명]의 지역 인프라와 산업적 특성이 자연스럽게 녹아들게 작성해 줘.</pre>
+[조건] 뜬구름 잡는 일반론을 피하고, 개최지인 <span class="prompt-edit-target">[도시/베뉴명: 부산 벡스코]</span>의 지역 인프라와 산업적 특성이 자연스럽게 녹아들게 작성해 줘.</pre>
                 </div>
               </div>
             </div>
@@ -3310,7 +3310,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP VIP protocol and speaker curation.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] You are a Senior International Relations Coordinator for a prestigious global conference with 15 years of experience in VIP protocol and speaker curation.
 
 [배경] We are hosting [행사 공식 영문명, e.g., <span class="prompt-edit-target">The Global AI & Future Healthcare Congress 2027</span>].
 - Date & Location: [일정 및 장소, e.g., <span class="prompt-edit-target">November 12-14, 2027 | Seoul, South Korea</span>]
@@ -3406,7 +3406,7 @@ const DashboardApp = {
                     <span class="prompt-col-badge prompt-col-badge-improved">✅ 개선된 프롬프트 (공식 노션 원문)</span>
                     <span class="prompt-col-hint">클릭하여 주황색 항목 수정 가능</span>
                   </div>
-                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄 총괄 무대감독이자 MICE 현장 운영 총괄 PM이야.
+                  <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 10px 14px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">[역할] 너는 수백 회의 정상급 국제회의와 정부 기념식을 총괄한 무대감독이자 MICE 현장 운영 총괄 PM이야.
 
 [배경] [행사명, 예: <span class="prompt-edit-target">2027 세계 도시혁신 포럼</span>]의 공식 개막식(Opening Ceremony) 현장 총괄 큐시트를 작성 중이야.
 - 일시 및 장소: [예: <span class="prompt-edit-target">2027년 9월 15일(수) 10:00~11:30 (총 90분), 컨벤션홀 1층</span>]
@@ -3477,110 +3477,11 @@ const DashboardApp = {
           </div>
         </div>
 
-        <!-- 3. MICE 실무자를 위한 LLM 안전 활용 5대 수칙 카드 -->
+        <!-- 3. MICE 실무 프롬프트 템플릿 제작 카드 (노션 강의 노트 원문 반영) -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
-            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>🛡️ MICE 실무자를 위한 LLM 안전 활용 5대 수칙</span>
-            </h3>
-            <span style="background: #fef2f2; color: #991b1b; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              Compliance &amp; Data Safety
-            </span>
-          </div>
-
-          <!-- 5대 수칙 그리드 (5열 배치 + 모바일 가로 스크롤 지원) -->
-          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
-            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; width: 100%; min-width: 820px;">
-              <!-- 1. 🔒 바이어·VIP 개인정보 및 입찰 대외비 유출 금지 (Data Privacy & NDA) -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #dc2626; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
-                <div style="font-weight: 800; font-size: 13.5px; color: #991b1b; margin-bottom: 6px; word-break: keep-all;">
-                  1. 🔒 바이어·VIP 개인정보 및 입찰 대외비 유출 금지
-                </div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Data Privacy &amp; NDA)</div>
-                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
-                  공개형 LLM(무료 버전 등)에 입력한 데이터는 AI 모델 재학습에 활용될 수 있습니다.
-                </div>
-                <div style="font-size: 11.5px; color: #7f1d1d; background: #fee2e2; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
-                  <strong>실무 주의점:</strong> 참가자 명단(여권번호, 연락처)이나 파트너사 미공개 견적 단가는 일체 가명·비식별 처리하세요.
-                </div>
-              </div>
-
-              <!-- 2. 🔍 베뉴(Venue) 스펙 & 의전 프로토콜 팩트체크 (Hallucination Zero) -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #2563eb; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
-                <div style="font-weight: 800; font-size: 13.5px; color: #1e40af; margin-bottom: 6px; word-break: keep-all;">
-                  2. 🔍 베뉴(Venue) 스펙 &amp; 의전 프로토콜 팩트체크
-                </div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Hallucination Zero)</div>
-                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
-                  AI는 그럴듯하지만 완전히 왜곡된 숫자와 스펙(환각 현상)을 지어낼 수 있습니다.
-                </div>
-                <div style="font-size: 11.5px; color: #1e3a8a; background: #dbeafe; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
-                  <strong>실무 주의점:</strong> 전시장 면적, 천장고, 바닥 하중, 의전 프로토콜은 컨벤션센터 공식 임대 매뉴얼로 교차 검증하세요.
-                </div>
-              </div>
-
-              <!-- 3. 🌍 다문화·종교·글로벌 비즈니스 에티켓 검증 (Cultural Sensitivity) -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #16a34a; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
-                <div style="font-weight: 800; font-size: 13.5px; color: #166534; margin-bottom: 6px; word-break: keep-all;">
-                  3. 🌍 다문화·종교·글로벌 비즈니스 에티켓 검증
-                </div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Cultural Sensitivity)</div>
-                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
-                  MICE는 전 세계 다양한 국가와 문화권의 인사가 집결하는 무대입니다.
-                </div>
-                <div style="font-size: 11.5px; color: #14532d; background: #dcfce7; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
-                  <strong>실무 주의점:</strong> 해외 VIP 안내장이나 영문 초청장에 문화적·종교적 결례(할랄/코셔 식단 등)나 오역이 없는지 점검하세요.
-                </div>
-              </div>
-
-              <!-- 4. ⚖️ 상업적 저작권 및 폰트·지식재산권(IP) 컴플라이언스 (Copyright Check) -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #d97706; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
-                <div style="font-weight: 800; font-size: 13.5px; color: #9a3412; margin-bottom: 6px; word-break: keep-all;">
-                  4. ⚖️ 상업적 저작권 및 폰트·지식재산권(IP) 컴플라이언스
-                </div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Copyright Check)</div>
-                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
-                  AI가 생성한 슬로건, 이미지, 번역 텍스트를 상업적 인쇄물이나 웹사이트에 무단 사용할 경우 저작권 침해 분쟁이 발생할 수 있습니다.
-                </div>
-                <div style="font-size: 11.5px; color: #7c2d12; background: #ffedd5; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
-                  <strong>실무 주의점:</strong> 도출된 슬로건과 행사명이 타 행사의 등록상표를 침해하지 않는지 키프리스(KIPRIS)로 사전 조회하세요.
-                </div>
-              </div>
-
-              <!-- 5. 🎯 생각과 의사결정의 주도권 유지 (Human-in-the-Loop) -->
-              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #7c3aed; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
-                <div style="font-weight: 800; font-size: 13.5px; color: #6d28d9; margin-bottom: 6px; word-break: keep-all;">
-                  5. 🎯 생각과 의사결정의 주도권 유지
-                </div>
-                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Human-in-the-Loop)</div>
-                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
-                  현장 라이브(Live) 이벤트의 돌발 변수는 AI가 대신 수습해주지 못합니다.
-                </div>
-                <div style="font-size: 11.5px; color: #4c1d95; background: #ede9fe; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
-                  <strong>실무 주의점:</strong> AI는 초안 작성 비서일 뿐, 제안서 수주 전략과 현장 위기대응의 최종 책임은 기획자 본인에게 있습니다.
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!-- MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트' (교직원 체크리스트 스타일 통일) -->
-          <div style="background: #fdfbf7; border: 1px solid #fed7aa; border-radius: 16px; padding: 1.1rem 1.4rem;">
-            <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 6px;">📋 MICE 실무자 프롬프트 입력 전 '10초 자가 체크리스트'</div>
-            <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.6; display: flex; flex-direction: column; gap: 3px;">
-              <span>✓ 프롬프트에 참가자 개인정보(이름, 연락처, 여권)나 미공개 입찰 견적이 포함되어 있지 않은가?</span>
-              <span>✓ AI가 제시한 전시장 제원(면적, 수용인원, 장비 규격)을 베뉴 공식 매뉴얼로 확인했는가?</span>
-              <span>✓ 해외 참가자 대상 안내문에 문화적·종교적 결례나 오역의 소지는 없는가?</span>
-              <span>✓ 도출된 슬로건과 행사명이 타 대형 행사의 상표나 표절에 해당하지 않는가?</span>
-              <span>✓ AI의 답변을 그대로 복사하지 않고, 현장 상황에 맞게 윤문·보완하였는가?</span>
-            </div>
-          </div>
-        </div>
-
-        <!-- 4. MICE 실무 프롬프트 템플릿 제작 카드 (노션 강의 노트 원문 반영) -->
-        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 0.85rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>🛠️ 4. MICE 실무 프롬프트 템플릿 제작</span>
+              <span>🛠️ MICE 실무 프롬프트 템플릿 제작</span>
             </h3>
             <a href="https://chatgpt.com/share/6af25f90-2784-83ee-8da9-4cbfcaadf514" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #10a37f; color: #047857; background: #ecfdf5; font-weight: 700; text-decoration: none;" title="노션 강의 노트에 연결된 실제 ChatGPT 대화 예시 열기">
               <span>🔗 이 채팅을 확인해 보세요 (ChatGPT 실습 원문) ↗</span>
@@ -3677,18 +3578,263 @@ const DashboardApp = {
             </div>
           </div>
         </div>
+
+        <!-- 4. MICE 실무자를 위한 LLM 안전 활용 5대 수칙 카드 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1.25rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>🛡️ MICE 실무자를 위한 LLM 안전 활용 5대 수칙</span>
+            </h3>
+            <span style="background: #fef2f2; color: #991b1b; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              Compliance &amp; Data Safety
+            </span>
+          </div>
+
+          <!-- 5대 수칙 그리드 (5열 배치 + 모바일 가로 스크롤 지원) -->
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 1.5rem;">
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem; width: 100%; min-width: 820px;">
+              <!-- 1. 🔒 바이어·VIP 개인정보 및 입찰 대외비 유출 금지 (Data Privacy & NDA) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #dc2626; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #991b1b; margin-bottom: 6px; word-break: keep-all;">
+                  1. 🔒 바이어·VIP 개인정보 및 입찰 대외비 유출 금지
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Data Privacy &amp; NDA)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  공개형 LLM(무료 버전 등)에 입력한 데이터는 AI 모델 재학습에 활용될 수 있습니다.
+                </div>
+                <div style="font-size: 11.5px; color: #7f1d1d; background: #fee2e2; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 참가자 명단(여권번호, 연락처)이나 파트너사 미공개 견적 단가는 일체 가명·비식별 처리하세요.
+                </div>
+              </div>
+
+              <!-- 2. 🔍 베뉴(Venue) 스펙 & 의전 프로토콜 팩트체크 (Hallucination Zero) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #2563eb; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #1e40af; margin-bottom: 6px; word-break: keep-all;">
+                  2. 🔍 베뉴(Venue) 스펙 &amp; 의전 프로토콜 팩트체크
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Hallucination Zero)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  AI는 그럴듯하지만 완전히 왜곡된 숫자와 스펙(환각 현상)을 지어낼 수 있습니다.
+                </div>
+                <div style="font-size: 11.5px; color: #1e3a8a; background: #dbeafe; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 전시장 면적, 천장고, 바닥 하중, 의전 프로토콜은 컨벤션센터 공식 임대 매뉴얼로 교차 검증하세요.
+                </div>
+              </div>
+
+              <!-- 3. 🌍 다문화·종교·글로벌 비즈니스 에티켓 검증 (Cultural Sensitivity) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #16a34a; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #166534; margin-bottom: 6px; word-break: keep-all;">
+                  3. 🌍 다문화·종교·글로벌 비즈니스 에티켓 검증
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Cultural Sensitivity)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  MICE는 전 세계 다양한 국가와 문화권의 인사가 집결하는 무대입니다.
+                </div>
+                <div style="font-size: 11.5px; color: #14532d; background: #dcfce7; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 해외 VIP 안내장이나 영문 초청장에 문화적·종교적 결례(할랄/코셔 식단 등)나 오역이 없는지 점검하세요.
+                </div>
+              </div>
+
+              <!-- 4. ⚖️ 상업적 저작권 및 폰트·지식재산권(IP) 컴플라이언스 (Copyright Check) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #d97706; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #9a3412; margin-bottom: 6px; word-break: keep-all;">
+                  4. ⚖️ 상업적 저작권 및 폰트·지식재산권(IP) 컴플라이언스
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Copyright Check)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  AI가 생성한 슬로건, 이미지, 번역 텍스트를 상업적 인쇄물이나 웹사이트에 무단 사용할 경우 저작권 침해 분쟁이 발생할 수 있습니다.
+                </div>
+                <div style="font-size: 11.5px; color: #7c2d12; background: #ffedd5; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> 도출된 슬로건과 행사명이 타 행사의 등록상표를 침해하지 않는지 키프리스(KIPRIS)로 사전 조회하세요.
+                </div>
+              </div>
+
+              <!-- 5. 🎯 생각과 의사결정의 주도권 유지 (Human-in-the-Loop) -->
+              <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-top: 3.5px solid #7c3aed; padding: 1.15rem 1rem; border-radius: 16px; display: flex; flex-direction: column; justify-content: flex-start;">
+                <div style="font-weight: 800; font-size: 13.5px; color: #6d28d9; margin-bottom: 6px; word-break: keep-all;">
+                  5. 🎯 생각과 의사결정의 주도권 유지
+                </div>
+                <div style="font-size: 11px; font-weight: 700; color: #64748b; margin-bottom: 6px;">(Human-in-the-Loop)</div>
+                <div style="font-size: 12px; color: #475569; line-height: 1.55; word-break: keep-all; margin-bottom: 8px;">
+                  현장 라이브(Live) 이벤트의 돌발 변수는 AI가 대신 수습해주지 못합니다.
+                </div>
+                <div style="font-size: 11.5px; color: #4c1d95; background: #ede9fe; padding: 8px 10px; border-radius: 8px; line-height: 1.45; word-break: keep-all; margin-top: auto;">
+                  <strong>실무 주의점:</strong> AI는 초안 작성 비서일 뿐, 제안서 수주 전략과 현장 위기대응의 최종 책임은 기획자 본인에게 있습니다.
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- MICE 실무자 프롬프트 입력 전 자가 체크리스트 (교직원 체크리스트 스타일 통일) -->
+          <div style="background: #fdfbf7; border: 1px solid #fed7aa; border-radius: 16px; padding: 1.1rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 6px;">📋 MICE 실무자 프롬프트 입력 전 자가 체크리스트</div>
+            <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.6; display: flex; flex-direction: column; gap: 3px;">
+              <span>✓ 프롬프트에 참가자 개인정보(이름, 연락처, 여권)나 미공개 입찰 견적이 포함되어 있지 않은가?</span>
+              <span>✓ AI가 제시한 전시장 제원(면적, 수용인원, 장비 규격)을 베뉴 공식 매뉴얼로 확인했는가?</span>
+              <span>✓ 해외 참가자 대상 안내문에 문화적·종교적 결례나 오역의 소지는 없는가?</span>
+              <span>✓ 도출된 슬로건과 행사명이 타 대형 행사의 상표나 표절에 해당하지 않는가?</span>
+              <span>✓ AI의 답변을 그대로 복사하지 않고, 현장 상황에 맞게 윤문·보완하였는가?</span>
+            </div>
+          </div>
+        </div>
       </div>
     `;
   },
 
   /**
    * 실무자 전용: 03. 스마트 MICE 행정 — AI 에이전트 스킬 제작 및 실무 활용 섹션 HTML
+   * 노션 강의노트 '[3교시] 스마트한 MICE 행정을 위한 스킬 제작 및 활용' 원문 전체 반영
    */
   getWorkerAgentSkillSectionHtml() {
+    /**
+     * HTML 특수문자 이스케이프 헬퍼 (프롬프트 원문 안전 렌더링용)
+     * @param {string} str
+     * @returns {string}
+     */
+    const esc = (str) => String(str || '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;');
+
+    /**
+     * 단계별 복사용 프롬프트 카드 HTML 생성 헬퍼
+     * @param {Array<{step: string, title?: string, prompt?: string, promptHtml?: string, badgeBg?: string}>} items
+     * @returns {string}
+     */
+    const renderPromptSteps = (items) => items.map((item) => `
+      <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 14px; padding: 0.9rem 1.1rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+          <div style="font-weight: 700; font-size: 13.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+            <span style="background: ${item.badgeBg || 'var(--color-obsidian)'}; color: #fff; font-size: 11px; padding: 2px 8px; border-radius: 4px;">${esc(item.step)}</span>
+            ${item.title ? `<span>${esc(item.title)}</span>` : ''}
+          </div>
+          <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;" title="프롬프트 복사하기">
+            <span>📋 프롬프트 복사</span>
+          </button>
+        </div>
+        <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 10px 13px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; word-break: keep-all; margin: 0; font-family: inherit; cursor: text;">${item.promptHtml || esc(item.prompt)}</pre>
+      </div>
+    `).join('');
+
+    /**
+     * 워크시트 정리 표 HTML 생성 헬퍼
+     * @param {Array<[string, string]>} rows
+     * @returns {string}
+     */
+    const renderPrepTable = (rows) => `
+      <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #e5e7eb; border-radius: 12px; background: #ffffff;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12.5px; text-align: left; min-width: 460px;">
+          <thead>
+            <tr style="background: #f8fafc; border-bottom: 1.5px solid #e2e8f0;">
+              <th style="padding: 10px 14px; width: 26%; font-weight: 700; color: var(--color-obsidian); white-space: nowrap;">구분</th>
+              <th style="padding: 10px 14px; font-weight: 700; color: var(--color-obsidian);">항목</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${rows.map(([cat, desc], idx) => `
+              <tr style="${idx < rows.length - 1 ? 'border-bottom: 1px solid #f1f5f9;' : ''}">
+                <td style="padding: 9px 14px; font-weight: 700; color: var(--color-obsidian); white-space: nowrap; vertical-align: top;">${esc(cat)}</td>
+                <td style="padding: 9px 14px; color: #374151; line-height: 1.55; word-break: keep-all;">${esc(desc)}</td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      </div>
+    `;
+
+    const pptStep1Prompts = [
+      { step: '명령 1', badgeBg: '#2563eb', title: '스킬 작성 시작 안내', prompt: 'PPT 슬라이드 작성과 관련된 스킬을 작성하려고해.' },
+      {
+        step: '명령 2',
+        badgeBg: '#2563eb',
+        title: 'PPT 디자인 스타일(Monochrome Editorial Minimal) 지정',
+        prompt: `다음의 프롬프트로 제작되는 PPT 스타일을 설정하려고 해. 확인해봐.\n\n#### PPT 스타일\nDesign Style:\nName: "Monochrome Editorial Minimal"\nConcept: "モノクロ写真と極太コンデンスフォントを組み合わせた、雑誌風のミニマル・エディトリアルプレゼンデザイン"\n\n{생략}`
+      },
+      {
+        step: '명령 3',
+        badgeBg: '#2563eb',
+        title: '스킬 호출 트리거 및 기본 슬라이드 수(10장) 규칙 업데이트',
+        prompt: `PPT, 슬라이드 라고 입력 요청하면 PPT 스킬이 적용되도록 설정하고,\n기본적으로 슬라이드 수는 10개로 설정하되 요청이 따로 있으면 요청에 따르도록 스킬 업데이트`
+      },
+      { step: '명령 4', badgeBg: '#2563eb', title: '본문 설명 분량 보강 업데이트', prompt: '설명이 너무 간단하게 되어 있으니 내용 부분을 좀 더 표시되도록 수정, 스킬 업데이트' },
+      { step: '명령 5', badgeBg: '#2563eb', title: '8페이지 하단 여백 레이아웃 교정', prompt: '8페이지 아래쪽 여백이 다른 슬라이드보다 작음, 스킬 수정 과 업데이트' },
+      { step: '명령 6', badgeBg: '#2563eb', title: '마지막 페이지 자사 연락처/URL 수정', promptHtml: '마지막 페이지, 자사 대표 이메일(예: <span class="prompt-edit-target">contact@yourmice.co.kr</span>), 홈페이지 URL(예: <span class="prompt-edit-target">www.yourmice.co.kr</span>) 텍스트로 수정, 스킬 저장 및 업데이트' },
+      { step: '명령 7', badgeBg: '#475569', title: '스킬 적용 트리거 확인', prompt: '현재  ppt스킬 적용 트리거는?' },
+      { step: '명령 8', badgeBg: '#2563eb', title: '마지막 페이지 고정 문구 규칙 잠금', prompt: 'ppt를 제작할 때 마지막 페이지에 앞서 요청했던 이메일주소와, URL를 무조건 추가되도록 스킬 수정 및 업데이트' },
+      { step: '명령 9', badgeBg: '#0f9d58', title: '완성된 PPT 스킬 ZIP 패키징 다운로드', prompt: '지금까지 설정한 PPT 스킬을 zip파일로 다운로드할 수 있도록 해줘.' }
+    ];
+
+    const pptCoreRows = [
+      ['01 기본 정보', '회사명 · 업종 · 설립연도, 한 줄 소개'],
+      ['02 목적 & 대상', '보여줄 대상, 발표 목적'],
+      ['03 핵심 차별점', '최대 3가지 (숫자·경력·사례 근거 포함)'],
+      ['04 사업·제품·서비스', '영역별 이름 + 핵심 특징 한 줄'],
+      ['05 정량적 실적', '고객사 수 · 매출 · 프로젝트 건수 · 수상/인증 등'],
+      ['06 디자인 요소', '로고 파일, 브랜드 컬러, 선호 스타일·톤, 사용 가능한 이미지, 참고 디자인'],
+      ['07 형식 & 연락처', '분량·마감일, 대표 연락처']
+    ];
+
+    const pptOptionalRows = [
+      ['회사 스토리', '주요 연혁, 비전·미션·핵심가치, 조직 규모, 자주 받는 오해'],
+      ['설득력 강화', '레퍼런스·고객 후기, 팀·대표자 소개, 기타 정량 지표(재구매율·언론노출 등)']
+    ];
+
+    const pptStep3Prompts = [
+      { step: '실행 1', badgeBg: '#7c3aed', title: '스킬 호출 및 제작 시작', prompt: '회사 홍보 PPT를 함께 제작하고 싶어. 어떤 것부터 시작하면 좋을까?' },
+      {
+        step: '실행 2',
+        badgeBg: '#7c3aed',
+        title: '워크시트에 정리한 회사 정보 순서대로 전송',
+        prompt: `{워크시트에 정리한 내용을 다음 순서대로 정리하여 전송하기}\n\n1. 회사명 / 업종 / 설립연도\n2. 핵심 사업 내용 (어떤 제품/서비스를 하는지)\n3. 핵심 강점 또는 차별점 (왜 이 회사를 신뢰해야 하는지)\n4. 주요 실적/숫자 (매출, 고객사 수, 특허, 수상 등 있다면)\n5. 비전/미션 (선택사항)\n6. 로고나 브랜드 컬러가 있다면 알려주세요 (없으면 기본 스타일로 진행)`
+      }
+    ];
+
+    const quoteStep1Prompts = [
+      { step: '양식 1', badgeBg: '#ea580c', title: '기존 견적서 양식 가독성 개선 방향 질의', prompt: '업로드한 견적서 양식을 가독성이 높게 수정하고 싶은데 어떻게 시작할까?' },
+      { step: '양식 2', badgeBg: '#ea580c', title: '개선 시안 생성 요청', prompt: '시안을 만들어줘.' },
+      { step: '양식 3', badgeBg: '#ea580c', title: 'MICE 행사 대행 필수 항목으로 구조 변경', prompt: '컨퍼런스·세미나·기업 워크숍 행사 대행 견적서를 작성하는 데 필요한 항목(기획·운영비, 무대/AV·음향, 인력, 다과/케이터링, 대행 수수료 등)으로 수정해줘.' },
+      {
+        step: '양식 4',
+        badgeBg: '#ea580c',
+        title: '공급가액/부가세/합계금액 위치·비고란 정리 및 표 정렬·구분선 개선',
+        prompt: `견적표 아래에 공급가액과 부가가치세, 합계금액을 추가하여 표시, 견적 조건/비고 항목 삭제, 아래 별도로 표시된 공급가액, 부가가치세, 합계금액 삭제\n행사 요청 정보, 공급자 정보, 행사 개요 항목 내 세로정렬상태 조정, 불필요한 선 삭제`
+      }
+    ];
+
+    const quoteStep2Prompts = [
+      {
+        step: '스킬 1',
+        badgeBg: '#ea580c',
+        title: '스킬 크리에이터로 MICE 행사 견적서 자동화 스킬 생성',
+        prompt: `스킬 크리에이터를 써서 행사 대행 견적 스킬을 만들어줘.\n내가 회사 단가표, 패키지 구성, 진행 방식을 정리해줄테니\n카톡·메신저 문의를 붙여넣으면 견적 답변, 견적서 PDF까지 만들어주는 스킬로 만들어줘.\n\n[회사 정보 (자사 정보·단가표로 수정 활용)]\n\n* 상호 : (주)나인코어 마이스(MICE) (부산진구 범천1동 효성빌딩)\n* 행사 기획·총괄 운영 대행(1일 기준) : 1,800,000원 (사전 기획, 큐시트, 현장 총괄)\n* 컨퍼런스·워크숍 패키지(50인 기준) : 1인 55,000원 (좌석·현수막·명찰·진행물 포함)\n* 1박 2일 운영 추가 : 1,200,000원 (2일차 현장 운영 및 숙박 코디네이션)\n* 무대 AV·음향·마이크 기본 세트 : 1일 600,000원\n* 현장 운영 스태프(진행요원) : 1인 1일 180,000원 (50인 이상 시 최소 2명 권장)\n* 다과·케이터링 세트(선택) : 1인 12,000원 (커피, 차, 다과)\n* 최소 진행 인원 : 20명부터 단체 행사 대행 가능\n* 대행 관리 수수료(10%) 및 부가세(10%) 별도\n* 계약금(선금) : 전체 금액의 30% (잔금은 행사 종료 후 7일 이내)\n* 결과보고서 및 정산 서류 납품 : 행사 종료 후 1~2주\n\n\n[말투]\n친근하고 신뢰감 있는 비즈니스 존댓말, "문의 주셔서 감사합니다" 톤으로 시작.\n세부 조건이 비어있는 문의면 "보내주신 내용 기준으로 1차 가견적을 정리했다"고 안내하고\n부족한 정보(예상 일정, 개최 장소/베뉴 확정 여부, AV·케이터링 포함 여부)는 마지막에 정중히 되묻기.\n\n[작동 방식]\n카톡·이메일 문의 내용(캡처 이미지 또는 텍스트)을 올리고 "행사 견적 뽑아줘" 또는 "행사 대행 견적서 뽑아줘"라고 하면 이 스킬이 작동하도록 만들어줘.`
+      },
+      {
+        step: '스킬 2',
+        badgeBg: '#ea580c',
+        title: '견적서 디자인 보완 & MICE 취소/환불 규정 고정 추가',
+        prompt: `[견적서 모양 수정]\n\n* 처음 업로드한 양식의 로고로 수정 필요\n* 오른쪽 위의 유효기간 날짜 아래 선 길이 조정\n* 견적일자, 유효기간 정렬상태 수정\n* 견적서 아래 안내사항은 모두 같은 스타일로 통일\n\n\n[견적서 아래 안내사항 추가]\n\n* 취소 및 환불 규정 : 행사 14일 전까지 취소 시 계약금 전액 환불, 7일 전까지 취소 시 계약금의 50% 환불, 행사 3일 전부터는 환불이 불가합니다.`
+      },
+      {
+        step: '스킬 3',
+        badgeBg: '#0f9d58',
+        title: '누락 항목 자동 체크 & 고객 확인 메시지 마무리 규칙 추가',
+        prompt: `견적서가 완성된 후, 빠진 항목이나 미포함이어서 체크해야할 내용이 있으면 정리해줘.\n\n메세지로 바로 보낼 수 있도록 친근한 말투로 확인할 수 있는 문구를 작성하는 내용을 스킬 마지막에 추가해줘.`
+      }
+    ];
+
+    const quoteStep3Prompts = [
+      {
+        step: '테스트',
+        badgeBg: '#7c3aed',
+        title: '카톡/메신저 문의 원문 입력 테스트 예시',
+        prompt: `안녕하세요!\n다음 달 사내 임직원 대상 '하반기 비즈니스 전략 세미나 겸 워크숍' 대행을 알아보고 있습니다.\n인원은 50명 내외이고 평일 1박 2일 일정인데 기획 및 현장 운영 대행이 가능한가요?\n\n(주)넥스트이노베이션\n경영지원팀 이민호 과장\n\n행사 대행 견적서 뽑아줘.`
+      }
+    ];
+
     return `
       <div id="lecture-worker-sec-3" class="lecture-nav-section" style="margin-top: var(--spacing-48); margin-bottom: var(--spacing-32); scroll-margin-top: 96px;">
         <div style="margin-bottom: var(--spacing-20);">
-          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">AI AGENT SKILLS & WORKFLOW AUTOMATION</span>
+          <span style="font-family: var(--font-display); font-size: 16px; color: var(--color-ember); letter-spacing: 0.05em;">AI AGENT SKILLS &amp; WORKFLOW AUTOMATION</span>
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">🛠️ 03. 스마트 MICE 행정 — AI 에이전트 스킬 제작 및 실무 활용</h2>
         </div>
 
@@ -3696,7 +3842,7 @@ const DashboardApp = {
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>🧩 1. AI 에이전트 스킬(Custom Skill)의 개념 &amp; 3단계 제작 파이프라인</span>
+              <span>🧩 AI 에이전트 스킬(Custom Skill) 개념 &amp; 3단계 제작 흐름</span>
             </h3>
             <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
               반복 업무의 원클릭 자산화
@@ -3707,85 +3853,145 @@ const DashboardApp = {
             매번 긴 프롬프트를 복사해 붙여넣는 대신, 한 번만 등록해 두면 특정 키워드(예: "PPT", "견적")나 파일 첨부 시 자동으로 사내 표준 규격에 맞게 산출물을 생성하는 <strong>사내 맞춤형 에이전트 스킬</strong>을 구축합니다.
           </p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 1.25rem;">
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px;">
             <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: var(--color-ember); margin-bottom: 6px;">STEP 1. 스킬 크리에이터 호출</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                스킬 제작 도구에게 페르소나, 타깃 업무, 출력 포맷(10장 슬라이드, 견적서 표)을 자연어로 지시합니다.
+              <div style="font-weight: 800; font-size: 14px; color: var(--color-ember); margin-bottom: 6px;">STEP 1. 스킬 크리에이터 &amp; 양식 준비</div>
+              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0; word-break: keep-all;">
+                참고 스타일, 회사 정보 워크시트, 기존 양식 문서를 AI에 학습시켜 스킬 뼈대와 디자인 기준을 세웁니다.
               </p>
             </div>
             <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: #0f9d58; margin-bottom: 6px;">STEP 2. 트리거 &amp; 규칙 잠금</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                스킬이 작동할 특정 호출 키워드를 설정하고, 필수 고정 항목(부가세 10%, 환불 규정, 문의 링크)을 규정합니다.
+              <div style="font-weight: 800; font-size: 14px; color: #0f9d58; margin-bottom: 6px;">STEP 2. 트리거 &amp; 규칙 반복 업데이트</div>
+              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0; word-break: keep-all;">
+                호출 키워드, 슬라이드 수, 고정 연락처·URL, 부가세·환불 규정 등 세부 규칙을 대화로 다듬어 스킬을 업데이트합니다.
               </p>
             </div>
             <div style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 16px; padding: 16px;">
-              <div style="font-weight: 800; font-size: 14px; color: #7c3aed; margin-bottom: 6px;">STEP 3. 현업 워크플로우 결합</div>
-              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0;">
-                단순 텍스트 개요나 고객 메신저 캡처만 던지면 즉시 결재용 PPT 슬라이드와 고객 회신용 PDF 견적서가 생성됩니다.
+              <div style="font-weight: 800; font-size: 14px; color: #7c3aed; margin-bottom: 6px;">STEP 3. 현업 테스트 &amp; 즉시 산출</div>
+              <p style="font-size: 12.5px; color: #475569; line-height: 1.5; margin: 0; word-break: keep-all;">
+                정리된 회사 정보나 카톡 문의 메시지(캡처 포함)만 입력하면 홍보 PPT와 고객 회신용 견적서 PDF가 즉시 생성됩니다.
               </p>
             </div>
           </div>
         </div>
 
-        <!-- 카드 3-2: 스킬 1 (회사 홍보 PPT) -->
-        <div class="card prompt-template-card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
-            <div style="font-weight: 700; font-size: 16px; color: var(--color-obsidian); display: flex; align-items: center; gap: 8px;">
-              <span style="background: #2563eb; color: #fff; font-size: 11.5px; padding: 3px 8px; border-radius: 4px;">스킬 1</span>
-              <span>📊 Monochrome Minimal 회사소개 PPT 스킬 제작</span>
+        <!-- 카드 3-2: [3교시-1] 회사 홍보 PPT 제작하기 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 1. 회사 홍보 PPT 제작하기</span>
+            </h3>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <a href="https://notebooklm-slide-gallery.shirakippt.chatgpt.site/" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12.5px; padding: 6px 14px; min-height: 36px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #1d4ed8; color: #1d4ed8; background: #ffffff; cursor: pointer; font-weight: 700; text-decoration: none; word-break: keep-all; transition: all 0.15s ease;" title="NotebookLM 슬라이드 스타일 갤러리 새 창으로 열기">
+                <span>🎨 PPT 스타일 참조보기 ↗</span>
+              </a>
+              <span style="background: #eff6ff; color: #1d4ed8; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px; word-break: keep-all;">
+                Monochrome Editorial Minimal 스킬 구축
+              </span>
             </div>
-            <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;">
-              <span>📋 스킬 생성문 복사</span>
-            </button>
           </div>
 
-          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1rem; word-break: keep-all;">
-            잡지풍의 미니멀 에디토리얼 스타일로 회사소개서 10장 슬라이드를 단번에 완성하는 전문 스킬입니다.
-          </p>
+          <!-- (단계1) -->
+          <div style="margin-bottom: 1.5rem;">
+            <h4 style="font-size: 15px; font-weight: 800; color: var(--color-obsidian); margin: 0 0 10px 0; display: flex; align-items: center; gap: 6px; word-break: keep-all;">
+              <span>🔹 (단계1) PPT 생성 스킬 만들기 : 수집된 참고자료를 활용하여 PPT 생성 스킬 생성 및 업데이트</span>
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              ${renderPromptSteps(pptStep1Prompts)}
+            </div>
+          </div>
 
-          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0 0 1rem 0; font-family: inherit; cursor: text;">PPT 슬라이드 작성과 관련된 스킬을 작성하려고 해.
-다음 스타일을 설정해줘:
-Name: "Monochrome Editorial Minimal"
-Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니멀 에디토리얼 프레젠테이션"
+          <!-- (단계2) -->
+          <div style="margin-bottom: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed #e2e8f0;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+              <h4 style="font-size: 15px; font-weight: 800; color: var(--color-obsidian); margin: 0; word-break: keep-all;">
+                🔹 (단계2) 제작 준비하기 (Google Docs를 사본 만들기 해주세요)
+              </h4>
+              <a href="https://docs.google.com/document/d/1_wAO01qW-6amX9p9PmarRxUwBLAASiwQikJJfCqD9-A/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #2563eb; color: #1d4ed8; background: #eff6ff; font-weight: 700; text-decoration: none;" title="실습용 Google Docs 워크시트 열기">
+                <span>📄 회사 홍보 PPT 사전 정리 Google Docs 열기 ↗</span>
+              </a>
+            </div>
 
-1. PPT, 슬라이드라고 요청하면 이 스킬이 적용되도록 설정해줘.
-2. 기본 슬라이드 수는 10개로 설정해줘.
-3. 슬라이드 구성: [1. 표지] ➔ [2. 회사 미션] ➔ [3. 핵심 사업] ➔ [4. 차별화 역량] ➔ [5. 글로벌 네트워크] ➔ [6. 주요 MICE 실적] ➔ [7. 파트너사] ➔ [8. 기술 솔루션] ➔ [9. 팀 소개] ➔ [10. 문의 안내]
-4. 마지막 페이지에는 문의 이메일과 웹사이트 URL이 무조건 고정으로 추가되도록 스킬 수정해줘.</pre>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.15rem 1.25rem; display: flex; flex-direction: column; gap: 1rem;">
+              <div>
+                <div style="font-weight: 800; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 8px;">📌 회사 홍보 PPT 제작전 미리 정리해볼 내용(핵심 내용)</div>
+                ${renderPrepTable(pptCoreRows)}
+              </div>
+              <div>
+                <div style="font-weight: 800; font-size: 13.5px; color: var(--color-obsidian); margin-bottom: 8px;">💬 회사 홍보 PPT 제작전 미리 정리해볼 내용(선택 사항)</div>
+                ${renderPrepTable(pptOptionalRows)}
+              </div>
+            </div>
+          </div>
 
-          <div style="background: #f0fdf4; border-left: 4px solid #16a34a; border-radius: 0 10px 10px 0; padding: 10px 14px; font-size: 12.5px; color: #15803d; line-height: 1.5;">
-            <strong>💡 현업 입력 팁:</strong> 스킬 등록 후 <code>"우리 회사명은 [MICE솔루션즈]이고 B2B 박람회 전문이야. 10장 PPT 만들어줘"</code>라고만 입력하면 통일된 레이아웃의 슬라이드 개요가 즉시 출력됩니다.
+          <!-- (단계3) -->
+          <div style="padding-top: 1.25rem; border-top: 1px dashed #e2e8f0;">
+            <h4 style="font-size: 15px; font-weight: 800; color: var(--color-obsidian); margin: 0 0 10px 0; word-break: keep-all;">
+              🔹 (단계3) 등록한 PPT 제작 스킬을 사용하여 회사홍보 PPT 제작 및 수정하기
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              ${renderPromptSteps(pptStep3Prompts)}
+            </div>
           </div>
         </div>
 
-        <!-- 카드 3-3: 스킬 2 (카톡 견적서) -->
-        <div class="card prompt-template-card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
-            <div style="font-weight: 700; font-size: 16px; color: var(--color-obsidian); display: flex; align-items: center; gap: 8px;">
-              <span style="background: #ea580c; color: #fff; font-size: 11.5px; padding: 3px 8px; border-radius: 4px;">스킬 2</span>
-              <span>💰 카톡 문의 기반 원클릭 견적서 &amp; PDF 자동 생성 스킬</span>
-            </div>
-            <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;">
-              <span>📋 스킬 생성문 복사</span>
-            </button>
+        <!-- 카드 3-3: [3교시-2] 견적서 작성하기 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>💰 2. 견적서 작성하기</span>
+            </h3>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+              카톡 문의 ➔ 자동 견적 답변 &amp; PDF 생성
+            </span>
           </div>
 
-          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1rem; word-break: keep-all;">
-            고객의 비정형 카톡/메일 문의 텍스트나 캡처를 분석하여 견적서 산출과 안내 문구를 자동으로 완성합니다.
-          </p>
+          <!-- (단계1) -->
+          <div style="margin-bottom: 1.5rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 12px;">
+              <h4 style="font-size: 15px; font-weight: 800; color: var(--color-obsidian); margin: 0; word-break: keep-all;">
+                🔹 (단계1) 우리 회사의 견적서 양식 만들기
+              </h4>
+              <a href="https://drive.google.com/file/d/1Pm_OoMZZSjehWgJ5Xb4CEvSctmWd2t_W/view?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 6px 14px; border-radius: 999px; display: inline-flex; align-items: center; gap: 5px; border-color: #ea580c; color: #c2410c; background: #fff7ed; font-weight: 700; text-decoration: none;" title="실습용 견적서 샘플 파일 열기">
+                <span>📁 실습용 견적서 양식(Google Drive) 열기 ↗</span>
+              </a>
+            </div>
 
-          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0 0 1rem 0; font-family: inherit; cursor: text;">스킬 크리에이터를 써서 견적 스킬을 만들어줘.
-내가 메뉴, 가격, 진행 방식을 정리해줄테니 카톡 문의(텍스트 또는 캡처)를 붙여넣고 "행사 견적 뽑아줘"라고 하면 견적 답변과 견적서 PDF까지 만들어주는 스킬로 만들어줘.
+            <!-- Before vs After 이미지 비교 -->
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 1rem;">
+              <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 14px; text-align: center; cursor: pointer;" onclick="DashboardApp.showImageModal('images/worker_quote_before.jpg', '📄 견적서 양식 개선 전 (Before)', '기존 원본 견적서 양식')" title="클릭하여 원본 크기로 보기">
+                <div style="font-weight: 800; font-size: 13px; color: #991b1b; margin-bottom: 8px;">(Before) 기존 견적서 양식</div>
+                <img src="images/worker_quote_before.jpg" alt="견적서 양식 개선 전" style="max-width: 100%; max-height: 320px; width: auto; height: auto; border-radius: 10px; border: 1px solid #e5e7eb; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+              </div>
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 14px; text-align: center; cursor: pointer;" onclick="DashboardApp.showImageModal('images/worker_quote_after.jpg', '✨ 견적서 양식 개선 후 (After)', 'AI로 가독성과 정렬을 개선한 견적서 시안')" title="클릭하여 원본 크기로 보기">
+                <div style="font-weight: 800; font-size: 13px; color: #166534; margin-bottom: 8px;">(After) AI 개선 견적서 양식</div>
+                <img src="images/worker_quote_after.jpg" alt="견적서 양식 개선 후" style="max-width: 100%; max-height: 320px; width: auto; height: auto; border-radius: 10px; border: 1px solid #bbf7d0; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+              </div>
+            </div>
 
-[포함 규칙]
-- 상호 및 공급자 정보, 1인당 단가 계산, 부가세 10% 별도 명시
-- 예약금 30%, 행사 취소 및 환불 규정 포함
-- 어조: 친근한 존댓말, "문의 주셔서 감사합니다" 톤으로 시작하고 미비한 조건(인원수, 일시)은 마지막에 정중히 되묻기</pre>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              ${renderPromptSteps(quoteStep1Prompts)}
+            </div>
+          </div>
 
-          <div style="background: #eff6ff; border-left: 4px solid #2563eb; border-radius: 0 10px 10px 0; padding: 10px 14px; font-size: 12.5px; color: #1d4ed8; line-height: 1.5;">
-            <strong>💡 업무 적용 효과:</strong> 바쁜 현장에서 메신저 문의가 들어왔을 때, 캡처를 올리고 <code>"견적 뽑아줘"</code> 한마디면 부가세 계산 오류 없이 30초 안에 고객 회신문과 견적서가 완성됩니다.
+          <!-- (단계2) -->
+          <div style="margin-bottom: 1.5rem; padding-top: 1.25rem; border-top: 1px dashed #e2e8f0;">
+            <h4 style="font-size: 15px; font-weight: 800; color: var(--color-obsidian); margin: 0 0 10px 0; word-break: keep-all;">
+              🔹 (단계2) 견적서 만들기 스킬 생성하기
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              ${renderPromptSteps(quoteStep2Prompts)}
+            </div>
+          </div>
+
+          <!-- (단계3) -->
+          <div style="padding-top: 1.25rem; border-top: 1px dashed #e2e8f0;">
+            <h4 style="font-size: 15px; font-weight: 800; color: var(--color-obsidian); margin: 0 0 10px 0; word-break: keep-all;">
+              🔹 (단계3) 카톡 이미지 또는 메세지 내용으로 견적서 생성 테스트하기
+            </h4>
+            <div style="display: flex; flex-direction: column; gap: 0.75rem;">
+              ${renderPromptSteps(quoteStep3Prompts)}
+            </div>
           </div>
         </div>
       </div>
@@ -3803,100 +4009,264 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
           <h2 style="font-size: clamp(24px, 3.5vw, 32px); color: var(--color-obsidian); margin-top: 4px;">📋 04. 구글 폼 AI 원클릭 생성 &amp; 스프레드시트 =GEMINI() 실시간 집계</h2>
         </div>
 
-        <!-- 카드 4-0: ⏱️ 15분 완성: 라이브 시연 8단계 로드맵 & 타임라인 -->
+        <!-- 카드 4-0: 📋 구글 폼 & 시트 자동화 8단계 로드맵 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>⏱️ 15분 완성: 라이브 시연 8단계 로드맵 &amp; 타임라인</span>
+              <span>📋 구글 폼 &amp; 시트 자동화 8단계 로드맵</span>
             </h3>
-            <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
-              설문 기획부터 AI 보고서까지 15분
-            </span>
+            <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
+              <span style="background: var(--color-sulfur); color: var(--color-obsidian); font-size: 12px; font-weight: 700; padding: 4px 12px; border-radius: 999px;">
+                설문 기획부터 AI 보고서까지 원스톱
+              </span>
+              <span style="font-size: 12px; color: #94a3b8; font-weight: 600;">(클릭 시 확대)</span>
+            </div>
           </div>
 
           <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1.25rem; word-break: keep-all;">
-            MICE 행사 현장에서 <strong>문항 기획 ➔ GAS 1클릭 폼 생성 ➔ 외부 응답 배포 ➔ 실시간 시트 집계 ➔ =GEMINI() 감정 분석 ➔ 1-Page 보고서</strong>까지 15분 동안 물 흐르듯 완성하는 8단계 표준 순서도입니다.
+            MICE 행사 현장에서 <strong>문항 기획 ➔ GAS 1클릭 폼 생성 ➔ 외부 응답 배포 ➔ 실시간 시트 집계 ➔ =GEMINI() 감정 분석 ➔ 1-Page 보고서</strong>까지 물 흐르듯 완성하는 8단계 표준 순서도입니다.
           </p>
 
-          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; margin-bottom: 1rem;">
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: var(--color-ember);">STEP 01 (2분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">AI 문항 기획</div>
-              <div style="font-size: 11.5px; color: #64748b;">리커트 5점 척도 & 주관식 문항 도출</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: var(--color-ember);">STEP 02 (2분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">GAS 코드 요청</div>
-              <div style="font-size: 11.5px; color: #64748b;">원클릭 Apps Script 생성 프롬프트 복사</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: var(--color-ember);">STEP 03 (1분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">1초 폼 자동 생성</div>
-              <div style="font-size: 11.5px; color: #64748b;">Apps Script 붙여넣고 [실행] 클릭</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-ember);">STEP 04 (1분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">외부 응답 설정</div>
-              <div style="font-size: 11.5px; color: #64748b;">조직 외 사용자 응답 제한 체크 해제</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: #0284c7;">STEP 05 (1분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">스프레드시트 연동</div>
-              <div style="font-size: 11.5px; color: #64748b;">[응답 ➔ Sheets에 연결] 클릭</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: #0284c7;">STEP 06 (3분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">실시간 집계 대시보드</div>
-              <div style="font-size: 11.5px; color: #64748b;">COUNTA, AVERAGE, COUNTIF 수식</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: #0284c7;">STEP 07 (3분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">=GEMINI() 감정분석</div>
-              <div style="font-size: 11.5px; color: #64748b;">주관식 감정분류, 키워드 추출 자동화</div>
-            </div>
-            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
-              <div style="font-size: 11px; font-weight: 800; color: #0284c7;">STEP 08 (2분)</div>
-              <div style="font-weight: 700; font-size: 13px; color: var(--color-obsidian); margin: 2px 0;">1-Page 보고서 완성</div>
-              <div style="font-size: 11.5px; color: #64748b;">핵심 요약 및 차기 행사 개선점 도출</div>
-            </div>
+          <!-- 8단계 인포그래픽 비주얼 로드맵 (클릭 시 확대 모달 연동) -->
+          <div style="border-radius: 18px; overflow: hidden; border: 1px solid var(--color-pumice); box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04); background: #ffffff; cursor: pointer; text-align: center; transition: transform 0.15s ease, box-shadow 0.15s ease;" onclick="DashboardApp.showImageModal('images/staff_form_roadmap_infographic2.png?v=20261027_v2', '📋 구글 폼 &amp; 시트 자동화 8단계 로드맵', '💡 문항 기획부터 GAS 1클릭 생성 · =GEMINI() 감정 분석 · 1-Page 보고서까지 8단계 순서도')" title="클릭하여 고해상도로 크게 보기" onmouseover="this.style.transform='scale(1.005)'; this.style.boxShadow='0 8px 24px rgba(0,0,0,0.08)';" onmouseout="this.style.transform='none'; this.style.boxShadow='0 4px 16px rgba(0, 0, 0, 0.04)';">
+            <img src="images/staff_form_roadmap_infographic2.png?v=20261027_v2" alt="구글 폼 &amp; 시트 자동화 8단계 로드맵 한국어 인포그래픽" style="max-width: 100%; width: 100%; height: auto; display: block; object-fit: contain; cursor: pointer;" loading="lazy">
           </div>
         </div>
 
-        <!-- 카드 4-1: GAS 원클릭 폼 생성 프롬프트 & 스크립트 -->
-        <div class="card prompt-template-card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
-          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
-            <div style="font-weight: 700; font-size: 16px; color: var(--color-obsidian); display: flex; align-items: center; gap: 8px;">
-              <span style="background: #0f9d58; color: #fff; font-size: 11.5px; padding: 3px 8px; border-radius: 4px;">GAS 자동화</span>
-              <span>⚡ 비전문가를 위한 구글 폼 원클릭 자동 생성 Google Apps Script (GAS)</span>
-            </div>
-            <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #d1d5db; background: #ffffff; cursor: pointer;">
-              <span>📋 프롬프트 복사</span>
-            </button>
-          </div>
-
-          <p style="font-size: 13.5px; color: #555; line-height: 1.6; margin-bottom: 1rem; word-break: keep-all;">
-            아래 프롬프트를 AI(ChatGPT 또는 Gemini)에 입력하면 구글 드라이브에서 실행 즉시 설문지가 1초 만에 완성되는 Apps Script 코드를 얻을 수 있습니다.
-          </p>
-
-          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12.5px; line-height: 1.6; color: #1e293b; white-space: pre-wrap; margin: 0; font-family: inherit; cursor: text;">구글 드라이브에서 실행만 누르면 리커트 5점 척도와 주관식 문항이 담긴 설문지가 자동으로 생성되는 Google Apps Script(GAS) 코드를 작성해 줘.
-
-[행사 정보]
-- 행사명: 2027 아시아-태평양 모빌리티 서밋 만족도 설문조사
-- 구성:
-  1. 객관식: 참가자 소속 구분 (국내 바이어 / 해외 바이어 / 일반 참관객 / 연사)
-  2. 선형 배율(1~5점): 전반적 프로그램 만족도
-  3. 선형 배율(1~5점): 베뉴 및 전시 시설 만족도
-  4. 주관식 단답형: 가장 유익했던 세션명
-  5. 주관식 장문형: 향후 개선이 필요한 점 및 건의사항
-
-코드를 복사해서 script.google.com에 붙여넣고 [실행]만 누르면 작동할 수 있게 완전한 코드로 출력해 줘.</pre>
-        </div>
-
-        <!-- 카드 4-2: 스프레드시트 =GEMINI() 실전 수식 5선 -->
+        <!-- 카드 4-1: [STEP 1 & 2] MICE 행사 문항 기획 & 비전문가용 GAS 코드 요청 프롬프트 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
             <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
-              <span>📊 MICE 실무를 위한 =GEMINI() 함수 실전 수식 5선</span>
+              <span>💬 [STEP 1 &amp; 2] MICE 설문 문항 기획 &amp; GAS 원클릭 코드 요청 프롬프트</span>
+            </h3>
+          </div>
+
+          <div style="display: flex; flex-direction: column; gap: 1rem;">
+            <!-- 프롬프트 1: MICE 설문 문항 설계 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span style="background: var(--color-ember); color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 700;">STEP 1</span>
+                  <span>🎯 [복사용 프롬프트 1] MICE 행사·박람회 만족도 조사 문항 설계</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: keep-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text;">당신은 국제회의(PCO)·전시(PEO) 성과평가 전문 PM입니다.
+이번에 개최된 <span class="prompt-edit-target">[행사명: 2027 아시아-태평양 모빌리티 서밋]</span>의 사후 만족도 조사를 구글 폼(Google Forms)으로 제작하려고 합니다.
+
+[기본 정보]
+- 참여 대상: <span class="prompt-edit-target">[국내외 바이어 600명, 일반 참관객 및 연사 포함 총 2,500명]</span>
+- 행사 형태: <span class="prompt-edit-target">[컨퍼런스 + B2B 수출상담회 + 전시 부스 (3일간)]</span>
+- 평가 목적: <span class="prompt-edit-target">지자체·발주처 결과보고서 제출용 정량/정성 증빙 및 차기 행사 개선안 도출</span>
+
+다음 조건에 맞추어 구글 폼에 바로 적용할 수 있는 문항 목록을 작성해 주세요:
+1. 설문 도입 안내문 (조사 목적, 소요 시간 2분, 익명성 보장 멘트 포함)
+2. 객관식 선택 문항: 참가자 소속 구분 (국내 바이어 / 해외 바이어 / 일반 참관객 / 연사)
+3. 정량 평가 문항 (리커트 5점 척도: 1점 전혀 그렇지 않다 ~ 5점 매우 그렇다)
+   - 전반적 프로그램 구성 및 콘텐츠 만족도
+   - 베뉴(전시장·회의장) 접근성 및 현장 운영 지원 만족도
+   - 네트워킹·비즈니스 매칭 성과 및 재참가 의향
+4. 정성 평가 문항 (주관식 단답형: 가장 유익했던 세션 / 장문형: F&amp;B·통역·동선 등 개선 건의사항)
+5. 각 문항마다 [문항 유형: 선형 배율 / 객관식 / 단답형 / 장문형], [필수 여부]를 명시해 주세요.</pre>
+            </div>
+
+            <!-- 프롬프트 2: GAS 코드 요청문 -->
+            <div class="prompt-template-card" style="background: #faf9f6; border: 1px solid var(--color-pumice); border-radius: 18px; padding: 1.25rem 1.4rem;">
+              <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 8px;">
+                <div style="font-weight: 700; font-size: 14.5px; color: var(--color-obsidian); display: flex; align-items: center; gap: 6px; flex-wrap: wrap;">
+                  <span style="background: #2563eb; color: #fff; font-size: 11px; padding: 2px 7px; border-radius: 4px; font-weight: 700;">STEP 2</span>
+                  <span>⚡ [복사용 프롬프트 2] 비전문가용 원클릭 스크립트(GAS) 요청문</span>
+                </div>
+                <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #2563eb; color: #2563eb; background: #ffffff; cursor: pointer; font-weight: 700;" title="프롬프트 복사하기">
+                  <span>📋 프롬프트 복사</span>
+                </button>
+              </div>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 10px; padding: 12px; font-size: 12px; color: #374151; white-space: pre-wrap; word-break: keep-all; margin: 0; line-height: 1.55; font-family: inherit; cursor: text;">위에서 설계한 MICE 행사 만족도 문항들을 구글 폼에 일일이 입력하기 번거로워.
+구글 앱스 스크립트(script.google.com)에 붙여넣고 [실행] 버튼만 누르면 설문지가 자동으로 생성되는 Google Apps Script(GAS) 코드를 작성해 줘.
+
+- <span class="prompt-edit-target">객관식, 5점 리커트 척도(선형 배율), 단답형, 장문형</span>에 맞게 구성해 줘.
+- 외부 참가자 및 해외 바이어도 로그인 없이 바로 응답할 수 있게 설정해 줘.
+- 생성 완료 후 관리자 편집 링크(Edit URL)와 참가자 배포 링크(Published URL)가 콘솔 로그에 나오게 해줘.
+- 코딩을 몰라도 통째로 복사해 바로 실행할 수 있는 완성 코드만 출력해 줘.</pre>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 4-2: [STEP 3] Google Apps Script 원클릭 폼 자동 완성 (즉시 실행 & MICE 표준 코드) -->
+        <div class="card prompt-template-card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>⚡ [STEP 3] Google Apps Script 원클릭 폼 자동 완성 (즉시 실행 &amp; MICE 표준 코드)</span>
+            </h3>
+            <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #16a34a; color: #16a34a; background: #ffffff; cursor: pointer; font-weight: 700;" title="GAS 코드 전체 복사하기">
+              <span>📋 GAS 코드 전체 복사</span>
+            </button>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 0.75rem; margin-bottom: 1rem;">
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
+              <strong style="font-size: 12.5px; color: var(--color-obsidian); display: block; margin-bottom: 4px;">1. script.google.com 접속</strong>
+              <span style="font-size: 12px; color: #64748b; line-height: 1.45;">새 창에서 접속 후 좌측 상단 <strong>[+ 새 프로젝트]</strong> 클릭</span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
+              <strong style="font-size: 12.5px; color: var(--color-obsidian); display: block; margin-bottom: 4px;">2. 코드 붙여넣기 및 저장</strong>
+              <span style="font-size: 12px; color: #64748b; line-height: 1.45;">기존 기본 코드를 지우고 아래 코드 붙여넣기 ➔ <strong>[💾 저장]</strong></span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
+              <strong style="font-size: 12.5px; color: var(--color-obsidian); display: block; margin-bottom: 4px;">3. [▶ 실행] 및 1회 권한 승인</strong>
+              <span style="font-size: 12px; color: #64748b; line-height: 1.45;">팝업창 [권한 검토] ➔ [고급] ➔ [안전하지 않음 이동] ➔ [허용]</span>
+            </div>
+            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 12px;">
+              <strong style="font-size: 12.5px; color: var(--color-obsidian); display: block; margin-bottom: 4px;">4. 실행 로그 링크 확인</strong>
+              <span style="font-size: 12px; color: #64748b; line-height: 1.45;">하단 콘솔에 출력된 <strong>[관리자 편집용 URL]</strong> 클릭하여 확인</span>
+            </div>
+          </div>
+
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 코드 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 11.5px; color: #334151; overflow-x: auto; margin: 0; line-height: 1.5; font-family: monospace; cursor: text;">function createMiceSurveyForm() {
+  // 1. MICE 행사 만족도 설문 폼 생성 (외부인/바이어 즉시 응답 허용)
+  var form = FormApp.create('<span class="prompt-edit-target">[만족도 조사] 2027 아시아-태평양 모빌리티 서밋</span>');
+  form.setDescription('<span class="prompt-edit-target">행사에 참석해 주셔서 감사합니다. 더 나은 컨퍼런스와 비즈니스 매칭 제공을 위해 2분간 소중한 의견을 들려주세요.</span>');
+  form.setAllowResponseEdits(false);
+  form.setRequireLogin(false); // 외부 참가자·해외 바이어 로그인 없이 응답 가능
+
+  // 2. 참가자 소속 구분 (객관식)
+  form.addMultipleChoiceItem()
+    .setTitle('<span class="prompt-edit-target">1. 귀하의 행사 참가 구분을 선택해 주세요.</span>')
+    .setChoiceValues([
+      '<span class="prompt-edit-target">국내 바이어</span>',
+      '<span class="prompt-edit-target">해외 바이어</span>',
+      '<span class="prompt-edit-target">일반 참관객</span>',
+      '<span class="prompt-edit-target">연사 / VIP</span>'
+    ])
+    .setRequired(true);
+
+  // 3. 5점 리커트 척도 문항 (프로그램 / 베뉴 만족도)
+  form.addScaleItem()
+    .setTitle('<span class="prompt-edit-target">2. 전체 컨퍼런스 프로그램 구성 및 세션 전문성에 만족하셨습니까?</span>')
+    .setBounds(1, 5)
+    .setLabels('전혀 그렇지 않다', '매우 그렇다')
+    .setRequired(true);
+
+  form.addScaleItem()
+    .setTitle('<span class="prompt-edit-target">3. 전시장·베뉴(Venue) 시설, 동선 안내 및 현장 운영 지원에 만족하셨습니까?</span>')
+    .setBounds(1, 5)
+    .setLabels('전혀 그렇지 않다', '매우 그렇다')
+    .setRequired(true);
+
+  // 4. 주관식 문항 (베스트 세션 & 개선 건의사항)
+  form.addTextItem()
+    .setTitle('<span class="prompt-edit-target">4. 이번 행사에서 가장 유익했던 세션이나 부스는 무엇이었습니까?</span>')
+    .setRequired(false);
+
+  form.addParagraphTextItem()
+    .setTitle('<span class="prompt-edit-target">5. F&amp;B, 통역, 부스 운영 등 향후 개선이 필요한 점이나 건의사항을 자유롭게 적어주세요.</span>')
+    .setRequired(false);
+
+  // 5. 완료 후 편집/배포 URL 출력
+  Logger.log('✅ MICE 설문 폼 생성이 완료되었습니다!');
+  Logger.log('👉 [관리자 편집용 URL]: ' + form.getEditUrl());
+  Logger.log('👉 [참가자 배포용 URL]: ' + form.getPublishedUrl());
+}</pre>
+        </div>
+
+        <!-- 카드 4-3: [STEP 4] MICE 행사 구글 폼 배포 전 필수 설정 체크리스트 4선 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>⚙️ [STEP 4] MICE 행사 구글 폼 배포 전 필수 설정 체크리스트 4선</span>
+            </h3>
+          </div>
+
+          <div style="overflow-x: auto; -webkit-overflow-scrolling: touch; border: 1px solid #e5e7eb; border-radius: 14px; background: #ffffff;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; min-width: 720px;">
+              <thead>
+                <tr style="background-color: #f8fafc; border-bottom: 2px solid #e2e8f0;">
+                  <th style="padding: 12px 16px; width: 22%; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">설정 항목</th>
+                  <th style="padding: 12px 16px; width: 22%; color: var(--color-obsidian); font-weight: 700; white-space: nowrap;">권장 설정</th>
+                  <th style="padding: 12px 16px; color: var(--color-obsidian); font-weight: 700;">MICE 실무 팁 및 설정 이유</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">조직 도메인 사용자 제한</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #1e293b; white-space: nowrap;">외부 행사/바이어: <strong>반드시 OFF</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">Google Workspace 기업 계정은 기본값이 ON인 경우가 많습니다. 해외 바이어·외부 참관객이 QR코드를 찍었을 때 "권한 필요" 오류가 나지 않도록 반드시 해제하세요.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">응답 1회로 제한</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #0284c7; white-space: nowrap;">현장 오픈 설문: <strong>OFF 권장</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">ON으로 켜면 모든 참가자에게 구글 로그인이 강제되어 현장 응답률이 급락합니다. 경품 추첨이 있는 경우에만 별도 식별(이메일/명함번호)로 필터링하세요.</td>
+                </tr>
+                <tr style="border-bottom: 1px solid #f1f5f9;">
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">이메일·개인정보 수집</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #059669; white-space: nowrap;">익명 평가: <strong>수집 안 함</strong><br>자료·경품 요청: <strong>폼 분리</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">행사 만족도 응답과 바이어 연락처·경품 추첨용 전화번호는 별도 폼이나 제출 완료 링크로 분리해야 개인정보보호법 컴플라이언스를 지키기 쉽습니다.</td>
+                </tr>
+                <tr>
+                  <td style="padding: 11px 16px; font-weight: 700; color: var(--color-ember); white-space: nowrap;">제출 후 확인 메시지</td>
+                  <td style="padding: 11px 16px; font-weight: 600; color: #7c3aed; white-space: nowrap;"><strong>발표자료·수료증 링크 삽입</strong></td>
+                  <td style="padding: 11px 16px; color: #4b5563; line-height: 1.5; word-break: keep-all;">"응답이 기록되었습니다" 대신 <strong>'세션 발표자료(PDF) 다운로드 링크'</strong>나 <strong>'참가 확인서 발급 안내'</strong>를 넣어두면 폐회 직후 현장 응답률이 80% 이상으로 올라갑니다.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- 카드 4-4: [STEP 5 & 6] 가상 응답 제출 & 스프레드시트 실시간 집계 대시보드 세팅 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 [STEP 5 &amp; 6] 가상 응답 제출 &amp; 스프레드시트 실시간 집계 대시보드</span>
+            </h3>
+          </div>
+
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1rem; margin-bottom: 1.25rem;">
+            <div style="background: #fffaf0; border: 1px solid #fed7aa; border-radius: 16px; padding: 1.15rem;">
+              <div style="font-weight: 700; font-size: 14px; color: #9a3412; margin-bottom: 6px;">STEP 5. 테스트 응답 제출 &amp; 시트 연동</div>
+              <p style="font-size: 12.5px; color: #7c2d12; margin: 0; line-height: 1.5; word-break: keep-all;">
+                미리보기(눈 모양 <code>👁️</code>)에서 테스트 응답을 1회 제출한 뒤, 폼 편집창 <strong>[응답] ➔ [Sheets에 연결]</strong>을 눌러 실시간 응답 시트를 생성합니다.
+              </p>
+            </div>
+            <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 1.15rem;">
+              <div style="font-weight: 700; font-size: 14px; color: #166534; margin-bottom: 6px;">STEP 6. [집계 대시보드] 탭 분리 철칙</div>
+              <p style="font-size: 12.5px; color: #14532d; margin: 0; line-height: 1.5; word-break: keep-all;">
+                원본 탭(<code>'설문지 응답 1'</code>)을 직접 수정하면 새 응답 유입 시 수식이 밀립니다. 하단 <code>+</code>를 눌러 <strong>[집계 대시보드]</strong> 탭을 분리해 수식을 걸어둡니다.
+              </p>
+            </div>
+          </div>
+
+          <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 16px; padding: 1.25rem 1.4rem;">
+            <div style="font-weight: 700; font-size: 14px; color: var(--color-obsidian); margin-bottom: 10px; display: flex; align-items: center; gap: 6px;">
+              <span>💡 [집계 대시보드] 탭에 바로 넣는 행사 성과 실시간 통계 수식</span>
+            </div>
+            <div style="display: flex; flex-direction: column; gap: 8px; font-size: 13px; color: #334155; font-family: inherit;">
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: var(--color-ember); min-width: 185px;">• 총 설문 응답 인원 카운트:</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=COUNTA('설문지 응답 1'!A2:A)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #0284c7; min-width: 185px;">• 프로그램 만족도 평균 (5점):</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=AVERAGE('설문지 응답 1'!C2:C)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #059669; min-width: 185px;">• 베뉴·운영 만족도 평균 (5점):</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=AVERAGE('설문지 응답 1'!D2:D)</code>
+              </div>
+              <div style="display: flex; flex-wrap: wrap; align-items: center; gap: 8px;">
+                <span style="font-weight: 700; color: #7c3aed; min-width: 185px;">• 우수 만족 비율 (4점 이상):</span>
+                <code style="background: #ffffff; border: 1px solid #cbd5e1; padding: 3px 10px; border-radius: 6px; font-size: 12.5px; color: #0f172a; font-family: inherit; font-weight: 600;">=COUNTIF('설문지 응답 1'!C2:C, ">=4") / COUNTA('설문지 응답 1'!C2:C)</code>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 카드 4-5: [STEP 7] 스프레드시트 =GEMINI() 실전 수식 5선 -->
+        <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📊 [STEP 7] MICE 실무를 위한 =GEMINI() 함수 실전 수식 5선</span>
             </h3>
             <div style="display: flex; align-items: center; gap: 8px; flex-wrap: wrap;">
               <a href="https://docs.google.com/spreadsheets/d/1tx-E9auNundLk1rLqLwYlFKAlk1-ke_zn51a4KO8dRo/edit?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn btn-outline" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: #0f9d58; color: #0f9d58; background: #ffffff; font-weight: 700; text-decoration: none;">
@@ -3954,7 +4324,7 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
                   <span>📋 수식 복사</span>
                 </button>
               </div>
-              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("바이어 " & A2 & "님 (" & B2 & " 소속)께 이번 모빌리티 서밋 참석 감사 및 후속 미팅을 제안하는 정중하고 격식 있는 비즈니스 영문 메일을 50단어 내외로 작성해줘:")</pre>
+              <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 수식 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 8px; padding: 8px 12px; font-size: 12.5px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; font-family: inherit; cursor: text;">=GEMINI("바이어 " &amp; A2 &amp; "님 (" &amp; B2 &amp; " 소속)께 이번 모빌리티 서밋 참석 감사 및 후속 미팅을 제안하는 정중하고 격식 있는 비즈니스 영문 메일을 50단어 내외로 작성해줘:")</pre>
             </div>
 
             <!-- 수식 5 -->
@@ -3970,7 +4340,34 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
           </div>
         </div>
 
-        <!-- 카드 4-3: 실무자가 반드시 알아야 할 주의사항 3가지 -->
+        <!-- 카드 4-6: [STEP 8] 전체 설문 결과 발주처·임원 보고용 1-Page 요약 생성 프롬프트 -->
+        <div class="card prompt-template-card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; margin-bottom: 1rem;">
+            <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0; display: flex; align-items: center; gap: 8px;">
+              <span>📑 [STEP 8] 전체 설문 결과 발주처·임원 보고용 1-Page 요약 생성 프롬프트</span>
+            </h3>
+            <button type="button" class="btn btn-outline prompt-copy-btn" onclick="DashboardApp.copyPrompt(this)" style="font-size: 12px; padding: 4px 12px; border-radius: 999px; display: inline-flex; align-items: center; gap: 4px; border-color: var(--color-ember); color: var(--color-ember); background: #ffffff; cursor: pointer; font-weight: 700;" title="프롬프트 복사하기">
+              <span>📋 프롬프트 복사</span>
+            </button>
+          </div>
+
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px 16px; font-size: 12px; color: #334155; white-space: pre-wrap; word-break: keep-all; margin: 0; line-height: 1.6; font-family: inherit; cursor: text;">다음은 <span class="prompt-edit-target">[2027 아시아-태평양 모빌리티 서밋]</span> 종료 후 수집된 참가자·바이어 주관식 피드백 원문 데이터입니다.
+당신은 컨벤션 뷰로(CVB) 및 PCO 사후 성과평가 분석가로서, 발주처(지자체/주최사) 및 경영진 보고용 <span class="prompt-edit-target">[1-Page 사후 결과 요약 보고서]</span>를 작성해야 합니다.
+
+[주관식 원문 데이터]
+"""
+<span class="prompt-edit-target">(여기에 스프레드시트의 주관식 열 텍스트를 그대로 복사하여 붙여넣기)</span>
+"""
+
+다음 구조로 요약 분석해 주세요:
+1. 행사 총평 (주요 긍정 반응 및 비즈니스 성과 요약 - 3줄 이내)
+2. 참가자·바이어가 가장 호평한 핵심 요인 TOP 3
+3. 현장 운영·베뉴·F&amp;B·통역 관련 개선 건의사항 (우선순위순 정렬)
+4. 차기 연도 행사 기획·예산 편성 시 반영할 실무 제언 (Action Item 3가지)
+5. 최종 결과보고서 본문에 인용하기 좋은 대표 생생 후기(Best Quote) 3선</pre>
+        </div>
+
+        <!-- 카드 4-7: 실무자가 반드시 알아야 할 주의사항 3가지 -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff;">
           <h3 style="font-size: 18px; color: var(--color-obsidian); margin: 0 0 1rem 0; display: flex; align-items: center; gap: 8px;">
             <span>⚠️ 실무자가 반드시 알아야 할 시트 자동화 주의사항 3가지</span>
@@ -3978,19 +4375,19 @@ Concept: "모노크롬 사진과 극태 폰트를 결합한 잡지풍의 미니�
           <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px;">
             <div style="background: #fff7ed; border-left: 4px solid #ea580c; border-radius: 0 12px 12px 0; padding: 14px 16px;">
               <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 4px;">1. '값으로 붙여넣기' 필수</div>
-              <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.5;">
+              <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.5; word-break: keep-all;">
                 =GEMINI() 함수는 시트를 새로고침할 때마다 재계산됩니다. 결과가 나오면 즉시 복사(<code>Ctrl+C</code>) 후 <strong>값만 붙여넣기(<code>Ctrl+Shift+V</code>)</strong>로 고정하세요.
               </div>
             </div>
             <div style="background: #fff7ed; border-left: 4px solid #ea580c; border-radius: 0 12px 12px 0; padding: 14px 16px;">
               <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 4px;">2. 행 일괄 드래그 시 딜레이(Rate Limit)</div>
-              <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.5;">
+              <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.5; word-break: keep-all;">
                 수백 개 행에 한꺼번에 수식을 채우면 Google API 일시 제한으로 <code>#ERROR!</code>가 날 수 있습니다. 50~100행 단위로 나누어 적용하고 값으로 고정하세요.
               </div>
             </div>
             <div style="background: #fff7ed; border-left: 4px solid #ea580c; border-radius: 0 12px 12px 0; padding: 14px 16px;">
               <div style="font-weight: 700; font-size: 13.5px; color: #9a3412; margin-bottom: 4px;">3. 엄밀한 사칙연산은 시트 고유 수식 활용</div>
-              <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.5;">
+              <div style="font-size: 12.5px; color: #7c2d12; line-height: 1.5; word-break: keep-all;">
                 단가 계산, 부가세 합산, 평균 평점 등 정량 연산은 <code>AVERAGE</code>, <code>COUNTIF</code> 등 시트 고유 수식을 쓰고, Gemini는 텍스트 분류와 요약에 집중하세요.
               </div>
             </div>

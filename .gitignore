@@ -3,6 +3,7 @@ node_modules/
 .DS_Store
 *.txt
 *.md
+*.pdf
 server.js
 package*.json
 server/
