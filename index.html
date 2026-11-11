@@ -239,7 +239,8 @@
         Google 계정 또는 아이디/비밀번호로 로그인해 맞춤 강의실로 입장하세요.
       </p>
 
-      <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px; letter-spacing: 0.05em;">
+      <div
+        style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 6px; letter-spacing: 0.05em;">
         STEP 1. 학습자 역할 선택 (필수)
       </div>
       <div class="role-switcher-pill" style="margin-bottom: 12px;">
@@ -254,8 +255,10 @@
         </button>
       </div>
 
-      <div id="modal-role-summary" style="background: rgba(247, 246, 242, 0.95); border: 1px solid rgba(7, 6, 7, 0.08); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; text-align: left; font-size: 13px; line-height: 1.5; color: var(--color-obsidian);">
-        <strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트 마스터 코스로 연결됩니다.
+      <div id="modal-role-summary"
+        style="background: rgba(247, 246, 242, 0.95); border: 1px solid rgba(7, 6, 7, 0.08); border-radius: 12px; padding: 12px 14px; margin-bottom: 16px; text-align: left; font-size: 13px; line-height: 1.5; color: var(--color-obsidian);">
+        <strong style="color: var(--color-ember);">[🎓 대학생 맞춤 과정]</strong> 5대 요인 역량 진단평가(30문항), 공식 레포트 발급 및 전공·연구 프롬프트
+        마스터 코스로 연결됩니다.
       </div>
 
       <!-- 2-Way Authentication Tabs -->
@@ -270,11 +273,13 @@
 
       <!-- Tab 1: Google One-Click Login -->
       <div id="auth-panel-google" class="auth-panel">
-        <div style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 8px; letter-spacing: 0.05em;">
+        <div
+          style="font-size: 12px; font-weight: 700; color: var(--color-ember); text-align: left; margin-bottom: 8px; letter-spacing: 0.05em;">
           STEP 2. GOOGLE 계정으로 원클릭 입장
         </div>
 
-        <div id="google-gis-btn-container" style="display: flex; justify-content: center; margin-bottom: 10px; min-height: 44px;"></div>
+        <div id="google-gis-btn-container"
+          style="display: flex; justify-content: center; margin-bottom: 10px; min-height: 44px;"></div>
 
         <button type="button" class="btn-google-pill" id="btn-modal-google" onclick="handleGoogleLogin()">
           <svg style="width: 20px; height: 20px;" viewBox="0 0 24 24">
@@ -291,7 +296,8 @@
         </button>
 
         <div class="modal-footer-switch">
-          아직 계정이 없으신가요? <a href="register.html" style="color: var(--color-ember); font-weight: 700; text-decoration: underline;">회원가입하기 →</a>
+          아직 계정이 없으신가요? <a href="register.html"
+            style="color: var(--color-ember); font-weight: 700; text-decoration: underline;">회원가입하기 →</a>
         </div>
       </div>
 
@@ -300,21 +306,25 @@
         <form onsubmit="handleFormLogin(event)">
           <div class="modal-form-group">
             <label class="modal-label" for="login-username">아이디 또는 이메일</label>
-            <input type="text" id="login-username" class="modal-input" placeholder="가입한 아이디 또는 이메일 입력" required autocomplete="username">
+            <input type="text" id="login-username" class="modal-input" placeholder="가입한 아이디 또는 이메일 입력" required
+              autocomplete="username">
           </div>
           <div class="modal-form-group">
             <label class="modal-label" for="login-password">비밀번호</label>
-            <input type="password" id="login-password" class="modal-input" placeholder="비밀번호 입력" required autocomplete="current-password">
+            <input type="password" id="login-password" class="modal-input" placeholder="비밀번호 입력" required
+              autocomplete="current-password">
           </div>
           <button type="submit" class="btn-modal-submit">
             로그인 및 강의실 입장 →
           </button>
         </form>
         <div class="modal-footer-switch">
-          아직 계정이 없으신가요? <a href="register.html" style="color: var(--color-ember); font-weight: 700; text-decoration: underline;">회원가입하기 →</a>
+          아직 계정이 없으신가요? <a href="register.html"
+            style="color: var(--color-ember); font-weight: 700; text-decoration: underline;">회원가입하기 →</a>
         </div>
         <div style="margin-top: 10px; text-align: center; font-size: 12px; opacity: 0.85;">
-          <a href="admin.html" style="color: #64748b; font-weight: 600; text-decoration: none;">🛡️ 관리자 로그인 및 승인 관리 콘솔 이동 →</a>
+          <a href="admin.html" style="color: #64748b; font-weight: 600; text-decoration: none;">🛡️ 관리자 로그인 및 승인 관리 콘솔
+            이동 →</a>
         </div>
       </div>
     </div>
@@ -328,7 +338,9 @@
       <div class="footer-top">
         <div class="footer-brand">AI LITERACY LAB</div>
         <div>
-          <a href="admin.html" class="btn btn-secondary btn-sm" style="font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--color-obsidian);" title="관리자 전용 회원 승인 콘솔">
+          <a href="admin.html" class="btn btn-secondary btn-sm"
+            style="font-size: 13px; font-weight: 700; white-space: nowrap; color: var(--color-obsidian);"
+            title="관리자 전용 회원 승인 콘솔">
             🛡️ 관리자 모드
           </a>
         </div>
@@ -349,7 +361,7 @@
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-auth-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
   <script src="js/firebase-config.js"></script>
-  <script src="js/auth.js?v=20261110_firestore_sync"></script>
+  <script src="js/auth.js?v=20261111_role_preserve"></script>
   <script>
     // State
     let currentRole = 'student';
@@ -546,11 +558,11 @@
           let initSnap = null;
           try {
             initSnap = await Auth.firebaseDb.collection('settings').doc('staff_curriculum').get();
-          } catch (e1) {}
+          } catch (e1) { }
           if (!initSnap || !initSnap.exists) {
             try {
               initSnap = await Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').get();
-            } catch (e2) {}
+            } catch (e2) { }
           }
           if (initSnap && initSnap.exists && initSnap.data().module4) {
             applyRemote(initSnap.data().module4);
@@ -564,11 +576,11 @@
           };
 
           try {
-            Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot(onUpdate, () => {});
-          } catch (e) {}
+            Auth.firebaseDb.collection('settings').doc('staff_curriculum').onSnapshot(onUpdate, () => { });
+          } catch (e) { }
           try {
-            Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').onSnapshot(onUpdate, () => {});
-          } catch (e) {}
+            Auth.firebaseDb.collection('users').doc('settings_staff_curriculum').onSnapshot(onUpdate, () => { });
+          } catch (e) { }
         }
       } catch (e) {
         console.warn('Failed to sync staff curriculum settings:', e);

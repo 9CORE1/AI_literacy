@@ -2823,7 +2823,7 @@ const DashboardApp = {
         <div class="card module-card" style="cursor: pointer; border: 1px solid var(--color-pumice); background: #ffffff; box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04); transition: transform 0.2s, box-shadow 0.2s; display: flex; flex-direction: column; height: 100%;" onclick="DashboardApp.scrollToSection('lecture-worker-sec-2')">
           <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
             <span style="font-size: 12px; font-weight: 800; color: var(--color-ember); letter-spacing: 0.05em;">MODULE 02</span>
-            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">프롬프트 4+2 & 템플릿 5선</span>
+            <span style="background: #fff7ed; color: #c2410c; font-size: 11px; font-weight: 800; padding: 2px 10px; border-radius: 999px;">프롬프트 4+2</span>
           </div>
           <h3 style="font-size: 17px; margin-bottom: 8px;"><span>02</span> 프롬프트 공식 4+2 & MICE 실전 템플릿 5선</h3>
           <p style="color: #444; font-size: 13.5px; margin-bottom: 12px; line-height: 1.55;">
