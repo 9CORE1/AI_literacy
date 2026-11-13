@@ -2078,3 +2078,443 @@ button {
     gap: 0.85rem !important;
   }
 }
+
+/* ==========================================================================
+   MICE 실무자 맞춤 AI [역할/페르소나] 추천 생성기 (Role Generator)
+   ========================================================================== */
+.role-generator-block {
+  background: #ffffff;
+  border: 1px solid var(--color-pumice);
+  border-radius: 28px;
+  padding: 1.75rem 2rem;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+  transition: box-shadow 0.2s ease;
+}
+
+.role-generator-header {
+  margin-bottom: 1.25rem;
+}
+
+.role-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, var(--color-ember) 0%, #ff7849 100%);
+  color: #ffffff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 3px 9px;
+  border-radius: 999px;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+.role-generator-title {
+  font-size: 18.5px;
+  font-weight: 800;
+  color: var(--color-obsidian);
+  margin: 0 0 6px 0;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  word-break: keep-all;
+}
+
+.role-generator-desc {
+  font-size: 13.5px;
+  color: #555555;
+  line-height: 1.6;
+  margin: 0;
+  word-break: keep-all;
+}
+
+/* 퀵 추천 키워드 칩 */
+.role-quick-chips-wrap {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin-bottom: 1rem;
+  background: #faf9f6;
+  border: 1px solid var(--color-pumice);
+  border-radius: 16px;
+  padding: 12px 14px;
+}
+
+.role-quick-label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--color-obsidian);
+  white-space: nowrap;
+  padding-top: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.role-quick-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  flex: 1;
+}
+
+.role-chip-btn {
+  background: #ffffff;
+  border: 1px solid #d1d5db;
+  border-radius: 999px;
+  padding: 4px 11px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #374151;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  line-height: 1.4;
+  white-space: nowrap;
+}
+
+.role-chip-btn:hover {
+  background: var(--color-chalk);
+  border-color: var(--color-ember);
+  color: var(--color-ember);
+  transform: translateY(-1px);
+}
+
+.role-chip-btn.active {
+  background: var(--color-ember);
+  border-color: var(--color-ember);
+  color: #ffffff;
+}
+
+/* 검색 입력 폼 바 */
+.role-input-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 6px 8px 6px 14px;
+  margin-bottom: 1.25rem;
+  transition: all 0.2s ease;
+}
+
+.role-input-bar:focus-within {
+  border-color: var(--color-ember);
+  box-shadow: 0 0 0 3px rgba(226, 85, 61, 0.15);
+  background: #ffffff;
+}
+
+.role-input-icon {
+  font-size: 15px;
+  color: #94a3b8;
+  flex-shrink: 0;
+}
+
+.role-search-input {
+  flex: 1;
+  border: none;
+  background: transparent;
+  font-size: 13.5px;
+  color: var(--color-obsidian);
+  outline: none;
+  padding: 8px 0;
+  font-family: inherit;
+  min-width: 0;
+}
+
+.role-search-input::placeholder {
+  color: #94a3b8;
+  font-size: 13px;
+}
+
+.role-reset-btn {
+  background: #e2e8f0;
+  border: none;
+  color: #64748b;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+}
+
+.role-reset-btn:hover {
+  background: #cbd5e1;
+  color: #1e293b;
+}
+
+.role-search-btn {
+  background: var(--color-ember);
+  border: 1px solid var(--color-ember);
+  color: #ffffff;
+  border-radius: 999px;
+  padding: 8px 18px;
+  font-size: 13px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.role-search-btn:hover {
+  background: #c54229;
+  border-color: #c54229;
+  transform: translateY(-1px);
+}
+
+.role-chatgpt-link-btn {
+  background: #ecfdf5;
+  border: 1px solid #10a37f;
+  color: #047857;
+  border-radius: 999px;
+  padding: 8px 14px;
+  font-size: 12.5px;
+  font-weight: 700;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
+}
+
+.role-chatgpt-link-btn:hover {
+  background: #d1fae5;
+  transform: translateY(-1px);
+}
+
+/* 추천 결과 컨테이너 */
+.role-results-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.role-results-header-banner {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+  border-radius: 14px;
+  padding: 10px 14px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.role-results-domain-badge {
+  font-size: 13px;
+  font-weight: 700;
+  color: #166534;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.role-results-domain-desc {
+  font-size: 12px;
+  color: #15803d;
+}
+
+/* 개별 역할 카드 */
+.role-card {
+  background: #faf9f6;
+  border: 1px solid var(--color-pumice);
+  border-radius: 18px;
+  padding: 1.25rem 1.4rem;
+  transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.role-card:hover {
+  border-color: #d1d5db;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.04);
+}
+
+.role-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.role-card-badge-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.role-type-pill {
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2.5px 8px;
+  border-radius: 4px;
+  color: #ffffff;
+}
+
+.role-type-pill.type-director {
+  background: #2563eb; /* 블루 */
+}
+
+.role-type-pill.type-consultant {
+  background: #7c3aed; /* 퍼플 */
+}
+
+.role-type-pill.type-reviewer {
+  background: #ea580c; /* 오렌지/레드팀 */
+}
+
+.role-tag-text {
+  font-size: 11.5px;
+  color: #64748b;
+  font-weight: 600;
+}
+
+.role-card-title {
+  font-size: 15px;
+  font-weight: 800;
+  color: var(--color-obsidian);
+  margin: 4px 0 0 0;
+  line-height: 1.4;
+  word-break: keep-all;
+}
+
+.role-card-meta {
+  font-size: 12.5px;
+  color: #4b5563;
+  line-height: 1.5;
+  margin-bottom: 10px;
+  word-break: keep-all;
+  background: #ffffff;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+  padding: 8px 12px;
+}
+
+.role-card-meta strong {
+  color: var(--color-obsidian);
+}
+
+.role-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+}
+
+.role-copy-btn {
+  font-size: 12px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #d1d5db;
+  background: #ffffff;
+  color: var(--color-obsidian);
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.role-copy-btn:hover {
+  background: #f3f4f6;
+  border-color: #9ca3af;
+}
+
+.role-direct-chat-btn {
+  font-size: 11.5px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  color: #475569;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.15s ease;
+}
+
+.role-direct-chat-btn:hover {
+  background: #f1f5f9;
+  color: #0f172a;
+}
+
+/* 추천 생성기 프롬프트 내 수정/치환 텍스트: 기존 prompt-edit-target 표준 스타일과 100% 일치 */
+.role-card .prompt-edit-target {
+  color: #ea580c;
+  font-weight: 600;
+}
+
+/* 모바일 반응형 */
+@media (max-width: 768px) {
+  .role-generator-block {
+    padding: 20px 16px !important;
+    border-radius: 20px !important;
+  }
+
+  .role-quick-chips-wrap {
+    flex-direction: column;
+    padding: 10px 12px;
+  }
+
+  .role-input-bar {
+    flex-wrap: wrap;
+    padding: 8px 10px;
+  }
+
+  .role-search-input {
+    width: 100%;
+    order: 1;
+  }
+
+  .role-input-icon {
+    display: none;
+  }
+
+  .role-search-btn {
+    width: 100%;
+    order: 2;
+    min-height: 44px;
+    justify-content: center;
+  }
+
+  .role-chatgpt-link-btn {
+    width: 100%;
+    order: 3;
+    min-height: 44px;
+    justify-content: center;
+    margin-top: 4px;
+  }
+
+  .role-card-top {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .role-card-actions {
+    width: 100%;
+    justify-content: flex-start;
+    margin-top: 6px;
+  }
+
+  .role-copy-btn,
+  .role-direct-chat-btn {
+    min-height: 40px;
+  }
+}

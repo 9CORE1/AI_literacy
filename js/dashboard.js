@@ -90,6 +90,9 @@ const DashboardApp = {
     this.bindCopyEvents();
     this.initEditablePrompts();
     this.initScrollSpy(user);
+    if (user.role === 'worker') {
+      this.initMiceRoleGenerator();
+    }
   },
 
   renderDashboard(user) {
@@ -2502,7 +2505,7 @@ const DashboardApp = {
    * @param {HTMLElement} btn
    */
   copyPrompt(btn) {
-    const card = btn.closest('.prompt-template-card');
+    const card = btn.closest('.prompt-template-card') || btn.closest('.role-card');
     const pre = card ? (card.querySelector('pre.editable-prompt-pre') || card.querySelector('pre')) : null;
     if (!pre) return;
     const rawText = typeof pre.innerText === 'string' ? pre.innerText : (pre.textContent || '');
@@ -2608,7 +2611,7 @@ const DashboardApp = {
       modal.setAttribute('aria-modal', 'true');
 
       modal.innerHTML = `
-        <div id="cardnews-modal-content" style="background: #ffffff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); max-width: 640px; width: 100%; max-height: 96vh; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform 0.2s ease; border: 1px solid rgba(255,255,255,0.25);">
+        <div id="cardnews-modal-content" style="background: #ffffff; border-radius: 24px; box-shadow: 0 25px 50px -12px rgba(0,0,0,0.5); max-width: 640px; width: 100%; max-height: 98vh; display: flex; flex-direction: column; overflow: hidden; transform: scale(0.95); transition: transform 0.2s ease; border: 1px solid rgba(255,255,255,0.25);">
           <div style="display: flex; justify-content: space-between; align-items: center; padding: 12px 20px; border-bottom: 1px solid #f1f5f9; background: #fafafa;">
             <div id="cardnews-modal-title" style="font-size: 15px; font-weight: 700; color: #0f172a; display: flex; align-items: center; gap: 6px; word-break: keep-all;"></div>
             <div style="display: flex; align-items: center; gap: 10px;">
@@ -2618,8 +2621,8 @@ const DashboardApp = {
               <button type="button" onclick="DashboardApp.closeImageModal()" style="background: #f1f5f9; border: none; border-radius: 50%; width: 32px; height: 32px; display: flex; align-items: center; justify-content: center; font-size: 16px; cursor: pointer; color: #64748b; transition: background 0.15s;" onmouseover="this.style.background='#e2e8f0'" onmouseout="this.style.background='#f1f5f9'" aria-label="닫기">✕</button>
             </div>
           </div>
-          <div id="cardnews-modal-img-container" style="padding: 12px; text-align: center; background: #0b1120; display: flex; align-items: center; justify-content: center; overflow: auto; max-height: 84vh; position: relative;">
-            <img id="cardnews-modal-img" src="" alt="인포그래픽 이미지" onclick="DashboardApp.toggleImageModalZoom()" style="max-width: 100%; max-height: 80vh; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 28px rgba(0,0,0,0.6); cursor: zoom-in; transition: transform 0.15s ease;">
+          <div id="cardnews-modal-img-container" style="padding: 14px; text-align: center; background: #0b1120; display: flex; align-items: center; justify-content: center; overflow: auto; max-height: 88vh; position: relative;">
+            <img id="cardnews-modal-img" src="" alt="인포그래픽 이미지" onclick="DashboardApp.toggleImageModalZoom()" style="max-width: 100%; max-height: 85vh; object-fit: contain; border-radius: 12px; box-shadow: 0 8px 28px rgba(0,0,0,0.6); cursor: zoom-in; transition: transform 0.15s ease;">
           </div>
           <div style="padding: 10px 20px; background: #fafafa; border-top: 1px solid #f1f5f9; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; font-size: 12px; color: #64748b;">
             <span id="cardnews-modal-subtitle">💡 인포그래픽 크게 보기 (이미지 클릭 시 100% 확대/축소 토글)</span>
@@ -2656,8 +2659,15 @@ const DashboardApp = {
       subtitleEl.textContent = (typeof subtitle === 'string' && subtitle) ? subtitle : '💡 인포그래픽 크게 보기 (이미지 클릭 시 100% 확대/축소 토글)';
     }
 
-    // 대형 인포그래픽 파일명 판정 (notion, 인포그래픽, 생태계, roadmap 등 대폭 확대 지원)
+    // 대형 인포그래픽 및 견적서 양식 판정 (notion, 견적서, 인포그래픽, 생태계, roadmap 등 대폭 확대 지원)
+    const isQuote = imageSrc && (
+      imageSrc.includes('worker_quote') ||
+      imageSrc.includes('quote') ||
+      imageSrc.includes('견적서')
+    );
+
     const isLargeMedia = imageSrc && (
+      isQuote ||
       imageSrc.includes('notion') ||
       imageSrc.includes('생태계') ||
       imageSrc.includes('인포그래픽') ||
@@ -2668,13 +2678,18 @@ const DashboardApp = {
     );
 
     if (contentEl) {
-      contentEl.style.maxWidth = isLargeMedia ? 'min(1560px, 98vw)' : '640px';
-      contentEl.style.width = isLargeMedia ? '98vw' : '100%';
+      if (isQuote) {
+        contentEl.style.maxWidth = 'min(1120px, 96vw)';
+        contentEl.style.width = 'min(1120px, 96vw)';
+      } else {
+        contentEl.style.maxWidth = isLargeMedia ? 'min(1560px, 98vw)' : '640px';
+        contentEl.style.width = isLargeMedia ? '98vw' : '100%';
+      }
     }
     if (imgEl) {
       imgEl.dataset.isZoomed = '0';
       imgEl.style.maxWidth = '100%';
-      imgEl.style.maxHeight = isLargeMedia ? '82vh' : '58vh';
+      imgEl.style.maxHeight = isQuote ? '85vh' : (isLargeMedia ? '82vh' : '58vh');
       imgEl.style.width = 'auto';
       imgEl.style.cursor = 'zoom-in';
       imgEl.dataset.triedFallback = '';
@@ -2719,7 +2734,7 @@ const DashboardApp = {
       // 화면 맞춤으로 복귀
       imgEl.dataset.isZoomed = '0';
       imgEl.style.maxWidth = '100%';
-      imgEl.style.maxHeight = '82vh';
+      imgEl.style.maxHeight = '85vh';
       imgEl.style.width = 'auto';
       imgEl.style.cursor = 'zoom-in';
       if (zoomBtn) zoomBtn.innerHTML = '<span>🔍 100% 확대</span>';
@@ -3477,6 +3492,9 @@ const DashboardApp = {
           </div>
         </div>
 
+        <!-- ⚡ MICE 실무자 맞춤 AI [역할/페르소나] 추천 생성기 -->
+        ${this.getMiceRoleGeneratorHtml()}
+
         <!-- 3. MICE 실무 프롬프트 템플릿 제작 카드 (노션 강의 노트 원문 반영) -->
         <div class="card" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
           <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px; margin-bottom: 0.85rem;">
@@ -3679,6 +3697,224 @@ const DashboardApp = {
         </div>
       </div>
     `;
+  },
+
+  /**
+   * 실무자 전용: MICE 실무 맞춤 AI [역할/페르소나] 추천 생성기 카드 HTML
+   * @returns {string} HTML 마크업
+   */
+  getMiceRoleGeneratorHtml() {
+    return `
+      <div class="card role-generator-block" id="miceRoleGeneratorBlock" style="padding: 1.75rem 2rem; border: 1px solid var(--color-pumice); border-radius: 28px; background: #ffffff; margin-bottom: 1.5rem;">
+        <div class="role-generator-header">
+          <span class="role-badge">⚡ INTERACTIVE TOOL</span>
+          <h3 class="role-generator-title">
+            <span>⚡ MICE 실무 맞춤 AI [역할/페르소나] 추천 생성기</span>
+          </h3>
+          <p class="role-generator-desc">
+            어떤 MICE 업무를 해결하고 싶으신가요? 키워드나 일상 문장을 입력하시면, AI에게 부여할 <strong>최적의 3대 전문 역할 페르소나</strong>와 4+2 결합 프롬프트를 즉시 추천해 드립니다.
+          </p>
+        </div>
+
+        <!-- 퀵 추천 키워드 칩 -->
+        <div class="role-quick-chips-wrap">
+          <span class="role-quick-label">⚡ 빠른 추천 칩 :</span>
+          <div class="role-quick-chips" id="miceRoleQuickChips">
+            <!-- JS 동적 렌더링 -->
+          </div>
+        </div>
+
+        <!-- 입력 폼 바 -->
+        <div class="role-input-bar">
+          <div class="role-input-icon">🔍</div>
+          <input type="text" id="miceRoleSearchInput" class="role-search-input"
+            placeholder="예: 국제회의 제안서 수주, 해외 바이어 유치, 스폰서십 패키지, VIP 의전 동선, 비상 안전 매뉴얼..." autocomplete="off">
+          <button type="button" id="miceRoleResetBtn" class="role-reset-btn" title="입력 초기화" style="display: none;">✕</button>
+          <button type="button" id="miceRoleSearchBtn" class="role-search-btn">
+            <span>역할 추천받기 ✨</span>
+          </button>
+          <a href="https://chatgpt.com/share/6af2a51a-ad40-83e8-9df4-207f34865f29" target="_blank" rel="noopener noreferrer" class="role-chatgpt-link-btn" title="ChatGPT에서 추천받기 (새 창)">
+            <span>💬 ChatGPT 실습 원문</span> ↗
+          </a>
+        </div>
+
+        <!-- 추천 결과 영역 -->
+        <div id="miceRoleResultsContainer" class="role-results-container">
+          <!-- JS 동적 렌더링 -->
+        </div>
+      </div>
+    `;
+  },
+
+  /**
+   * MICE 실무자 맞춤 AI 역할 추천 생성기 이벤트 및 초기화
+   */
+  initMiceRoleGenerator() {
+    if (!window.MICE_ROLES_DATA) return;
+
+    const chipsContainer = document.getElementById('miceRoleQuickChips');
+    const searchInput = document.getElementById('miceRoleSearchInput');
+    const searchBtn = document.getElementById('miceRoleSearchBtn');
+    const resetBtn = document.getElementById('miceRoleResetBtn');
+    const resultsContainer = document.getElementById('miceRoleResultsContainer');
+
+    if (!chipsContainer || !searchInput || !resultsContainer) return;
+
+    // 1. 퀵 칩 렌더링
+    const chipsHtml = window.MICE_ROLES_DATA.quickChips.map((chip, idx) => `
+      <button type="button" class="role-chip-btn ${idx === 0 ? 'active' : ''}" data-query="${chip.query}">
+        ${chip.label}
+      </button>
+    `).join('');
+    chipsContainer.innerHTML = chipsHtml;
+
+    // 2. 칩 클릭 이벤트 바인딩
+    chipsContainer.querySelectorAll('.role-chip-btn').forEach((btn) => {
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        chipsContainer.querySelectorAll('.role-chip-btn').forEach((b) => b.classList.remove('active'));
+        btn.classList.add('active');
+        const query = btn.getAttribute('data-query');
+        searchInput.value = query;
+        if (resetBtn) resetBtn.style.display = 'inline-flex';
+        this.searchMiceRoles(query);
+      });
+    });
+
+    // 3. 검색 버튼 및 엔터키 이벤트
+    const doSearch = () => {
+      const q = searchInput.value.trim();
+      if (resetBtn) resetBtn.style.display = q ? 'inline-flex' : 'none';
+      this.searchMiceRoles(q);
+    };
+
+    if (searchBtn) {
+      searchBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        doSearch();
+      });
+    }
+
+    searchInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        doSearch();
+      }
+    });
+
+    searchInput.addEventListener('input', () => {
+      if (resetBtn) resetBtn.style.display = searchInput.value.trim() ? 'inline-flex' : 'none';
+    });
+
+    // 4. 리셋 버튼 이벤트
+    if (resetBtn) {
+      resetBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        searchInput.value = '';
+        resetBtn.style.display = 'none';
+        chipsContainer.querySelectorAll('.role-chip-btn').forEach((b, idx) => {
+          if (idx === 0) b.classList.add('active');
+          else b.classList.remove('active');
+        });
+        const defaultChip = window.MICE_ROLES_DATA.quickChips[0];
+        this.searchMiceRoles(defaultChip ? defaultChip.query : '');
+        searchInput.focus();
+      });
+    }
+
+    // 5. 초기 기본 결과 렌더링 (첫 번째 칩 기준)
+    const initialQuery = window.MICE_ROLES_DATA.quickChips[0]?.query || '';
+    if (searchInput && !searchInput.value) {
+      searchInput.value = initialQuery;
+      if (resetBtn) resetBtn.style.display = 'inline-flex';
+    }
+    this.searchMiceRoles(initialQuery);
+  },
+
+  /**
+   * MICE 실무자 역할 검색 및 결과 렌더링
+   * @param {string} query
+   */
+  searchMiceRoles(query) {
+    if (!window.MICE_ROLES_DATA) return;
+    const matchResult = window.MICE_ROLES_DATA.matchRoles(query);
+    this.renderMiceRoleResults(matchResult);
+  },
+
+  /**
+   * MICE 역할 추천 결과 카드 3종 렌더링
+   * @param {Object} matchResult
+   */
+  renderMiceRoleResults(matchResult) {
+    const container = document.getElementById('miceRoleResultsContainer');
+    if (!container || !matchResult) return;
+
+    const { preset, query, matchedRoles } = matchResult;
+
+    // 헤더 배너
+    const headerHtml = `
+      <div class="role-results-header-banner">
+        <div class="role-results-domain-badge">
+          <span>🎯 추천 매칭 도메인:</span>
+          <strong>${preset.category}</strong>
+        </div>
+        <div class="role-results-domain-desc">
+          ${preset.description}
+        </div>
+      </div>
+    `;
+
+    // 3대 역할 카드 렌더링
+    const cardsHtml = matchedRoles.map((role) => {
+      const cleanPrompt = role.prompt.replace(/<[^>]+>/g, '');
+      const encodedPrompt = encodeURIComponent(cleanPrompt);
+      const chatGptUrl = `https://chatgpt.com/?q=${encodedPrompt}`;
+      const geminiUrl = `https://gemini.google.com/app`;
+
+      return `
+        <div class="role-card">
+          <div class="role-card-top">
+            <div>
+              <div class="role-card-badge-row">
+                <span class="role-type-pill ${role.typeClass}">${role.type}</span>
+                <span class="role-tag-text">${role.tag}</span>
+              </div>
+              <h4 class="role-card-title">${role.roleTitle}</h4>
+            </div>
+            <div class="role-card-actions">
+              <button type="button" class="role-copy-btn" onclick="DashboardApp.copyPrompt(this)" title="프롬프트 클립보드 복사">
+                <span>📋 프롬프트 복사</span>
+              </button>
+              <a href="${chatGptUrl}" target="_blank" rel="noopener noreferrer" class="role-direct-chat-btn" title="ChatGPT에서 열기">
+                <span>💬 ChatGPT</span> ↗
+              </a>
+              <a href="${geminiUrl}" target="_blank" rel="noopener noreferrer" class="role-direct-chat-btn" title="Gemini에서 열기">
+                <span>✨ Gemini</span> ↗
+              </a>
+            </div>
+          </div>
+
+          <div class="role-card-meta">
+            <div><strong>페르소나</strong>: ${role.persona}</div>
+            <div style="margin-top: 3px;"><strong>집중 영역(Focus)</strong>: ${role.focus}</div>
+          </div>
+
+          <div style="font-size: 11.5px; color: #64748b; margin-bottom: 6px; display: flex; align-items: center; justify-content: space-between;">
+            <span>💡 <strong>스마트 MICE 4+2 프롬프트</strong> (클릭하여 직접 편집 가능):</span>
+            <span style="font-size: 11px; color: #94a3b8;">[역·배·지·형 + 조·샘]</span>
+          </div>
+
+          <pre class="editable-prompt-pre" contenteditable="true" spellcheck="false" title="클릭하여 프롬프트 내용을 수정할 수 있습니다" style="background: #ffffff; border: 1px solid #e5e7eb; border-radius: 12px; padding: 12px 14px; font-size: 12px; color: #1e293b; white-space: pre-wrap; word-break: break-all; margin: 0; line-height: 1.6; font-family: inherit; cursor: text; transition: border-color 0.15s ease, box-shadow 0.15s ease;">${role.prompt}</pre>
+        </div>
+      `;
+    }).join('');
+
+    container.innerHTML = headerHtml + cardsHtml;
+
+    // 편집 가능한 pre 태그에 이벤트 바인딩
+    if (this.initEditablePrompts) {
+      this.initEditablePrompts();
+    }
   },
 
   /**
@@ -3958,14 +4194,20 @@ const DashboardApp = {
             </div>
 
             <!-- Before vs After 이미지 비교 -->
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin-bottom: 1rem;">
-              <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 14px; text-align: center; cursor: pointer;" onclick="DashboardApp.showImageModal('images/worker_quote_before.jpg', '📄 견적서 양식 개선 전 (Before)', '기존 원본 견적서 양식')" title="클릭하여 원본 크기로 보기">
-                <div style="font-weight: 800; font-size: 13px; color: #991b1b; margin-bottom: 8px;">(Before) 기존 견적서 양식</div>
-                <img src="images/worker_quote_before.jpg" alt="견적서 양식 개선 전" style="max-width: 100%; max-height: 320px; width: auto; height: auto; border-radius: 10px; border: 1px solid #e5e7eb; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 14px; margin-bottom: 1rem;">
+              <div style="background: #fef2f2; border: 1px solid #fecaca; border-radius: 16px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s ease;" onclick="DashboardApp.showImageModal('images/worker_quote_before.jpg', '📄 견적서 양식 개선 전 (Before)', '기존 원본 견적서 양식')" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(239,68,68,0.15)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';" title="클릭하여 대형 원본 크기로 보기">
+                <div style="font-weight: 800; font-size: 13.5px; color: #991b1b; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                  <span>(Before) 기존 견적서 양식</span>
+                  <span style="font-size: 11px; background: #fee2e2; color: #b91c1c; padding: 2px 7px; border-radius: 999px;">🔍 크게 보기</span>
+                </div>
+                <img src="images/worker_quote_before.jpg" alt="견적서 양식 개선 전" style="max-width: 100%; max-height: 380px; width: auto; height: auto; border-radius: 10px; border: 1px solid #e5e7eb; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
               </div>
-              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 14px; text-align: center; cursor: pointer;" onclick="DashboardApp.showImageModal('images/worker_quote_after.jpg', '✨ 견적서 양식 개선 후 (After)', 'AI로 가독성과 정렬을 개선한 견적서 시안')" title="클릭하여 원본 크기로 보기">
-                <div style="font-weight: 800; font-size: 13px; color: #166534; margin-bottom: 8px;">(After) AI 개선 견적서 양식</div>
-                <img src="images/worker_quote_after.jpg" alt="견적서 양식 개선 후" style="max-width: 100%; max-height: 320px; width: auto; height: auto; border-radius: 10px; border: 1px solid #bbf7d0; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
+              <div style="background: #f0fdf4; border: 1px solid #bbf7d0; border-radius: 16px; padding: 14px; text-align: center; cursor: pointer; transition: all 0.2s ease;" onclick="DashboardApp.showImageModal('images/worker_quote_after.jpg', '✨ 견적서 양식 개선 후 (After)', 'AI로 가독성과 정렬을 개선한 견적서 시안')" onmouseover="this.style.transform='translateY(-2px)'; this.style.boxShadow='0 6px 18px rgba(34,197,94,0.15)';" onmouseout="this.style.transform='none'; this.style.boxShadow='none';" title="클릭하여 대형 원본 크기로 보기">
+                <div style="font-weight: 800; font-size: 13.5px; color: #166534; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 5px;">
+                  <span>(After) AI 개선 견적서 양식</span>
+                  <span style="font-size: 11px; background: #dcfce7; color: #15803d; padding: 2px 7px; border-radius: 999px;">🔍 크게 보기</span>
+                </div>
+                <img src="images/worker_quote_after.jpg" alt="견적서 양식 개선 후" style="max-width: 100%; max-height: 380px; width: auto; height: auto; border-radius: 10px; border: 1px solid #bbf7d0; display: block; margin: 0 auto; object-fit: contain;" loading="lazy">
               </div>
             </div>
 
@@ -5386,6 +5628,9 @@ E. 게시 전 검수 체크리스트
                 this.bindCopyEvents();
                 this.initEditablePrompts();
                 this.initScrollSpy(user);
+    if (user.role === 'worker') {
+      this.initMiceRoleGenerator();
+    }
               }
             }
           }
